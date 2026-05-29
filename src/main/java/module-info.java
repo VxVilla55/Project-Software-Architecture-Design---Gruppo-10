@@ -1,4 +1,3 @@
-/* doesn't work with source level 1.8:
 module com.group10 {
     requires javafx.controls;
     requires javafx.fxml;
@@ -6,4 +5,3 @@ module com.group10 {
     opens com.group10 to javafx.fxml;
     exports com.group10;
 }
-*/
