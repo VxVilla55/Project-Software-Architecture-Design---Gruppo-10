@@ -12,7 +12,7 @@ package com.group10.model;
  * Classe Leaf del pattern Composite
  * Modella l'entità Traccia/Brano che possiamo riprodurre
  */
-public class TrackComponent {
+public class TrackComponent implements Playable {
     private String title;       // necessario
     private String author;      // necessario
     private int duration;       // durata 
@@ -51,7 +51,8 @@ public class TrackComponent {
         this.author = author;
     }
 
-    public int getDuration() {
+    @Override
+    public int getDurationInSeconds() {
         return duration;
     }
     public void setDuration(int duration) {
