@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.group10.model;
+package com.group10.controller;
 
+import com.group10.model.Playable;
 import javafx.scene.layout.AnchorPane;
 
 /**

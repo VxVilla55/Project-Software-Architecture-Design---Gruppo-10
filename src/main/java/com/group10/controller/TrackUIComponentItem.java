@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.group10.model;
+package com.group10.controller;
 
 /**
  * FXML Controller class
@@ -12,6 +12,9 @@ package com.group10.model;
  * è una concrete factory del Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
+import com.group10.model.Playable;
+import com.group10.model.TrackBuilder;
+import com.group10.model.TrackComponent;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

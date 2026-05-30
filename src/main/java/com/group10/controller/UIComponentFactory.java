@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group10.model;
+package com.group10.controller;
 
+import com.group10.model.Playable;
 import javafx.scene.layout.AnchorPane;
 
 /**
