@@ -11,13 +11,11 @@ import java.util.List;
  *
  * @author group10
  * Composite del pattern omonimo: rappresenta una playlist come insieme
- * ordinato di elementi Playable {Track}.
+ * ordinato di elementi Playable (Track)
  *
- * L'ordine di inserimento coincide con l'ordine di riproduzione; le posizioni
- * sono indicizzate da 0 e potranno essere riorganizzate in seguito (drag&drop, US15).
+ * L'ordine di inserimento coincide con l'ordine di riproduzione; 
  *
- * Nota sui ruoli del pattern: Playable è il Component,
- * Track è la Leaf, questa classe è il Composite.
+ * PATTERN: Playable è il Component,Track è la Leaf, questa classe è il Composite
  */
 public class PlaylistComponent implements Playable {
 
