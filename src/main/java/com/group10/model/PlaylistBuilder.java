@@ -46,9 +46,14 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
         return this;
     }
 
-    // costruisce la playlist con il nome e le tracce accumulati finora
+// costruisce la playlist con il nome e le tracce accumulati finora
     @Override
     public PlaylistComponent build() {
+        // Controllo regola: il nome non può essere vuoto
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalStateException("Il nome della playlist non puo' essere vuoto");
+        }
+
         PlaylistComponent playlist = new PlaylistComponent(name);
         for (TrackComponent track : tracks) {
             playlist.add(track);
