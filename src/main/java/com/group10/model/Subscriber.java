@@ -13,4 +13,5 @@ package com.group10.model;
 public interface Subscriber {
     
     public void update();
+
 }
