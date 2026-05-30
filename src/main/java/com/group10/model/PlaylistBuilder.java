@@ -29,8 +29,11 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
     }
 
     // imposta il nome della playlist da costruire
-    public PlaylistBuilder setName(String name) {
-        this.name = name;
+    public PlaylistBuilder withName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Il nome della playlist non può essere vuoto o nullo");
+        }
+        this.name = name.trim();
         return this;
     }
 

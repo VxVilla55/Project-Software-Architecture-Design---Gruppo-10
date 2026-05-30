@@ -30,8 +30,8 @@ public class PlaylistComponent implements Playable {
     }
     
     public PlaylistComponent(String name) {
-        this.name = name;
         this.tracks = new ArrayList<>();
+        this.name = validateAndTrimName(name);
     }
  
     public String getName() {
@@ -39,7 +39,7 @@ public class PlaylistComponent implements Playable {
     }
     
     public void setName(String newName) {
-        this.name = newName.trim();
+        this.name = validateAndTrimName(newName);
     }
     
     public int getSize() {
@@ -73,6 +73,13 @@ public class PlaylistComponent implements Playable {
         return tracks.isEmpty();
     }
 
+    private static String validateAndTrimName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Il nome della playlist non può essere vuoto o nullo");
+        }
+        return name.trim();
+    }
+    
 }
     
 
