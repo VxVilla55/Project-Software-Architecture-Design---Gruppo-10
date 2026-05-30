@@ -9,22 +9,21 @@ public class PlaylistBuilderTest {
 
     @Test
     public void testCreazionePlaylistCorretta() {
-        // 1. Verifichiamo la creazione con un nome valido
+        // Usiamo withName() come definito nel tuo Builder
         PlaylistComponent playlist = new PlaylistBuilder()
-                .setName("Rock Classico")
+                .withName("Rock Classico")
                 .build();
 
         assertNotNull(playlist);
-        // Assumendo che PlaylistComponent abbia un metodo getName()
         assertEquals("Rock Classico", playlist.getName()); 
     }
 
     @Test
     public void testFallimentoNomeVuoto() {
-        // 2. Regola del nome vuoto: il Builder deve bloccare la creazione
-        Exception exception = assertThrows(IllegalStateException.class, () -> {
+        // Ora ci aspettiamo IllegalArgumentException, che è quella che lancia il tuo withName()
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new PlaylistBuilder()
-                    .setName("") // Tentativo di inserire un nome vuoto
+                    .withName("") // Questo fa scattare l'eccezione immediatamente
                     .build();
         });
 
@@ -34,19 +33,17 @@ public class PlaylistBuilderTest {
 
     @Test
     public void testFallimentoNomeDuplicato() {
-        // 3. Regola del nome duplicato: simuliamo il controllo della libreria
-        // (Il controllo del duplicato di solito si fa quando si salva la playlist nella MusicLibrary)
         List<String> nomiEsistenti = new ArrayList<>();
         nomiEsistenti.add("Allenamento"); 
 
         String nuovoNome = "Allenamento"; // Tentativo di duplicato
 
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            // Simulazione della logica che farebbe la MusicLibrary
             if (nomiEsistenti.contains(nuovoNome)) {
                 throw new IllegalArgumentException("Errore: nome playlist duplicato");
             }
-            new PlaylistBuilder().setName(nuovoNome).build();
+            // Usiamo withName() anche qui
+            new PlaylistBuilder().withName(nuovoNome).build();
         });
 
         assertTrue(exception.getMessage().toLowerCase().contains("duplicato"));

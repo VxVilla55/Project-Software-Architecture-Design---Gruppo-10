@@ -7,17 +7,22 @@ public class TrackBuilderTest {
 
     @Test
     public void testCostruzioneCorrettaCampiOpzionali() {
+        // Usiamo i metodi corretti: setTitle, setAuthor, ecc.
         TrackComponent track = new TrackBuilder()
-                .title("Bohemian Rhapsody")
-                .author("Queen")
-                .duration(354)
-                .genre("Rock")
-                .year(1975)
+                .setTitle("Bohemian Rhapsody")
+                .setAuthor("Queen")
+                .setDuration(354)
+                .setGenre("Rock")
+                .setYear(1975)
                 .build();
 
         assertEquals("Bohemian Rhapsody", track.getTitle());
         assertEquals("Queen", track.getAuthor());
-        assertEquals(354, track.getDurationInSeconds());
+        
+        // *Nota per te: se nella tua classe TrackComponent il metodo si chiama 
+        // getDuration() invece di getDurationInSeconds(), aggiorna questa riga!
+        assertEquals(354, track.getDurationInSeconds()); 
+        
         assertEquals("Rock", track.getGenre());
         assertEquals(1975, track.getYear());
     }
@@ -26,8 +31,8 @@ public class TrackBuilderTest {
     public void testFallimentoSenzaTitolo() {
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             new TrackBuilder()
-                    .author("Autore Test")
-                    .duration(200)
+                    .setAuthor("Autore Test")
+                    .setDuration(200)
                     .build();
         });
 
@@ -38,8 +43,8 @@ public class TrackBuilderTest {
     public void testFallimentoSenzaAutore() {
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             new TrackBuilder()
-                    .title("Titolo Test")
-                    .duration(200)
+                    .setTitle("Titolo Test")
+                    .setDuration(200)
                     .build();
         });
 
