@@ -23,27 +23,27 @@ public class TrackBuilder implements Builder<TrackComponent> {
     private String genre; 
     private int year = 2026; 
 
-    public TrackBuilder title(String title) {
+    public TrackBuilder setTitle(String title) {
         this.title = title;
         return this;
     }
 
-    public TrackBuilder author(String author) {
+    public TrackBuilder setAuthor(String author) {
         this.author = author;
         return this;
     }
 
-    public TrackBuilder duration(int duration) {
+    public TrackBuilder setDuration(int duration) {
         this.duration = duration;
         return this;
     }
 
-    public TrackBuilder genre(String genre) {
+    public TrackBuilder setGenre(String genre) {
         this.genre = genre;
         return this;
     }
 
-    public TrackBuilder year(int year) {
+    public TrackBuilder setYear(int year) {
         this.year = year;
         return this;
     }
