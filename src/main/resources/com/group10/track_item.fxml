@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<HBox fx:id="trackContainer" spacing="20" alignment="CENTER_LEFT" 
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.group10.TrackUIController"
+      stylesheets="@style.css" styleClass="track-row">
+    
+    <padding>
+        <Insets top="10" right="20" bottom="10" left="20"/>
+    </padding>
+
+    <Label text="🎵" style="-fx-font-size: 24px;"/>
+
+    <VBox spacing="2" HBox.hgrow="ALWAYS">
+        <Label fx:id="titleLabel" text="Titolo della Canzone" styleClass="title-label"/>
+        <HBox spacing="10">
+            <Label fx:id="authorLabel" text="Nome Autore" styleClass="subtitle-label"/>
+            <Label text="•" styleClass="separator"/>
+            <Label fx:id="genreLabel" text="Genere" styleClass="subtitle-label"/>
+            <Label text="•" styleClass="separator"/>
+            <Label fx:id="yearLabel" text="2024" styleClass="subtitle-label"/>
+        </HBox>
+    </VBox>
+
+    <Label fx:id="durationLabel" text="03:45" styleClass="duration-label"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="✎" onAction="#handleEdit" styleClass="action-button, edit-button" tooltip="Modifica"/>
+        <Button text="🗑" onAction="#handleDelete" styleClass="action-button, delete-button" tooltip="Elimina"/>
+    </HBox>
+    
+</HBox>
