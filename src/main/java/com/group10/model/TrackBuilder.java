@@ -1,11 +1,26 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.group10.model;
+
+/**
+ *
+ * @author group10
+ *
+ * PATTERN BUILDER
+ * Costruisce passo-passo una TrackComponent. 
+ * Riceve i parametri della Component, li valida
+ * e in caso di validità la build() restituisce la TrackComponent pronta.
+ * 
+ */
 
 public class TrackBuilder implements Builder<TrackComponent> {
     
     private String title;
     private String author;
     private int duration;
-    private String genre = ""; 
+    private String genre; 
     private int year = 2026; 
 
     public TrackBuilder title(String title) {
@@ -33,15 +48,26 @@ public class TrackBuilder implements Builder<TrackComponent> {
         return this;
     }
 
-    // Getter per permettere a TrackComponent di leggere i dati durante la creazione
-    String getTitle() { return title; }
-    String getAuthor() { return author; }
-    int getDuration() { return duration; }
-    String getGenre() { return genre; }
-    int getYear() { return year; }
+    //getter per permettere a TrackComponent di accedere alle sue proprietà
+    String getTitle() {
+        return title;
+    }
+    String getAuthor() {
+        return author;
+    }
+    int getDuration() {
+        return duration;
+    }
+    String getGenre() {
+        return genre;
+    }
+    int getYear() {
+        return year;
+    }
 
     @Override
     public TrackComponent build() {
+        //validazione dei campi
         if (this.title == null || this.title.trim().isEmpty()) {
             throw new IllegalStateException("Errore: Il titolo e' obbligatorio.");
         }
