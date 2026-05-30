@@ -65,10 +65,10 @@ public class TrackComponent {
         this.genre = genre;
     }
 
-    public int getReleaseYear() {
+    public int getYear() {
         return year;
     }
-    public void setReleaseYear(int releaseYear) {
+    public void setYear(int year) {
         this.year = year;
     }
 }
