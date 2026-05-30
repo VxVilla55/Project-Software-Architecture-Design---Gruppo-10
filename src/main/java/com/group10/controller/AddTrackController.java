@@ -35,13 +35,13 @@ public class AddTrackController {
 
             // Parsing anno (opzionale, usa default 2026 se vuoto)
             TrackBuilder builder = new TrackBuilder()
-                    .title(title)
-                    .author(author)
-                    .duration(duration)
-                    .genre(genre);
+                    .setTitle(title)
+                    .setAuthor(author)
+                    .setDuration(duration)
+                    .setGenre(genre);
 
             if (!yearText.isEmpty()) {
-                builder.year(Integer.parseInt(yearText));
+                builder.setYear(Integer.parseInt(yearText));
             }
 
             TrackComponent track = builder.build();
