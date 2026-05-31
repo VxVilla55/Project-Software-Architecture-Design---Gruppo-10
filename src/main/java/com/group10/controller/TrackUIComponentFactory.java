@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  *
- * @author gruppo
+ * @author group10
  * 
  * ConcreteFactory: 
  * per JavaFx forse è meglio usare 'fxmlLoader.setControllerFactory(param -> new PlaylistUIComponent(playlist);' 
@@ -27,7 +27,8 @@ public class TrackUIComponentFactory implements UIComponentFactory{
         }
         catch (Exception ex) {
             System.err.println("ERRORE NELLA FACTORY DURANTE LA CREAZIONE DELL'ITEM:");
-            return new TrackUIComponentItem();
+            //return new TrackUIComponentItem();
+            return null;
         }
     }
 }

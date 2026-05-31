@@ -2,7 +2,10 @@ package com.group10.controller;
 
 import com.group10.model.TrackBuilder;
 import com.group10.model.TrackComponent;
+import java.io.IOException;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -15,6 +18,29 @@ public class AddTrackController {
     @FXML private TextField genreField;
     @FXML private TextField yearField;
     @FXML private Label errorLabel;
+    
+    private final String viewPath  = "/com/group10/view/AddTrackView.fxml";
+    private Parent view = null;
+    
+    public AddTrackController() {
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(viewPath)
+        );
+        
+        //loader.setRoot(this);
+        loader.setController(this);
+        
+        try {
+            //carica effettivamente la grafica FXML
+            view = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException("Path della view errato: " + viewPath);
+        }
+    }
+
+    public Parent getView() {
+        return view;
+    }
 
     @FXML
     private void handleSave() {

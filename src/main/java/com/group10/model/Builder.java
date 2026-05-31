@@ -12,5 +12,4 @@ public interface Builder<T> {
      * @return L'istanza dell'oggetto costruito e validato.
      */
     T build();
-    
 }

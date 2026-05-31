@@ -7,10 +7,10 @@ public class PrimaryController {
 
     @FXML
     private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+        App.openPlaylistUIComponent();
     }
 
- @FXML
+    @FXML
     private void openAddTrackForm() throws IOException {
         App.openAddTrackForm();
     }

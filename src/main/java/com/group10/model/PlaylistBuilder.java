@@ -29,7 +29,7 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
     }
 
     // imposta il nome della playlist da costruire
-    public PlaylistBuilder withName(String name) {
+    public PlaylistBuilder setName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Il nome della playlist non può essere vuoto o nullo");
         }
@@ -49,12 +49,17 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
         return this;
     }
 
-// costruisce la playlist con il nome e le tracce accumulati finora
+    // costruisce la playlist con il nome e le tracce accumulati finora
     @Override
     public PlaylistComponent build() {
-        // Controllo regola: il nome non può essere vuoto
+        //controllo regola: il nome non può essere vuoto
         if (name == null || name.trim().isEmpty()) {
-            throw new IllegalStateException("Il nome della playlist non puo' essere vuoto");
+            throw new IllegalArgumentException("Il nome della playlist non puo' essere vuoto");
+        }
+
+        //il nome non può essere duplicato nell'app
+        if (MusicCatalogue.getInstance().isPlaylistNameTaken(name)) {
+            throw new IllegalArgumentException("Esiste già una playlist con questo nome");
         }
 
         PlaylistComponent playlist = new PlaylistComponent(name);

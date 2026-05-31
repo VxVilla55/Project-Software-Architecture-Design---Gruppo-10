@@ -77,7 +77,7 @@ public class MusicCatalogue implements Publisher{
     public void removeTracks(Subscriber subscriber) {
         subscribers.remove(subscriber);
     }
-
+    
     @Override
     public void notifySubscribers() {
         for (Subscriber s: subscribers) {

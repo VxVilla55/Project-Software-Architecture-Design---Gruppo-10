@@ -1,11 +1,23 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ */
 package com.group10.controller;
 
+/**
+ * FXML Controller class
+ *
+ * @author group10
+ * 
+ * è il Controllerr della View di dettaglio del brano
+ */
+ 
 import com.group10.model.TrackComponent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import java.util.function.Consumer;
 
-public class TrackUIController {
+public class TrackUIDetailsController {
 
     @FXML
     private Label titleLabel;

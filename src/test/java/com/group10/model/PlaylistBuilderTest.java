@@ -11,7 +11,7 @@ public class PlaylistBuilderTest {
     public void testCreazionePlaylistCorretta() {
         // Usiamo withName() come definito nel tuo Builder
         PlaylistComponent playlist = new PlaylistBuilder()
-                .withName("Rock Classico")
+                .setName("Rock Classico")
                 .build();
 
         assertNotNull(playlist);
@@ -23,27 +23,28 @@ public class PlaylistBuilderTest {
         // Ora ci aspettiamo IllegalArgumentException, che è quella che lancia il tuo withName()
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new PlaylistBuilder()
-                    .withName("") // Questo fa scattare l'eccezione immediatamente
+                    .setName("") //questo serve a far scattare l'eccezione immediatamente
                     .build();
         });
 
-        // Controlliamo che l'errore sia corretto
+        //controlliamo che l'errore sia corretto
         assertTrue(exception.getMessage().toLowerCase().contains("vuoto"));
     }
 
     @Test
     public void testFallimentoNomeDuplicato() {
-        List<String> nomiEsistenti = new ArrayList<>();
-        nomiEsistenti.add("Allenamento"); 
-
-        String nuovoNome = "Allenamento"; // Tentativo di duplicato
-
+        MusicCatalogue catalogue = MusicCatalogue.getInstance();
+        String nomePlaylist = "Allenamento";
+        
+        catalogue.addPlaylist(new PlaylistBuilder()
+                .setName(nomePlaylist)
+                .build());
+        
+        //tentativo di duplicato
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            if (nomiEsistenti.contains(nuovoNome)) {
-                throw new IllegalArgumentException("Errore: nome playlist duplicato");
-            }
-            // Usiamo withName() anche qui
-            new PlaylistBuilder().withName(nuovoNome).build();
+            new PlaylistBuilder()
+                .setName(nomePlaylist)
+                .build();
         });
 
         assertTrue(exception.getMessage().toLowerCase().contains("duplicato"));

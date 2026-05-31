@@ -9,7 +9,7 @@ package com.group10.controller;
  *
  * @author group10
  * 
- * è una concrete factory del Controller dell'Item.fxml che mostra i dettagli della traccia
+ * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
 import com.group10.model.Playable;
@@ -30,7 +30,9 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     
     private TrackComponent track;
     
-    TrackUIComponentItem() {
+    private final String viewPath  = "/com/group10/view/Item.fxml";
+    
+    /*TrackUIComponentItem() {
         track = new TrackBuilder()
             .setTitle("Titolo")
             .setAuthor("Autore")
@@ -42,7 +44,7 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         
         System.out.println(track);
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("Item.fxml")
+            getClass().getResource(viewPath)
         );
         
         loader.setRoot(this);
@@ -58,11 +60,11 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
             throw new RuntimeException("Errore nel caricamento del file FXML", e);
         }
         
-        //popola i campi
+        //carica i nomi nelle label
         ItemPlace1.setText(track.getTitle());
         ItemPlace2.setText(track.getGenre());
         ItemPlace3.setText(String.valueOf(track.getYear()));
-    }
+    }*/
     
     public TrackUIComponentItem(Playable t) {
         TrackComponent track;
@@ -73,7 +75,7 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
             track = (TrackComponent) t;
         }
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("Item.fxml")
+            getClass().getResource(viewPath)
         );
         
         loader.setRoot(this);
@@ -89,7 +91,7 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
             throw new RuntimeException("Errore nel caricamento del file FXML", e);
         }
         
-        // popola i campi
+        //carica i nomi nelle label
         ItemPlace1.setText(track.getTitle());
         ItemPlace2.setText(track.getGenre());
         ItemPlace3.setText(String.valueOf(track.getYear()));

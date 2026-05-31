@@ -8,7 +8,8 @@ import javafx.scene.layout.AnchorPane;
 
 /**
  *
- * @author alfon
+ * @author group10
+ * abstract product del pattern FACTORY
  */
 public abstract class AbstractUIComponentItem extends AnchorPane {
     
