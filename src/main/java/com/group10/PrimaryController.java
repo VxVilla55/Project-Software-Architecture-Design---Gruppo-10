@@ -15,4 +15,9 @@ public class PrimaryController {
         App.openAddTrackForm();
     }
 
+    @FXML
+    private void apriSchermataCreaPlaylist() throws IOException {
+        App.openCreazionePlaylist();
+    }
+
 }

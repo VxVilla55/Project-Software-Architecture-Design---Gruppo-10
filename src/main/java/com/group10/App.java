@@ -82,4 +82,19 @@ public class App extends Application {
         stage.show();
     }
 
+    // Metodo per testare la UI di creazione playlist
+// Metodo per testare la UI di creazione playlist
+    public static void openCreazionePlaylist() throws IOException {
+        // Usiamo il metodo loadFXML già presente nel tuo file App.java!
+        // Se il file è insieme a primary.fxml, basta scriverne il nome così:
+        Parent root = loadFXML("view/CreazionePlaylist");
+        
+        // (NOTA: Se invece lo avessi messo dentro la cartella view, 
+        // ti basterà cambiare la riga sopra in:
+
+        Stage stage = new Stage();
+        stage.setTitle("Crea Nuova Playlist");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
