@@ -1,7 +1,10 @@
 package com.group10.controller;
 
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 
 public class CreazionePlaylistController {
@@ -9,6 +12,29 @@ public class CreazionePlaylistController {
     // Questo si collega alla casella di testo creata in Scene Builder
     @FXML
     private TextField playlistNameInput;
+    
+    private final String viewPath  = "/com/group10/view/CreazionePlaylist.fxml";
+    private Parent view = null;
+    
+    public CreazionePlaylistController() {
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource(viewPath)
+        );
+        
+        //loader.setRoot(this);
+        loader.setController(this);
+        
+        try {
+            //carica effettivamente la grafica FXML
+            view = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException("Path della view errato: " + viewPath);
+        }
+    }
+
+    public Parent getView() {
+        return view;
+    }
 
     // Questo metodo scatterà quando l'utente cliccherà il bottone "Crea"
     @FXML
