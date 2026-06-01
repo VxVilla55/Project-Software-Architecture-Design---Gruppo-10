@@ -6,7 +6,6 @@
 package com.group10.controller;
 
 import com.group10.model.Playable;
-import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -17,7 +16,11 @@ import javafx.scene.layout.AnchorPane;
 
 public interface UIComponentFactory {
     
-    //AnchorPane createUIComponentCard(Playable model); 
+    AbstractUIComponentItem createUIComponentItem(Playable model);
     
-    AnchorPane createUIComponentItem(Playable model); 
+    AbstractUIComponentCard createUIComponentCard(Playable model); 
+    
+    AbstractUIDetailsController createUIComponentDetails(Playable model); 
+    
+    AbstractUIAdderController createUIComponentAdder();
 }

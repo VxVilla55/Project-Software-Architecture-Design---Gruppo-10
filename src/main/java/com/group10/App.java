@@ -1,8 +1,9 @@
 package com.group10;
 
-import com.group10.controller.AddTrackController;
+import com.group10.controller.TrackUIAdderController;
 import com.group10.controller.MainViewController;
-import com.group10.controller.PlaylistUIController;
+import com.group10.controller.PlaylistUIDetailsController;
+import com.group10.controller.TrackUIComponentFactory;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistBuilder;
 import com.group10.model.PlaylistComponent;
@@ -55,9 +56,9 @@ public class App extends Application {
         stage.setTitle("Aggiungi Traccia");
         stage.setScene(new Scene(root));
         stage.show();*/
-        AddTrackController p = new AddTrackController(); //magari includiamo PlaylistUIController nel pattern factory
+        TrackUIAdderController p = new TrackUIAdderController(); //magari includiamo PlaylistUIController nel pattern factory
 
-        Parent root = p.getView();
+        Parent root = p.getRoot();
 
         Stage stage = new Stage();
         stage.setTitle("Aggiungi traccia");
@@ -77,9 +78,9 @@ public class App extends Application {
         }
 
         //simuliamo la selezione di una playlist
-        PlaylistUIController p = new PlaylistUIController(playlist); //magari includiamo PlaylistUIController nel pattern factory
+        PlaylistUIDetailsController p = (PlaylistUIDetailsController) new TrackUIComponentFactory().createUIComponentDetails(playlist);
 
-        Parent root = p.getView();
+        Parent root = p.getRoot();
 
         Stage stage = new Stage();
         stage.setTitle("Visualizza playlist");

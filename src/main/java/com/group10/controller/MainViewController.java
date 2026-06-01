@@ -43,7 +43,7 @@ public class MainViewController implements Initializable {
     @FXML
     private Button addTrackButton;
     @FXML
-    private StackPane stackPane;
+    private StackPane root;
     
     
     private final String viewPath  = "/com/group10/view/MainView.fxml";
@@ -75,12 +75,6 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        stackPane.getChildren().get(0).setOnMouseClicked(e -> {
-            if (stackPane.getChildren().size()>1) {
-                stackPane.getChildren().remove(stackPane.getChildren().size()-1);
-                stackPane.getChildren().get(0).setEffect(null);
-            }
-        });
     }
 
     @FXML
@@ -91,11 +85,11 @@ public class MainViewController implements Initializable {
     private void handleAddTrack(ActionEvent event) {
         try {
             //Istanzio il controllore che carica la view
-            AddTrackController p = new AddTrackController();
+            TrackUIAdderController c = (TrackUIAdderController) new TrackUIComponentFactory().createUIComponentAdder();
             //prendo dalla view il nodo Parent da collocare
-            Parent addTrackView = p.getView();
+            Parent trackAdderView = c.getRoot();
             
-            showCustomPopup(addTrackView);
+            showCustomPopup(trackAdderView);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,11 +100,11 @@ public class MainViewController implements Initializable {
     private void handlePlaylistCreation(ActionEvent event) {
         try {
             //Istanzio il controllore che carica la view
-            CreazionePlaylistController p = new CreazionePlaylistController();
+            PlaylistUIAdderController c = (PlaylistUIAdderController) new PlaylistUIComponentFactory().createUIComponentAdder();
             //prendo dalla view il nodo Parent da collocare
-            Parent creazionePlaylistView = p.getView();
+            Parent playlistAdderView = c.getRoot();
             
-            showCustomPopup(creazionePlaylistView);
+            showCustomPopup(playlistAdderView);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,40 +113,28 @@ public class MainViewController implements Initializable {
     
     private void showCustomPopup(Parent popup) {
         //sfoco la schermata
-        stackPane.getChildren().get(0).setEffect(new GaussianBlur(10));
+        root.getChildren().get(0).setEffect(new GaussianBlur(10));
         
-        //popup        
-        stackPane.getChildren().add(popup);
+        //rinuovo altripopup
+        root.getChildren().removeIf( child -> child != root.getChildren().get(0));
         
-        //nell'initialize c'è il listener che al click di stackPane.getChildren().get(0)
-        //si toglie il blur e chiuso il popup.
+        //carico il popup
+        StackPane layer = new StackPane();
+        //layer.setEffect(new GaussianBlur(10));
         
-        /*StackPane overlayPane = new StackPane();
+        Pane pane = new Pane();
+        pane.setEffect(new GaussianBlur(10));
         
-        //pannello opaco
-        Pane blurredPane = new Pane();
-        //overlayPane.setVisible(false);
-        
-
-        overlayPane.getChildren().add(blurredPane);
-        
-        blurredPane.setOnMouseClicked(e -> {
-            System.out.println("Size: " + stackPane.getChildren().size());
-            System.out.println("Elementi dello stack pane: " + stackPane.getChildren());
-            if (stackPane.getChildren().size()>1) {
-                stackPane.getChildren().remove(stackPane.getChildren().size()-1);
-                stackPane.getChildren().get(0).setEffect(null);
+        pane.setOnMouseClicked(e -> {
+            if (root.getChildren().size()>1) {
+                root.getChildren().remove(root.getChildren().size()-1);
+                root.getChildren().get(0).setEffect(null);
             }
         });
         
-        
-        //popup        
-        overlayPane.getChildren().add(popup);
-        
-        //aggiungo l'overlay alla mainview
-        stackPane.getChildren().add(overlayPane);
-        // blur su rootStack (ma attento: sfoca anche overlayPane? No perché overlayPane è sopra)
-        // meglio applicare blur solo al primo figlio di rootStack (es. il contenuto principale)
-        stackPane.getChildren().get(0).setEffect(new GaussianBlur(10));*/
+        layer.getChildren().add(pane);
+        layer.getChildren().add(popup);
+
+        root.getChildren().add(layer);
     }    
 }

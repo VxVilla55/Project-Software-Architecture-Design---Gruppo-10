@@ -8,9 +8,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class AddTrackController {
+public class TrackUIAdderController extends AbstractUIAdderController {
 
     @FXML private TextField titleField;
     @FXML private TextField authorField;
@@ -18,28 +19,15 @@ public class AddTrackController {
     @FXML private TextField genreField;
     @FXML private TextField yearField;
     @FXML private Label errorLabel;
+    @FXML private AnchorPane root;
     
-    private final String viewPath  = "/com/group10/view/AddTrackView.fxml";
-    private Parent view = null;
     
-    public AddTrackController() {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource(viewPath)
-        );
-        
-        //loader.setRoot(this);
-        loader.setController(this);
-        
-        try {
-            //carica effettivamente la grafica FXML
-            view = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException("Path della view errato: " + viewPath);
-        }
+    public TrackUIAdderController() {
     }
-
-    public Parent getView() {
-        return view;
+    
+    @Override
+    public Parent getRoot() {
+        return root;
     }
 
     @FXML

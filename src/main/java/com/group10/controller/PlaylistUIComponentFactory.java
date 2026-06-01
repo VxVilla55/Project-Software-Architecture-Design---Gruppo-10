@@ -19,7 +19,7 @@ import javafx.scene.Parent;
  */
 
 
-public class TrackUIComponentFactory implements UIComponentFactory{
+public class PlaylistUIComponentFactory implements UIComponentFactory{
 
     @Override
     public AbstractUIComponentItem createUIComponentItem(Playable model) {
@@ -27,7 +27,7 @@ public class TrackUIComponentFactory implements UIComponentFactory{
         String fxmlPath = "/com/group10/view/Item.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIComponentItem controller = new TrackUIComponentItem(model);
+        AbstractUIComponentItem controller = new PlaylistUIComponentItem(model);
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view
@@ -51,7 +51,7 @@ public class TrackUIComponentFactory implements UIComponentFactory{
         String fxmlPath = "/com/group10/view/Card.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIComponentCard controller = new TrackUIComponentCard(model);
+        AbstractUIComponentCard controller = new PlaylistUIComponentCard(model);
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view
@@ -72,10 +72,10 @@ public class TrackUIComponentFactory implements UIComponentFactory{
     @Override
     public AbstractUIDetailsController createUIComponentDetails(Playable model) {
         //1.preparo la view
-        String fxmlPath = "/com/group10/view/TrackDetailsView.fxml"; 
+        String fxmlPath = "/com/group10/view/PlaylistDetailsView.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIDetailsController controller = new TrackUIDetailsController(model);
+        AbstractUIDetailsController controller = new PlaylistUIDetailsController(model);
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view
@@ -97,10 +97,10 @@ public class TrackUIComponentFactory implements UIComponentFactory{
     public AbstractUIAdderController createUIComponentAdder() {
         
         //1.preparo la view
-        String fxmlPath = "/com/group10/view/TrackAdderView.fxml"; 
+        String fxmlPath = "/com/group10/view/PlaylistAdderView.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIAdderController controller = new TrackUIAdderController();
+        AbstractUIAdderController controller = new PlaylistUIAdderController();
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view

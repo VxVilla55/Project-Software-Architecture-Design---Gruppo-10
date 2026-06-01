@@ -8,25 +8,23 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 /**
  * FXML Controller class
  *
  * @author group10
  */
-public abstract class AbstractUIComponentItem implements Initializable {
+public abstract class AbstractUIComponentCard implements Initializable {
+
     /**
      * Initializes the controller class.
      */
     @Override
-    public abstract void initialize(URL url, ResourceBundle rb);    
+    public abstract void initialize(URL url, ResourceBundle rb);
 
     public abstract Parent getRoot();
 }

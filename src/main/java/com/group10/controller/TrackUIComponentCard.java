@@ -22,9 +22,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class TrackUIComponentItem extends AbstractUIComponentItem{
+public class TrackUIComponentCard extends AbstractUIComponentCard{
     
     @FXML
     private AnchorPane root;
@@ -33,15 +34,15 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     @FXML
     private Label itemPlace2;
     @FXML
-    private Label itemPlace3;
-    
+    private ImageView imageView;
     private TrackComponent track;
+        
     
-    public TrackUIComponentItem(TrackComponent track) {
+    public TrackUIComponentCard(TrackComponent track) {
         this.track = track;
     }
     
-    public TrackUIComponentItem(Playable t) {
+    public TrackUIComponentCard(Playable t) {
         if (!(t instanceof TrackComponent)) {
             throw new RuntimeException("Impossibile crearne card.");
         }
@@ -49,12 +50,12 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
             track = (TrackComponent) t;
         }
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //imageView.setImage(track.getImagePath());
         itemPlace1.setText(track.getTitle());
-        itemPlace2.setText(track.getGenre());
-        itemPlace3.setText(String.valueOf(track.getYear()));
+        itemPlace2.setText(track.getAuthor());
     }
     
     @Override

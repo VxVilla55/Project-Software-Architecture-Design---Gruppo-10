@@ -12,29 +12,46 @@ package com.group10.controller;
  * è il Controllerr della View di dettaglio del brano
  */
  
+import com.group10.model.Playable;
 import com.group10.model.TrackComponent;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import java.util.function.Consumer;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 
-public class TrackUIDetailsController {
+public class TrackUIDetailsController extends AbstractUIDetailsController{
 
+    @FXML
+    private AnchorPane root;
     @FXML
     private Label titleLabel;
-
     @FXML
     private Label authorLabel;
-
     @FXML
     private Label durationLabel;
-
     @FXML
     private Label genreLabel;
-
     @FXML
     private Label yearLabel;
 
     private TrackComponent track;
+    
+    public TrackUIDetailsController (TrackComponent track) {
+        this.track = track;
+    }
+    
+    public TrackUIDetailsController (Playable t) {        
+        if (!(t instanceof TrackComponent)) {
+            throw new RuntimeException("Impossibile crearne card.");
+        }
+        else {
+            track = (TrackComponent) t;
+        }
+    }
+    //più in là
     private Consumer<TrackComponent> onEditListener;
     private Consumer<TrackComponent> onDeleteListener;
 
@@ -64,5 +81,15 @@ public class TrackUIDetailsController {
         if (onDeleteListener != null && track != null) {
             onDeleteListener.accept(track);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Parent getRoot() {
+        return root;
     }
 }

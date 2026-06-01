@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<fx:root fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="179.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.view.CardController">
+   <children>
+      <Label fx:id="itemPlace1" layoutX="18.0" layoutY="171.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="144.0" text="ItemPlace1" />
+      <Label fx:id="itemPlace2" layoutX="18.0" layoutY="199.0" prefHeight="21.0" prefWidth="144.0" text="ItemPlace2" />
+      <ImageView fx:id="imageView" fitHeight="143.0" fitWidth="144.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</fx:root>

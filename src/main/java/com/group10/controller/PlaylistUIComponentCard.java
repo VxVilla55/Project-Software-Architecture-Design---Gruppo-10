@@ -13,18 +13,16 @@ package com.group10.controller;
  */
  
 import com.group10.model.Playable;
-import com.group10.model.TrackBuilder;
-import com.group10.model.TrackComponent;
-import java.io.IOException;
+import com.group10.model.PlaylistComponent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class TrackUIComponentItem extends AbstractUIComponentItem{
+public class PlaylistUIComponentCard extends AbstractUIComponentCard{
     
     @FXML
     private AnchorPane root;
@@ -33,28 +31,28 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     @FXML
     private Label itemPlace2;
     @FXML
-    private Label itemPlace3;
+    private ImageView imageView;
     
-    private TrackComponent track;
-    
-    public TrackUIComponentItem(TrackComponent track) {
-        this.track = track;
-    }
-    
-    public TrackUIComponentItem(Playable t) {
-        if (!(t instanceof TrackComponent)) {
+    private PlaylistComponent playlist;
+        
+    public PlaylistUIComponentCard(Playable playlist) {
+        if (!(playlist instanceof PlaylistComponent)) {
             throw new RuntimeException("Impossibile crearne card.");
         }
         else {
-            track = (TrackComponent) t;
+            this.playlist = (PlaylistComponent) playlist;
         }
     }
     
+    public PlaylistUIComponentCard(PlaylistComponent playlist) {
+        this.playlist = (PlaylistComponent) playlist;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        itemPlace1.setText(track.getTitle());
-        itemPlace2.setText(track.getGenre());
-        itemPlace3.setText(String.valueOf(track.getYear()));
+        //imageView.setImage(track.getImagePath());
+        itemPlace1.setText(playlist.getName());
+        itemPlace2.setText(String.valueOf(playlist.getDurationInSeconds()));
     }
     
     @Override

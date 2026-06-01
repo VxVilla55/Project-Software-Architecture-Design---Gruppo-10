@@ -4,10 +4,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root fx:id="cartaTrack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="572.0" type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="ItemPlace1" layoutX="35.0" layoutY="48.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="121.0" text="ItemPlace1" />
-      <Label fx:id="ItemPlace2" layoutX="241.0" layoutY="48.0" prefHeight="21.0" prefWidth="121.0" text="ItemPlace2" />
-      <Label fx:id="ItemPlace3" layoutX="437.0" layoutY="48.0" prefHeight="21.0" prefWidth="121.0" text="ItemPlace3" />
+      <Label fx:id="itemPlace1" layoutX="35.0" layoutY="48.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="121.0" text="ItemPlace1" />
+      <Label fx:id="itemPlace2" layoutX="241.0" layoutY="48.0" prefHeight="21.0" prefWidth="121.0" text="ItemPlace2" />
+      <Label fx:id="itemPlace3" layoutX="437.0" layoutY="48.0" prefHeight="21.0" prefWidth="121.0" text="ItemPlace3" />
    </children>
-</fx:root>
+</AnchorPane>
