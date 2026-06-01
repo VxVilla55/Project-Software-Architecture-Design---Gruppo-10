@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Slider fx:id="trackSlider" layoutX="313.0" layoutY="43.0" prefHeight="18.0" prefWidth="440.0" />
+      <Button layoutX="831.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleFavorite" text="&lt;3" />
+      <Button layoutX="972.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleRepeat" text="REPEAT" />
+      <Button layoutX="882.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleShuffle" text="SHUFFLE" />
+      <Button layoutX="640.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNextPlaylist" text="NEXT_PLAYLIST" />
+      <Button layoutX="437.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePrevious" text="PREV" />
+      <Button layoutX="575.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNext" text="SKIP" />
+      <Label fx:id="trackAuthor" layoutX="79.0" layoutY="116.0" prefHeight="21.0" prefWidth="71.0" text="Autore" />
+      <Label fx:id="trackTitle" layoutX="79.0" layoutY="74.0" prefHeight="31.0" prefWidth="97.0" text="Titolo" />
+      <Button layoutX="506.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePlayPause" text="PLAY" />
+   </children>
+</AnchorPane>
