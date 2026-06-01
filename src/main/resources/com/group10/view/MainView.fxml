@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="754.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1218.0">
+         <bottom>
+            <HBox fx:id="bottomPane" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="129.0" prefWidth="1218.0" BorderPane.alignment="CENTER" />
+         </bottom>
+         <center>
+            <VBox fx:id="centerPane" prefHeight="396.0" prefWidth="550.0" BorderPane.alignment="CENTER" />
+         </center>
+         <left>
+            <GridPane maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="54.0" prefWidth="293.0">
+                     <children>
+                        <Label layoutX="41.0" layoutY="20.0" text="Le mie playlist" />
+                     </children>
+                  </AnchorPane>
+                  <ScrollPane fx:id="leftPane" prefHeight="384.0" prefWidth="298.0" GridPane.rowIndex="1" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="435.0" minHeight="10.0" prefHeight="435.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </left>
+         <right>
+            <GridPane maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="293.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="61.0" prefWidth="105.0">
+                     <children>
+                        <Label layoutX="41.0" layoutY="20.0" text="Visualizza dettaglio" />
+                     </children>
+                  </AnchorPane>
+                  <ScrollPane fx:id="rightPane" prefHeight="384.0" prefWidth="298.0" GridPane.rowIndex="1" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="216.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="427.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+         </right>
+         <top>
+            <AnchorPane prefHeight="88.0" prefWidth="1218.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="31.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleUndo" text="&lt;-" />
+                  <Button fx:id="addTrackButton" layoutX="108.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleAddTrack" text="Aggiungi traccia" />
+                  <Button fx:id="playlistCreationButton" layoutX="263.0" layoutY="29.0" mnemonicParsing="false" onAction="#handlePlaylistCreation" text="Crea playlist" />
+                  <TextField fx:id="searchField" layoutX="434.0" layoutY="29.0" prefHeight="31.0" prefWidth="351.0" />
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+</StackPane>
