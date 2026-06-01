@@ -1,6 +1,7 @@
 package com.group10;
 
 import com.group10.controller.AddTrackController;
+import com.group10.controller.MainViewController;
 import com.group10.controller.PlaylistUIController;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistBuilder;
@@ -24,9 +25,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        
+        scene = new Scene(new MainViewController().getView());
         stage.setScene(scene);
-        stage.show();
+        stage.setMinWidth(1300); 
+        stage.setMinHeight(800);
+        stage.setTitle("MyMusicPlayer");
+        stage.show();        
     }
 
     static void setRoot(String fxml) throws IOException {
