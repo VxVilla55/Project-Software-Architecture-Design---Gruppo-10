@@ -75,6 +75,12 @@ public class MainViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        stackPane.getChildren().get(0).setOnMouseClicked(e -> {
+            if (stackPane.getChildren().size()>1) {
+                stackPane.getChildren().remove(stackPane.getChildren().size()-1);
+                stackPane.getChildren().get(0).setEffect(null);
+            }
+        });
     }
 
     @FXML
