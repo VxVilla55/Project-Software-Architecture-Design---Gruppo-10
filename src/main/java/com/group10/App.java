@@ -26,8 +26,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        testRiproduzioneSimulata(); // <-- AGGIUNGI QUESTA RIGA QUI
-        
+
         scene = new Scene(new MainViewController().getRoot());
         stage.setScene(scene);
         stage.setMinWidth(1300); 
@@ -102,45 +101,5 @@ public class App extends Application {
         stage.setTitle("Crea Nuova Playlist");
         stage.setScene(new Scene(root));
         stage.show();
-    }
-// Metodo per testare la simulazione (Task T8.4)
-   // Metodo per testare la simulazione (Task T8.4)
-    public static void testRiproduzioneSimulata() {
-        System.out.println("--- TEST T8.4: RIPRODUZIONE SIMULATA ---");
-        
-        com.group10.model.state.PlaybackEngine player = com.group10.model.state.PlaybackEngine.getInstance();
-        
-        // 1. Creiamo due tracce brevi usando il percorso corretto per il Builder (model.builder.TrackBuilder)
-        com.group10.model.TrackComponent traccia1 = new com.group10.model.builder.TrackBuilder()
-                .setTitle("Brano 1").setAuthor("Autore A").setDuration(5).build();
-                
-        com.group10.model.TrackComponent traccia2 = new com.group10.model.builder.TrackBuilder()
-                .setTitle("Brano 2").setAuthor("Autore B").setDuration(6).build();
-                
-        // 2. Le aggiungiamo alla coda
-        player.addTrackToQueue(traccia1);
-        player.addTrackToQueue(traccia2);
-        
-        // 3. Eseguiamo il test in un Thread separato per non far bloccare la schermata JavaFX
-        new Thread(() -> {
-            player.play(); 
-            
-            try {
-                // Lasciamo suonare per circa 3 secondi
-                Thread.sleep(3500); 
-                
-                System.out.println("\n*** TEST: Premo PAUSA! ***");
-                player.pause(); 
-                
-                // Lasciamo il player in pausa per 2 secondi
-                Thread.sleep(2000); 
-                
-                System.out.println("\n*** TEST: Premo di nuovo PLAY! ***");
-                player.play(); // Deve riprendere dal punto di prima!
-                
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
     }
 }

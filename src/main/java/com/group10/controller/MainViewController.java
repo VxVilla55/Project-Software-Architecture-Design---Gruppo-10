@@ -51,6 +51,10 @@ public class MainViewController implements Initializable {
     private Button addTrackButton;
     @FXML
     private StackPane root;
+
+    @FXML 
+    private javafx.scene.control.Button playPauseButton;
+
     
     
     private static MainViewController singleton;
@@ -165,5 +169,36 @@ public class MainViewController implements Initializable {
         layer.getChildren().add(popup);
 
         root.getChildren().add(layer);
-    }    
-}
+    }
+
+
+  @FXML
+    public void handlePlayPause(javafx.event.ActionEvent event) {
+        com.group10.model.state.PlaybackEngine engine = com.group10.model.state.PlaybackEngine.getInstance();
+        
+        // 1. CONTROLLO: Se non c'è nulla in coda, non fare nulla (o stampa un avviso)
+        // (Nota: dovresti aggiungere un metodo getQueueSize() nel PlaybackEngine se non c'è già)
+        if (engine.getCurrentTrack() == null) {
+            System.out.println("⚠️ La coda è vuota, aggiungi prima un brano!");
+            return; // Esce dal metodo e non cambia l'icona
+        }
+
+        // 2. Se c'è musica, gestiamo lo stato
+        if (engine.getState() instanceof com.group10.model.state.PlayingState) {
+            engine.pause();
+            playPauseButton.setText("▶️"); // Torna su Play
+        } else {
+            engine.play();
+            playPauseButton.setText("⏸️"); // Passa su Pausa
+        }
+    }
+
+    @FXML
+    public void handleNext(javafx.event.ActionEvent event) {
+        com.group10.model.state.PlaybackEngine.getInstance().next();
+    }
+
+    @FXML
+    public void handlePrevious(javafx.event.ActionEvent event) {
+        com.group10.model.state.PlaybackEngine.getInstance().previous();
+    }}

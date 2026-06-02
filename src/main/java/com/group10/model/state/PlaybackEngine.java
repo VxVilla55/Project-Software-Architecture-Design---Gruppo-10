@@ -55,6 +55,9 @@ public class PlaybackEngine {
         }
         System.out.println("✅ Accodato: " + track.getTitle());
     }
+    public TrackComponent getCurrentTrack() {
+    return this.currentTrack;
+}
 
     public void next() {
         if (queue.isEmpty() || currentTrack == null) return;
