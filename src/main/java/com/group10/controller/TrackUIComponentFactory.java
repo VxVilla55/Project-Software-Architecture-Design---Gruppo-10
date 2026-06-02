@@ -117,4 +117,28 @@ public class TrackUIComponentFactory implements UIComponentFactory{
             throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
         }
     }
+
+    @Override
+    public AbstractUIOptionsComponent createUIComponentOptions(Playable model) {
+        //1.preparo la view
+        String fxmlPath = "/com/group10/view/TrackOptions.fxml"; 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        //2.istanzio il controller
+        AbstractUIOptionsComponent controller = new TrackUIOptionsController(model);
+        //3.associo controller e view
+        loader.setController(controller);
+        //4.carico la view
+        try {
+            Parent view = loader.load();
+            
+            //-- viene eseguito l'intialize() del controller associatogli: carichiamo i valori del model nelle label
+            
+            //iniettiamo la view al controller
+            //controller.setViewNode(viewNode); //non serve, il controller ha già l'attributo fxml dell'elemento root
+            return controller;
+            
+        } catch (IOException e) {
+            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
+        }
+    }    
 }

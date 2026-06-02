@@ -1,9 +1,10 @@
 package com.group10.controller;
 
-import java.io.IOException;
+import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistBuilder;
+import com.group10.model.PlaylistComponent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -23,23 +24,22 @@ public class PlaylistUIAdderController extends AbstractUIAdderController {
     @FXML
     private void handleCreatePlaylist(ActionEvent event) {
         
-        // 1. Leggiamo cosa ha scritto l'utente
-        String nomePlaylist = playlistNameInput.getText();
-
-        // 2. Controlliamo che non sia vuoto
-        if (nomePlaylist == null || nomePlaylist.trim().isEmpty()) {
-            System.out.println("❌ ERRORE: Hai provato a creare una playlist senza nome!");
-            return; // Blocchiamo l'esecuzione qui
+        //proviamoa creare la playlist con i dati inseriti
+        String playlistName = playlistNameInput.getText();
+        try {
+            PlaylistComponent playlist = new PlaylistBuilder()
+            .setName(playlistName)
+            .build(); //farà la validazione
+            
+            //aggiunta della playlist al catalogo
+            MusicCatalogue.getInstance().addPlaylist(playlist);
+            
+            playlistNameInput.clear();
+        } catch (IllegalArgumentException ex ) {
+            //invio di un alert
+            System.out.println("Hai appena richiesto di creare la playlist chiamata: '" + playlistName + "'");
+            return;
         }
-
-        // 3. Se il nome è valido, mostriamo l'effetto!
-        System.out.println("✅ SUCCESSO: Hai appena richiesto di creare la playlist chiamata: '" + nomePlaylist + "'");
-        
-        // Qui in futuro aggiungerai il codice per salvare davvero la playlist nel tuo model.
-        // Esempio fittizio: playlistManager.addPlaylist(new Playlist(nomePlaylist));
-
-        // 4. (Opzionale) Svuotiamo la casella di testo per il prossimo inserimento
-        playlistNameInput.clear();
     }
 
     @Override
