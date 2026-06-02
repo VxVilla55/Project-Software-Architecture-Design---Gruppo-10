@@ -44,7 +44,7 @@ public class App extends Application {
         //caricamento della MainView
         stage.setScene(new Scene(loader.load()));
         stage.setMinWidth(1300); 
-        stage.setMinHeight(400);
+        stage.setMinHeight(800);
         stage.setTitle("MyMusicPlayer");
         stage.show();        
     }

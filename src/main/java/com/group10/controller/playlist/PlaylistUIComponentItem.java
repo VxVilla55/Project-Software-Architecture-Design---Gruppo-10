@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group10.controller.playlist;
 
 import com.group10.controller.common.AbstractUIComponentItem;
@@ -12,58 +8,53 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 /**
- *
- * @author group10
+ * Controller per il singolo item playlist nella lista.
+ * Collegato a PlaylistItemView.fxml
  */
 public class PlaylistUIComponentItem extends AbstractUIComponentItem {
-    
+
     @FXML
-    private Parent root;
+    private HBox root;
     @FXML
-    private Label itemPlace1;
+    private Label nameLabel;
     @FXML
-    private Label itemPlace2;
+    private Label trackCountLabel;
     @FXML
-    private Label itemPlace3;
-    
+    private Button playlistMenuButton;
+
     private PlaylistComponent playlist;
 
     public PlaylistUIComponentItem(Playable playlist) {
         if (!(playlist instanceof PlaylistComponent)) {
-            throw new RuntimeException("Impossibile crearne l'item");
+            throw new RuntimeException("Impossibile creare l'item: il Playable non è una PlaylistComponent");
         }
-        else {
-            this.playlist = (PlaylistComponent) playlist;
-        }
-    }
-    
-    public PlaylistUIComponentItem (PlaylistComponent playlist) {
         this.playlist = (PlaylistComponent) playlist;
     }
-    
+
+    public PlaylistUIComponentItem(PlaylistComponent playlist) {
+        this.playlist = playlist;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //imageView.setImage(track.getImagePath());
-        itemPlace1.setText(playlist.getName());
-        itemPlace2.setText(String.valueOf(playlist.getDurationInSeconds()));
+        nameLabel.setText(playlist.getName());
+
+        int size = playlist.getSize();
+        trackCountLabel.setText(size == 1 ? "1 brano" : size + " brani");
     }
-    
+
     @Override
     public Parent getRoot() {
         return root;
     }
-    
-    
+
     @FXML
     private void handleOptions(ActionEvent event) {
-        //Istanzio il controllore che carica la view
-        //PlaylistUIOptionsController c = (PlaylistUIOptionsController) new PlaylistUIComponentFactory().createUIComponentOptions(playlist);
-        //prendo dalla view il nodo Parent da collocare
-        //Parent trackDetailsView = c.getRoot();
-        //mostra la view
+        // TODO: aprire menu contestuale playlist (es. rinomina, elimina)
     }
 }
