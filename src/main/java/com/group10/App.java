@@ -1,13 +1,13 @@
 package com.group10;
 
-import com.group10.controller.TrackUIAdderController;
+import com.group10.controller.track.TrackUIAdderController;
 import com.group10.controller.MainViewController;
-import com.group10.controller.PlaylistUIDetailsController;
-import com.group10.controller.TrackUIComponentFactory;
+import com.group10.controller.playlist.PlaylistUIDetailsController;
+import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.MusicCatalogue;
-import com.group10.model.PlaylistBuilder;
+import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.PlaylistComponent;
-import com.group10.model.TrackBuilder;
+import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

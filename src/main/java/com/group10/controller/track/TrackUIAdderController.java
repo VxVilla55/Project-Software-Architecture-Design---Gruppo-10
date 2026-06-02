@@ -1,6 +1,7 @@
-package com.group10.controller;
+package com.group10.controller.track;
 
-import com.group10.model.TrackBuilder;
+import com.group10.controller.common.AbstractUIAdderController;
+import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
 import java.io.IOException;
 import javafx.fxml.FXML;

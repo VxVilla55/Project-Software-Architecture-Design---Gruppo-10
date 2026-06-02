@@ -1,5 +1,6 @@
 package com.group10.model;
 
+import com.group10.model.builder.PlaylistBuilder;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;

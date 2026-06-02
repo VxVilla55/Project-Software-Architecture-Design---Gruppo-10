@@ -1,4 +1,4 @@
-package com.group10.model;
+package com.group10.model.common;
 
 /**
  *

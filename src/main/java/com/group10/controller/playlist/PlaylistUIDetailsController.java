@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group10.controller;
+package com.group10.controller.playlist;
 
 
-import com.group10.model.Playable;
+import com.group10.controller.common.AbstractUIDetailsController;
+import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.controller.track.TrackUIComponentItem;
+import com.group10.controller.UIComponentFactory;
+import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
-import com.group10.model.TrackBuilder;
+import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
 import java.io.IOException;
 import java.net.URL;

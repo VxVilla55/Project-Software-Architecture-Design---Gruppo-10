@@ -2,9 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.group10.controller;
+package com.group10.controller.factory;
 
-import com.group10.model.Playable;
+import com.group10.controller.common.AbstractUIAdderController;
+import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.controller.common.AbstractUIComponentItem;
+import com.group10.controller.common.AbstractUIDetailsController;
+import com.group10.controller.common.AbstractUIOptionsComponent;
+import com.group10.controller.UIComponentFactory;
+import com.group10.controller.playlist.PlaylistUIComponentItem;
+import com.group10.controller.playlist.PlaylistUIComponentCard;
+import com.group10.controller.playlist.PlaylistUIAdderController;
+import com.group10.controller.playlist.PlaylistUIDetailsController;
+import com.group10.model.common.Playable;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

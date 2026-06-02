@@ -1,7 +1,8 @@
-package com.group10.controller;
+package com.group10.controller.playlist;
 
+import com.group10.controller.common.AbstractUIAdderController;
 import com.group10.model.MusicCatalogue;
-import com.group10.model.PlaylistBuilder;
+import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.PlaylistComponent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

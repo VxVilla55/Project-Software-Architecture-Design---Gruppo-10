@@ -5,7 +5,12 @@
  */
 package com.group10.controller;
 
-import com.group10.model.Playable;
+import com.group10.controller.common.AbstractUIComponentItem;
+import com.group10.controller.common.AbstractUIDetailsController;
+import com.group10.controller.common.AbstractUIOptionsComponent;
+import com.group10.controller.common.AbstractUIAdderController;
+import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.model.common.Playable;
 
 /**
  *

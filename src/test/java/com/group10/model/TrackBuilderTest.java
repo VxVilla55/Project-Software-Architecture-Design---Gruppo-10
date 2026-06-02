@@ -1,5 +1,6 @@
 package com.group10.model;
 
+import com.group10.model.builder.TrackBuilder;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

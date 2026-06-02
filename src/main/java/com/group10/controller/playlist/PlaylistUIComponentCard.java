@@ -1,24 +1,29 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.group10.controller;
+package com.group10.controller.playlist;
 
-import com.group10.model.Playable;
+/**
+ * FXML Controller class
+ *
+ * @author group10
+ * 
+ * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
+ */
+ 
+import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-/**
- *
- * @author group10
- */
-public class PlaylistUIComponentItem extends AbstractUIComponentItem {
+public class PlaylistUIComponentCard extends AbstractUIComponentCard{
     
     @FXML
     private AnchorPane root;
@@ -27,23 +32,23 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     @FXML
     private Label itemPlace2;
     @FXML
-    private Label itemPlace3;
+    private ImageView imageView;
     
     private PlaylistComponent playlist;
-
-    public PlaylistUIComponentItem(Playable model) {
+        
+    public PlaylistUIComponentCard(Playable playlist) {
         if (!(playlist instanceof PlaylistComponent)) {
-            throw new RuntimeException("Impossibile crearne l'item");
+            throw new RuntimeException("Impossibile crearne card.");
         }
         else {
             this.playlist = (PlaylistComponent) playlist;
         }
     }
     
-    public PlaylistUIComponentItem (PlaylistComponent playlist) {
+    public PlaylistUIComponentCard(PlaylistComponent playlist) {
         this.playlist = (PlaylistComponent) playlist;
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //imageView.setImage(track.getImagePath());
@@ -54,14 +59,5 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     @Override
     public Parent getRoot() {
         return root;
-    }
-    
-    @FXML
-    private void handleOptions(ActionEvent event) {
-        //Istanzio il controllore che carica la view
-        //PlaylistUIOptionsController c = (PlaylistUIOptionsController) new PlaylistUIComponentFactory().createUIComponentOptions(playlist);
-        //prendo dalla view il nodo Parent da collocare
-        //Parent trackDetailsView = c.getRoot();
-        //mostra la view
     }
 }

@@ -4,6 +4,8 @@
  */
 package com.group10.model;
 
+import com.group10.model.common.Publisher;
+import com.group10.model.common.Subscriber;
 import java.util.ArrayList;
 import java.util.List;
 

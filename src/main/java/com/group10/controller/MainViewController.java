@@ -4,6 +4,10 @@
  */
 package com.group10.controller;
 
+import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.controller.factory.PlaylistUIComponentFactory;
+import com.group10.controller.track.TrackUIAdderController;
+import com.group10.controller.playlist.PlaylistUIAdderController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

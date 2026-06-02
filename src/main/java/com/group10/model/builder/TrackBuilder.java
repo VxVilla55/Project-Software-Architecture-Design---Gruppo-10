@@ -2,7 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.group10.model;
+package com.group10.model.builder;
+
+import com.group10.model.TrackComponent;
+import com.group10.model.common.Builder;
 
 /**
  *
@@ -49,19 +52,19 @@ public class TrackBuilder implements Builder<TrackComponent> {
     }
 
     //getter per permettere a TrackComponent di accedere alle sue proprietà
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
-    String getAuthor() {
+    public String getAuthor() {
         return author;
     }
-    int getDuration() {
+    public int getDuration() {
         return duration;
     }
-    String getGenre() {
+    public String getGenre() {
         return genre;
     }
-    int getYear() {
+    public int getYear() {
         return year;
     }
 

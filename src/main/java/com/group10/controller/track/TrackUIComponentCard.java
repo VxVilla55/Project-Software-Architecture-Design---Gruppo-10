@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.group10.controller;
+package com.group10.controller.track;
 
 /**
  * FXML Controller class
@@ -12,17 +12,21 @@ package com.group10.controller;
  * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
-import com.group10.model.Playable;
-import com.group10.model.PlaylistComponent;
+import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.model.common.Playable;
+import com.group10.model.builder.TrackBuilder;
+import com.group10.model.TrackComponent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class PlaylistUIComponentCard extends AbstractUIComponentCard{
+public class TrackUIComponentCard extends AbstractUIComponentCard{
     
     @FXML
     private AnchorPane root;
@@ -32,27 +36,27 @@ public class PlaylistUIComponentCard extends AbstractUIComponentCard{
     private Label itemPlace2;
     @FXML
     private ImageView imageView;
-    
-    private PlaylistComponent playlist;
+    private TrackComponent track;
         
-    public PlaylistUIComponentCard(Playable playlist) {
-        if (!(playlist instanceof PlaylistComponent)) {
+    
+    public TrackUIComponentCard(TrackComponent track) {
+        this.track = track;
+    }
+    
+    public TrackUIComponentCard(Playable t) {
+        if (!(t instanceof TrackComponent)) {
             throw new RuntimeException("Impossibile crearne card.");
         }
         else {
-            this.playlist = (PlaylistComponent) playlist;
+            track = (TrackComponent) t;
         }
-    }
-    
-    public PlaylistUIComponentCard(PlaylistComponent playlist) {
-        this.playlist = (PlaylistComponent) playlist;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //imageView.setImage(track.getImagePath());
-        itemPlace1.setText(playlist.getName());
-        itemPlace2.setText(String.valueOf(playlist.getDurationInSeconds()));
+        itemPlace1.setText(track.getTitle());
+        itemPlace2.setText(track.getAuthor());
     }
     
     @Override

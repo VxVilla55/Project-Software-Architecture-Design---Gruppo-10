@@ -4,6 +4,9 @@
  */
 package com.group10.model;
 
+import com.group10.model.builder.TrackBuilder;
+import com.group10.model.common.Playable;
+
 /**
  *
  * @author group10
@@ -21,12 +24,20 @@ public class TrackComponent implements Playable {
     private final int year;
 
     //la creazione della Traccia effettiva avviene mediante TrackBuilder che comprende la logica di validazione
-    TrackComponent(TrackBuilder builder) {
+    public TrackComponent(TrackBuilder builder) {
         this.title = builder.getTitle();
         this.author = builder.getAuthor();
         this.duration = builder.getDuration();
         this.genre = builder.getGenre();
         this.year = builder.getYear();
+    }
+
+    public TrackComponent() {
+        this.title = "--";
+        this.author = "--";
+        this.duration = 1;
+        this.genre = "";
+        this.year = 2026;
     }
 
     public String getTitle() {

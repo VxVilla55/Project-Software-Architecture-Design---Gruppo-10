@@ -2,8 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.group10.model;
+package com.group10.model.builder;
 
+import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistComponent;
+import com.group10.model.TrackComponent;
+import com.group10.model.common.Builder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +34,13 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
 
     // imposta il nome della playlist da costruire
     public PlaylistBuilder setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Il nome della playlist non può essere vuoto o nullo");
-        }
         this.name = name.trim();
         return this;
     }
-
+    public String getName() {
+        return name;
+    }
+    
     // aggiunge una singola traccia scelta dall'utente
     public PlaylistBuilder addTrack(TrackComponent track) {
         this.tracks.add(track);
@@ -47,6 +51,9 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
     public PlaylistBuilder addTracks(List<TrackComponent> selectedTracks) {
         this.tracks.addAll(selectedTracks);
         return this;
+    }    
+    public List<TrackComponent> getTracks() {
+        return tracks;
     }
 
     // costruisce la playlist con il nome e le tracce accumulati finora
@@ -61,11 +68,13 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
         if (MusicCatalogue.getInstance().isPlaylistNameTaken(name)) {
             throw new IllegalArgumentException("Esiste già una playlist con questo nome");
         }
-
-        PlaylistComponent playlist = new PlaylistComponent(name);
+        
+        /*PlaylistComponent playlist = new PlaylistComponent(name);
         for (TrackComponent track : tracks) {
             playlist.add(track);
         }
-        return playlist;
+        return playlist;*/
+        
+        return new PlaylistComponent(this);
     }
 }

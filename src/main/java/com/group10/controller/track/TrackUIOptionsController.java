@@ -2,10 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
  */
-package com.group10.controller;
+package com.group10.controller.track;
 
+import com.group10.controller.common.AbstractUIOptionsComponent;
+import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.controller.track.TrackUIDetailsController;
 import com.group10.model.MusicCatalogue;
-import com.group10.model.Playable;
+import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 import java.net.URL;
 import java.util.ResourceBundle;

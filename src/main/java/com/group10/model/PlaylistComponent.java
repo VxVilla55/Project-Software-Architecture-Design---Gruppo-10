@@ -4,6 +4,8 @@
  */
 package com.group10.model;
 
+import com.group10.model.builder.PlaylistBuilder;
+import com.group10.model.common.Playable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,12 @@ public class PlaylistComponent implements Playable {
     public PlaylistComponent() {
         this.name = "Nuova Playlist";
         this.tracks = new ArrayList<>();
+    }
+    
+    public PlaylistComponent(PlaylistBuilder builder) {
+        
+        this.name = builder.getName();
+        this.tracks = builder.getTracks();
     }
     
     public PlaylistComponent(String name) {
