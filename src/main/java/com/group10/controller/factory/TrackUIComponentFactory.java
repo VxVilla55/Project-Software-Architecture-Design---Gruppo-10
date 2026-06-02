@@ -35,7 +35,7 @@ public class TrackUIComponentFactory implements UIComponentFactory{
     @Override
     public AbstractUIComponentItem createUIComponentItem(Playable model) {
         //1.preparo la view
-        String fxmlPath = "/com/group10/view/Item.fxml"; 
+        String fxmlPath = "/com/group10/view/TrackItem.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
         AbstractUIComponentItem controller = new TrackUIComponentItem(model);

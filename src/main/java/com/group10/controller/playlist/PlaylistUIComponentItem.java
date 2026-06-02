@@ -22,7 +22,7 @@ import javafx.scene.layout.AnchorPane;
 public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     
     @FXML
-    private AnchorPane root;
+    private Parent root;
     @FXML
     private Label itemPlace1;
     @FXML
@@ -32,7 +32,7 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     
     private PlaylistComponent playlist;
 
-    public PlaylistUIComponentItem(Playable model) {
+    public PlaylistUIComponentItem(Playable playlist) {
         if (!(playlist instanceof PlaylistComponent)) {
             throw new RuntimeException("Impossibile crearne l'item");
         }

@@ -34,7 +34,7 @@ public class PlaylistUIComponentFactory implements UIComponentFactory{
     @Override
     public AbstractUIComponentItem createUIComponentItem(Playable model) {
         //1.preparo la view
-        String fxmlPath = "/com/group10/view/Item.fxml"; 
+        String fxmlPath = "/com/group10/view/PlaylistItem.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
         AbstractUIComponentItem controller = new PlaylistUIComponentItem(model);
@@ -51,7 +51,7 @@ public class PlaylistUIComponentFactory implements UIComponentFactory{
             return controller;
             
         } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
+            throw new RuntimeException("Errore nel caricamento della View comune dell'Item", e);
         }
     }
 
