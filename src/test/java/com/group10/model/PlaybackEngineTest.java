@@ -1,4 +1,4 @@
-package com.group10.model.builder;
+package com.group10.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.group10.model.TrackComponent;
+import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PausedState;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.model.state.PlayingState;
