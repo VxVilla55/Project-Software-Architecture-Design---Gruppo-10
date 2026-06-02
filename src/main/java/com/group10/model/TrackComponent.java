@@ -6,6 +6,9 @@ package com.group10.model;
 
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.common.Playable;
+import com.group10.model.state.PlaybackEngine;
+import com.group10.model.common.Playable;
+
 
 /**
  *
@@ -31,7 +34,7 @@ public class TrackComponent implements Playable {
         this.genre = builder.getGenre();
         this.year = builder.getYear();
     }
-
+    
     public TrackComponent() {
         this.title = "--";
         this.author = "--";
@@ -48,16 +51,20 @@ public class TrackComponent implements Playable {
         return author;
     }
 
-    @Override
-    public int getDurationInSeconds() {
-        return duration;
-    }
-
     public String getGenre() {
         return genre;
     }
 
     public int getYear() {
         return year;
+    }
+@Override
+    public int getDurationInSeconds() {
+        return this.duration; // Sostituisci "duration" col nome esatto della tua variabile
+    }
+
+    @Override
+    public void playOnEngine(com.group10.model.state.PlaybackEngine engine) {
+        engine.addTrackToQueue(this); // Aggiunge solo se stessa
     }
 }

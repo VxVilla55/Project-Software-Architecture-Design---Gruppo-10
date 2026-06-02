@@ -55,15 +55,6 @@ public class PlaylistComponent implements Playable {
         return tracks.size();
     }
     
-    @Override
-    public int getDurationInSeconds() {
-        int total = 0;
-        for (TrackComponent track : tracks) {
-            total += track.getDurationInSeconds();
-        }
-        return total;
-    }
-    
     public List<TrackComponent> getTracks() {
         return tracks; 
     }
@@ -88,7 +79,22 @@ public class PlaylistComponent implements Playable {
         }
         return name.trim();
     }
-    
+    @Override
+    public int getDurationInSeconds() {
+        int totalDuration = 0;
+        for (TrackComponent track : this.tracks) {
+            totalDuration += track.getDurationInSeconds();
+        }
+        return totalDuration;
+    }
+
+    @Override
+    public void playOnEngine(com.group10.model.state.PlaybackEngine engine) {
+        // La playlist "si apre" e dice a tutte le sue tracce di accodarsi!
+        for (TrackComponent track : this.tracks) {
+            track.playOnEngine(engine);
+        }
+    }
 }
     
 
