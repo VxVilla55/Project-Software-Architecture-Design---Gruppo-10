@@ -6,8 +6,6 @@ package com.group10.controller.track;
 
 import com.group10.controller.common.AbstractUIOptionsComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
-import com.group10.controller.track.TrackUIDetailsController;
-import com.group10.model.MusicCatalogue;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 import java.net.URL;
@@ -19,7 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 /**
  * FXML Controller class
  *
@@ -28,7 +26,7 @@ import javafx.scene.layout.GridPane;
 public class TrackUIOptionsController extends AbstractUIOptionsComponent {
 
     @FXML
-    private GridPane root;
+    private VBox root;
     
     private final TrackComponent track;
     
