@@ -9,11 +9,6 @@
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1218.0">
         <bottom>
     <HBox fx:id="bottomPane" alignment="CENTER" spacing="25.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="129.0" prefWidth="1218.0" BorderPane.alignment="CENTER">
-       <children>
-          <Button mnemonicParsing="false" onAction="#handlePrevious" text="⏮" />
-          <Button fx:id="playPauseButton" mnemonicParsing="false" onAction="#handlePlayPause" text="▶️" />
-          <Button mnemonicParsing="false" onAction="#handleNext" text="⏭" />
-       </children>
     </HBox>
 </bottom>
          <center>

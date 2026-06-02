@@ -99,6 +99,10 @@ public class MainViewController implements Initializable {
                 System.out.println(ex.getCause());
             }
         }
+        
+        PlayerViewController playerController = new PlayerViewController();
+        javafx.scene.layout.AnchorPane playerView = playerController.getView();
+        bottomPane.getChildren().add(playerView);
     }
 
     @FXML
