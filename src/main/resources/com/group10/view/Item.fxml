@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.view.ItemController">
+<HBox fx:id="root" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="650.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-border-color: #e8e8e8; -fx-border-width: 0 0 1 0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="itemPlace1" layoutX="128.0" layoutY="37.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="96.0" text="ItemPlace1" />
-      <Label fx:id="itemPlace2" layoutX="245.0" layoutY="37.0" prefHeight="21.0" prefWidth="96.0" text="ItemPlace2" />
-      <Label fx:id="itemPlace3" layoutX="532.0" layoutY="37.0" prefHeight="21.0" prefWidth="84.0" text="ItemPlace3" />
-      <Button layoutX="631.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleOptions" prefHeight="31.0" prefWidth="72.0" text="options" />
+      <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #aaaaaa; -fx-font-size: 13px;" text="1">
+         <HBox.margin>
+            <Insets left="10.0" />
+         </HBox.margin>
+      </Label>
+      
+      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="titleLabel" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #222222;" text="Titolo della Traccia" />
+            <Label fx:id="artistLabel" style="-fx-text-fill: #777777; -fx-font-size: 12px;" text="Nome Artista" />
+         </children>
+      </VBox>
+      
+      <Label fx:id="genreLabel" prefWidth="100.0" style="-fx-text-fill: #666666; -fx-font-size: 13px;" text="Rock" />
+      
+      <Label fx:id="yearLabel" alignment="CENTER" prefWidth="50.0" style="-fx-text-fill: #666666; -fx-font-size: 13px;" text="1975" />
+      
+      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" prefWidth="60.0" style="-fx-text-fill: #444444; -fx-font-size: 13px;" text="05:55" />
+      
+      <Button fx:id="trackMenuButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 14px; -fx-cursor: hand;" text="⋮">
+         <HBox.margin>
+            <Insets right="10.0" />
+         </HBox.margin>
+      </Button>
    </children>
-</AnchorPane>
+</HBox>
