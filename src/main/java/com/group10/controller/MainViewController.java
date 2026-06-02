@@ -8,7 +8,10 @@ import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.controller.factory.PlaylistUIComponentFactory;
 import com.group10.controller.track.TrackUIAdderController;
 import com.group10.controller.playlist.PlaylistUIAdderController;
+import com.group10.controller.playlist.PlaylistUIComponentItem;
 import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistComponent;
+import com.group10.model.state.PlaybackEngine;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
@@ -38,13 +42,13 @@ public class MainViewController implements Initializable {
     @FXML
     private TextField searchField;
     @FXML
-    private ScrollPane leftPane;
+    private VBox leftPane;
     @FXML
     private HBox bottomPane;
     @FXML
     private VBox centerPane;
     @FXML
-    private ScrollPane rightPane;
+    private VBox rightPane;
     @FXML
     private Button playlistCreationButton;
     @FXML
@@ -58,26 +62,6 @@ public class MainViewController implements Initializable {
     
     
     private static MainViewController singleton;
-    private final String viewPath  = "/com/group10/view/MainView.fxml";
-    private Parent view = null;
-    
-    public MainViewController() {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource(viewPath)
-        );
-        
-        //loader.setRoot(this);
-        loader.setController(this);
-        
-        try {
-            //carica effettivamente la grafica FXML
-            view = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException("Path della view errato: " + viewPath);
-        }
-    }
-    
-    
     //metodo previsto dal pattern Singleton
     public static MainViewController getInstance() {
         if (singleton == null) {
@@ -87,7 +71,7 @@ public class MainViewController implements Initializable {
     }
 
     public Parent getRoot() {
-        return view;
+        return root;
     }
     public Parent getLeftPane() {
         return leftPane;
@@ -107,7 +91,14 @@ public class MainViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists()) {
+            PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
+            try {
+                leftPane.getChildren().add(item.getRoot());
+            } catch (Exception ex) {
+                System.out.println(ex.getCause());
+            }
+        }
     }
 
     @FXML
@@ -174,7 +165,7 @@ public class MainViewController implements Initializable {
 
   @FXML
     public void handlePlayPause(javafx.event.ActionEvent event) {
-        com.group10.model.state.PlaybackEngine engine = com.group10.model.state.PlaybackEngine.getInstance();
+        PlaybackEngine engine = PlaybackEngine.getInstance();
         
         // 1. CONTROLLO: Se non c'è nulla in coda, non fare nulla (o stampa un avviso)
         // (Nota: dovresti aggiungere un metodo getQueueSize() nel PlaybackEngine se non c'è già)

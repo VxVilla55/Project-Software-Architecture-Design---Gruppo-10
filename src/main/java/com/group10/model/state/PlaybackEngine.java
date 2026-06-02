@@ -6,7 +6,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.group10.model.TrackComponent;
-
+/**
+ *
+ * @author group10
+ * 
+ * Singleton: classe che modella lo stato del player
+ */
 public class PlaybackEngine {
     
     private static PlaybackEngine instance;

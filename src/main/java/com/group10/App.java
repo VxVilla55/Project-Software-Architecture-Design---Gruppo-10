@@ -26,9 +26,23 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-
-        scene = new Scene(new MainViewController().getRoot());
-        stage.setScene(scene);
+        
+        //testStatePattern(); // <-- AGGIUNGI QUESTA RIGA QUI
+        //caricamento per test di una playlist e aggiunta di alcuni brani ad essa
+        PlaylistComponent playlist = new PlaylistBuilder().setName("PlaylistCreata").build();
+        MusicCatalogue.getInstance().addPlaylist(playlist);
+        for(int i = 0; i<5; i++) {
+            TrackComponent t = new TrackBuilder().setTitle("Titolo"+i).setAuthor("Autore"+i).setDuration(20).build();
+            MusicCatalogue.getInstance().addTrack(t);
+            playlist.add(t);
+        }
+        
+        //istanzio la MainView
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/MainView.fxml"));
+        MainViewController controller = new MainViewController();
+        loader.setController(controller);
+        //caricamento della MainView
+        stage.setScene(new Scene(loader.load()));
         stage.setMinWidth(1300); 
         stage.setMinHeight(800);
         stage.setTitle("MyMusicPlayer");

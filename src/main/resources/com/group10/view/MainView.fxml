@@ -4,7 +4,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="754.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1218.0">
@@ -28,7 +27,7 @@
                         <Label layoutX="41.0" layoutY="20.0" text="Le mie playlist" />
                      </children>
                   </AnchorPane>
-                  <ScrollPane fx:id="leftPane" prefHeight="384.0" prefWidth="298.0" GridPane.rowIndex="1" />
+                  <VBox fx:id="leftPane" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -47,7 +46,7 @@
                         <Label layoutX="41.0" layoutY="20.0" text="Visualizza dettaglio" />
                      </children>
                   </AnchorPane>
-                  <ScrollPane fx:id="rightPane" prefHeight="384.0" prefWidth="298.0" GridPane.rowIndex="1" />
+                  <VBox fx:id="rightPane" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

@@ -38,7 +38,7 @@ public class MusicCatalogue implements Publisher{
         return singleton;
     }
 
-public List<TrackComponent> getTracks() {
+    public List<TrackComponent> getTracks() {
         return this.tracks;
     }
 
@@ -97,5 +97,5 @@ public List<TrackComponent> getTracks() {
         for (Subscriber s: subscribers) {
             s.update();
         }
-    }    
+    }
 }
