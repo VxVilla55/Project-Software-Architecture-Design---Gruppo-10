@@ -16,8 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.layout.VBox;
+
 /**
  * FXML Controller class
  *
@@ -55,8 +55,6 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
         return root;
     }
     
-    
-    
     @FXML
     private void handleViewDetails(ActionEvent event) {
         //Istanzio il controllore che carica la view
@@ -79,40 +77,59 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
 
     @FXML
     private void handleAddToPlaylist(ActionEvent event) {
-        //dobbiamo fargli visualizzare le playlist da spuntare (con una checkbox)
-        //Istanzio il controllore che carica la view
-        //x c = (x) new PlyalistUIComponentFactory().createUICataloguePlaylist(track);
-        //prendo dalla view il nodo Parent da collocare
-        //Parent view = c.getRoot();
+        try {
+            // 1. Istanziamo il controllore del popup passando la traccia corrente (this.track)
+            AddToPlaylistController c = new AddToPlaylistController(this.track);
+            
+            // 2. Prendiamo dalla view il nodo Parent (la checklist) da collocare
+            Parent checklistView = c.getRoot();
 
-        //showCustomPopup(view);
+            // 3. Mostriamo il popup personalizzato sovrapposto
+            showCustomPopup(checklistView);
+            
+        } catch (Exception e) {
+            System.err.println("Errore nel caricamento del popup della playlist:");
+            e.printStackTrace();
+        }
     }
     
-    
+    /**
+     * Mostra il popup sopra la vista principale sfruttando lo StackPane radice dell'applicazione
+     */
     private void showCustomPopup(Parent popup) {
-        //sfoco la schermata
-        root.getChildren().get(0).setEffect(new GaussianBlur(10));
-        
-        //rinuovo altripopup
-        root.getChildren().removeIf( child -> child != root.getChildren().get(0));
-        
-        //carico il popup
-        StackPane layer = new StackPane();
-        //layer.setEffect(new GaussianBlur(10));
-        
-        Pane pane = new Pane();
-        pane.setEffect(new GaussianBlur(10));
-        
-        pane.setOnMouseClicked(e -> {
-            if (root.getChildren().size()>1) {
-                root.getChildren().remove(root.getChildren().size()-1);
-                root.getChildren().get(0).setEffect(null);
-            }
-        });
-        
-        layer.getChildren().add(pane);
-        layer.getChildren().add(popup);
+        try {
+            if (root != null && root.getScene() != null) {
+                // Recuperiamo lo StackPane principale cercando l'id "root" della MainView
+                StackPane mainRoot = (StackPane) root.getScene().lookup("#root");
+                
+                if (mainRoot != null) {
+                    // Sfoco la schermata principale (il primo figlio dello StackPane)
+                    mainRoot.getChildren().get(0).setEffect(new GaussianBlur(10));
+                    
+                    // Rimuovo altri layer di popup precedentemente rimasti aperti (se ce ne sono)
+                    mainRoot.getChildren().removeIf(child -> child != mainRoot.getChildren().get(0));
+                    
+                    // Carico il pannello di blocco e il popup
+                    StackPane layer = new StackPane();
+                    Pane pane = new Pane();
+                    pane.setEffect(new GaussianBlur(10));
+                    
+                    // Al click fuori dal popup, chiudiamo la finestrella ripristinando lo sfondo nitido
+                    pane.setOnMouseClicked(e -> {
+                        if (mainRoot.getChildren().size() > 1) {
+                            mainRoot.getChildren().remove(mainRoot.getChildren().size() - 1);
+                            mainRoot.getChildren().get(0).setEffect(null);
+                        }
+                    });
+                    
+                    layer.getChildren().add(pane);
+                    layer.getChildren().add(popup); // Iniettiamo la tua ListView con checklist
 
-        root.getChildren().add(layer);
+                    mainRoot.getChildren().add(layer);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }    
 }

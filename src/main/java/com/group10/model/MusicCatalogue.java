@@ -38,11 +38,21 @@ public class MusicCatalogue implements Publisher{
         return singleton;
     }
 
+public List<TrackComponent> getTracks() {
+        return this.tracks;
+    }
+
+    public List<PlaylistComponent> getPlaylists() {
+        return this.playlists;
+    }
+
     public void addTrack (TrackComponent track) {
         tracks.add(track);
+        notifySubscribers();
     }
     public void removeTrack (TrackComponent track) {
         tracks.remove(track);
+        notifySubscribers();
     }
     
     public void addPlaylist (PlaylistComponent playlist) {
@@ -52,9 +62,11 @@ public class MusicCatalogue implements Publisher{
                     "Esiste già una playlist con questo nome: " + playlist.getName());
         }
         playlists.add(playlist);
+        notifySubscribers();
     }
     public void removePlaylist (PlaylistComponent playlist) {
         playlists.remove(playlist);
+        notifySubscribers();
     }
 
     // true se esiste gia' una playlist con questo nome (ignora maiuscole/minuscole e spazi)
