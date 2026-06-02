@@ -65,7 +65,7 @@ public class MainViewController implements Initializable {
         }
     }
 
-    public Parent getView() {
+    public Parent getRoot() {
         return view;
     }
 
