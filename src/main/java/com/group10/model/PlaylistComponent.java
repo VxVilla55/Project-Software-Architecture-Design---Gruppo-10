@@ -8,6 +8,8 @@ import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.common.Playable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -25,21 +27,21 @@ public class PlaylistComponent implements Playable {
     private String name;
 
     // lista ordinata delle tracce: l'ordine di inserimento è l'ordine di riproduzione
-    private final List<TrackComponent> tracks;
+    private final Set<TrackComponent> tracks;
 
     public PlaylistComponent() {
         this.name = "Nuova Playlist";
-        this.tracks = new ArrayList<>();
+        this.tracks = new TreeSet<>();
     }
     
     public PlaylistComponent(PlaylistBuilder builder) {
         
         this.name = builder.getName();
-        this.tracks = builder.getTracks();
+        this.tracks = new TreeSet<>(builder.getTracks());
     }
     
     public PlaylistComponent(String name) {
-        this.tracks = new ArrayList<>();
+        this.tracks = new TreeSet<>();
         this.name = validateAndTrimName(name);
     }
  
@@ -56,7 +58,7 @@ public class PlaylistComponent implements Playable {
     }
     
     public List<TrackComponent> getTracks() {
-        return tracks; 
+        return (List<TrackComponent>) tracks; 
     }
     
     // aggiunge una traccia in coda
@@ -67,6 +69,11 @@ public class PlaylistComponent implements Playable {
     // rimuove la traccia indicata
     public boolean remove(TrackComponent track) {
         return tracks.remove(track);
+    }
+    
+    //true se contiene la traccia indicata
+    public boolean contains(TrackComponent track) {
+        return tracks.contains(track);
     }
   
     public boolean isEmpty() {

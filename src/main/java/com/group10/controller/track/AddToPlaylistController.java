@@ -65,7 +65,7 @@ public class AddToPlaylistController implements Initializable {
                 String playlistName = playlist.getName();
                 
                 // Di base, le caselle partono tutte deselezionate (false)
-                itemStates.put(playlistName, new SimpleBooleanProperty(false));
+                itemStates.put(playlistName, new SimpleBooleanProperty(playlist.contains(selectedTrack)));
                 
                 // Aggiungiamo il nome della playlist nella lista visibile
                 playlistListView.getItems().add(playlistName);

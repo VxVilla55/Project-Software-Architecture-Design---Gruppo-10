@@ -8,6 +8,7 @@ import com.group10.model.builder.TrackBuilder;
 import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.model.common.Playable;
+import java.util.Objects;
 
 
 /**
@@ -18,7 +19,7 @@ import com.group10.model.common.Playable;
  * rappresenta una traccia come insieme
  */
 
-public class TrackComponent implements Playable {
+public class TrackComponent implements Comparable<TrackComponent>, Playable {
     
     private final String title;
     private final String author;
@@ -66,5 +67,33 @@ public class TrackComponent implements Playable {
     @Override
     public void playOnEngine(com.group10.model.state.PlaybackEngine engine) {
         engine.addTrackToQueue(this); // Aggiunge solo se stessa
+    }
+
+    @Override
+    public int compareTo(TrackComponent o) {
+        return this.title.compareToIgnoreCase(o.title);
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 29 * hash + Objects.hashCode(this.title);
+        hash = 29 * hash + Objects.hashCode(this.author);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TrackComponent other = (TrackComponent) obj;
+        return true;
     }
 }
