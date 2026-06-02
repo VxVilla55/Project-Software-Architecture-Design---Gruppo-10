@@ -17,10 +17,12 @@ import com.group10.model.common.Subscriber; // IMPORTANTE: Importiamo il Subscri
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -59,6 +61,7 @@ public class MainViewController implements Initializable, Subscriber {
     }
 
     public Parent getRoot() { return root; }
+    public ObservableList<Node> getRootChildren() { return root.getChildren(); }
     public Parent getLeftPane() { return leftPane; }
     public Parent getRightPane() { return rightPane; }
     public Parent getCenterPane() { return centerPane; }
@@ -140,9 +143,9 @@ public class MainViewController implements Initializable, Subscriber {
         }
     }
     
-    // (Questo metodo lo hai fatto perfetto, l'ho solo mantenuto)
     private void showCustomPopup(Parent popup) {
         root.getChildren().get(0).setEffect(new GaussianBlur(10));
+        
         root.getChildren().removeIf(child -> child != root.getChildren().get(0));
         
         StackPane layer = new StackPane();
@@ -183,11 +186,11 @@ public class MainViewController implements Initializable, Subscriber {
 
     @FXML
     public void handleNext(javafx.event.ActionEvent event) {
-        com.group10.model.state.PlaybackEngine.getInstance().next();
+        PlaybackEngine.getInstance().next();
     }
 
     @FXML
     public void handlePrevious(javafx.event.ActionEvent event) {
-        com.group10.model.state.PlaybackEngine.getInstance().previous();
+        PlaybackEngine.getInstance().previous();
     }
 }

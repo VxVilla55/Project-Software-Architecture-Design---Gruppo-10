@@ -46,7 +46,7 @@ public class TrackUIDetailsController extends AbstractUIDetailsController{
     
     public TrackUIDetailsController (Playable t) {        
         if (!(t instanceof TrackComponent)) {
-            throw new RuntimeException("Impossibile crearne card.");
+            throw new RuntimeException("Impossibile visualizzare dettaglio.");
         }
         else {
             track = (TrackComponent) t;
@@ -86,7 +86,7 @@ public class TrackUIDetailsController extends AbstractUIDetailsController{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("NON ANCORA DEFINITA: serve TrackDetailsView.fxml");
     }
 
     @Override

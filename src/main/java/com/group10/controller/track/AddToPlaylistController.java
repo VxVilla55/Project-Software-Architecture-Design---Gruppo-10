@@ -1,5 +1,6 @@
 package com.group10.controller.track;
 
+import com.group10.controller.factory.PlaylistUIComponentFactory;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
@@ -29,38 +30,23 @@ public class AddToPlaylistController implements Initializable {
     @FXML
     private Label trackTitleLabel;
     @FXML
-    // Sostituita la ComboBox con la ListView per gestire la selezione multipla (Task T6.7)
-    private ListView<String> playlistListView; 
+    private ListView<String> playlistListView;
     @FXML
     private Button cancelButton;
     @FXML
     private Button confirmButton;
-
+    
     private TrackComponent selectedTrack;
-    private MusicCatalogue catalogue;
-    private Parent view = null;
 
     // Questa mappa associa il nome di ogni playlist a un valore booleano (selezionata o meno)
     private Map<String, BooleanProperty> itemStates = new HashMap<>();
-
-    /**
-     * Il costruttore riceve la traccia da aggiungere e carica l'FXML
-     */
+    
     public AddToPlaylistController(TrackComponent track) {
         this.selectedTrack = track;
-        this.catalogue = MusicCatalogue.getInstance();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/AddToPlaylistView.fxml"));
-        loader.setController(this);
-        try {
-            view = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException("Impossibile caricare AddToPlaylistView.fxml", e);
-        }
     }
 
     public Parent getRoot() {
-        return view;
+        return root;
     }
 
     @Override
@@ -74,8 +60,8 @@ public class AddToPlaylistController implements Initializable {
         }));
 
         // 2. Popoliamo la ListView e la mappa degli stati leggendo dal MusicCatalogue
-        if (catalogue.getPlaylists() != null) {
-            for (PlaylistComponent playlist : catalogue.getPlaylists()) {
+        if (MusicCatalogue.getInstance().getPlaylists() != null) {
+            for (PlaylistComponent playlist : MusicCatalogue.getInstance().getPlaylists()) {
                 String playlistName = playlist.getName();
                 
                 // Di base, le caselle partono tutte deselezionate (false)
@@ -105,7 +91,7 @@ public class AddToPlaylistController implements Initializable {
             if (isChecked) {
                 // Cerchiamo l'oggetto PlaylistComponent corrispondente nel catalogo
                 PlaylistComponent targetPlaylist = null;
-                for (PlaylistComponent p : catalogue.getPlaylists()) {
+                for (PlaylistComponent p : MusicCatalogue.getInstance().getPlaylists()) {
                     if (p.getName().equals(playlistName)) {
                         targetPlaylist = p;
                         break;
@@ -123,7 +109,7 @@ public class AddToPlaylistController implements Initializable {
 
         // Se è stata aggiornata almeno una playlist, notifichiamo gli osservatori (Task T4.8 / T5.5)
         if (alMenoUnaAggiunta) {
-            catalogue.notifySubscribers();
+            MusicCatalogue.getInstance().notifySubscribers();
         }
 
         closePopup();

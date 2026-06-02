@@ -39,7 +39,7 @@ public class App extends Application {
         
         //istanzio la MainView
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/MainView.fxml"));
-        MainViewController controller = new MainViewController();
+        MainViewController controller = MainViewController.getInstance();
         loader.setController(controller);
         //caricamento della MainView
         stage.setScene(new Scene(loader.load()));

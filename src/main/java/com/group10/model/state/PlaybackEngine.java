@@ -89,9 +89,14 @@ public class PlaybackEngine {
         }
         System.out.println("✅ Accodato: " + track.getTitle());
     }
+    
+    public void addTrackAsNext(TrackComponent track) {
+        System.out.println("NON ANCORA IMPLEMENTATA");
+    }
+    
     public TrackComponent getCurrentTrack() {
-    return this.currentTrack;
-}
+        return this.currentTrack;
+    }
 
     public void next() {
         if (queue.isEmpty() || currentTrack == null) return;
@@ -169,4 +174,5 @@ public class PlaybackEngine {
     public void play() { currentState.play(this); }
     public void pause() { currentState.pause(this); }
     public void stop() { currentState.stop(this); }
+
 }

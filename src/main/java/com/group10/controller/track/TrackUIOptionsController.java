@@ -4,19 +4,27 @@
  */
 package com.group10.controller.track;
 
+import com.group10.controller.MainViewController;
+import com.group10.controller.common.AbstractUIDetailsController;
 import com.group10.controller.common.AbstractUIOptionsComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
+import com.group10.model.state.PlaybackEngine;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 
 /**
  * FXML Controller class
@@ -24,7 +32,6 @@ import javafx.scene.layout.VBox;
  * @author group10
  */
 public class TrackUIOptionsController extends AbstractUIOptionsComponent {
-
     @FXML
     private VBox root;
     
@@ -62,74 +69,57 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
         //prendo dalla view il nodo Parent da collocare
         Parent trackDetailsView = c.getRoot();
         
-        //MainTableController.getInstance().getLefPane().getChildren().add(trackDetailsView);
+        VBox leftPane = (VBox) MainViewController.getInstance().getLeftPane();
+        leftPane.getChildren().add(trackDetailsView);
     }
 
     @FXML
     private void handleAddToQueue(ActionEvent event) {
-        //MusicCatalogue.getInstance().addToQueue(track);
+        PlaybackEngine.getInstance().addTrackToQueue(track);
     }
 
     @FXML
     private void handlePlayAsNext(ActionEvent event) {
-        //MusicCatalogue.getInstance().addAsNext(track);
+        PlaybackEngine.getInstance().addTrackAsNext(track);
     }
 
     @FXML
     private void handleAddToPlaylist(ActionEvent event) {
+        
+        //istanzio il loader sulla view
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/AddToPlaylistView.fxml"));
+        //istanzio il controller
+        AddToPlaylistController controller = new AddToPlaylistController(track);
+        //associo il controller alla view
+        loader.setController(controller);
         try {
-            // 1. Istanziamo il controllore del popup passando la traccia corrente (this.track)
-            AddToPlaylistController c = new AddToPlaylistController(this.track);
-            
-            // 2. Prendiamo dalla view il nodo Parent (la checklist) da collocare
-            Parent checklistView = c.getRoot();
-
-            // 3. Mostriamo il popup personalizzato sovrapposto
-            showCustomPopup(checklistView);
-            
-        } catch (Exception e) {
-            System.err.println("Errore nel caricamento del popup della playlist:");
-            e.printStackTrace();
+            loader.load();
+            showCustomPopup(controller.getRoot());
+        } catch (IOException e) {
+            throw new RuntimeException("Impossibile caricare AddToPlaylistView.fxml", e);
         }
     }
     
-    /**
-     * Mostra il popup sopra la vista principale sfruttando lo StackPane radice dell'applicazione
-     */
     private void showCustomPopup(Parent popup) {
-        try {
-            if (root != null && root.getScene() != null) {
-                // Recuperiamo lo StackPane principale cercando l'id "root" della MainView
-                StackPane mainRoot = (StackPane) root.getScene().lookup("#root");
-                
-                if (mainRoot != null) {
-                    // Sfoco la schermata principale (il primo figlio dello StackPane)
-                    mainRoot.getChildren().get(0).setEffect(new GaussianBlur(10));
-                    
-                    // Rimuovo altri layer di popup precedentemente rimasti aperti (se ce ne sono)
-                    mainRoot.getChildren().removeIf(child -> child != mainRoot.getChildren().get(0));
-                    
-                    // Carico il pannello di blocco e il popup
-                    StackPane layer = new StackPane();
-                    Pane pane = new Pane();
-                    pane.setEffect(new GaussianBlur(10));
-                    
-                    // Al click fuori dal popup, chiudiamo la finestrella ripristinando lo sfondo nitido
-                    pane.setOnMouseClicked(e -> {
-                        if (mainRoot.getChildren().size() > 1) {
-                            mainRoot.getChildren().remove(mainRoot.getChildren().size() - 1);
-                            mainRoot.getChildren().get(0).setEffect(null);
-                        }
-                    });
-                    
-                    layer.getChildren().add(pane);
-                    layer.getChildren().add(popup); // Iniettiamo la tua ListView con checklist
-
-                    mainRoot.getChildren().add(layer);
-                }
+        ObservableList<Node> rootChildren = MainViewController.getInstance().getRootChildren();
+        rootChildren.get(0).setEffect(new GaussianBlur(10));
+        
+        MainViewController.getInstance().getRootChildren().removeIf(child -> child != rootChildren.get(0));
+        
+        StackPane layer = new StackPane();
+        Pane pane = new Pane();
+        //pane.setEffect(new GaussianBlur(10));
+        
+        pane.setOnMouseClicked(e -> {
+            // Chiude il popup cliccando fuori
+            if (rootChildren.size()>1) {
+                rootChildren.remove(rootChildren.size()-1);
+                rootChildren.get(0).setEffect(null);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }    
+        });
+        
+        layer.getChildren().add(pane);
+        layer.getChildren().add(popup);
+        rootChildren.add(layer);
+    }
 }

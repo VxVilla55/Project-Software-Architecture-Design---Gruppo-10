@@ -26,7 +26,7 @@
       
       <Label fx:id="durationLabel" alignment="CENTER_RIGHT" prefWidth="60.0" style="-fx-text-fill: #444444; -fx-font-size: 13px;" text="05:55" />
       
-      <Button fx:id="trackMenuButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 14px; -fx-cursor: hand;" text="⋮">
+      <Button fx:id="trackMenuButton" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 14px; -fx-cursor: hand;" text="⋮">
          <HBox.margin>
             <Insets right="10.0" />
          </HBox.margin>
