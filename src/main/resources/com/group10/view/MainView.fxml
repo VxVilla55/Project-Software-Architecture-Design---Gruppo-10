@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="754.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="754.0" prefWidth="1260.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="717.0" prefWidth="1218.0">
         <bottom>
-    <HBox fx:id="bottomPane" alignment="CENTER" spacing="25.0" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="129.0" prefWidth="1218.0" BorderPane.alignment="CENTER">
+    <HBox fx:id="bottomPane" alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="129.0" prefWidth="1218.0" spacing="25.0" BorderPane.alignment="CENTER">
     </HBox>
 </bottom>
          <center>
@@ -17,12 +25,12 @@
          <left>
             <GridPane maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="445.0" prefWidth="293.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane prefHeight="54.0" prefWidth="293.0">
+                  <AnchorPane prefHeight="20.0" prefWidth="293.0">
                      <children>
                         <Label layoutX="41.0" layoutY="20.0" text="Le mie playlist" />
                      </children>
                   </AnchorPane>
-                  <VBox fx:id="leftPane" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+                  <VBox fx:id="leftPane" prefHeight="200.0" prefWidth="100.0" spacing="3.0" GridPane.rowIndex="1" />
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

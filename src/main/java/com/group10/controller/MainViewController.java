@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXMLController.java to edit this template
- */
 package com.group10.controller;
 
 import com.group10.controller.common.AbstractUIComponentCard;
@@ -16,6 +12,8 @@ import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.state.PlaybackEngine;
+import com.group10.model.common.Subscriber; // IMPORTANTE: Importiamo il Subscriber!
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,8 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.HBox;
@@ -38,35 +34,23 @@ import javafx.scene.layout.VBox;
  * FXML Controller class
  *
  * @author group10
- * 
- * Singleton
+ * * Singleton
  */
-public class MainViewController implements Initializable {
+// AGGIUNTO: "implements Subscriber" per poter ascoltare il Catalogo
+public class MainViewController implements Initializable, Subscriber { 
 
-    @FXML
-    private TextField searchField;
-    @FXML
-    private VBox leftPane;
-    @FXML
-    private HBox bottomPane;
-    @FXML
-    private VBox centerPane;
-    @FXML
-    private VBox rightPane;
-    @FXML
-    private Button playlistCreationButton;
-    @FXML
-    private Button addTrackButton;
-    @FXML
-    private StackPane root;
-
-    @FXML 
-    private javafx.scene.control.Button playPauseButton;
-
-    
+    @FXML private TextField searchField;
+    @FXML private VBox leftPane;
+    @FXML private HBox bottomPane;
+    @FXML private VBox centerPane;
+    @FXML private VBox rightPane;
+    @FXML private Button playlistCreationButton;
+    @FXML private Button addTrackButton;
+    @FXML private StackPane root;
+    @FXML private javafx.scene.control.Button playPauseButton;
     
     private static MainViewController singleton;
-    //metodo previsto dal pattern Singleton
+
     public static MainViewController getInstance() {
         if (singleton == null) {
             singleton = new MainViewController();
@@ -74,58 +58,21 @@ public class MainViewController implements Initializable {
         return singleton;
     }
 
-    public Parent getRoot() {
-        return root;
-    }
-    public Parent getLeftPane() {
-        return leftPane;
-    }
-    public Parent getRightPane() {
-        return rightPane;
-    }
-    public Parent getCenterPane() {
-        return centerPane;
-    }
-    public Parent getBottomPane() {
-        return bottomPane;
-    }
+    public Parent getRoot() { return root; }
+    public Parent getLeftPane() { return leftPane; }
+    public Parent getRightPane() { return rightPane; }
+    public Parent getCenterPane() { return centerPane; }
+    public Parent getBottomPane() { return bottomPane; }
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //CARICAMENTO NEL LEFT PANE
-        for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists()) {
-            PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
-            try {
-                leftPane.getChildren().add(item.getRoot());
-            } catch (Exception ex) {
-                System.out.println(ex.getCause());
-            }
-        }
-        //CARICAMENTO NEL CENTER PANE
-        //MOSTRA LE TRACK COME ITEM
-        for(TrackComponent p: MusicCatalogue.getInstance().getTracks()) {
-            TrackUIComponentItem item = (TrackUIComponentItem) new TrackUIComponentFactory().createUIComponentItem(p);
-            try {
-                centerPane.getChildren().add(item.getRoot());
-            } catch (Exception ex) {
-                System.out.println(ex.getCause());
-            }
-        }
-        //MOSTRA LE TRACK COME CARD
-        /*HBox hbox = new HBox();
-        try {
-            for(TrackComponent p: MusicCatalogue.getInstance().getTracks()) {
-                TrackUIComponentCard card = (TrackUIComponentCard) new TrackUIComponentFactory().createUIComponentCard(p);
-                hbox.getChildren().add(card.getRoot());
-            }
-            centerPane.getChildren().add(hbox);
-        } catch (Exception ex) {
-            System.out.println(ex.getCause());
-        }*/
-        //CARICAMENTO NEL BOTTOM PANE        
+        // 1. Diciamo al Catalogo: "Avvisami quando crei una nuova playlist o traccia!"
+        MusicCatalogue.getInstance().addSubscriber(this);
+        leftPane.setSpacing(1);
+        // 2. Carichiamo la grafica la primissima volta
+        update(); 
+        
+        // CARICAMENTO NEL BOTTOM PANE (Player)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
         PlayerViewController controller = new PlayerViewController();
         loader.setController(controller);
@@ -137,20 +84,46 @@ public class MainViewController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleUndo(ActionEvent event) {
+    // ==========================================================
+    // IL CUORE DELLA MAGIA (PATTERN OBSERVER)
+    // ==========================================================
+    @Override
+    public void update() {
+        // 1. Svuotiamo i pannelli per non raddoppiare le cose già presenti
+        leftPane.getChildren().clear();
+        centerPane.getChildren().clear();
+
+        // 2. Ricarichiamo le Playlist (nel Left Pane) usando la TUA Factory!
+        for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists()) {
+            PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
+            try {
+                leftPane.getChildren().add(item.getRoot());
+            } catch (Exception ex) {
+                System.out.println(ex.getCause());
+            }
+        }
+
+        // 3. Ricarichiamo le Track (nel Center Pane) usando la TUA Factory!
+        for(TrackComponent p: MusicCatalogue.getInstance().getTracks()) {
+            TrackUIComponentItem item = (TrackUIComponentItem) new TrackUIComponentFactory().createUIComponentItem(p);
+            try {
+                centerPane.getChildren().add(item.getRoot());
+            } catch (Exception ex) {
+                System.out.println(ex.getCause());
+            }
+        }
     }
 
+    // ==========================================================
+    // GESTIONE DEI POPUP E DEI TASTI
+    // ==========================================================
+    
     @FXML
     private void handleAddTrack(ActionEvent event) {
         try {
-            //Istanzio il controllore che carica la view
             TrackUIAdderController c = (TrackUIAdderController) new TrackUIComponentFactory().createUIComponentAdder();
-            //prendo dalla view il nodo Parent da collocare
             Parent trackAdderView = c.getRoot();
-            
             showCustomPopup(trackAdderView);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,33 +132,25 @@ public class MainViewController implements Initializable {
     @FXML
     private void handlePlaylistCreation(ActionEvent event) {
         try {
-            //Istanzio il controllore che carica la view
             PlaylistUIAdderController c = (PlaylistUIAdderController) new PlaylistUIComponentFactory().createUIComponentAdder();
-            //prendo dalla view il nodo Parent da collocare
             Parent playlistAdderView = c.getRoot();
-            
             showCustomPopup(playlistAdderView);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
+    // (Questo metodo lo hai fatto perfetto, l'ho solo mantenuto)
     private void showCustomPopup(Parent popup) {
-        //sfoco la schermata
         root.getChildren().get(0).setEffect(new GaussianBlur(10));
+        root.getChildren().removeIf(child -> child != root.getChildren().get(0));
         
-        //rinuovo altripopup
-        root.getChildren().removeIf( child -> child != root.getChildren().get(0));
-        
-        //carico il popup
         StackPane layer = new StackPane();
-        //layer.setEffect(new GaussianBlur(10));
-        
         Pane pane = new Pane();
         pane.setEffect(new GaussianBlur(10));
         
         pane.setOnMouseClicked(e -> {
+            // Chiude il popup cliccando fuori
             if (root.getChildren().size()>1) {
                 root.getChildren().remove(root.getChildren().size()-1);
                 root.getChildren().get(0).setEffect(null);
@@ -194,29 +159,25 @@ public class MainViewController implements Initializable {
         
         layer.getChildren().add(pane);
         layer.getChildren().add(popup);
-
         root.getChildren().add(layer);
     }
 
+    @FXML
+    private void handleUndo(ActionEvent event) {}
 
-  @FXML
+    @FXML
     public void handlePlayPause(javafx.event.ActionEvent event) {
         PlaybackEngine engine = PlaybackEngine.getInstance();
-        
-        // 1. CONTROLLO: Se non c'è nulla in coda, non fare nulla (o stampa un avviso)
-        // (Nota: dovresti aggiungere un metodo getQueueSize() nel PlaybackEngine se non c'è già)
         if (engine.getCurrentTrack() == null) {
             System.out.println("⚠️ La coda è vuota, aggiungi prima un brano!");
-            return; // Esce dal metodo e non cambia l'icona
+            return; 
         }
-
-        // 2. Se c'è musica, gestiamo lo stato
         if (engine.getState() instanceof com.group10.model.state.PlayingState) {
             engine.pause();
-            playPauseButton.setText("▶️"); // Torna su Play
+            playPauseButton.setText("▶️"); 
         } else {
             engine.play();
-            playPauseButton.setText("⏸️"); // Passa su Pausa
+            playPauseButton.setText("⏸️"); 
         }
     }
 
@@ -228,4 +189,5 @@ public class MainViewController implements Initializable {
     @FXML
     public void handlePrevious(javafx.event.ActionEvent event) {
         com.group10.model.state.PlaybackEngine.getInstance().previous();
-    }}
+    }
+}
