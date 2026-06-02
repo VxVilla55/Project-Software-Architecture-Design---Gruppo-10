@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="300.0" spacing="20.0" style="-fx-background-color: ffffff; -fx-border-color: cccccc; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="300.0" spacing="20.0" style="-fx-background-color: ffffff; -fx-border-color: cccccc; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Aggiungi alla Playlist">
          <VBox.margin>
@@ -14,7 +14,7 @@
          </VBox.margin>
       </Label>
       <Label fx:id="trackTitleLabel" style="-fx-font-size: 12px;" text="Seleziona la playlist di destinazione" />
-      <ComboBox fx:id="playlistComboBox" prefWidth="280.0" promptText="Scegli una playlist..." />
+      <ListView fx:id="playlistListView" prefHeight="150.0" prefWidth="320.0" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
          <children>
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" text="Annulla" />
