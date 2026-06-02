@@ -103,8 +103,9 @@ public class MainViewController implements Initializable {
             } catch (Exception ex) {
                 System.out.println(ex.getCause());
             }
-        }/*
+        }
         //CARICAMENTO NEL CENTER PANE
+        //MOSTRA LE TRACK COME ITEM
         for(TrackComponent p: MusicCatalogue.getInstance().getTracks()) {
             TrackUIComponentItem item = (TrackUIComponentItem) new TrackUIComponentFactory().createUIComponentItem(p);
             try {
@@ -112,6 +113,17 @@ public class MainViewController implements Initializable {
             } catch (Exception ex) {
                 System.out.println(ex.getCause());
             }
+        }
+        //MOSTRA LE TRACK COME CARD
+        /*HBox hbox = new HBox();
+        try {
+            for(TrackComponent p: MusicCatalogue.getInstance().getTracks()) {
+                TrackUIComponentCard card = (TrackUIComponentCard) new TrackUIComponentFactory().createUIComponentCard(p);
+                hbox.getChildren().add(card.getRoot());
+            }
+            centerPane.getChildren().add(hbox);
+        } catch (Exception ex) {
+            System.out.println(ex.getCause());
         }*/
         //CARICAMENTO NEL BOTTOM PANE        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
