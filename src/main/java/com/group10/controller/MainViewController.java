@@ -8,6 +8,7 @@ import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.controller.factory.PlaylistUIComponentFactory;
 import com.group10.controller.track.TrackUIAdderController;
 import com.group10.controller.playlist.PlaylistUIAdderController;
+import com.group10.model.MusicCatalogue;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,6 +30,8 @@ import javafx.scene.layout.VBox;
  * FXML Controller class
  *
  * @author group10
+ * 
+ * Singleton
  */
 public class MainViewController implements Initializable {
 
@@ -50,6 +53,7 @@ public class MainViewController implements Initializable {
     private StackPane root;
     
     
+    private static MainViewController singleton;
     private final String viewPath  = "/com/group10/view/MainView.fxml";
     private Parent view = null;
     
@@ -68,9 +72,30 @@ public class MainViewController implements Initializable {
             throw new RuntimeException("Path della view errato: " + viewPath);
         }
     }
+    
+    
+    //metodo previsto dal pattern Singleton
+    public static MainViewController getInstance() {
+        if (singleton == null) {
+            singleton = new MainViewController();
+        }
+        return singleton;
+    }
 
     public Parent getRoot() {
         return view;
+    }
+    public Parent getLeftPane() {
+        return leftPane;
+    }
+    public Parent getRightPane() {
+        return rightPane;
+    }
+    public Parent getCenterPane() {
+        return centerPane;
+    }
+    public Parent getBottomPane() {
+        return bottomPane;
     }
 
     /**
