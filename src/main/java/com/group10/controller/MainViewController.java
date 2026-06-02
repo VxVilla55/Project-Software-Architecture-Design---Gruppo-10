@@ -4,13 +4,17 @@
  */
 package com.group10.controller;
 
+import com.group10.controller.common.AbstractUIComponentCard;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.controller.factory.PlaylistUIComponentFactory;
 import com.group10.controller.track.TrackUIAdderController;
 import com.group10.controller.playlist.PlaylistUIAdderController;
 import com.group10.controller.playlist.PlaylistUIComponentItem;
+import com.group10.controller.track.TrackUIComponentCard;
+import com.group10.controller.track.TrackUIComponentItem;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
+import com.group10.model.TrackComponent;
 import com.group10.model.state.PlaybackEngine;
 import java.io.IOException;
 import java.net.URL;
@@ -91,6 +95,7 @@ public class MainViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //CARICAMENTO NEL LEFT PANE
         for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists()) {
             PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
             try {
@@ -98,11 +103,26 @@ public class MainViewController implements Initializable {
             } catch (Exception ex) {
                 System.out.println(ex.getCause());
             }
+        }/*
+        //CARICAMENTO NEL CENTER PANE
+        for(TrackComponent p: MusicCatalogue.getInstance().getTracks()) {
+            TrackUIComponentItem item = (TrackUIComponentItem) new TrackUIComponentFactory().createUIComponentItem(p);
+            try {
+                centerPane.getChildren().add(item.getRoot());
+            } catch (Exception ex) {
+                System.out.println(ex.getCause());
+            }
+        }*/
+        //CARICAMENTO NEL BOTTOM PANE        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
+        PlayerViewController controller = new PlayerViewController();
+        loader.setController(controller);
+        try {
+            Parent playerView = loader.load();
+            bottomPane.getChildren().add(playerView);
+        } catch (IOException e) {
+            throw new RuntimeException("Errore nel caricamento della PlayerView", e);
         }
-        
-        PlayerViewController playerController = new PlayerViewController();
-        javafx.scene.layout.AnchorPane playerView = playerController.getView();
-        bottomPane.getChildren().add(playerView);
     }
 
     @FXML

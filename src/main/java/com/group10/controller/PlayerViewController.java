@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
+import javafx.scene.Parent;
 
 public class PlayerViewController {
 
@@ -15,24 +16,12 @@ public class PlayerViewController {
     @FXML private Slider trackSlider;
     @FXML private Label trackTitle;
     @FXML private Label trackAuthor;
+    @FXML private Parent root;
+    
 
-    private AnchorPane view;
-
-    // --- COSTRUTTORE ---
-    public PlayerViewController() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
-            loader.setController(this); // Il controller sono io stesso!
-            this.view = loader.load();
-        } catch (IOException e) {
-            System.err.println("Errore fatale: Impossibile trovare /com/group10/view/PlayerView.fxml");
-            e.printStackTrace();
-        }
-    }
-
-    // --- METODO PER RESTITUIRE LA VISTA AL MAIN ---
-    public AnchorPane getView() {
-        return this.view;
+    //metodo per restituire la radice al main---
+    public Parent getRoot() {
+        return this.root;
     }
 
     // --- AZIONI DEI BOTTONI ---
