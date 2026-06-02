@@ -3,8 +3,9 @@ package com.group10.model.state;
 public class PausedState implements PlayerState {
     @Override
     public void play(PlaybackEngine context) {
-        System.out.println("▶️ Riprendo la riproduzione dalla pausa.");
+        System.out.println("▶️ Riprendo la riproduzione esattamente da dove l'ho lasciata.");
         context.setState(new PlayingState());
+        context.startSimulation(); // Fa ripartire l'orologio da dove si era fermato!
     }
 
     @Override
@@ -15,6 +16,8 @@ public class PausedState implements PlayerState {
     @Override
     public void stop(PlaybackEngine context) {
         System.out.println("⏹️ Riproduzione interrotta dalla pausa.");
+        context.stopSimulation();
+        context.resetTime();
         context.setState(new StoppedState());
     }
 }

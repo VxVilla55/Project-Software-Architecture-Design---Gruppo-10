@@ -3,8 +3,8 @@ package com.group10.model.state;
 public class StoppedState implements PlayerState {
     @Override
     public void play(PlaybackEngine context) {
-        System.out.println("▶️ Riproduzione avviata.");
         context.setState(new PlayingState());
+        context.startSimulation(); // Fa partire l'orologio!
     }
 
     @Override
