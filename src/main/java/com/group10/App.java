@@ -27,7 +27,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         
-        scene = new Scene(new MainViewController().getView());
+        scene = new Scene(new MainViewController().getRoot());
         stage.setScene(scene);
         stage.setMinWidth(1300); 
         stage.setMinHeight(800);
@@ -89,7 +89,6 @@ public class App extends Application {
     }
 
     // Metodo per testare la UI di creazione playlist
-// Metodo per testare la UI di creazione playlist
     public static void openCreazionePlaylist() throws IOException {
         // Usiamo il metodo loadFXML già presente nel tuo file App.java!
         // Se il file è insieme a primary.fxml, basta scriverne il nome così:
@@ -103,5 +102,4 @@ public class App extends Application {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    
 }

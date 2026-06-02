@@ -6,7 +6,7 @@ package com.group10.model;
 
 /**
  *
- * @author alfon
+ * @author group10
  * 
  * Elemento Subscriber del pattern Observer
  */

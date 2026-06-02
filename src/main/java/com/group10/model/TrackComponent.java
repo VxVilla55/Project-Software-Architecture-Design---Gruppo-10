@@ -10,7 +10,6 @@ package com.group10.model;
  *
  * Nel PATTERN COMPOSITE è l'elemento Composite:
  * rappresenta una traccia come insieme
- * 
  */
 
 public class TrackComponent implements Playable {

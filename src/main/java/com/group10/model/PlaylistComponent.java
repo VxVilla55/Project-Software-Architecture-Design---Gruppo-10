@@ -10,6 +10,7 @@ import java.util.List;
 /**
  *
  * @author group10
+ * 
  * Composite del pattern omonimo: rappresenta una playlist come insieme
  * ordinato di elementi Playable (Track)
  *

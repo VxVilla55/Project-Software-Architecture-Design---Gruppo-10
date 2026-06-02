@@ -23,4 +23,6 @@ public interface UIComponentFactory {
     AbstractUIDetailsController createUIComponentDetails(Playable model); 
     
     AbstractUIAdderController createUIComponentAdder();
+    
+    AbstractUIOptionsComponent createUIComponentOptions(Playable model);
 }

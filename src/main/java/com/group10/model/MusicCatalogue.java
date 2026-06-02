@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author alfon
+ * @author group10
  * 
  * Singleton: classe che modella lo stato dell'App
  */
