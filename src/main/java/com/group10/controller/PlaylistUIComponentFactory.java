@@ -117,4 +117,9 @@ public class PlaylistUIComponentFactory implements UIComponentFactory{
             throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
         }
     }
+
+    @Override
+    public AbstractUIOptionsComponent createUIComponentOptions(Playable model) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -4,10 +4,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="117.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="717.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.view.ItemController">
    <children>
-      <Label fx:id="itemPlace1" layoutX="35.0" layoutY="48.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="121.0" text="ItemPlace1" />
-      <Label fx:id="itemPlace2" layoutX="241.0" layoutY="48.0" prefHeight="21.0" prefWidth="121.0" text="ItemPlace2" />
-      <Label fx:id="itemPlace3" layoutX="437.0" layoutY="48.0" prefHeight="21.0" prefWidth="121.0" text="ItemPlace3" />
+      <Label fx:id="itemPlace1" layoutX="128.0" layoutY="37.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="96.0" text="ItemPlace1" />
+      <Label fx:id="itemPlace2" layoutX="245.0" layoutY="37.0" prefHeight="21.0" prefWidth="96.0" text="ItemPlace2" />
+      <Label fx:id="itemPlace3" layoutX="532.0" layoutY="37.0" prefHeight="21.0" prefWidth="84.0" text="ItemPlace3" />
+      <Button layoutX="631.0" layoutY="32.0" mnemonicParsing="false" onAction="#handleOptions" prefHeight="31.0" prefWidth="72.0" text="options" />
    </children>
 </AnchorPane>

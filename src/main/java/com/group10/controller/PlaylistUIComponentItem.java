@@ -8,6 +8,7 @@ import com.group10.model.Playable;
 import com.group10.model.PlaylistComponent;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -53,5 +54,14 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     @Override
     public Parent getRoot() {
         return root;
+    }
+    
+    @FXML
+    private void handleOptions(ActionEvent event) {
+        //Istanzio il controllore che carica la view
+        //PlaylistUIOptionsController c = (PlaylistUIOptionsController) new PlaylistUIComponentFactory().createUIComponentOptions(playlist);
+        //prendo dalla view il nodo Parent da collocare
+        //Parent trackDetailsView = c.getRoot();
+        //mostra la view
     }
 }

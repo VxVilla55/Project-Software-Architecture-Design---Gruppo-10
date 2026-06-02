@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="329.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.group10.view.TrackOptionsController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="50.0" minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="50.0" minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="50.0" minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="50.0" minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="50.0" prefWidth="367.0" text="Visualizza dettaglio" />
+      <Button mnemonicParsing="false" onAction="#handleAddToQueue" prefHeight="119.0" prefWidth="468.0" text="Aggiungi alla coda" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#handlePlayAsNext" prefHeight="200.0" prefWidth="675.0" text="Riproduci come prossimo brano" GridPane.rowIndex="2" />
+      <Button mnemonicParsing="false" onAction="#handleAddToPlaylist" prefHeight="317.0" prefWidth="864.0" text="Aggiungi a playlist..." textOverrun="CLIP" GridPane.rowIndex="3" />
+   </children>
+</GridPane>

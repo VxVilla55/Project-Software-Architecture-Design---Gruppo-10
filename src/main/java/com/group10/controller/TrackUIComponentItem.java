@@ -18,6 +18,7 @@ import com.group10.model.TrackComponent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -60,5 +61,13 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     @Override
     public Parent getRoot() {
         return root;
+    }
+    
+    @FXML
+    private void handleOptions(ActionEvent event) {
+        //Istanzio il controllore che carica la view
+        TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
+        //prendo dalla view il nodo Parent da collocare
+        Parent trackDetailsView = c.getRoot();
     }
 }
