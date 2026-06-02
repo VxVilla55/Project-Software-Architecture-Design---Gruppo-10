@@ -26,6 +26,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        testStatePattern(); // <-- AGGIUNGI QUESTA RIGA QUI
         
         scene = new Scene(new MainViewController().getRoot());
         stage.setScene(scene);
@@ -101,5 +102,16 @@ public class App extends Application {
         stage.setTitle("Crea Nuova Playlist");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+    public static void testStatePattern() {
+        System.out.println("--- TEST T8.2: STATE PATTERN ---");
+        com.group10.model.state.PlaybackEngine player = com.group10.model.state.PlaybackEngine.getInstance();
+        
+        player.play();   // Dovrebbe avviare
+        player.play();   // Dovrebbe dire che è già in riproduzione
+        player.pause();  // Dovrebbe mettere in pausa
+        player.play();   // Dovrebbe riprendere
+        player.stop();   // Dovrebbe fermare
+        System.out.println("--------------------------------");
     }
 }
