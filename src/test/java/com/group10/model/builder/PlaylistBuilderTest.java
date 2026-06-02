@@ -1,10 +1,9 @@
-package com.group10.model;
+package com.group10.model.builder;
 
-import com.group10.model.builder.PlaylistBuilder;
+import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistComponent;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlaylistBuilderTest {
 
