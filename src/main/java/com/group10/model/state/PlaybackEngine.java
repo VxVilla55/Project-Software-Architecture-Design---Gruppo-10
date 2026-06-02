@@ -49,6 +49,35 @@ public class PlaybackEngine {
     public int getCurrentTime() {
         return currentTime;
     }
+    // --- METODI PER L'INTERFACCIA GRAFICA (VIEW) ---
+    
+    public void setCurrentTrack(TrackComponent track) {
+        if (track == null) return;
+
+        // 1. Se la traccia non è già presente nella coda, la aggiungiamo in fondo
+        if (!queue.contains(track)) {
+            queue.add(track);
+        }
+        
+        // 2. Aggiorniamo l'indice per mantenere coerenti i tasti Next e Previous
+        this.currentIndex = queue.indexOf(track);
+        
+        // 3. Sfruttiamo il tuo metodo interno che è già perfetto per fare il cambio!
+        cambiaTraccia(track);
+    }
+
+    // Ti consiglio caldamente di aggiungere anche questo metodo.
+    // Quando dalla UI clicchi "Play" su una nuova Playlist, prima di accodare 
+    // i nuovi brani vorrai sicuramente svuotare la coda precedente!
+    public void clearQueue() {
+        this.queue.clear();
+        this.currentIndex = -1;
+        this.currentTrack = null;
+        this.currentTime = 0;
+        stopSimulation();
+        setState(new StoppedState());
+        System.out.println("🧹 Coda svuotata.");
+    }
 
     // --- LOGICA DELLA CODA E SKIP (T8.4) ---
     

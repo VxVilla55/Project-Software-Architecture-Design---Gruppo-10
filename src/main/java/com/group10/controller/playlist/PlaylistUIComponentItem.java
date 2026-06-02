@@ -57,6 +57,7 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
         return root;
     }
     
+    
     @FXML
     private void handleOptions(ActionEvent event) {
         //Istanzio il controllore che carica la view
