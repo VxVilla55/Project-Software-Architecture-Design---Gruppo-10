@@ -16,6 +16,7 @@ import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -70,6 +71,11 @@ public class PlaylistUIDetailsController extends AbstractUIDetailsController {
             item = (TrackUIComponentItem) factory.createUIComponentItem(t);
             tracksContainer.getChildren().add(item.getRoot());
         }
+        //playlistImageView;
+        playlistNameLabel.setText(playlist.getName());
+        Duration durataPlaylist = Duration.ofSeconds(playlist.getDurationInSeconds());
+        String durataFormattata = String.format("(%02d:%02d:%02d)", durataPlaylist.toHoursPart(), durataPlaylist.toMinutesPart(), durataPlaylist.toSecondsPart());
+        playlistTracksCountLabel.setText(String.valueOf(playlist.getSize())+" tracce "+durataFormattata);
     }
     
     @Override
