@@ -1,35 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox fx:id="root" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="650.0" spacing="15.0" style="-fx-background-color: #ffffff; -fx-border-color: #e8e8e8; -fx-border-width: 0 0 1 0;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="root" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="650.0" spacing="15.0" style="-fx-background-color: #181818; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #aaaaaa; -fx-font-size: 13px;" text="1">
+      <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #b3b3b3;" text="1">
          <HBox.margin>
-            <Insets left="10.0" />
+            <Insets left="15.0" />
          </HBox.margin>
+         <font>
+            <Font name="System System" size="14.0" />
+         </font>
       </Label>
       
       <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="titleLabel" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #222222;" text="Titolo della Traccia" />
-            <Label fx:id="artistLabel" style="-fx-text-fill: #777777; -fx-font-size: 12px;" text="Nome Artista" />
+            <Label fx:id="titleLabel" style="-fx-text-fill: #ffffff; -fx-font-weight: bold;" text="Titolo della Traccia">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="artistLabel" style="-fx-text-fill: #b3b3b3;" text="Nome Artista">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
       
-      <Label fx:id="genreLabel" prefWidth="100.0" style="-fx-text-fill: #666666; -fx-font-size: 13px;" text="Rock" />
+      <Label fx:id="genreLabel" prefWidth="100.0" style="-fx-text-fill: #b3b3b3;" text="Rock">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
       
-      <Label fx:id="yearLabel" alignment="CENTER" prefWidth="50.0" style="-fx-text-fill: #666666; -fx-font-size: 13px;" text="1975" />
+      <Label fx:id="yearLabel" alignment="CENTER" prefWidth="50.0" style="-fx-text-fill: #b3b3b3;" text="1975">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
       
-      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" prefWidth="60.0" style="-fx-text-fill: #444444; -fx-font-size: 13px;" text="05:55" />
+      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" prefWidth="60.0" style="-fx-text-fill: #b3b3b3;" text="05:55">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
       
-      <Button fx:id="trackMenuButton" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 14px; -fx-cursor: hand;" text="⋮">
+      <Button fx:id="trackMenuButton" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #b3b3b3; -fx-cursor: hand;" text="⋮">
          <HBox.margin>
-            <Insets right="10.0" />
+            <Insets right="15.0" />
          </HBox.margin>
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
       </Button>
    </children>
+   <padding>
+      <Insets bottom="5.0" top="5.0" />
+   </padding>
 </HBox>
