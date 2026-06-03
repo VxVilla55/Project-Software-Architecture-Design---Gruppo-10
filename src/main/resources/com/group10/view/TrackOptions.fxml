@@ -4,11 +4,24 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="root" prefHeight="106.0" prefWidth="232.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="root" prefHeight="160.0" prefWidth="232.0" 
+      style="-fx-background-color: #121212; -fx-border-color: #282828; -fx-padding: 5; -fx-background-radius: 8; -fx-border-radius: 8;" 
+      xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="40.0" text="Visualizza dettaglio" />
-      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddToQueue" prefHeight="40.0" text="Aggiungi alla coda" />
-      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePlayAsNext" prefHeight="40.0" text="Riproduci come prossimo brano" />
-      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleAddToPlaylist" prefHeight="40.0" text="Aggiungi a playlist..." textOverrun="CLIP" />
+      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
+              mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="40.0" 
+              style="-fx-background-color: transparent; -fx-text-fill: #E91E63; -fx-font-weight: bold;" text="Visualizza dettaglio" />
+              
+      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
+              mnemonicParsing="false" onAction="#handleAddToQueue" prefHeight="40.0" 
+              style="-fx-background-color: transparent; -fx-text-fill: #E91E63; -fx-font-weight: bold;" text="Aggiungi alla coda" />
+              
+      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
+              mnemonicParsing="false" onAction="#handlePlayAsNext" prefHeight="40.0" 
+              style="-fx-background-color: transparent; -fx-text-fill: #E91E63; -fx-font-weight: bold;" text="Riproduci come prossimo brano" />
+              
+      <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
+              mnemonicParsing="false" onAction="#handleAddToPlaylist" prefHeight="40.0" 
+              style="-fx-background-color: transparent; -fx-text-fill: #E91E63; -fx-font-weight: bold;" text="Aggiungi a playlist..." textOverrun="CLIP" />
    </children>
 </VBox>
