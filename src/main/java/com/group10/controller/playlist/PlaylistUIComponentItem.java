@@ -64,7 +64,7 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     
     @FXML
     private void handlePlaylistSelection(MouseEvent event) {
-        PlaylistUIDetailsController c = (PlaylistUIDetailsController) new PlaylistUIComponentFactory().createUIComponentDetails(playlist);
-        MainViewController.getInstance().showOnCenterPane(c.getRoot());
+        MainViewController.getInstance().setSelectedPlaylist(playlist);
+        MainViewController.getInstance().update();
     }
 }

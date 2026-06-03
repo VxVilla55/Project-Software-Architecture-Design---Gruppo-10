@@ -21,6 +21,11 @@
                   <Button mnemonicParsing="false" onAction="#handleUndo" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 20;" text="←">
                      <font><Font name="System Bold" size="14.0" /></font>
                   </Button>
+                  
+                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="#handleHome" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold;" text="🏠 Home">
+                     <font><Font size="14.0" /></font>
+                  </Button>
+                  
                   <Button fx:id="addTrackButton" mnemonicParsing="false" onAction="#handleAddTrack" style="-fx-background-color: #1DB954; -fx-text-fill: black; -fx-background-radius: 20; -fx-font-weight: bold;" text="+ Aggiungi traccia" />
                   <Button fx:id="playlistCreationButton" mnemonicParsing="false" onAction="#handlePlaylistCreation" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold;" text="Crea playlist" />
                   <TextField fx:id="searchField" promptText="Cerca brani, artisti, playlist..." style="-fx-background-color: #242424; -fx-text-fill: white; -fx-background-radius: 15; -fx-prompt-text-fill: #b3b3b3;" HBox.hgrow="ALWAYS">
