@@ -67,30 +67,21 @@ public class MainViewController implements Initializable, Subscriber {
     //metodi per controllare l'interfaccia
     //public Parent getRoot() { return root; }
     //public ObservableList<Node> getRootChildren() { return root.getChildren(); }
-    
     public void showOnRightPane(Parent pane) {
-        rightPane.getChildren().removeIf(child -> child != root.getChildren().get(0));
-        rightPane.getChildren().get(0).setEffect(null);
+        rightPane.getChildren().clear();
+        rightPane.getChildren().add(pane);
     }
     public void showOnCenterPane(Parent pane) {
-        System.out.println(centerPane.getChildren());
-        //rimuovo tutti gli elementi
-        centerPane.getChildren().removeAll();
-        //aggiungo il pannello richiesto
+        centerPane.getChildren().clear();
         centerPane.getChildren().add(pane);
-        System.out.println(centerPane.getChildren());
     }
     public void showOnLeftPane(Parent pane) {
-        //rimuovo tutti gli elementi
-        leftPane.getChildren().removeAll();
-        //aggiungo il pannello richiesto
+        leftPane.getChildren().clear();
         leftPane.getChildren().add(pane);
     }
     
     public void showOnBottomPane(Parent pane) {
-        //rimuovo tutti gli elementi
-        bottomPane.getChildren().removeAll();
-        //aggiungo il pannello richiesto
+        bottomPane.getChildren().clear();
         bottomPane.getChildren().add(pane);
     }
     

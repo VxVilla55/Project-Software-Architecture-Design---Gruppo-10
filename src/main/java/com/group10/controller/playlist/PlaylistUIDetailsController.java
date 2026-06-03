@@ -22,6 +22,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -33,14 +35,19 @@ import javafx.scene.layout.VBox;
  * product del pattern FACTORY
  */
 public class PlaylistUIDetailsController extends AbstractUIDetailsController {
-
+    
     @FXML
     private AnchorPane root;
     @FXML
-    private VBox vbox;
+    private ImageView playlistImageView;
+    @FXML
+    private Label playlistNameLabel;
+    @FXML
+    private Label playlistTracksCountLabel;
+    @FXML
+    private VBox tracksContainer;
     
-    private UIComponentFactory factory;
-    
+    private TrackUIComponentFactory factory;
     private PlaylistComponent playlist;
     
     public PlaylistUIDetailsController(Playable playlist) {
@@ -55,13 +62,13 @@ public class PlaylistUIDetailsController extends AbstractUIDetailsController {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //uso la factory per creare gli elementi item per ogni traccia della playlist
-        factory = new TrackUIComponentFactory();
+        TrackUIComponentFactory factory = new TrackUIComponentFactory();
         TrackUIComponentItem item;
         
         //DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
         for(TrackComponent t: playlist.getTracks()) {
             item = (TrackUIComponentItem) factory.createUIComponentItem(t);
-            vbox.getChildren().add(item.getRoot());
+            tracksContainer.getChildren().add(item.getRoot());
         }
     }
     
