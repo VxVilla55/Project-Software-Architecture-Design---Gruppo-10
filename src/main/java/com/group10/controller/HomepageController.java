@@ -9,6 +9,7 @@ import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.controller.playlist.PlaylistUIComponentCard;
 import com.group10.controller.track.TrackUIComponentCard;
 import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,7 +45,7 @@ public class HomepageController implements Initializable {
         PlaylistUIComponentCard playlistCard;
         
         //DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
-        for(TrackComponent t: MusicCatalogue.getInstance().getTracks()) {
+        for(PlaylistComponent t: MusicCatalogue.getInstance().getPlaylists().values() ) {
             playlistCard = (PlaylistUIComponentCard) new PlaylistUIComponentFactory().createUIComponentCard(t);
             playlistsCardsContainer.getChildren().add(playlistCard.getRoot());
         }
