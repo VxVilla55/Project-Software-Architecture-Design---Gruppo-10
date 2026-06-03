@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 
 import com.group10.model.TrackComponent;
 /**
@@ -21,9 +22,9 @@ public class PlaybackEngine {
     private List<TrackComponent> queue;
     private int currentIndex;
     private TrackComponent currentTrack;
-    private int currentTime;
+    private double currentTime;
     private Timer timer;
-
+private Consumer<Integer> onTick;
     private PlaybackEngine() {
         this.currentState = new StoppedState();
         this.queue = new ArrayList<>();
@@ -46,7 +47,7 @@ public class PlaybackEngine {
         return currentState;
     }
     
-    public int getCurrentTime() {
+    public double getCurrentTime() {
         return currentTime;
     }
     // --- METODI PER L'INTERFACCIA GRAFICA (VIEW) ---
@@ -135,20 +136,24 @@ public class PlaybackEngine {
     }
 
     // --- SIMULAZIONE DEL TEMPO CHE PASSA (T8.4) ---
-    
+       public void setOnTick(java.util.function.Consumer<Integer> onTick) {
+    this.onTick = onTick;
+}
     public void startSimulation() {
         if (currentTrack == null) {
             System.out.println("⚠️ Nessuna traccia da riprodurre! Aggiungi un brano prima.");
             setState(new StoppedState());
             return;
         }
-        
         System.out.println("▶️ IN RIPRODUZIONE: " + currentTrack.getTitle());
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                currentTime++;
+                currentTime += 0.1;
+                if (onTick != null) {
+javafx.application.Platform.runLater(() -> onTick.accept((int)currentTime));
+    }
                 System.out.println("⏳ [" + currentTrack.getTitle() + "] " + currentTime + "s / " + currentTrack.getDurationInSeconds() + "s");
                 
                 // Se la canzone finisce, passa in automatico alla prossima
@@ -156,9 +161,15 @@ public class PlaybackEngine {
                     next();
                 }
             }
-        }, 1000, 1000); // Scatta ogni 1 secondo (1000 millisecondi)
+        }, 100, 100); // Scatta ogni 1 secondo (1000 millisecondi)
     }
-
+public void seek(int seconds) {
+    // Impostiamo il tempo corrente al punto scelto dall'utente
+    this.currentTime = seconds;
+    
+    // Opzionale: se il timer deve ripartire da qui, lo facciamo così:
+    System.out.println("⏭️ Saltato al secondo: " + seconds);
+}
     public void stopSimulation() {
         if (timer != null) {
             timer.cancel(); // Ferma il timer, ma NON azzera i secondi!
