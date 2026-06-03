@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * T6.5 - JUnit: aggiunta singola/multipla di tracce a una PlaylistComponent
  *
@@ -114,10 +117,10 @@ public class AddToPlaylistTest {
         playlist.add(track1);
         playlist.add(track2);
         playlist.add(track3);
-
-        assertEquals(track1, playlist.getTracks().get(0));
-        assertEquals(track2, playlist.getTracks().get(1));
-        assertEquals(track3, playlist.getTracks().get(2));
+        List<TrackComponent> tracks = new ArrayList<>(playlist.getTracks());
+        assertEquals(track1, tracks.get(0));
+        assertEquals(track2, tracks.get(1));
+        assertEquals(track3, tracks.get(2));
     }
 
     @Test
