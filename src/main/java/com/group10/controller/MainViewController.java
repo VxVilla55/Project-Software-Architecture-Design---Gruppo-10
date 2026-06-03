@@ -62,6 +62,7 @@ public class MainViewController implements Initializable, Subscriber {
         }
         return singleton;
     }
+    
 
     //metodi per controllare l'interfaccia
     //public Parent getRoot() { return root; }
@@ -166,6 +167,15 @@ public class MainViewController implements Initializable, Subscriber {
             e.printStackTrace();
         }
     }
+    // Aggiungi questo metodo sotto il handlePlaylistCreation
+    @FXML
+    public void handleAnnulla(ActionEvent event) {
+        // Se c'è un popup (oltre allo sfondo principale), rimuovilo
+        if (root.getChildren().size() > 1) {
+            root.getChildren().remove(root.getChildren().size() - 1);
+            root.getChildren().get(0).setEffect(null); // Togli l'effetto sfocatura
+        }
+    }
 
     @FXML
     private void handleUndo(ActionEvent event) {}
@@ -246,5 +256,11 @@ public class MainViewController implements Initializable, Subscriber {
             activePopup.hide();
             activePopup = null;
         }
+    }
+
+
+    public StackPane getRoot() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRoot'");
     }
 }
