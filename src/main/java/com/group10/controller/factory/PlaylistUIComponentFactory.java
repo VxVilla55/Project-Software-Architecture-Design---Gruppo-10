@@ -75,7 +75,7 @@ public class PlaylistUIComponentFactory implements UIComponentFactory{
             return controller;
             
         } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
+            throw new RuntimeException("Errore nel caricamento della Playlist Card", e);
         }
     }
 
