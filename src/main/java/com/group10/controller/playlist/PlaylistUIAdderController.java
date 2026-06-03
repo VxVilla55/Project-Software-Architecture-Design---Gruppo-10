@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 
 public class PlaylistUIAdderController extends AbstractUIAdderController {
 
@@ -20,10 +19,6 @@ public class PlaylistUIAdderController extends AbstractUIAdderController {
     @FXML
     private TextField playlistNameInput;
 
-
-    
-    public PlaylistUIAdderController() {
-    }
 
     @FXML
     private void handleCreatePlaylist(ActionEvent event) {
@@ -37,8 +32,8 @@ public class PlaylistUIAdderController extends AbstractUIAdderController {
             
             playlistNameInput.clear();
             
-            // Chiudiamo il popup dopo la creazione corretta
-            chiudiPopup();
+            //chiudi il popup
+            MainViewController.getInstance().closePopup();
             
         } catch (IllegalArgumentException ex ) {
             System.out.println("Errore: " + ex.getMessage());
@@ -49,21 +44,13 @@ public class PlaylistUIAdderController extends AbstractUIAdderController {
 
 @FXML
     private void handleAnnulla(ActionEvent event) {
-        // 1. Pulisci l'input (opzionale, ma utile per la prossima volta)
+        //pulizia dei campi di input
         if (playlistNameInput != null) {
             playlistNameInput.clear();
         }
+        //chiudi il popup
+        MainViewController.getInstance().closePopup();
 
-        // 2. Chiudi il popup usando la tua funzione di servizio
-        chiudiPopup();
-    }
-    // Metodo di servizio per evitare di ripetere il codice
-    private void chiudiPopup() {
-        StackPane mainRoot = (StackPane) MainViewController.getInstance().getRoot();
-        if (mainRoot.getChildren().size() > 1) {
-            mainRoot.getChildren().remove(mainRoot.getChildren().size() - 1);
-            mainRoot.getChildren().get(0).setEffect(null);
-        }
     }
 
     @Override
