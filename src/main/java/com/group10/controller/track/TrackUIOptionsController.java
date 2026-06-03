@@ -68,24 +68,31 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
         TrackUIDetailsController c = (TrackUIDetailsController) new TrackUIComponentFactory().createUIComponentDetails(track);
         //prendo dalla view il nodo Parent da collocare
         Parent trackDetailsView = c.getRoot();
+                
+        //cancella popup
+        MainViewController.getInstance().hideMenuPopup();
         
-        VBox leftPane = (VBox) MainViewController.getInstance().getLeftPane();
-        leftPane.getChildren().add(trackDetailsView);
+        //VBox rightPane = (VBox) MainViewController.getInstance().getRightPane();
+        //rightPane.getChildren().add(trackDetailsView);
+        MainViewController.getInstance().showOnRightPane(trackDetailsView);
     }
 
     @FXML
     private void handleAddToQueue(ActionEvent event) {
         PlaybackEngine.getInstance().addTrackToQueue(track);
+        //cancella popup
+        MainViewController.getInstance().hideMenuPopup();
     }
 
     @FXML
     private void handlePlayAsNext(ActionEvent event) {
         PlaybackEngine.getInstance().addTrackAsNext(track);
+        //cancella popup
+        MainViewController.getInstance().hideMenuPopup();
     }
 
     @FXML
     private void handleAddToPlaylist(ActionEvent event) {
-        
         //istanzio il loader sulla view
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/AddToPlaylistView.fxml"));
         //istanzio il controller
@@ -93,33 +100,12 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
         //associo il controller alla view
         loader.setController(controller);
         try {
-            loader.load();
-            showCustomPopup(controller.getRoot());
+            Parent addToPlaylistView = loader.load();
+            MainViewController.getInstance().showPopup(addToPlaylistView);
         } catch (IOException e) {
             throw new RuntimeException("Impossibile caricare AddToPlaylistView.fxml", e);
         }
-    }
-    
-    private void showCustomPopup(Parent popup) {
-        ObservableList<Node> rootChildren = MainViewController.getInstance().getRootChildren();
-        rootChildren.get(0).setEffect(new GaussianBlur(10));
-        
-        MainViewController.getInstance().getRootChildren().removeIf(child -> child != rootChildren.get(0));
-        
-        StackPane layer = new StackPane();
-        Pane pane = new Pane();
-        //pane.setEffect(new GaussianBlur(10));
-        
-        pane.setOnMouseClicked(e -> {
-            // Chiude il popup cliccando fuori
-            if (rootChildren.size()>1) {
-                rootChildren.remove(rootChildren.size()-1);
-                rootChildren.get(0).setEffect(null);
-            }
-        });
-        
-        layer.getChildren().add(pane);
-        layer.getChildren().add(popup);
-        rootChildren.add(layer);
+        //cancella popup
+        MainViewController.getInstance().hideMenuPopup();
     }
 }

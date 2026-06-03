@@ -12,6 +12,7 @@ package com.group10.controller.track;
  * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
+import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentItem;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
@@ -86,7 +87,7 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         //Istanzio il controllore che carica la view
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
         //prendo dalla view il nodo Parent da collocare
-        showCustomPopup(c.getRoot()); 
+        MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 
         
     }
     
@@ -116,15 +117,5 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         layer.getChildren().addAll(popup, background);
 
         root.getChildren().add(layer);
-    }
-    private void showCustomPopup(Parent options) {
-        Popup popup = new Popup();
-        popup.getContent().add(options);
-        
-        popup.setAutoHide(true);
-
-        // Ottieni coordinate dello schermo
-        Point2D screenPoint = trackMenuButton.localToScreen(0, trackMenuButton.getHeight());
-        popup.show(trackMenuButton, screenPoint.getX(), screenPoint.getY());
     }
 }

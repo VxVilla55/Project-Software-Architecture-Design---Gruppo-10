@@ -1,6 +1,9 @@
 package com.group10.controller.playlist;
 
+import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentItem;
+import com.group10.controller.factory.PlaylistUIComponentFactory;
+import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
 import java.net.URL;
@@ -10,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 /**
@@ -56,5 +60,11 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     @FXML
     private void handleOptions(ActionEvent event) {
         // TODO: aprire menu contestuale playlist (es. rinomina, elimina)
+    }
+    
+    @FXML
+    private void handlePlaylistSelection(MouseEvent event) {
+        PlaylistUIDetailsController c = (PlaylistUIDetailsController) new PlaylistUIComponentFactory().createUIComponentDetails(playlist);
+        MainViewController.getInstance().showOnCenterPane(c.getRoot());
     }
 }

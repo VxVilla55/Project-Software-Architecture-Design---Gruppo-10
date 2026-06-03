@@ -57,8 +57,8 @@ public class PlaylistComponent implements Playable {
         return tracks.size();
     }
     
-    public List<TrackComponent> getTracks() {
-        return (List<TrackComponent>) tracks; 
+    public Set<TrackComponent> getTracks() {
+        return tracks; 
     }
     
     // aggiunge una traccia in coda

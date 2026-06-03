@@ -1,16 +1,15 @@
 package com.group10.controller.track;
 
+import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIAdderController;
+import com.group10.model.MusicCatalogue;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
-import java.io.IOException;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class TrackUIAdderController extends AbstractUIAdderController {
 
@@ -64,7 +63,7 @@ public class TrackUIAdderController extends AbstractUIAdderController {
             // TODO T4/T5: aggiungere track alla MusicLibrary
             System.out.println("Traccia creata: " + track.getTitle() + " - " + track.getAuthor());
 
-            closeWindow();
+            MainViewController.getInstance().closePopup();
 
         } catch (NumberFormatException e) {
             showError("Durata e Anno devono essere numeri interi.");
@@ -75,16 +74,11 @@ public class TrackUIAdderController extends AbstractUIAdderController {
 
     @FXML
     private void handleCancel() {
-        closeWindow();
+        MainViewController.getInstance().closePopup();
     }
 
     private void showError(String message) {
         errorLabel.setText(message);
         errorLabel.setVisible(true);
-    }
-
-    private void closeWindow() {
-        Stage stage = (Stage) titleField.getScene().getWindow();
-        stage.close();
     }
 }

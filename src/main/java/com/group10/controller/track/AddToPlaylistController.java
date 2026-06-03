@@ -1,5 +1,6 @@
 package com.group10.controller.track;
 
+import com.group10.controller.MainViewController;
 import com.group10.controller.factory.PlaylistUIComponentFactory;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
@@ -61,7 +62,7 @@ public class AddToPlaylistController implements Initializable {
 
         // 2. Popoliamo la ListView e la mappa degli stati leggendo dal MusicCatalogue
         if (MusicCatalogue.getInstance().getPlaylists() != null) {
-            for (PlaylistComponent playlist : MusicCatalogue.getInstance().getPlaylists()) {
+            for (PlaylistComponent playlist : MusicCatalogue.getInstance().getPlaylists().values()) {
                 String playlistName = playlist.getName();
                 
                 // Di base, le caselle partono tutte deselezionate (false)
@@ -75,7 +76,7 @@ public class AddToPlaylistController implements Initializable {
 
     @FXML
     private void handleCancel(ActionEvent event) {
-        closePopup();
+        MainViewController.getInstance().closePopup();
     }
 
     @FXML
@@ -86,47 +87,16 @@ public class AddToPlaylistController implements Initializable {
         for (Map.Entry<String, BooleanProperty> entry : itemStates.entrySet()) {
             String playlistName = entry.getKey();
             boolean isChecked = entry.getValue().get();
-
-            // Se la casella ha la spunta (true), procediamo all'inserimento
+            
             if (isChecked) {
-                // Cerchiamo l'oggetto PlaylistComponent corrispondente nel catalogo
-                PlaylistComponent targetPlaylist = null;
-                for (PlaylistComponent p : MusicCatalogue.getInstance().getPlaylists()) {
-                    if (p.getName().equals(playlistName)) {
-                        targetPlaylist = p;
-                        break;
-                    }
-                }
-
-                // Task T6.4: Aggiunge la traccia usando il tuo metodo .add() corretto
-                if (targetPlaylist != null) {
-                    targetPlaylist.add(selectedTrack); // Modificato in .add() come richiesto!
-                    System.out.println("Traccia '" + selectedTrack.getTitle() + "' aggiunta alla playlist '" + playlistName + "'!");
-                    alMenoUnaAggiunta = true;
-                }
+                MusicCatalogue.getInstance().getPlaylist(playlistName).add(selectedTrack);
+            } else {
+                MusicCatalogue.getInstance().getPlaylist(playlistName).remove(selectedTrack);
             }
         }
-
-        // Se è stata aggiornata almeno una playlist, notifichiamo gli osservatori (Task T4.8 / T5.5)
-        if (alMenoUnaAggiunta) {
-            MusicCatalogue.getInstance().notifySubscribers();
-        }
-
-        closePopup();
-    }
-
-    /**
-     * Sfrutta la struttura del vostro StackPane per rimuovere l'ultimo layer inserito (il popup)
-     * e togliere l'effetto sfocatura dalla schermata principale.
-     */
-    private void closePopup() {
-        if (root != null && root.getParent() != null) {
-            // Risale fino allo StackPane di root principale
-            StackPane mainRoot = (StackPane) root.getParent().getParent(); 
-            if (mainRoot.getChildren().size() > 1) {
-                mainRoot.getChildren().remove(mainRoot.getChildren().size() - 1); // Rimuove il layer di popup
-                mainRoot.getChildren().get(0).setEffect(null); // Toglie il GaussianBlur
-            }
-        }
+        
+        MusicCatalogue.getInstance().notifySubscribers();
+        MainViewController.getInstance().closePopup();
+        
     }
 }

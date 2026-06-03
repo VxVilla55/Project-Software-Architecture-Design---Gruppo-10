@@ -22,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -31,6 +32,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 
 /**
  * FXML Controller class
@@ -52,6 +54,7 @@ public class MainViewController implements Initializable, Subscriber {
     @FXML private javafx.scene.control.Button playPauseButton;
     
     private static MainViewController singleton;
+    private Popup activePopup = null;
 
     public static MainViewController getInstance() {
         if (singleton == null) {
@@ -60,13 +63,36 @@ public class MainViewController implements Initializable, Subscriber {
         return singleton;
     }
 
-    public Parent getRoot() { return root; }
-    public ObservableList<Node> getRootChildren() { return root.getChildren(); }
-    public Parent getLeftPane() { return leftPane; }
-    public Parent getRightPane() { return rightPane; }
-    public Parent getCenterPane() { return centerPane; }
-    public Parent getBottomPane() { return bottomPane; }
-
+    //metodi per controllare l'interfaccia
+    //public Parent getRoot() { return root; }
+    //public ObservableList<Node> getRootChildren() { return root.getChildren(); }
+    
+    public void showOnRightPane(Parent pane) {
+        rightPane.getChildren().removeIf(child -> child != root.getChildren().get(0));
+        rightPane.getChildren().get(0).setEffect(null);
+    }
+    public void showOnCenterPane(Parent pane) {
+        System.out.println(centerPane.getChildren());
+        //rimuovo tutti gli elementi
+        centerPane.getChildren().removeAll();
+        //aggiungo il pannello richiesto
+        centerPane.getChildren().add(pane);
+        System.out.println(centerPane.getChildren());
+    }
+    public void showOnLeftPane(Parent pane) {
+        //rimuovo tutti gli elementi
+        leftPane.getChildren().removeAll();
+        //aggiungo il pannello richiesto
+        leftPane.getChildren().add(pane);
+    }
+    
+    public void showOnBottomPane(Parent pane) {
+        //rimuovo tutti gli elementi
+        bottomPane.getChildren().removeAll();
+        //aggiungo il pannello richiesto
+        bottomPane.getChildren().add(pane);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // 1. Diciamo al Catalogo: "Avvisami quando crei una nuova playlist o traccia!"
@@ -87,9 +113,7 @@ public class MainViewController implements Initializable, Subscriber {
         }
     }
 
-    // ==========================================================
-    // IL CUORE DELLA MAGIA (PATTERN OBSERVER)
-    // ==========================================================
+    // metodo previsto dal pattern Observer
     @Override
     public void update() {
         // 1. Svuotiamo i pannelli per non raddoppiare le cose già presenti
@@ -97,7 +121,7 @@ public class MainViewController implements Initializable, Subscriber {
         centerPane.getChildren().clear();
 
         // 2. Ricarichiamo le Playlist (nel Left Pane) usando la TUA Factory!
-        for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists()) {
+        for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists().values()) {
             PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
             try {
                 leftPane.getChildren().add(item.getRoot());
@@ -126,7 +150,7 @@ public class MainViewController implements Initializable, Subscriber {
         try {
             TrackUIAdderController c = (TrackUIAdderController) new TrackUIComponentFactory().createUIComponentAdder();
             Parent trackAdderView = c.getRoot();
-            showCustomPopup(trackAdderView);
+            MainViewController.getInstance().showPopup(trackAdderView);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -137,38 +161,16 @@ public class MainViewController implements Initializable, Subscriber {
         try {
             PlaylistUIAdderController c = (PlaylistUIAdderController) new PlaylistUIComponentFactory().createUIComponentAdder();
             Parent playlistAdderView = c.getRoot();
-            showCustomPopup(playlistAdderView);
+            MainViewController.getInstance().showPopup(playlistAdderView);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    private void showCustomPopup(Parent popup) {
-        root.getChildren().get(0).setEffect(new GaussianBlur(10));
-        
-        root.getChildren().removeIf(child -> child != root.getChildren().get(0));
-        
-        StackPane layer = new StackPane();
-        Pane pane = new Pane();
-        pane.setEffect(new GaussianBlur(10));
-        
-        pane.setOnMouseClicked(e -> {
-            // Chiude il popup cliccando fuori
-            if (root.getChildren().size()>1) {
-                root.getChildren().remove(root.getChildren().size()-1);
-                root.getChildren().get(0).setEffect(null);
-            }
-        });
-        
-        layer.getChildren().add(pane);
-        layer.getChildren().add(popup);
-        root.getChildren().add(layer);
     }
 
     @FXML
     private void handleUndo(ActionEvent event) {}
 
-    @FXML
+    /*FXML
     public void handlePlayPause(javafx.event.ActionEvent event) {
         PlaybackEngine engine = PlaybackEngine.getInstance();
         if (engine.getCurrentTrack() == null) {
@@ -192,5 +194,57 @@ public class MainViewController implements Initializable, Subscriber {
     @FXML
     public void handlePrevious(javafx.event.ActionEvent event) {
         PlaybackEngine.getInstance().previous();
+    }*/
+
+    public void closePopup() {
+        root.getChildren().get(0).setEffect(new GaussianBlur(10));
+        root.getChildren().removeIf(child -> child != root.getChildren().get(0));
+        root.getChildren().get(0).setEffect(null);
+    }
+    
+    
+    public void showPopup(Parent popup) {
+        //chiude il popup se già presente
+        closePopup();
+        
+        StackPane layer = new StackPane();
+        Pane pane = new Pane();
+        pane.setEffect(new GaussianBlur(10));
+        
+        pane.setOnMouseClicked(e -> {
+            // Chiude il popup cliccando fuori
+            if (root.getChildren().size()>1) {
+                root.getChildren().remove(root.getChildren().size()-1);
+                root.getChildren().get(0).setEffect(null);
+            }
+        });
+        
+        layer.getChildren().add(pane);
+        layer.getChildren().add(popup);
+        root.getChildren().add(layer);
+    }
+    
+    public void showMenuPopup(Button source, Parent content) {
+        // Se esiste già un popup attivo, chiudiamolo prima di aprirne uno nuovo
+        if (activePopup != null && activePopup.isShowing()) {
+            activePopup.hide();
+            activePopup = null;
+        }
+        //creo quello che deve contenere il 'content'
+        Popup popup = new Popup();
+        popup.getContent().add(content);
+        popup.setAutoHide(true);
+
+        activePopup = popup;
+        
+        //ottieni coordinate dello schermo
+        Point2D screenPoint = source.localToScreen(0, source.getHeight());
+        popup.show(source, screenPoint.getX(), screenPoint.getY());
+    }
+    public void hideMenuPopup() {
+        if (activePopup != null && activePopup.isShowing()) {
+            activePopup.hide();
+            activePopup = null;
+        }
     }
 }

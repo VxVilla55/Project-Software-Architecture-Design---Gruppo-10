@@ -8,6 +8,8 @@ import com.group10.model.common.Publisher;
 import com.group10.model.common.Subscriber;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
@@ -20,13 +22,13 @@ public class MusicCatalogue implements Publisher{
     private static MusicCatalogue singleton;
     
     private List<TrackComponent> tracks;
-    private List<PlaylistComponent> playlists;
+    private final Map<String, PlaylistComponent> playlists;
     private List<Subscriber> subscribers;
     
     
     public MusicCatalogue() {
         tracks = new ArrayList<>();
-        playlists = new ArrayList<>();
+        playlists = new TreeMap<>();
         subscribers = new ArrayList<>();
     }
     
@@ -42,7 +44,7 @@ public class MusicCatalogue implements Publisher{
         return this.tracks;
     }
 
-    public List<PlaylistComponent> getPlaylists() {
+    public Map<String, PlaylistComponent> getPlaylists() {
         return this.playlists;
     }
 
@@ -61,12 +63,16 @@ public class MusicCatalogue implements Publisher{
             throw new IllegalArgumentException(
                     "Esiste già una playlist con questo nome: " + playlist.getName());
         }
-        playlists.add(playlist);
+        playlists.put(playlist.getName(), playlist);
         notifySubscribers();
     }
     public void removePlaylist (PlaylistComponent playlist) {
         playlists.remove(playlist);
         notifySubscribers();
+    }
+    
+    public PlaylistComponent getPlaylist (String playlistName) {
+        return playlists.get(playlistName);
     }
 
     // true se esiste gia' una playlist con questo nome (ignora maiuscole/minuscole e spazi)
@@ -76,12 +82,10 @@ public class MusicCatalogue implements Publisher{
             return false;
         }
         String newName = name.trim();
-        for (PlaylistComponent playlist : playlists) {
-            if (playlist.getName().equalsIgnoreCase(newName)) {
-                return true;
-            }
+        if(!playlists.containsKey(newName)) {
+            return false;
         }
-        return false;
+        return true;
     }
     
     //per poter aggiungere nuovi Osservaroti/Subscriber a questo elemento
