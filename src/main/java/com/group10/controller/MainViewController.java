@@ -167,15 +167,7 @@ public class MainViewController implements Initializable, Subscriber {
             e.printStackTrace();
         }
     }
-    // Aggiungi questo metodo sotto il handlePlaylistCreation
-    @FXML
-    public void handleAnnulla(ActionEvent event) {
-        // Se c'è un popup (oltre allo sfondo principale), rimuovilo
-        if (root.getChildren().size() > 1) {
-            root.getChildren().remove(root.getChildren().size() - 1);
-            root.getChildren().get(0).setEffect(null); // Togli l'effetto sfocatura
-        }
-    }
+  
 
     @FXML
     private void handleUndo(ActionEvent event) {}
@@ -257,10 +249,16 @@ public class MainViewController implements Initializable, Subscriber {
             activePopup = null;
         }
     }
+    @FXML
+    private void handleAnnulla(ActionEvent event) {
+
+        // 2. Richiama direttamente il metodo pubblico del Singleton MainViewController
+        MainViewController.getInstance().closePopup();
+    }
 
 
+  // CORREZIONE: Restituisci il vero root invece di lanciare un errore
     public StackPane getRoot() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRoot'");
+        return root;
     }
 }

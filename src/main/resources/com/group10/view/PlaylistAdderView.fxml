@@ -8,7 +8,8 @@
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="233.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleCreatePlaylist" text="Crea" />
-<Button layoutX="280.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleAnnulla" text="Annulla" />      <Label layoutX="263.0" layoutY="31.0" text="Nome Playlist" />
+<Button layoutX="309.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleAnnulla" text="Annulla" />
+      <Label layoutX="263.0" layoutY="31.0" text="Nome Playlist" />
       <TextField fx:id="playlistNameInput" layoutX="220.0" layoutY="57.0" />
    </children>
 </AnchorPane>

@@ -19,6 +19,8 @@ public class PlaylistUIAdderController extends AbstractUIAdderController {
     
     @FXML
     private TextField playlistNameInput;
+
+
     
     public PlaylistUIAdderController() {
     }
@@ -44,18 +46,17 @@ public class PlaylistUIAdderController extends AbstractUIAdderController {
         }
     }
 
-    // --- NUOVO METODO PER IL PULSANTE ANNULLA ---
+
 @FXML
-private void handleAnnulla(ActionEvent event) {
-    // Usiamo il Singleton per accedere al root
-    StackPane mainRoot = MainViewController.getInstance().getRoot();
+    private void handleAnnulla(ActionEvent event) {
+        // 1. Pulisci l'input (opzionale, ma utile per la prossima volta)
+        if (playlistNameInput != null) {
+            playlistNameInput.clear();
+        }
 
-    if (mainRoot.getChildren().size() > 1) {
-        mainRoot.getChildren().remove(mainRoot.getChildren().size() - 1);
-        mainRoot.getChildren().get(0).setEffect(null);
+        // 2. Chiudi il popup usando la tua funzione di servizio
+        chiudiPopup();
     }
-}
-
     // Metodo di servizio per evitare di ripetere il codice
     private void chiudiPopup() {
         StackPane mainRoot = (StackPane) MainViewController.getInstance().getRoot();
