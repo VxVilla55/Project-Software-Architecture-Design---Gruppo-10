@@ -12,6 +12,7 @@ package com.group10.controller.track;
  * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
+import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentCard;
 import com.group10.model.common.Playable;
 import com.group10.model.builder.TrackBuilder;
@@ -24,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class TrackUIComponentCard extends AbstractUIComponentCard{
@@ -63,4 +65,10 @@ public class TrackUIComponentCard extends AbstractUIComponentCard{
     public Parent getRoot() {
         return root;
     }
+    
+    @FXML
+    private void handleSelection(MouseEvent event) {
+        MainViewController.getInstance().setSelectedTrack(track);
+        MainViewController.getInstance().update();
+    }    
 }

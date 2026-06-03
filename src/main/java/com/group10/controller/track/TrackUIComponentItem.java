@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -90,6 +91,12 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         //prendo dalla view il nodo Parent da collocare
         MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 
         
+    }
+    
+    @FXML
+    private void handleSelection(MouseEvent event) {
+        MainViewController.getInstance().setSelectedTrack(track);
+        MainViewController.getInstance().update();
     }
     
     private void showOptionPopup(Parent popup) {        

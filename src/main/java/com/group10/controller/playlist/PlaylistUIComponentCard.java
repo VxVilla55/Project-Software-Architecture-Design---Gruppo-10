@@ -12,6 +12,7 @@ package com.group10.controller.playlist;
  * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
+import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentCard;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
@@ -21,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class PlaylistUIComponentCard extends AbstractUIComponentCard{
@@ -59,5 +61,11 @@ public class PlaylistUIComponentCard extends AbstractUIComponentCard{
     @Override
     public Parent getRoot() {
         return root;
+    }
+    
+    @FXML
+    private void handleSelection(MouseEvent event) {
+        MainViewController.getInstance().setSelectedPlaylist(playlist);
+        MainViewController.getInstance().update();
     }
 }
