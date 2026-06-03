@@ -59,7 +59,7 @@
                   <Label text="TITOLO" textFill="#b3b3b3" HBox.hgrow="ALWAYS">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Pane HBox.hgrow="ALWAYS" /> <Label prefWidth="100.0" text="GENERE" textFill="#b3b3b3">
+                  <AnchorPane HBox.hgrow="ALWAYS" /> <Label prefWidth="100.0" text="GENERE" textFill="#b3b3b3">
                      <font><Font size="12.0" /></font>
                   </Label>
                   <Label alignment="CENTER" prefWidth="50.0" text="ANNO" textFill="#b3b3b3">
