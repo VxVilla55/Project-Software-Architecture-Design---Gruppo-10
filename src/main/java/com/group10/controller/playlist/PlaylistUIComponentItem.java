@@ -63,7 +63,7 @@ public class PlaylistUIComponentItem extends AbstractUIComponentItem {
     }
     
     @FXML
-    private void handlePlaylistSelection(MouseEvent event) {
+    private void handleSelection(MouseEvent event) {
         MainViewController.getInstance().setSelectedPlaylist(playlist);
         MainViewController.getInstance().update();
     }

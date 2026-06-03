@@ -6,12 +6,11 @@ import com.group10.controller.track.TrackUIAdderController;
 import com.group10.controller.playlist.PlaylistUIAdderController;
 import com.group10.controller.playlist.PlaylistUIComponentItem;
 import com.group10.controller.playlist.PlaylistUIDetailsController;
-import com.group10.controller.track.TrackUIComponentItem;
+import com.group10.controller.track.TrackUIDetailsController;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
-import com.group10.model.common.Playable;
-import com.group10.model.common.Subscriber; // IMPORTANTE: Importiamo il Subscriber!
+import com.group10.model.common.Subscriber;
 
 import java.io.IOException;
 import java.net.URL;
@@ -73,6 +72,7 @@ public class MainViewController implements Initializable, Subscriber {
     private static MainViewController singleton;
     private Popup activePopup = null;
     private PlaylistComponent selectedPlaylist;
+    private TrackComponent selectedTrack;
 
     public static MainViewController getInstance() {
         if (singleton == null) {
@@ -102,6 +102,9 @@ public class MainViewController implements Initializable, Subscriber {
     public void setSelectedPlaylist(PlaylistComponent playlist) {
         selectedPlaylist = playlist;
     }
+    public void setSelectedTrack(TrackComponent track) {
+        selectedTrack = track;
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -125,6 +128,24 @@ public class MainViewController implements Initializable, Subscriber {
             } catch (Exception ex) {
                 System.out.println(ex.getCause());
             }
+        }
+        
+        //RELOAD DEL CONTENUTO DEL RIGHT PANE
+        //azzero il contenuto
+        //rightPane.getChildren().clear();
+        //carico
+        if(selectedTrack != null) {
+            //MOSTRO IL BRANO SELEZIONATO
+            try {
+                TrackUIDetailsController c = (TrackUIDetailsController) new TrackUIComponentFactory().createUIComponentDetails(selectedTrack);
+                Parent trackView = c.getRoot();
+                showOnRightPane(trackView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            //MOSTRO IL PANNELLO DI DESTRA VUOTO
+            rightPane.getChildren().clear();
         }
 
         //RELOAD NEL CENTER PANE (Playlist selezionata altrimenti Home)
@@ -216,14 +237,7 @@ public class MainViewController implements Initializable, Subscriber {
         }
     }
     
-    public StackPane getRoot() {
-        return root;
-    }
-    
-    // ==========================================================
-    // GESTIONE DEI POPUP E DEI TASTI
-    // ==========================================================
-    
+    //gestione degli eventi sugli elementi della view    
     @FXML
     private void handleAddTrack(ActionEvent event) {
         try {
