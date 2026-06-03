@@ -2,6 +2,7 @@ module com.group10 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.base;
+    requires javafx.graphics;
 
     
     opens com.group10.controller to javafx.fxml;
