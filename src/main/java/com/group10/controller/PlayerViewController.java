@@ -58,25 +58,22 @@ public class PlayerViewController implements Initializable { // Implementa Initi
 
     // --- AZIONI DEI BOTTONI ---
 
-    @FXML
-    public void handlePlayPause(javafx.event.ActionEvent event) {
-        var engine = com.group10.model.state.PlaybackEngine.getInstance();
-        
-        // Controllo se c'è un brano
-        if (engine.getCurrentTrack() == null) {
-            System.out.println("⚠️ La coda è vuota, impossibile riprodurre!");
-            return;
-        }
+@FXML
+public void handlePlayPause(javafx.event.ActionEvent event) {
+    var engine = com.group10.model.state.PlaybackEngine.getInstance();
+    
+    if (engine.getCurrentTrack() == null) return;
 
-        // Cambio stato e testo del bottone
-        if (engine.getState() instanceof com.group10.model.state.PlayingState) {
-            engine.pause();
-            playPauseButton.setText("PLAY");
-        } else {
-            engine.play();
-            playPauseButton.setText("PAUSA");
-        }
+    if (engine.getState() instanceof com.group10.model.state.PlayingState) {
+        engine.pause();
+        // Mettiamo il simbolo corretto: ▶ per Play
+        playPauseButton.setText("▶"); 
+    } else {
+        engine.play();
+        // Mettiamo il simbolo corretto: ⏸ per Pausa
+        playPauseButton.setText("⏸");
     }
+}
 
     @FXML
     public void handleNext(javafx.event.ActionEvent event) {

@@ -114,8 +114,6 @@ public class MainViewController implements Initializable, Subscriber {
     @Override
     public void update() {
         FXMLLoader loader;
-        //RELOAD DEL CONTENUTO DEL LEFT PANE
-        //azzero il contenuto
         leftPane.getChildren().clear();
         //carico
         for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists().values()) {
