@@ -24,6 +24,7 @@ public class PlaybackEngine {
     private TrackComponent currentTrack;
     private double currentTime;
     private Timer timer;
+    private Consumer<TrackComponent> onTrackChanged;
 private Consumer<Integer> onTick;
     private PlaybackEngine() {
         this.currentState = new StoppedState();
@@ -123,21 +124,34 @@ private Consumer<Integer> onTick;
         }
     }
 
-    private void cambiaTraccia(TrackComponent newTrack) {
-        this.currentTrack = newTrack;
-        this.currentTime = 0; // Azzero il tempo per la nuova traccia
-        System.out.println("⏭️ Passo a: " + currentTrack.getTitle());
-        
-        // Se stavo suonando, riavvio il timer per la nuova canzone
-        if (currentState instanceof PlayingState) {
-            stopSimulation();
-            startSimulation();
-        }
+// Modifica cambiaTraccia per notificare la UI
+private void cambiaTraccia(TrackComponent newTrack) {
+    this.currentTrack = newTrack;
+    this.currentTime = 0;
+    
+    // Notifica la UI che la traccia è cambiata (per aggiornare titolo e autore)
+    if (onTrackChanged != null) {
+        javafx.application.Platform.runLater(() -> onTrackChanged.accept(newTrack));
     }
+    
+    // Notifica per resettare lo slider a 0
+    if (onTick != null) {
+        javafx.application.Platform.runLater(() -> onTick.accept(0));
+    }
+    
+    if (currentState instanceof PlayingState) {
+        stopSimulation();
+        startSimulation();
+    }
+}
+    
 
     // --- SIMULAZIONE DEL TEMPO CHE PASSA (T8.4) ---
        public void setOnTick(java.util.function.Consumer<Integer> onTick) {
     this.onTick = onTick;
+}
+public void setOnTrackChanged(Consumer<TrackComponent> listener) {
+    this.onTrackChanged = listener;
 }
     public void startSimulation() {
         if (currentTrack == null) {
