@@ -3,21 +3,25 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="1065.0" 
+            style="-fx-background-color: #121212;" 
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Slider fx:id="trackSlider" layoutX="313.0" layoutY="43.0" prefHeight="18.0" prefWidth="440.0" />
-      <Button layoutX="831.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleFavorite" text="❤️" />
-      <Button layoutX="972.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleRepeat" text="REPEAT" />
-      <Button layoutX="882.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleShuffle" text="SHUFFLE" />
-      <Button layoutX="640.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNextPlaylist" text="NEXT_PLAYLIST" />
+      <Slider fx:id="trackSlider" layoutX="313.0" layoutY="43.0" prefHeight="18.0" prefWidth="440.0" 
+              style="-fx-control-inner-background: #282828; -fx-accent: #C71585;" />
       
-      <Button layoutX="437.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePrevious" text="⏮️" />
-      <Button layoutX="575.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNext" text="⏭️" />
-      <Button fx:id="playPauseButton" layoutX="506.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePlayPause" text="▶️" />
+      <Button layoutX="831.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleFavorite" style="-fx-background-color: transparent; -fx-text-fill: #e2a9f1;" text="❤️" />
+      <Button layoutX="972.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleRepeat" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 5;" text="REPEAT" />
+      <Button layoutX="882.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleShuffle" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 5;" text="SHUFFLE" />
+      <Button layoutX="640.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNextPlaylist" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 5;" text="NEXT_PLAYLIST" />
       
-      <Label fx:id="trackAuthor" layoutX="79.0" layoutY="116.0" prefHeight="21.0" prefWidth="71.0" text="Autore" />
-      <Label fx:id="trackTitle" layoutX="79.0" layoutY="74.0" prefHeight="31.0" prefWidth="97.0" text="Titolo" />
+      <Button layoutX="437.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePrevious" style="-fx-background-color: transparent; -fx-text-fill: white;" text="⏮️" />
+      <Button layoutX="575.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNext" style="-fx-background-color: transparent; -fx-text-fill: white;" text="⏭️" />
+      <Button fx:id="playPauseButton" layoutX="506.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePlayPause" style="-fx-background-color: #e2a9f1; -fx-text-fill: white; -fx-background-radius: 20;" text="▶️" />
+      
+      <Label fx:id="trackTitle" layoutX="79.0" layoutY="74.0" prefHeight="31.0" prefWidth="150.0" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" text="Titolo" />
+      <Label fx:id="trackAuthor" layoutX="79.0" layoutY="116.0" prefHeight="21.0" prefWidth="150.0" style="-fx-text-fill: #e2a9f1;" text="Autore" />
    </children>
 </AnchorPane>
