@@ -74,6 +74,7 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         genreLabel.setText(track.getGenre());
         yearLabel.setText(String.valueOf(track.getYear()));
         durationLabel.setText(String.valueOf(track.getDurationInSeconds()));
+        root.setFocusTraversable(false);
     }
     
     @Override

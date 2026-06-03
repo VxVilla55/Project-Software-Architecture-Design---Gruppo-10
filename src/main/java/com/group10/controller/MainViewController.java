@@ -53,6 +53,7 @@ public class MainViewController implements Initializable, Subscriber {
     @FXML private StackPane root;
     @FXML private javafx.scene.control.Button playPauseButton;
     
+    
     private static MainViewController singleton;
     private Popup activePopup = null;
 
