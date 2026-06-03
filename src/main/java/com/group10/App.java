@@ -26,7 +26,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        
+        stage.setOnCloseRequest(event -> {
+        // Ferma il motore prima che la finestra si chiuda
+        com.group10.model.state.PlaybackEngine.getInstance().stopSimulation();
+        // Forza la chiusura dell'intera applicazione
+        javafx.application.Platform.exit();
+        System.exit(0);
+    });
         //testStatePattern(); // <-- AGGIUNGI QUESTA RIGA QUI
         //caricamento per test di una playlist e aggiunta di alcuni brani ad essa
         PlaylistComponent playlist = new PlaylistBuilder().setName("PlaylistCreata").build();
