@@ -1,24 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="300.0" spacing="20.0" style="-fx-background-color: ffffff; -fx-border-color: cccccc; -fx-border-width: 1; -fx-border-radius: 5; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="root" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="300.0" spacing="15.0" style="-fx-background-color: #181818; -fx-border-color: #282828; -fx-border-width: 1; -fx-border-radius: 8; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, 0, 5);" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Aggiungi alla Playlist">
+      
+      <Label style="-fx-font-weight: bold; -fx-text-fill: #ffffff;" text="Aggiungi alla Playlist">
          <VBox.margin>
             <Insets top="15.0" />
          </VBox.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
       </Label>
-      <Label fx:id="trackTitleLabel" style="-fx-font-size: 12px;" text="Seleziona la playlist di destinazione" />
-      <ListView fx:id="playlistListView" prefHeight="150.0" prefWidth="320.0" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      
+      <Label fx:id="trackTitleLabel" style="-fx-text-fill: #b3b3b3;" text="Seleziona la playlist di destinazione">
+         <font>
+            <Font size="12.0" />
+         </font>
+      </Label>
+      
+      <ListView fx:id="playlistListView" prefHeight="150.0" prefWidth="260.0" style="-fx-background-color: #121212; -fx-border-color: #282828; -fx-border-radius: 4; -fx-background-radius: 4; -fx-control-inner-background: #121212; -fx-control-inner-background-alt: #181818;">
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+      </ListView>
+      
+      <HBox alignment="CENTER" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
          <children>
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" text="Annulla" />
-            <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#handleConfirm" text="Conferma" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" style="-fx-background-color: transparent; -fx-text-fill: #b3b3b3; -fx-cursor: hand; -fx-font-weight: bold;" text="Annulla">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            
+            <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#handleConfirm" style="-fx-background-color: #1db954; -fx-text-fill: #ffffff; -fx-background-radius: 20; -fx-padding: 8 22 8 22; -fx-cursor: hand; -fx-font-weight: bold;" text="Conferma">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
       </HBox>
    </children>
    <padding>

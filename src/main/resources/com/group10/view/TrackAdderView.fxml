@@ -1,51 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="100.0" layoutY="25.0" prefHeight="350.0" prefWidth="400.0" spacing="10.0" 
-            style="-fx-background-color: #1e1e1e; -fx-background-radius: 10; -fx-padding: 20; -fx-text-fill: white;">
+      <VBox layoutX="100.0" layoutY="25.0" prefHeight="350.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: #181818; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, 0, 5);">
          <children>
-            <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Aggiungi Traccia" />
             
-            <GridPane style="-fx-text-fill: white;">
+            <Label style="-fx-font-weight: bold; -fx-text-fill: white;" text="Aggiungi Traccia">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Label>
+            
+            <GridPane vgap="10.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="110.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="240.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label style="-fx-text-fill: white;" text="Titolo *" />
-                  <Label style="-fx-text-fill: white;" text="Autore *" GridPane.rowIndex="1" />
-                  <Label style="-fx-text-fill: white;" text="Durata (sec)" GridPane.rowIndex="2" />
-                  <Label style="-fx-text-fill: white;" text="Genere" GridPane.rowIndex="3" />
-                  <Label style="-fx-text-fill: white;" text="Anno" GridPane.rowIndex="4" />
+                  <Label style="-fx-text-fill: #b3b3b3; -fx-font-weight: bold;" text="Titolo *" />
+                  <Label style="-fx-text-fill: #b3b3b3; -fx-font-weight: bold;" text="Autore *" GridPane.rowIndex="1" />
+                  <Label style="-fx-text-fill: #b3b3b3;" text="Durata (sec)" GridPane.rowIndex="2" />
+                  <Label style="-fx-text-fill: #b3b3b3;" text="Genere" GridPane.rowIndex="3" />
+                  <Label style="-fx-text-fill: #b3b3b3;" text="Anno" GridPane.rowIndex="4" />
                   
-                  <TextField fx:id="titleField" GridPane.columnIndex="1" />
-                  <TextField fx:id="authorField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="durationField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="genreField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="yearField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="titleField" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 4; -fx-border-color: transparent;" GridPane.columnIndex="1" />
+                  <TextField fx:id="authorField" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 4; -fx-border-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="durationField" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 4; -fx-border-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="genreField" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 4; -fx-border-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="yearField" style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 4; -fx-border-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             
-            <Label fx:id="errorLabel" style="-fx-text-fill: #ff6b6b;" visible="false" />
+            <Label fx:id="errorLabel" style="-fx-text-fill: #ff6b6b; -fx-font-weight: bold;" visible="false">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
             
-            <HBox spacing="10.0">
+            <HBox alignment="CENTER_RIGHT" spacing="15.0">
                <children>
-                  <Button fx:id="saveButton" onAction="#handleSave" text="Salva" />
-                  <Button fx:id="cancelButton" onAction="#handleCancel" text="Annulla" />
+                  <Button fx:id="cancelButton" onAction="#handleCancel" style="-fx-background-color: transparent; -fx-text-fill: #b3b3b3; -fx-cursor: hand; -fx-font-weight: bold;" text="Annulla">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
+                  
+                  <Button fx:id="saveButton" onAction="#handleSave" style="-fx-background-color: #1db954; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 7 24 7 24; -fx-cursor: hand; -fx-font-weight: bold;" text="Salva">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Button>
                </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
