@@ -1,6 +1,7 @@
 package com.group10.controller.playlist;
 
 import com.group10.controller.common.AbstractUIAdderController;
+import com.group10.controller.MainViewController; // Importiamo il MainViewController
 import com.group10.model.MusicCatalogue;
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.PlaylistComponent;
@@ -9,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 
 public class PlaylistUIAdderController extends AbstractUIAdderController {
 
@@ -21,25 +23,45 @@ public class PlaylistUIAdderController extends AbstractUIAdderController {
     public PlaylistUIAdderController() {
     }
 
-    // Questo metodo scatterà quando l'utente cliccherà il bottone "Crea"
     @FXML
     private void handleCreatePlaylist(ActionEvent event) {
-        
-        //proviamoa creare la playlist con i dati inseriti
         String playlistName = playlistNameInput.getText();
         try {
             PlaylistComponent playlist = new PlaylistBuilder()
             .setName(playlistName)
-            .build(); //farà la validazione
+            .build();
             
-            //aggiunta della playlist al catalogo
             MusicCatalogue.getInstance().addPlaylist(playlist);
             
             playlistNameInput.clear();
+            
+            // Chiudiamo il popup dopo la creazione corretta
+            chiudiPopup();
+            
         } catch (IllegalArgumentException ex ) {
-            //invio di un alert
-            System.out.println("Hai appena richiesto di creare la playlist chiamata: '" + playlistName + "'");
+            System.out.println("Errore: " + ex.getMessage());
             return;
+        }
+    }
+
+    // --- NUOVO METODO PER IL PULSANTE ANNULLA ---
+@FXML
+private void handleAnnulla(ActionEvent event) {
+    // Usiamo il Singleton per accedere al root
+    StackPane mainRoot = MainViewController.getInstance().getRoot();
+
+    if (mainRoot.getChildren().size() > 1) {
+        mainRoot.getChildren().remove(mainRoot.getChildren().size() - 1);
+        mainRoot.getChildren().get(0).setEffect(null);
+    }
+}
+
+    // Metodo di servizio per evitare di ripetere il codice
+    private void chiudiPopup() {
+        StackPane mainRoot = (StackPane) MainViewController.getInstance().getRoot();
+        if (mainRoot.getChildren().size() > 1) {
+            mainRoot.getChildren().remove(mainRoot.getChildren().size() - 1);
+            mainRoot.getChildren().get(0).setEffect(null);
         }
     }
 
