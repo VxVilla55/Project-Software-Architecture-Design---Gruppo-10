@@ -9,32 +9,32 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="700.0" style="-fx-background-color: #121212;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="700.0" style="-fx-background-color: #1A0A00;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="650.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            
-            <HBox alignment="BOTTOM_LEFT" prefHeight="180.0" prefWidth="700.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom, #282828, #121212);">
+
+            <HBox alignment="BOTTOM_LEFT" prefHeight="180.0" prefWidth="700.0" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom, #3A1E00, #1A0A00);">
                <children>
-                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="130.0" style="-fx-background-color: #181818; -fx-background-radius: 4; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="130.0" style="-fx-background-color: #2A1200; -fx-background-radius: 4; -fx-effect: dropshadow(three-pass-box, rgba(255,107,53,0.3), 10, 0, 0, 0);">
                      <children>
                         <ImageView fx:id="playlistImageView" fitHeight="130.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  
+
                   <VBox alignment="BOTTOM_LEFT" spacing="5.0">
                      <children>
-                        <Label text="PLAYLIST" textFill="WHITE">
+                        <Label text="PLAYLIST" textFill="#FF6B35">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="playlistNameLabel" text="Nome della Playlist" textFill="WHITE">
+                        <Label fx:id="playlistNameLabel" text="Nome della Playlist" textFill="#FFF0E8">
                            <font>
                               <Font name="System Bold" size="38.0" />
                            </font>
                         </Label>
-                        <Label fx:id="playlistTracksCountLabel" text="0 brani" textFill="#b3b3b3">
+                        <Label fx:id="playlistTracksCountLabel" text="0 brani" textFill="#C4906B">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -49,23 +49,24 @@
                   <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
                </padding>
             </HBox>
-            
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="700.0" spacing="15.0" style="-fx-border-color: #282828; -fx-border-width: 0 0 1 0;">
+
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="700.0" spacing="15.0" style="-fx-border-color: #3A1E00; -fx-border-width: 0 0 1 0;">
                <children>
-                  <Label alignment="CENTER" prefWidth="30.0" text="#" textFill="#b3b3b3">
+                  <Label alignment="CENTER" prefWidth="30.0" text="#" textFill="#C4906B">
                      <HBox.margin><Insets left="15.0" /></HBox.margin>
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label text="TITOLO" textFill="#b3b3b3" HBox.hgrow="ALWAYS">
+                  <Label text="TITOLO" textFill="#C4906B" HBox.hgrow="ALWAYS">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <AnchorPane HBox.hgrow="ALWAYS" /> <Label prefWidth="100.0" text="GENERE" textFill="#b3b3b3">
+                  <AnchorPane HBox.hgrow="ALWAYS" />
+                  <Label prefWidth="100.0" text="GENERE" textFill="#C4906B">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label alignment="CENTER" prefWidth="50.0" text="ANNO" textFill="#b3b3b3">
+                  <Label alignment="CENTER" prefWidth="50.0" text="ANNO" textFill="#C4906B">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" prefWidth="60.0" text="DURATA" textFill="#b3b3b3">
+                  <Label alignment="CENTER_RIGHT" prefWidth="60.0" text="DURATA" textFill="#C4906B">
                      <font><Font size="12.0" /></font>
                      <HBox.margin><Insets right="45.0" /></HBox.margin>
                   </Label>
@@ -77,7 +78,7 @@
                   <Insets bottom="5.0" />
                </padding>
             </HBox>
-            
+
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
                <content>
                   <VBox fx:id="tracksContainer" spacing="6.0" style="-fx-background-color: transparent;">
@@ -87,7 +88,7 @@
                   </VBox>
                </content>
             </ScrollPane>
-            
+
          </children>
       </VBox>
    </children>
