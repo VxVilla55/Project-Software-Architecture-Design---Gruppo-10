@@ -9,7 +9,6 @@ import java.util.function.Consumer;
 import com.group10.model.TrackComponent;
 
 /**
- * @author group10
  * Singleton: classe che modella lo stato del player
  */
 public class PlaybackEngine {
@@ -22,8 +21,11 @@ public class PlaybackEngine {
     private TrackComponent currentTrack;
     private double currentTime;
     private Timer timer;
+    
+    // Listeners per la UI
     private Consumer<TrackComponent> onTrackChanged;
     private Consumer<Double> onTick;
+    private Consumer<Boolean> onPlayStateChanged; // <--- ECCO IL METODO CHE MANCAVA!
     
     private PlaybackEngine() {
         this.currentState = new StoppedState();
@@ -60,7 +62,6 @@ public class PlaybackEngine {
         cambiaTraccia(track);
     }
 
-    
     public void clearQueue() {
         this.queue.clear();
         this.currentIndex = -1;
@@ -121,7 +122,6 @@ public class PlaybackEngine {
         }
         
         if (onTick != null) {
-            // Qui passiamo correttamente 0.0 per azzerare lo slider
             javafx.application.Platform.runLater(() -> onTick.accept(0.0));
         }
         
@@ -131,6 +131,8 @@ public class PlaybackEngine {
         }
     }
     
+    // --- SETTER DEI LISTENER ---
+    
     public void setOnTick(Consumer<Double> onTick) {
         this.onTick = onTick;
     }
@@ -139,12 +141,25 @@ public class PlaybackEngine {
         this.onTrackChanged = listener;
     }
     
+    // QUESTO È IL METODO CHE RISOLVE L'ERRORE!
+    public void setOnPlayStateChanged(Consumer<Boolean> listener) {
+        this.onPlayStateChanged = listener;
+    }
+    
+    // --- GESTIONE SIMULAZIONE ---
+    
     public void startSimulation() {
         if (currentTrack == null) {
             System.out.println("⚠️ Nessuna traccia da riprodurre! Aggiungi un brano prima.");
             setState(new StoppedState());
             return;
         }
+        
+        // Avvisa la UI: È partito il Play!
+        if (onPlayStateChanged != null) {
+            javafx.application.Platform.runLater(() -> onPlayStateChanged.accept(true));
+        }
+        
         System.out.println("▶️ IN RIPRODUZIONE: " + currentTrack.getTitle());
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -152,7 +167,6 @@ public class PlaybackEngine {
             public void run() {
                 currentTime += 0.1;
                 if (onTick != null) {
-                    // Qui inviamo alla UI il tempo effettivo che sta scorrendo
                     javafx.application.Platform.runLater(() -> onTick.accept(currentTime));
                 }
                 
@@ -173,13 +187,18 @@ public class PlaybackEngine {
             timer.cancel(); 
             timer = null;
         }
+        
+        // Avvisa la UI: È in Pausa!
+        if (onPlayStateChanged != null) {
+            javafx.application.Platform.runLater(() -> onPlayStateChanged.accept(false));
+        }
     }
 
     public void resetTime() {
         this.currentTime = 0; 
     }
 
-    // --- DELEGAZIONE AGLI STATI (T8.2) ---
+    // --- DELEGAZIONE AGLI STATI ---
     public void play() { currentState.play(this); }
     public void pause() { currentState.pause(this); }
     public void stop() { currentState.stop(this); }

@@ -1,27 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.group10.controller.track;
 
 /**
  * FXML Controller class
  *
  * @author group10
- * 
- * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
+ * * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentCard;
 import com.group10.model.common.Playable;
-import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
-import java.io.IOException;
+
+// AGGIUNTO: L'import per il motore di riproduzione
+import com.group10.model.state.PlaybackEngine; 
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -68,7 +64,12 @@ public class TrackUIComponentCard extends AbstractUIComponentCard{
     
     @FXML
     private void handleSelection(MouseEvent event) {
+        // 1. Mostra i dettagli a destra (la tua logica originale)
         MainViewController.getInstance().setSelectedTrack(track);
         MainViewController.getInstance().update();
+        
+        // 2. NUOVA LOGICA: Imposta la traccia nel motore e fai partire il Play!
+        PlaybackEngine.getInstance().setCurrentTrack(track);
+        PlaybackEngine.getInstance().play();
     }    
 }

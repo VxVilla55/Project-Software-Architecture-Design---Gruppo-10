@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
+import com.group10.model.state.PlayingState; // IMPORTANTE: Necessario per controllare lo stato nel pulsante
 
 public class PlayerViewController implements Initializable {
 
@@ -29,6 +30,18 @@ public class PlayerViewController implements Initializable {
         }
 
         var engine = PlaybackEngine.getInstance();
+        
+        // --- AGGIUNTO: IL BOTTONE SI AGGIORNA DA SOLO ---
+        // Quando il motore parte da qualsiasi parte (es. cliccando la card), il bottone cambia.
+        engine.setOnPlayStateChanged(isPlaying -> {
+            if (playPauseButton != null) {
+                if (isPlaying) {
+                    playPauseButton.setText("⏸");
+                } else {
+                    playPauseButton.setText("▶️");
+                }
+            }
+        });
         
         // 1. Logica aggiornamento tempo (Slider + Scia Bianca)
         engine.setOnTick(time -> { 
@@ -77,12 +90,13 @@ public class PlayerViewController implements Initializable {
         var engine = PlaybackEngine.getInstance();
         if (engine.getCurrentTrack() == null) return;
 
-        if (engine.getState() instanceof com.group10.model.state.PlayingState) {
+        // Se è già in play, mettiamo in pausa
+        if (engine.getState() instanceof PlayingState) {
             engine.pause();
-            playPauseButton.setText("▶");
+            // Niente setText qui! Ci pensa engine.setOnPlayStateChanged in initialize
         } else {
             engine.play();
-            playPauseButton.setText("⏸");
+            // Niente setText qui! Ci pensa engine.setOnPlayStateChanged in initialize
             trackTitle.setText(engine.getCurrentTrack().getTitle());
         }
     }
