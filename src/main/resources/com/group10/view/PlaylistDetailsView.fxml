@@ -24,17 +24,17 @@
                   
                   <VBox alignment="BOTTOM_LEFT" spacing="5.0">
                      <children>
-                        <Label text="PLAYLIST" textFill="#78909C">
+                        <Label text="PLAYLIST" style="-fx-text-fill: #78909C;" textFill="#78909C">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="playlistNameLabel" text="Nome della Playlist" textFill="#37474F">
+                        <Label fx:id="playlistNameLabel" text="Nome della Playlist" style="-fx-text-fill: #37474F;" textFill="#37474F">
                            <font>
                               <Font name="System Bold" size="38.0" />
                            </font>
                         </Label>
-                        <Label fx:id="playlistTracksCountLabel" text="0 brani" textFill="#78909C">
+                        <Label fx:id="playlistTracksCountLabel" text="0 brani" style="-fx-text-fill: #78909C;" textFill="#78909C">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -52,20 +52,21 @@
             
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="700.0" spacing="15.0" style="-fx-border-color: #EFE6CC; -fx-border-width: 0 0 1 0;">
                <children>
-                  <Label alignment="CENTER" prefWidth="30.0" text="#" textFill="#78909C">
+                  <Label alignment="CENTER" prefWidth="30.0" text="#" style="-fx-text-fill: #78909C;" textFill="#78909C">
                      <HBox.margin><Insets left="15.0" /></HBox.margin>
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label text="TITOLO" textFill="#78909C" HBox.hgrow="ALWAYS">
+                  <Label text="TITOLO" style="-fx-text-fill: #78909C;" textFill="#78909C" HBox.hgrow="ALWAYS">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <AnchorPane HBox.hgrow="ALWAYS" /> <Label prefWidth="100.0" text="GENERE" textFill="#78909C">
+                  <AnchorPane HBox.hgrow="ALWAYS" /> 
+                  <Label prefWidth="100.0" text="GENERE" style="-fx-text-fill: #78909C;" textFill="#78909C">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label alignment="CENTER" prefWidth="50.0" text="ANNO" textFill="#78909C">
+                  <Label alignment="CENTER" prefWidth="50.0" text="ANNO" style="-fx-text-fill: #78909C;" textFill="#78909C">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" prefWidth="60.0" text="DURATA" textFill="#78909C">
+                  <Label alignment="CENTER_RIGHT" prefWidth="60.0" text="DURATA" style="-fx-text-fill: #78909C;" textFill="#78909C">
                      <font><Font size="12.0" /></font>
                      <HBox.margin><Insets right="45.0" /></HBox.margin>
                   </Label>
