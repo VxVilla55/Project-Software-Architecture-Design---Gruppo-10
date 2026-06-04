@@ -41,7 +41,7 @@
                <children>
                   <Label style="-fx-text-fill: #78909C; -fx-font-weight: bold;" text="Titolo *" />
                   <Label style="-fx-text-fill: #78909C; -fx-font-weight: bold;" text="Autore *" GridPane.rowIndex="1" />
-                  <Label style="-fx-text-fill: #78909C;" text="Durata (sec)" GridPane.rowIndex="2" />
+                  <Label style="-fx-text-fill: #78909C; -fx-font-weight: bold;" text="Durata (sec)*" GridPane.rowIndex="2" />
                   <Label style="-fx-text-fill: #78909C;" text="Genere" GridPane.rowIndex="3" />
                   <Label style="-fx-text-fill: #78909C;" text="Anno" GridPane.rowIndex="4" />
                   
