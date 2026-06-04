@@ -37,11 +37,17 @@ public class App extends Application {
         //caricamento per test di una playlist e aggiunta di alcuni brani ad essa
         PlaylistComponent playlist = new PlaylistBuilder().setName("PlaylistCreata").build();
         MusicCatalogue.getInstance().addPlaylist(playlist);
-        for(int i = 0; i<5; i++) {
-            TrackComponent t = new TrackBuilder().setTitle("Titolo"+i).setAuthor("Autore"+i).setDuration(20).build();
-            MusicCatalogue.getInstance().addTrack(t);
-            playlist.add(t);
-        }
+      for(int i = 0; i<5; i++) {
+    TrackComponent t = new TrackBuilder()
+        .setTitle("Titolo " + i)
+        .setAuthor("Autore " + i)
+        .setDuration(180) // 3 minuti così esce 03:00
+        .setGenre("Rock") // <--- AGGIUNGI QUESTO
+        .setYear(2024)    // <--- AGGIUNGI QUESTO
+        .build();
+    MusicCatalogue.getInstance().addTrack(t);
+    playlist.add(t);
+}
         
         //istanzio la MainView
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/MainView.fxml"));

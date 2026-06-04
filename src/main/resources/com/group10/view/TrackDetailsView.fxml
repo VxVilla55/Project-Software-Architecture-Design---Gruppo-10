@@ -12,7 +12,7 @@
       <VBox alignment="TOP_CENTER" prefHeight="550.0" prefWidth="260.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             
-            <Label text="Dettaglio brano" textFill="#78909C">
+            <Label text="Dettaglio brano" style="-fx-text-fill: #78909C;" textFill="#78909C">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -32,20 +32,20 @@
             
             <VBox alignment="CENTER" spacing="5.0">
                <children>
-                  <Label fx:id="titleLabel" alignment="CENTER" maxWidth="220.0" text="Titolo della Traccia" textAlignment="CENTER" textFill="#37474F" wrapText="true">
+                  <Label fx:id="titleLabel" alignment="CENTER" maxWidth="220.0" style="-fx-text-fill: #37474F;" text="Titolo della Traccia" textAlignment="CENTER" textFill="#37474F" wrapText="true">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="artistLabel" alignment="CENTER" maxWidth="220.0" text="Nome Autore" textAlignment="CENTER" textFill="#00BFA5" wrapText="true">
+                  <Label fx:id="artistLabel" alignment="CENTER" maxWidth="220.0" style="-fx-text-fill: #00BFA5;" text="Nome Autore" textAlignment="CENTER" textFill="#00BFA5" wrapText="true">
                      <font>
-                        <Font name="System System" size="14.0" />
+                        <Font name="System" size="14.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
             
-            <Label text="Informazioni Brano" textFill="#78909C">
+            <Label text="Informazioni Brano" style="-fx-text-fill: #78909C;" textFill="#78909C">
                <font>
                   <Font size="11.0" />
                </font>
@@ -56,14 +56,15 @@
             
             <VBox maxWidth="220.0" spacing="12.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 8;">
                <children>
+                  
                   <VBox spacing="2.0">
                      <children>
-                        <Label text="GENERE" textFill="#78909C">
+                        <Label text="GENERE" style="-fx-text-fill: #78909C;" textFill="#78909C">
                            <font>
                               <Font name="System Bold" size="9.0" />
                            </font>
                         </Label>
-                        <Label fx:id="genreLabel" text="Rock / Pop" textFill="#37474F">
+                        <Label fx:id="genreLabel" style="-fx-text-fill: #37474F;" text="Rock / Pop" textFill="#37474F">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -73,12 +74,12 @@
                   
                   <VBox spacing="2.0">
                      <children>
-                        <Label text="ANNO DI PUBBLICAZIONE" textFill="#78909C">
+                        <Label text="ANNO DI PUBBLICAZIONE" style="-fx-text-fill: #78909C;" textFill="#78909C">
                            <font>
                               <Font name="System Bold" size="9.0" />
                            </font>
                         </Label>
-                        <Label fx:id="yearLabel" text="1975" textFill="#37474F">
+                        <Label fx:id="yearLabel" style="-fx-text-fill: #37474F;" text="1975" textFill="#37474F">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -88,18 +89,19 @@
                   
                   <VBox spacing="2.0">
                      <children>
-                        <Label text="DURATA" textFill="#78909C">
+                        <Label text="DURATA" style="-fx-text-fill: #78909C;" textFill="#78909C">
                            <font>
                               <Font name="System Bold" size="9.0" />
                            </font>
                         </Label>
-                        <Label fx:id="durationLabel" text="05:55" textFill="#37474F">
+                        <Label fx:id="durationLabel" style="-fx-text-fill: #37474F;" text="05:55" textFill="#37474F">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
                      </children>
                   </VBox>
+                  
                </children>
                <padding>
                   <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
