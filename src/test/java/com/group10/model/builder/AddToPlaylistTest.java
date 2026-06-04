@@ -57,7 +57,6 @@ public class AddToPlaylistTest {
                 .build();
     }
 
-    // --- Stato iniziale ---
 
     @Test
     public void playlistDevePartireVuota() {
@@ -65,7 +64,6 @@ public class AddToPlaylistTest {
         assertEquals(0, playlist.getSize());
     }
 
-    // --- Aggiunta singola ---
 
     @Test
     public void aggiuntaSingola_dimensioneCorretta() {
@@ -91,7 +89,6 @@ public class AddToPlaylistTest {
         assertEquals(track1.getDurationInSeconds(), playlist.getDurationInSeconds());
     }
 
-    // --- Aggiunta multipla ---
 
     @Test
     public void aggiunzioneMultipla_dimensioneCorretta() {
@@ -135,7 +132,6 @@ public class AddToPlaylistTest {
         assertEquals(expected, playlist.getDurationInSeconds());
     }
 
-    // --- Duplicati ---
 
     @Test
     public void aggiuntaDuplicato_ammesso() {

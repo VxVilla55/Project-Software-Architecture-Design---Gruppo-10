@@ -12,7 +12,7 @@ public class CompositePlayTest {
     public void testPlayUniformePlaylist() {
         PlaybackEngine engine = PlaybackEngine.getInstance();
         engine.stop(); 
-        engine.clearQueue(); // Assicuriamoci che la coda sia vuota
+        engine.clearQueue(); 
         
         // 1. Creiamo due tracce
         TrackComponent t1 = new TrackBuilder().setTitle("Brano 1").setAuthor("A").setDuration(100).build();

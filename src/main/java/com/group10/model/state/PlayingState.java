@@ -9,15 +9,15 @@ public class PlayingState implements PlayerState {
     @Override
     public void pause(PlaybackEngine context) {
         System.out.println("⏸️ Riproduzione messa in pausa al secondo " + context.getCurrentTime() + ".");
-        context.stopSimulation(); // Ferma l'orologio (ma mantiene il punto!)
+        context.stopSimulation(); 
         context.setState(new PausedState());
     }
 
     @Override
     public void stop(PlaybackEngine context) {
         System.out.println("⏹️ Riproduzione interrotta. Torno all'inizio.");
-        context.stopSimulation(); // Ferma l'orologio
-        context.resetTime();      // Azzera i secondi
+        context.stopSimulation(); 
+        context.resetTime();      
         context.setState(new StoppedState());
     }
 }

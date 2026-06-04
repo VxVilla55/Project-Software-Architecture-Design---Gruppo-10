@@ -78,7 +78,6 @@ public void initialize(URL url, ResourceBundle rb) {
         long seconds = totalSeconds % 60;
         durationLabel.setText(String.format("%02d:%02d", minutes, seconds));
 
-        // 🛠️ PROTEZIONE RUNTIME: Forza i colori corretti via codice bypassando i temi Windows/Mac
         javafx.scene.paint.Color antracite = javafx.scene.paint.Color.web("#37474F");
         javafx.scene.paint.Color ottanio = javafx.scene.paint.Color.web("#00BFA5");
         

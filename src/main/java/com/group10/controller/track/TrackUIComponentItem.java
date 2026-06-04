@@ -86,9 +86,7 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     @FXML
     private void handleOptions(ActionEvent event) {
         System.out.println("OPTIONS");
-        //Istanzio il controllore che carica la view
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
-        //prendo dalla view il nodo Parent da collocare
         MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 
         
     }
@@ -100,10 +98,8 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     }
     
     private void showOptionPopup(Parent popup) {        
-        //rimuovo altri popup
         root.getChildren().removeIf( child -> child != root.getChildren().get(0));
         
-        //carico il popup
         StackPane layer = new StackPane();
         
         Pane background = new Pane();        
@@ -114,13 +110,9 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
             }
         });
         Bounds buttonBounds = trackMenuButton.getBoundsInLocal();
-        //appena a destra del pulsante
         double x = buttonBounds.getMinX() + trackMenuButton.getWidth();
-        // allineato in alto
         double y = buttonBounds.getMinY();
-        //imposta la posizione del popup all'interno dello StackPane
-        //popup.setTranslateX(x);
-        //popup.setTranslateY(y);
+       
         
         layer.getChildren().addAll(popup, background);
 

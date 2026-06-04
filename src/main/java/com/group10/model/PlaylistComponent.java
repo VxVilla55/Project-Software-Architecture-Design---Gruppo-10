@@ -97,7 +97,6 @@ public class PlaylistComponent implements Playable {
 
     @Override
     public void playOnEngine(com.group10.model.state.PlaybackEngine engine) {
-        // La playlist "si apre" e dice a tutte le sue tracce di accodarsi!
         for (TrackComponent track : this.tracks) {
             track.playOnEngine(engine);
         }

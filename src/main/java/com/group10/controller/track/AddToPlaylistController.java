@@ -39,7 +39,7 @@ public class AddToPlaylistController implements Initializable {
     
     private TrackComponent selectedTrack;
 
-    // Questa mappa associa il nome di ogni playlist a un valore booleano (selezionata o meno)
+
     private Map<String, BooleanProperty> itemStates = new HashMap<>();
     
     public AddToPlaylistController(TrackComponent track) {
@@ -52,23 +52,20 @@ public class AddToPlaylistController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Mostriamo dinamicamente il titolo del brano che si sta salvando
+        
         trackTitleLabel.setText("Aggiungi \"" + selectedTrack.getTitle() + "\" a:");
 
-        // 1. Diciamo alla ListView di iniettare una Checkbox accanto al nome di ogni playlist
+        
         playlistListView.setCellFactory(CheckBoxListCell.forListView(item -> {
             return itemStates.get(item);
         }));
 
-        // 2. Popoliamo la ListView e la mappa degli stati leggendo dal MusicCatalogue
         if (MusicCatalogue.getInstance().getPlaylists() != null) {
             for (PlaylistComponent playlist : MusicCatalogue.getInstance().getPlaylists().values()) {
                 String playlistName = playlist.getName();
                 
-                // Di base, le caselle partono tutte deselezionate (false)
                 itemStates.put(playlistName, new SimpleBooleanProperty(playlist.contains(selectedTrack)));
                 
-                // Aggiungiamo il nome della playlist nella lista visibile
                 playlistListView.getItems().add(playlistName);
             }
         }
@@ -83,7 +80,6 @@ public class AddToPlaylistController implements Initializable {
     private void handleConfirm(ActionEvent event) {
         boolean alMenoUnaAggiunta = false;
 
-        // Cicliamo sulla mappa per verificare quali playlist l'utente ha spuntato
         for (Map.Entry<String, BooleanProperty> entry : itemStates.entrySet()) {
             String playlistName = entry.getKey();
             boolean isChecked = entry.getValue().get();

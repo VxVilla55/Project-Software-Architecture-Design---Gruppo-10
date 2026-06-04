@@ -5,7 +5,7 @@ public class PausedState implements PlayerState {
     public void play(PlaybackEngine context) {
         System.out.println("▶️ Riprendo la riproduzione esattamente da dove l'ho lasciata.");
         context.setState(new PlayingState());
-        context.startSimulation(); // Fa ripartire l'orologio da dove si era fermato!
+        context.startSimulation(); 
     }
 
     @Override

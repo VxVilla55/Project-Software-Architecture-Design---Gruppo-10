@@ -4,7 +4,7 @@ public class StoppedState implements PlayerState {
     @Override
     public void play(PlaybackEngine context) {
         context.setState(new PlayingState());
-        context.startSimulation(); // Fa partire l'orologio!
+        context.startSimulation(); 
     }
 
     @Override

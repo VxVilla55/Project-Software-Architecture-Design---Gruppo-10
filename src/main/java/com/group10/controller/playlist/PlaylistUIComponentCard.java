@@ -53,7 +53,7 @@ public class PlaylistUIComponentCard extends AbstractUIComponentCard{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //imageView.setImage(track.getImagePath());
+        
         itemPlace1.setText(playlist.getName());
         itemPlace2.setText(String.valueOf(playlist.getDurationInSeconds()));
     }

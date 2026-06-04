@@ -27,33 +27,30 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         stage.setOnCloseRequest(event -> {
-        // Ferma il motore prima che la finestra si chiuda
         com.group10.model.state.PlaybackEngine.getInstance().stopSimulation();
-        // Forza la chiusura dell'intera applicazione
         javafx.application.Platform.exit();
         System.exit(0);
     });
-        //testStatePattern(); // <-- AGGIUNGI QUESTA RIGA QUI
-        //caricamento per test di una playlist e aggiunta di alcuni brani ad essa
+        
         PlaylistComponent playlist = new PlaylistBuilder().setName("PlaylistCreata").build();
         MusicCatalogue.getInstance().addPlaylist(playlist);
       for(int i = 0; i<5; i++) {
     TrackComponent t = new TrackBuilder()
         .setTitle("Titolo " + i)
         .setAuthor("Autore " + i)
-        .setDuration(180) // 3 minuti così esce 03:00
-        .setGenre("Rock") // <--- AGGIUNGI QUESTO
-        .setYear(2024)    // <--- AGGIUNGI QUESTO
+        .setDuration(180) 
+        .setGenre("Rock") 
+        .setYear(2024)    
         .build();
     MusicCatalogue.getInstance().addTrack(t);
     playlist.add(t);
 }
         
-        //istanzio la MainView
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/MainView.fxml"));
         MainViewController controller = MainViewController.getInstance();
         loader.setController(controller);
-        //caricamento della MainView
+        
         stage.setScene(new Scene(loader.load()));
         stage.setMinWidth(1300); 
         stage.setMinHeight(800);
@@ -114,15 +111,9 @@ public class App extends Application {
         stage.show();
     }
 
-    // Metodo per testare la UI di creazione playlist
+    
     public static void openCreazionePlaylist() throws IOException {
-        // Usiamo il metodo loadFXML già presente nel tuo file App.java!
-        // Se il file è insieme a primary.fxml, basta scriverne il nome così:
         Parent root = loadFXML("view/CreazionePlaylist");
-        
-        // (NOTA: Se invece lo avessi messo dentro la cartella view, 
-        // ti basterà cambiare la riga sopra in:
-
         Stage stage = new Stage();
         stage.setTitle("Crea Nuova Playlist");
         stage.setScene(new Scene(root));

@@ -11,7 +11,7 @@ import javafx.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
-import com.group10.model.state.PlayingState; // IMPORTANTE: Necessario per controllare lo stato nel pulsante
+import com.group10.model.state.PlayingState;
 
 public class PlayerViewController implements Initializable {
 
@@ -31,8 +31,7 @@ public class PlayerViewController implements Initializable {
 
         var engine = PlaybackEngine.getInstance();
         
-        // --- AGGIUNTO: IL BOTTONE SI AGGIORNA DA SOLO ---
-        // Quando il motore parte da qualsiasi parte (es. cliccando la card), il bottone cambia.
+      
         engine.setOnPlayStateChanged(isPlaying -> {
             if (playPauseButton != null) {
                 if (isPlaying) {
@@ -43,13 +42,11 @@ public class PlayerViewController implements Initializable {
             }
         });
         
-        // 1. Logica aggiornamento tempo (Slider + Scia Bianca)
         engine.setOnTick(time -> { 
             var track = engine.getCurrentTrack();
             if (track != null && track.getDurationInSeconds() > 0) {
                 double progress = time / track.getDurationInSeconds();
                 
-                // Aggiorna SOLO se l'utente NON sta trascinando il mouse
                 if (trackSlider != null && !trackSlider.isPressed()) {
                     trackSlider.setValue(progress * 100);
                     if (progressFill != null) {
@@ -59,7 +56,6 @@ public class PlayerViewController implements Initializable {
             }
         });
 
-        // 2. Logica cambio traccia (Aggiorna etichette)
         engine.setOnTrackChanged(track -> {
             trackTitle.setText(track.getTitle());
             trackAuthor.setText(track.getAuthor());
@@ -67,9 +63,7 @@ public class PlayerViewController implements Initializable {
             if (trackSlider != null) trackSlider.setValue(0);     
         });
 
-        // 3. Logica Slider Interattivo
         trackSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            // Reagisce SOLO al movimento manuale del mouse
             if (trackSlider.isPressed()) {
                 var track = engine.getCurrentTrack();
                 if (track != null) {
@@ -83,20 +77,16 @@ public class PlayerViewController implements Initializable {
         });
     }
 
-    // --- AZIONI BOTTONI ---
 
     @FXML
     public void handlePlayPause(ActionEvent event) {
         var engine = PlaybackEngine.getInstance();
         if (engine.getCurrentTrack() == null) return;
 
-        // Se è già in play, mettiamo in pausa
         if (engine.getState() instanceof PlayingState) {
             engine.pause();
-            // Niente setText qui! Ci pensa engine.setOnPlayStateChanged in initialize
         } else {
             engine.play();
-            // Niente setText qui! Ci pensa engine.setOnPlayStateChanged in initialize
             trackTitle.setText(engine.getCurrentTrack().getTitle());
         }
     }
@@ -111,7 +101,6 @@ public class PlayerViewController implements Initializable {
         PlaybackEngine.getInstance().previous();
     }
 
-    // --- ALTRI METODI ---
     public Parent getRoot() { return this.root; }
     
     @FXML public void handleFavorite(ActionEvent event) { System.out.println("Preferiti!"); }

@@ -22,10 +22,10 @@ public class PlaybackEngine {
     private double currentTime;
     private Timer timer;
     
-    // Listeners per la UI
+    
     private Consumer<TrackComponent> onTrackChanged;
     private Consumer<Double> onTick;
-    private Consumer<Boolean> onPlayStateChanged; // <--- ECCO IL METODO CHE MANCAVA!
+    private Consumer<Boolean> onPlayStateChanged; 
     
     private PlaybackEngine() {
         this.currentState = new StoppedState();
@@ -131,7 +131,7 @@ public class PlaybackEngine {
         }
     }
     
-    // --- SETTER DEI LISTENER ---
+    
     
     public void setOnTick(Consumer<Double> onTick) {
         this.onTick = onTick;
@@ -141,12 +141,12 @@ public class PlaybackEngine {
         this.onTrackChanged = listener;
     }
     
-    // QUESTO È IL METODO CHE RISOLVE L'ERRORE!
+    
     public void setOnPlayStateChanged(Consumer<Boolean> listener) {
         this.onPlayStateChanged = listener;
     }
     
-    // --- GESTIONE SIMULAZIONE ---
+    
     
     public void startSimulation() {
         if (currentTrack == null) {
@@ -155,7 +155,7 @@ public class PlaybackEngine {
             return;
         }
         
-        // Avvisa la UI: È partito il Play!
+        
         if (onPlayStateChanged != null) {
             javafx.application.Platform.runLater(() -> onPlayStateChanged.accept(true));
         }
@@ -188,7 +188,7 @@ public class PlaybackEngine {
             timer = null;
         }
         
-        // Avvisa la UI: È in Pausa!
+        
         if (onPlayStateChanged != null) {
             javafx.application.Platform.runLater(() -> onPlayStateChanged.accept(false));
         }
@@ -198,7 +198,7 @@ public class PlaybackEngine {
         this.currentTime = 0; 
     }
 
-    // --- DELEGAZIONE AGLI STATI ---
+    
     public void play() { currentState.play(this); }
     public void pause() { currentState.pause(this); }
     public void stop() { currentState.stop(this); }

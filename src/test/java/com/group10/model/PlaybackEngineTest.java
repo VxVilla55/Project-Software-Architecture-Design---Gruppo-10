@@ -16,7 +16,7 @@ public class PlaybackEngineTest {
     @Test
     public void testTransizioneInRiproduzione() {
         PlaybackEngine engine = PlaybackEngine.getInstance();
-        engine.stop(); // Setup: assicura che il motore sia fermo
+        engine.stop(); 
         
         TrackComponent track = new TrackBuilder()
                 .setTitle("Brano Test")

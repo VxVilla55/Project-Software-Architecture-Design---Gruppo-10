@@ -108,9 +108,7 @@ public class MainViewController implements Initializable, Subscriber {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // 1. Diciamo al Catalogo: "Avvisami quando crei una nuova playlist o traccia!"
         MusicCatalogue.getInstance().addSubscriber(this);
-        //Carichiamo per una prima volta i componenti della schermata
         update();
     }
 
@@ -128,12 +126,10 @@ public class MainViewController implements Initializable, Subscriber {
             }
         }
         
-        //RELOAD DEL CONTENUTO DEL RIGHT PANE
         //azzero il contenuto
         //rightPane.getChildren().clear();
         //carico
         if(selectedTrack != null) {
-            //MOSTRO IL BRANO SELEZIONATO
             try {
                 TrackUIDetailsController c = (TrackUIDetailsController) new TrackUIComponentFactory().createUIComponentDetails(selectedTrack);
                 Parent trackView = c.getRoot();
@@ -142,16 +138,13 @@ public class MainViewController implements Initializable, Subscriber {
                 e.printStackTrace();
             }
         } else {
-            //MOSTRO IL PANNELLO DI DESTRA VUOTO
             rightPane.getChildren().clear();
         }
 
-        //RELOAD NEL CENTER PANE (Playlist selezionata altrimenti Home)
         //azzero il contenuto
         //centerPane.getChildren().clear();
         //carico
         if(selectedPlaylist == null) {
-            //MOSTRO LA HOME
             loader = new FXMLLoader(getClass().getResource("/com/group10/view/HomepageView.fxml"));
             try {
                 Parent homeView = loader.load();
@@ -160,7 +153,6 @@ public class MainViewController implements Initializable, Subscriber {
                 ex.printStackTrace();
             }
         } else {
-            //MOSTRO LA PLAYLIST
             try {
                 PlaylistUIDetailsController c = (PlaylistUIDetailsController) new PlaylistUIComponentFactory().createUIComponentDetails(selectedPlaylist);
                 Parent playlistView = c.getRoot();
@@ -170,7 +162,6 @@ public class MainViewController implements Initializable, Subscriber {
             }
         }
         
-        //RELOAD NEL BOTTOM PANE (Player)
         //azzero il contenuto
         bottomPane.getChildren().clear();
         //carico
@@ -194,7 +185,6 @@ public class MainViewController implements Initializable, Subscriber {
         pane.setEffect(new GaussianBlur(10));
         
         pane.setOnMouseClicked(e -> {
-            // Chiude il popup cliccando fuori
             if (root.getChildren().size()>1) {
                 root.getChildren().remove(root.getChildren().size()-1);
                 root.getChildren().get(0).setEffect(null);

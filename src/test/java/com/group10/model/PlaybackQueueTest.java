@@ -39,7 +39,7 @@ public class PlaybackQueueTest {
                 .build();
         engine.addTrackToQueue(track2);
         
-        // 4. Verifiche cruciali per la Task T6.6
+        
         // Aggiungere una traccia NON deve aver cambiato la traccia corrente
         assertEquals("Brano in esecuzione", engine.getCurrentTrack().getTitle(), 
             "L'accodamento non deve interrompere o cambiare la traccia attualmente in riproduzione");

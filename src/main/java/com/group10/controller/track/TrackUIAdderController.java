@@ -41,13 +41,13 @@ public class TrackUIAdderController extends AbstractUIAdderController {
             String durText  = durationField.getText().trim();
             String yearText = yearField.getText().trim();
 
-            // Parsing durata
+            
             int duration = 0;
             if (!durText.isEmpty()) {
                 duration = Integer.parseInt(durText);
             }
 
-            // Parsing anno (opzionale, usa default 2026 se vuoto)
+            
             TrackBuilder builder = new TrackBuilder()
                     .setTitle(title)
                     .setAuthor(author)
