@@ -32,19 +32,63 @@ public class App extends Application {
         System.exit(0);
     });
         
-        PlaylistComponent playlist = new PlaylistBuilder().setName("PlaylistCreata").build();
-        MusicCatalogue.getInstance().addPlaylist(playlist);
-      for(int i = 0; i<5; i++) {
-    TrackComponent t = new TrackBuilder()
-        .setTitle("Titolo " + i)
-        .setAuthor("Autore " + i)
-        .setDuration(180) 
-        .setGenre("Rock") 
-        .setYear(2024)    
-        .build();
-    MusicCatalogue.getInstance().addTrack(t);
-    playlist.add(t);
-}
+    PlaylistComponent playlist = new PlaylistBuilder().setName("Classic Rock Anthems").build();
+MusicCatalogue.getInstance().addPlaylist(playlist);
+
+// 🎸 Bon Jovi - Livin' on a Prayer (1986) -> 4:09 (249 secondi)
+TrackComponent t1 = new TrackBuilder()
+    .setTitle("Livin' on a Prayer")
+    .setAuthor("Bon Jovi")
+    .setDuration(249)
+    .setGenre("Hard Rock")
+    .setYear(1986)
+    .build();
+MusicCatalogue.getInstance().addTrack(t1);
+playlist.add(t1);
+
+// 🎸 Guns N' Roses - Sweet Child O' Mine (1987) -> 5:55 (355 secondi)
+TrackComponent t2 = new TrackBuilder()
+    .setTitle("Sweet Child O' Mine")
+    .setAuthor("Guns N' Roses")
+    .setDuration(355)
+    .setGenre("Hard Rock")
+    .setYear(1987)
+    .build();
+MusicCatalogue.getInstance().addTrack(t2);
+playlist.add(t2);
+
+// 🎸 Aerosmith - Dream On (1973) -> 4:28 (268 secondi)
+TrackComponent t3 = new TrackBuilder()
+    .setTitle("Dream On")
+    .setAuthor("Aerosmith")
+    .setDuration(268)
+    .setGenre("Classic Rock")
+    .setYear(1973)
+    .build();
+MusicCatalogue.getInstance().addTrack(t3);
+playlist.add(t3);
+
+// 🎸 AC/DC - Back In Black (1980) -> 4:15 (255 secondi)
+TrackComponent t4 = new TrackBuilder()
+    .setTitle("Back In Black")
+    .setAuthor("AC/DC")
+    .setDuration(255)
+    .setGenre("Hard Rock")
+    .setYear(1980)
+    .build();
+MusicCatalogue.getInstance().addTrack(t4);
+playlist.add(t4);
+
+// 🎸 Europe - The Final Countdown (1986) -> 5:09 (309 secondi)
+TrackComponent t5 = new TrackBuilder()
+    .setTitle("The Final Countdown")
+    .setAuthor("Europe")
+    .setDuration(309)
+    .setGenre("Glam Metal")
+    .setYear(1986)
+    .build();
+MusicCatalogue.getInstance().addTrack(t5);
+playlist.add(t5);
         
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/MainView.fxml"));

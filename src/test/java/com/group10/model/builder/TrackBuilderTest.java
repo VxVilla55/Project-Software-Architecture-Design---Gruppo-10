@@ -8,7 +8,6 @@ public class TrackBuilderTest {
 
     @Test
     public void testCostruzioneCorrettaCampiOpzionali() {
-        // Usiamo i metodi corretti: setTitle, setAuthor, ecc.
         TrackComponent track = new TrackBuilder()
                 .setTitle("Bohemian Rhapsody")
                 .setAuthor("Queen")
@@ -20,8 +19,6 @@ public class TrackBuilderTest {
         assertEquals("Bohemian Rhapsody", track.getTitle());
         assertEquals("Queen", track.getAuthor());
         
-        // *Nota per te: se nella tua classe TrackComponent il metodo si chiama 
-        // getDuration() invece di getDurationInSeconds(), aggiorna questa riga!
         assertEquals(354, track.getDurationInSeconds()); 
         
         assertEquals("Rock", track.getGenre());
