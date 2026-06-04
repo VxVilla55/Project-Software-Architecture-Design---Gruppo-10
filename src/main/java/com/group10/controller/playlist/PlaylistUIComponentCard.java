@@ -17,6 +17,7 @@ import com.group10.controller.common.AbstractUIComponentCard;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
 import java.net.URL;
+import java.time.Duration;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -55,7 +56,10 @@ public class PlaylistUIComponentCard extends AbstractUIComponentCard{
     public void initialize(URL url, ResourceBundle rb) {
         
         itemPlace1.setText(playlist.getName());
-        itemPlace2.setText(String.valueOf(playlist.getDurationInSeconds()));
+        
+        Duration durataPlaylist = Duration.ofSeconds(playlist.getDurationInSeconds());
+        String durataFormattata = String.format("(%02d:%02d:%02d)", durataPlaylist.toHoursPart(), durataPlaylist.toMinutesPart(), durataPlaylist.toSecondsPart());
+        itemPlace2.setText(String.valueOf(playlist.getSize())+" tracce "+durataFormattata);
     }
     
     @Override

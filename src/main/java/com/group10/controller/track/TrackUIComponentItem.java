@@ -21,6 +21,7 @@ import com.group10.model.TrackComponent;
 import com.group10.model.state.PlaybackEngine;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,6 +75,10 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         artistLabel.setText(track.getAuthor());
         genreLabel.setText(track.getGenre());
         yearLabel.setText(String.valueOf(track.getYear()));
+        
+        
+        Duration durataTrack = Duration.ofSeconds(track.getDurationInSeconds());
+        String durataFormattata = String.format("(%02d:%02d:%02d)", durataTrack.toHoursPart(), durataTrack.toMinutesPart(), durataTrack.toSecondsPart());
         durationLabel.setText(String.valueOf(track.getDurationInSeconds()));
         root.setFocusTraversable(false);
     }

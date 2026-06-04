@@ -60,9 +60,7 @@ public class TrackUIAdderController extends AbstractUIAdderController {
 
             TrackComponent track = builder.build();
 
-            // TODO T4/T5: aggiungere track alla MusicLibrary
-            System.out.println("Traccia creata: " + track.getTitle() + " - " + track.getAuthor());
-
+            MusicCatalogue.getInstance().addTrack(track);
             MainViewController.getInstance().closePopup();
 
         } catch (NumberFormatException e) {
