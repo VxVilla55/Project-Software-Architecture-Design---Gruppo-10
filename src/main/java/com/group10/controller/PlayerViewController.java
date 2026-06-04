@@ -18,50 +18,53 @@ public class PlayerViewController implements Initializable {
     @FXML private Slider trackSlider;
     @FXML private Label trackTitle;
     @FXML private Label trackAuthor;
-    @FXML private Pane progressFill; // La scia bianca a sinistra
+    @FXML private Pane progressFill;
     
     private Parent root;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    if (progressFill == null) {
-        System.err.println("ERRORE: progressFill non è stato collegato! Controlla l'ID nell'FXML.");
-    }
-
-    var engine = PlaybackEngine.getInstance();
-    engine.setOnTick(seconds -> {
-        var track = engine.getCurrentTrack();
-        if (track != null && track.getDurationInSeconds() > 0) {
-            double progress = (double) seconds / track.getDurationInSeconds();
-            
-            // CONTROLLO DI SICUREZZA
-            if (trackSlider != null && !trackSlider.isValueChanging()) {
-                trackSlider.setValue(progress * 100);
-            }
-            
-            // CONTROLLO DI SICUREZZA
-            if (progressFill != null) {
-                progressFill.setMaxWidth(progress * 440);
-            }
+        if (progressFill == null) {
+            System.err.println("ERRORE: progressFill non è stato collegato! Controlla l'ID nell'FXML.");
         }
-    });
+
+        var engine = PlaybackEngine.getInstance();
+        
+        // 1. Logica aggiornamento tempo (Slider + Scia Bianca)
+        engine.setOnTick(time -> { 
+            var track = engine.getCurrentTrack();
+            if (track != null && track.getDurationInSeconds() > 0) {
+                double progress = time / track.getDurationInSeconds();
+                
+                // Aggiorna SOLO se l'utente NON sta trascinando il mouse
+                if (trackSlider != null && !trackSlider.isPressed()) {
+                    trackSlider.setValue(progress * 100);
+                    if (progressFill != null) {
+                        progressFill.setMaxWidth(progress * 440);
+                    }
+                }
+            }
+        });
 
         // 2. Logica cambio traccia (Aggiorna etichette)
         engine.setOnTrackChanged(track -> {
             trackTitle.setText(track.getTitle());
             trackAuthor.setText(track.getAuthor());
-            progressFill.setMaxWidth(0); // Reset scia
-            trackSlider.setValue(0);     // Reset slider
+            if (progressFill != null) progressFill.setMaxWidth(0); 
+            if (trackSlider != null) trackSlider.setValue(0);     
         });
 
         // 3. Logica Slider Interattivo
         trackSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            if (trackSlider.isValueChanging()) {
+            // Reagisce SOLO al movimento manuale del mouse
+            if (trackSlider.isPressed()) {
                 var track = engine.getCurrentTrack();
                 if (track != null) {
                     double percent = newVal.doubleValue() / 100.0;
-                    progressFill.setMaxWidth(percent * 440);
-                    engine.seek((int) (track.getDurationInSeconds() * percent));
+                    if (progressFill != null) {
+                        progressFill.setMaxWidth(percent * 440);
+                    }
+                    engine.seek(track.getDurationInSeconds() * percent);
                 }
             }
         });
@@ -80,7 +83,6 @@ public class PlayerViewController implements Initializable {
         } else {
             engine.play();
             playPauseButton.setText("⏸");
-            // Aggiornamento forzato
             trackTitle.setText(engine.getCurrentTrack().getTitle());
         }
     }
