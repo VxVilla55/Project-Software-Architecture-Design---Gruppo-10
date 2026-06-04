@@ -8,8 +8,7 @@ package com.group10.controller.track;
  * FXML Controller class
  *
  * @author group10
- * 
- * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
+ * * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
  */
  
 import com.group10.controller.MainViewController;
@@ -17,21 +16,22 @@ import com.group10.controller.common.AbstractUIComponentItem;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
+
+// AGGIUNTO: Import del motore di riproduzione
+import com.group10.model.state.PlaybackEngine;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Popup;
 
 public class TrackUIComponentItem extends AbstractUIComponentItem{
     @FXML
@@ -95,8 +95,13 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     
     @FXML
     private void handleSelection(MouseEvent event) {
+        // 1. Logica originale: mostra i dettagli a destra
         MainViewController.getInstance().setSelectedTrack(track);
         MainViewController.getInstance().update();
+        
+        // 2. NUOVA LOGICA: Passa la traccia al motore e avvia la riproduzione!
+        PlaybackEngine.getInstance().setCurrentTrack(track);
+        PlaybackEngine.getInstance().play();
     }
     
     private void showOptionPopup(Parent popup) {        
@@ -118,9 +123,6 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         double x = buttonBounds.getMinX() + trackMenuButton.getWidth();
         // allineato in alto
         double y = buttonBounds.getMinY();
-        //imposta la posizione del popup all'interno dello StackPane
-        //popup.setTranslateX(x);
-        //popup.setTranslateY(y);
         
         layer.getChildren().addAll(popup, background);
 
