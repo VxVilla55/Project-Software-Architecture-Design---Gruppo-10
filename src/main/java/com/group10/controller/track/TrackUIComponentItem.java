@@ -17,7 +17,7 @@ import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 
-// AGGIUNTO: Import del motore di riproduzione
+
 import com.group10.model.state.PlaybackEngine;
 
 import java.net.URL;
@@ -93,11 +93,11 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     
     @FXML
     private void handleSelection(MouseEvent event) {
-        // 1. Logica originale: mostra i dettagli a destra
+        
         MainViewController.getInstance().setSelectedTrack(track);
         MainViewController.getInstance().update();
         
-        // 2. NUOVA LOGICA: Passa la traccia al motore e avvia la riproduzione!
+        
         PlaybackEngine.getInstance().setCurrentTrack(track);
         PlaybackEngine.getInstance().play();
     }
