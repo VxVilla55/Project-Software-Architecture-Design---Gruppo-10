@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -39,5 +40,10 @@
             
          </children>
       </VBox>
+      <Button fx:id="menuButton" layoutX="151.0" layoutY="165.0" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand;" text="⋮">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

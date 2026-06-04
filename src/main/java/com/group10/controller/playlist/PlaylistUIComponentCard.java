@@ -14,13 +14,17 @@ package com.group10.controller.playlist;
  
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.controller.track.TrackUIOptionsController;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
 import java.net.URL;
 import java.time.Duration;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -36,6 +40,8 @@ public class PlaylistUIComponentCard extends AbstractUIComponentCard{
     private Label itemPlace2;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button menuButton;
     
     private PlaylistComponent playlist;
         
@@ -71,5 +77,11 @@ public class PlaylistUIComponentCard extends AbstractUIComponentCard{
     private void handleSelection(MouseEvent event) {
         MainViewController.getInstance().setSelectedPlaylist(playlist);
         MainViewController.getInstance().update();
+    }
+    
+    @FXML
+    private void handleOptions(ActionEvent event) {
+        System.out.println("Operazioni su playlist non ancora definite");
+        
     }
 }

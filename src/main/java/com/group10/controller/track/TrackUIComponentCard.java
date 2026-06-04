@@ -9,6 +9,7 @@ package com.group10.controller.track;
  
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 
@@ -16,8 +17,10 @@ import com.group10.model.state.PlaybackEngine;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +36,9 @@ public class TrackUIComponentCard extends AbstractUIComponentCard{
     private Label itemPlace2;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Button menuButton;
+    
     private TrackComponent track;
         
     
@@ -68,5 +74,13 @@ public class TrackUIComponentCard extends AbstractUIComponentCard{
         
         PlaybackEngine.getInstance().setCurrentTrack(track);
         PlaybackEngine.getInstance().play();
-    }    
+    }
+    
+    @FXML
+    private void handleOptions(ActionEvent event) {
+        //System.out.println("OPTIONS");
+        TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
+        MainViewController.getInstance().showMenuPopup(menuButton, c.getRoot()); 
+        
+    }
 }
