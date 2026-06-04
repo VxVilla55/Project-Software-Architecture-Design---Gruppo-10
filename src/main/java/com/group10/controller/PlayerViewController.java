@@ -24,21 +24,27 @@ public class PlayerViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        var engine = PlaybackEngine.getInstance();
+    if (progressFill == null) {
+        System.err.println("ERRORE: progressFill non è stato collegato! Controlla l'ID nell'FXML.");
+    }
 
-        // 1. Logica aggiornamento tempo (Slider + Scia Bianca)
-        engine.setOnTick(seconds -> {
-            var track = engine.getCurrentTrack();
-            if (track != null && track.getDurationInSeconds() > 0) {
-                double progress = (double) seconds / track.getDurationInSeconds();
-                
-                if (!trackSlider.isValueChanging()) {
-                    trackSlider.setValue(progress * 100);
-                }
-                // Aggiorna scia (440 è la larghezza totale nell'FXML)
+    var engine = PlaybackEngine.getInstance();
+    engine.setOnTick(seconds -> {
+        var track = engine.getCurrentTrack();
+        if (track != null && track.getDurationInSeconds() > 0) {
+            double progress = (double) seconds / track.getDurationInSeconds();
+            
+            // CONTROLLO DI SICUREZZA
+            if (trackSlider != null && !trackSlider.isValueChanging()) {
+                trackSlider.setValue(progress * 100);
+            }
+            
+            // CONTROLLO DI SICUREZZA
+            if (progressFill != null) {
                 progressFill.setMaxWidth(progress * 440);
             }
-        });
+        }
+    });
 
         // 2. Logica cambio traccia (Aggiorna etichette)
         engine.setOnTrackChanged(track -> {
