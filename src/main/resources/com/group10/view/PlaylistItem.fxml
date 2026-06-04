@@ -9,26 +9,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="root" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" onMouseClicked="#handleSelection" prefHeight="60.0" spacing="12.0" style="-fx-background-color: #000000; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="root" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" onMouseClicked="#handleSelection" prefHeight="60.0" spacing="12.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
-      <StackPane prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #282828; -fx-background-radius: 6; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 6, 0, 0, 2);">
+      <StackPane prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 6; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.1), 6, 0, 0, 2);">
          <HBox.margin>
             <Insets left="15.0" />
          </HBox.margin>
          <children>
-            <Text fill="#1db954" style="-fx-font-size: 22px;" text="♪" />
+            <Text fill="#00BFA5" style="-fx-font-size: 22px;" text="♪" />
          </children>
       </StackPane>
 
       <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="nameLabel" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #ffffff;" text="Nome Playlist" />
-            <Label fx:id="trackCountLabel" style="-fx-text-fill: #b3b3b3; -fx-font-size: 12px;" text="0 brani" />
+            <Label fx:id="nameLabel" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #37474F;" text="Nome Playlist" />
+            <Label fx:id="trackCountLabel" style="-fx-text-fill: #78909C; -fx-font-size: 12px;" text="0 brani" />
          </children>
       </VBox>
 
-      <Button fx:id="playlistMenuButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #b3b3b3; -fx-font-size: 14px; -fx-cursor: hand;" text="⋮">
+      <Button fx:id="playlistMenuButton" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-font-size: 14px; -fx-cursor: hand;" text="⋮">
          <HBox.margin>
             <Insets right="15.0" />
          </HBox.margin>

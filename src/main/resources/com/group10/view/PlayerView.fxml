@@ -6,30 +6,30 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="1065.0" 
-            style="-fx-background-color: #0F0500;" 
+            style="-fx-background-color: #FFF8E1;" 
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       
-      <Pane fx:id="progressFill" layoutX="313.0" layoutY="43.0" prefHeight="18.0" prefWidth="0.0" style="-fx-background-color: #FF6B35;" />
+      <Pane fx:id="progressFill" layoutX="313.0" layoutY="43.0" prefHeight="18.0" prefWidth="0.0" style="-fx-background-color: #00BFA5;" />
 
       <Slider fx:id="trackSlider" 
               layoutX="313.0" layoutY="43.0" 
               prefHeight="18.0" prefWidth="440.0" 
               min="0" max="100" 
-              style="-fx-control-inner-background: #3A1E00; -fx-accent: #FF6B35; -fx-cursor: hand;" />
+              style="-fx-control-inner-background: #EFE6CC; -fx-accent: #00BFA5; -fx-cursor: hand;" />
       
-      <Button layoutX="831.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleFavorite" style="-fx-background-color: transparent; -fx-text-fill: #C4906B; -fx-font-size: 14px; -fx-cursor: hand;" text="❤️" />
+      <Button layoutX="831.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleFavorite" style="-fx-background-color: transparent; -fx-text-fill: #FF8F00; -fx-font-size: 14px; -fx-cursor: hand;" text="❤️" />
       
-      <Button layoutX="972.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleRepeat" style="-fx-background-color: #3A1E00; -fx-text-fill: #C4906B; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="REPEAT" />
-      <Button layoutX="882.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleShuffle" style="-fx-background-color: #3A1E00; -fx-text-fill: #C4906B; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="SHUFFLE" />
-      <Button layoutX="640.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNextPlaylist" style="-fx-background-color: #3A1E00; -fx-text-fill: #C4906B; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="NEXT_PLAYLIST" />
+      <Button layoutX="972.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleRepeat" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="REPEAT" />
+      <Button layoutX="882.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleShuffle" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="SHUFFLE" />
+      <Button layoutX="640.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNextPlaylist" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="NEXT_PLAYLIST" />
       
-      <Button layoutX="437.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePrevious" style="-fx-background-color: transparent; -fx-text-fill: #FFF0E8; -fx-font-size: 16px; -fx-cursor: hand;" text="⏮️" />
-      <Button layoutX="575.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNext" style="-fx-background-color: transparent; -fx-text-fill: #FFF0E8; -fx-font-size: 16px; -fx-cursor: hand;" text="⏭️" />
+      <Button layoutX="437.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePrevious" style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-font-size: 16px; -fx-cursor: hand;" text="⏮️" />
+      <Button layoutX="575.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNext" style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-font-size: 16px; -fx-cursor: hand;" text="⏭️" />
       
-      <Button fx:id="playPauseButton" layoutX="506.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePlayPause" style="-fx-background-color: #FF6B35; -fx-text-fill: #1A0A00; -fx-background-radius: 25; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand; -fx-pref-width: 42; -fx-pref-height: 42;" text="▶️" />
+      <Button fx:id="playPauseButton" layoutX="506.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePlayPause" style="-fx-background-color: #00BFA5; -fx-text-fill: #37474F; -fx-background-radius: 25; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand; -fx-pref-width: 42; -fx-pref-height: 42;" text="▶️" />
       
-      <Label fx:id="trackTitle" layoutX="79.0" layoutY="74.0" prefHeight="31.0" prefWidth="150.0" style="-fx-text-fill: #FFF0E8; -fx-font-weight: bold; -fx-font-size: 14px;" text="Titolo" />
-      <Label fx:id="trackAuthor" layoutX="79.0" layoutY="116.0" prefHeight="21.0" prefWidth="150.0" style="-fx-text-fill: #C4906B; -fx-font-size: 12px;" text="Autore" />
+      <Label fx:id="trackTitle" layoutX="79.0" layoutY="74.0" prefHeight="31.0" prefWidth="150.0" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-font-size: 14px;" text="Titolo" />
+      <Label fx:id="trackAuthor" layoutX="79.0" layoutY="116.0" prefHeight="21.0" prefWidth="150.0" style="-fx-text-fill: #78909C; -fx-font-size: 12px;" text="Autore" />
    </children>
 </AnchorPane>

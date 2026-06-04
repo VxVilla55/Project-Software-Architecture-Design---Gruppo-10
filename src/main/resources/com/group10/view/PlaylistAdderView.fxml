@@ -12,10 +12,10 @@
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       
-      <VBox alignment="CENTER" layoutX="140.0" layoutY="40.0" prefHeight="220.0" prefWidth="320.0" spacing="18.0" style="-fx-background-color: #181818; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 15, 0, 0, 5);">
+      <VBox alignment="CENTER" layoutX="140.0" layoutY="40.0" prefHeight="220.0" prefWidth="320.0" spacing="18.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
          <children>
             
-            <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Nome Playlist">
+            <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Nome Playlist">
                <font>
                   <Font size="16.0" />
                </font>
@@ -24,7 +24,7 @@
                </VBox.margin>
             </Label>
             
-            <TextField fx:id="playlistNameInput" prefHeight="35.0" prefWidth="270.0" promptText="Inserisci il nome della playlist..." style="-fx-background-color: #282828; -fx-text-fill: white; -fx-background-radius: 4; -fx-border-color: transparent; -fx-prompt-text-fill: #777777;">
+            <TextField fx:id="playlistNameInput" prefHeight="35.0" prefWidth="270.0" promptText="Inserisci il nome della playlist..." style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 4; -fx-border-color: transparent; -fx-prompt-text-fill: #78909C;">
                <font>
                   <Font size="13.0" />
                </font>
@@ -32,13 +32,13 @@
             
             <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleAnnulla" style="-fx-background-color: transparent; -fx-text-fill: #b3b3b3; -fx-cursor: hand; -fx-font-weight: bold;" text="Annulla">
+                  <Button mnemonicParsing="false" onAction="#handleAnnulla" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand; -fx-font-weight: bold;" text="Annulla">
                      <font>
                         <Font size="13.0" />
                      </font>
                   </Button>
                   
-                  <Button mnemonicParsing="false" onAction="#handleCreatePlaylist" style="-fx-background-color: #1db954; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 7 24 7 24; -fx-cursor: hand; -fx-font-weight: bold;" text="Crea">
+                  <Button mnemonicParsing="false" onAction="#handleCreatePlaylist" style="-fx-background-color: #00BFA5; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 7 24 7 24; -fx-cursor: hand; -fx-font-weight: bold;" text="Crea">
                      <font>
                         <Font size="13.0" />
                      </font>

@@ -5,23 +5,23 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:id="root" prefHeight="160.0" prefWidth="232.0" 
-      style="-fx-background-color: #282828; -fx-border-color: #3e3e3e; -fx-padding: 4; -fx-background-radius: 6; -fx-border-radius: 6; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 4);" 
+      style="-fx-background-color: #EFE6CC; -fx-border-color: #D7CCC8; -fx-padding: 4; -fx-background-radius: 6; -fx-border-radius: 6; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 10, 0, 0, 4);" 
       xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
               mnemonicParsing="false" onAction="#handleViewDetails" prefHeight="38.0" 
-              style="-fx-background-color: transparent; -fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Visualizza dettaglio" />
+              style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Visualizza dettaglio" />
               
       <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
               mnemonicParsing="false" onAction="#handleAddToQueue" prefHeight="38.0" 
-              style="-fx-background-color: transparent; -fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Aggiungi alla coda" />
+              style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Aggiungi alla coda" />
               
       <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
               mnemonicParsing="false" onAction="#handlePlayAsNext" prefHeight="38.0" 
-              style="-fx-background-color: transparent; -fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Riproduci come prossimo" />
+              style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Riproduci come prossimo" />
               
       <Button maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" 
               mnemonicParsing="false" onAction="#handleAddToPlaylist" prefHeight="38.0" 
-              style="-fx-background-color: transparent; -fx-text-fill: #e0e0e0; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Aggiungi a playlist..." textOverrun="CLIP" />
+              style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-font-weight: bold; -fx-alignment: center-left; -fx-padding: 0 15 0 15; -fx-cursor: hand; -fx-background-radius: 4;" text="Aggiungi a playlist..." textOverrun="CLIP" />
    </children>
 </VBox>
