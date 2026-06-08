@@ -73,9 +73,9 @@ public class PlaylistUIDetailsController extends AbstractUIDetailsController {
         }
         //playlistImageView;
         playlistNameLabel.setText(playlist.getName());
-        Duration durataPlaylist = Duration.ofSeconds(playlist.getDurationInSeconds());
-        String durataFormattata = String.format("(%02d:%02d:%02d)", durataPlaylist.toHoursPart(), durataPlaylist.toMinutesPart(), durataPlaylist.toSecondsPart());
-        playlistTracksCountLabel.setText(String.valueOf(playlist.getSize())+" tracce "+durataFormattata);
+        Duration playlistDuration = Duration.ofSeconds(playlist.getDurationInSeconds());
+        String formattedDuration = String.format("(%02d:%02d:%02d)", playlistDuration.toHoursPart(), playlistDuration.toMinutesPart(), playlistDuration.toSecondsPart());
+        playlistTracksCountLabel.setText(String.valueOf(playlist.getSize())+" tracce "+ formattedDuration);
     }
     
     @Override

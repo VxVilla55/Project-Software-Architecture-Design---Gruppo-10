@@ -77,9 +77,9 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         yearLabel.setText(String.valueOf(track.getYear()));
         
         
-        Duration durataTrack = Duration.ofSeconds(track.getDurationInSeconds());
-        String durataFormattata = String.format("(%02d:%02d:%02d)", durataTrack.toHoursPart(), durataTrack.toMinutesPart(), durataTrack.toSecondsPart());
-        durationLabel.setText(String.valueOf(track.getDurationInSeconds()));
+        Duration trackDuration = Duration.ofSeconds(track.getDurationInSeconds());
+        String formattedDuration = String.format("%02d:%02d:%02d", trackDuration.toHoursPart(), trackDuration.toMinutesPart(), trackDuration.toSecondsPart());
+        durationLabel.setText(formattedDuration);
         root.setFocusTraversable(false);
     }
     
