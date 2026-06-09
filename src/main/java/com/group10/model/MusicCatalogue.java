@@ -51,7 +51,7 @@ public class MusicCatalogue implements Publisher{
         tracks.add(track);
         notifySubscribers();
     }
-   public void removeTrack(TrackComponent track) {
+public void removeTrack(TrackComponent track) {
         // 1. CASCATA: Rimuovi la traccia da tutte le playlist esistenti
         for (PlaylistComponent playlist : playlists.values()) {
             playlist.remove(track); 
@@ -60,7 +60,11 @@ public class MusicCatalogue implements Publisher{
         // 2. Rimuovi la traccia dalla libreria principale
         tracks.remove(track);
 
-        // 3. Notifica gli iscritti (es. la grafica) che ci sono stati cambiamenti
+        // ---> LA RIGA CHE MANCAVA <---
+        // 3. CASCATA: Avvisiamo il player di toglierla dalla coda!
+        com.group10.model.state.PlaybackEngine.getInstance().removeTrackFromQueue(track);
+
+        // 4. Notifica gli iscritti (es. la grafica)
         notifySubscribers();
     }
     

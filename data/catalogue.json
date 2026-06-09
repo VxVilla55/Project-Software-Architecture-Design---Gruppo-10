@@ -1,59 +1,31 @@
 {
   "tracks": [
     {
-      "title": "Livin\u0027 on a Prayer",
-      "author": "Bon Jovi",
-      "duration": 249,
-      "genre": "Hard Rock",
-      "year": 1986
+      "title": "madre",
+      "author": "cieli",
+      "duration": 200,
+      "genre": "",
+      "year": 2026
     },
     {
-      "title": "Sweet Child O\u0027 Mine",
-      "author": "Guns N\u0027 Roses",
-      "duration": 355,
-      "genre": "Hard Rock",
-      "year": 1987
+      "title": "junior",
+      "author": "santos",
+      "duration": 200,
+      "genre": "",
+      "year": 2026
     },
     {
-      "title": "Dream On",
-      "author": "Aerosmith",
-      "duration": 268,
-      "genre": "Classic Rock",
-      "year": 1973
-    },
-    {
-      "title": "Back In Black",
-      "author": "AC/DC",
-      "duration": 255,
-      "genre": "Hard Rock",
-      "year": 1980
-    },
-    {
-      "title": "The Final Countdown",
-      "author": "Europe",
-      "duration": 309,
-      "genre": "Glam Metal",
-      "year": 1986
-    },
-    {
-      "title": "asdasd",
-      "author": "asdasd",
-      "duration": 123,
+      "title": "sad",
+      "author": "dff",
+      "duration": 122,
       "genre": "",
       "year": 2026
     }
   ],
   "playlists": [
     {
-      "name": "Classic Rock Anthems",
-      "trackKeys": [
-        "asdasd::asdasd",
-        "Back In Black::AC/DC",
-        "Dream On::Aerosmith",
-        "Livin\u0027 on a Prayer::Bon Jovi",
-        "Sweet Child O\u0027 Mine::Guns N\u0027 Roses",
-        "The Final Countdown::Europe"
-      ]
+      "name": "Playlist Di Prova",
+      "trackKeys": []
     }
   ]
 }

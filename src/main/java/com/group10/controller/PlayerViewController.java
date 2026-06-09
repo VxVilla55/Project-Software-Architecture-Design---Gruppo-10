@@ -23,7 +23,7 @@ public class PlayerViewController implements Initializable {
     
     private Parent root;
 
-    @Override
+@Override
     public void initialize(URL location, ResourceBundle resources) {
         if (progressFill == null) {
             System.err.println("ERRORE: progressFill non è stato collegato! Controlla l'ID nell'FXML.");
@@ -31,7 +31,6 @@ public class PlayerViewController implements Initializable {
 
         var engine = PlaybackEngine.getInstance();
         
-      
         engine.setOnPlayStateChanged(isPlaying -> {
             if (playPauseButton != null) {
                 if (isPlaying) {
@@ -56,9 +55,15 @@ public class PlayerViewController implements Initializable {
             }
         });
 
-        engine.setOnTrackChanged(track -> {
-            trackTitle.setText(track.getTitle());
-            trackAuthor.setText(track.getAuthor());
+    engine.setOnTrackChanged(track -> {
+            if (track != null) {
+                trackTitle.setText(track.getTitle());
+                trackAuthor.setText(track.getAuthor());
+            } else {
+                // PRIMO PUNTO DA SVUOTARE
+                trackTitle.setText("");
+                trackAuthor.setText("");
+            }
             if (progressFill != null) progressFill.setMaxWidth(0); 
             if (trackSlider != null) trackSlider.setValue(0);     
         });
@@ -75,6 +80,21 @@ public class PlayerViewController implements Initializable {
                 }
             }
         });
+
+        // Sincronizzazione iniziale al caricamento
+        var current = engine.getCurrentTrack();
+        if (current != null) {
+            trackTitle.setText(current.getTitle());
+            trackAuthor.setText(current.getAuthor());
+            if (engine.getState() instanceof PlayingState) {
+                if (playPauseButton != null) playPauseButton.setText("⏸");
+            } else {
+                if (playPauseButton != null) playPauseButton.setText("▶️");
+            }
+        } else {
+            trackTitle.setText("");
+            trackAuthor.setText("");
+        }
     }
 
 

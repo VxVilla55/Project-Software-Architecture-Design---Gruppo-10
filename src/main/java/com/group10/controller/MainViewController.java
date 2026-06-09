@@ -162,17 +162,17 @@ public class MainViewController implements Initializable, Subscriber {
             }
         }
         
-        //azzero il contenuto
-        bottomPane.getChildren().clear();
-        //carico
-        loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
-        PlayerViewController controller = new PlayerViewController();
-        loader.setController(controller);
-        try {
-            Parent playerView = loader.load();
-            showOnBottomPane(playerView);
-        } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della PlayerView", e);
+     // ---> LA SOLUZIONE: Carichiamo il Player SOLO se non c'è già! <---
+        if (bottomPane.getChildren().isEmpty()) {
+            loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
+            PlayerViewController controller = new PlayerViewController();
+            loader.setController(controller);
+            try {
+                Parent playerView = loader.load();
+                showOnBottomPane(playerView);
+            } catch (IOException e) {
+                throw new RuntimeException("Errore nel caricamento della PlayerView", e);
+            }
         }
     }
     

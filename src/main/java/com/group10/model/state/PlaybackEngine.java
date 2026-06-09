@@ -62,7 +62,7 @@ public class PlaybackEngine {
         cambiaTraccia(track);
     }
 
-    public void clearQueue() {
+public void clearQueue() {
         this.queue.clear();
         this.currentIndex = -1;
         this.currentTrack = null;
@@ -70,6 +70,14 @@ public class PlaybackEngine {
         stopSimulation();
         setState(new StoppedState());
         System.out.println("🧹 Coda svuotata.");
+        
+        // Avvisiamo la grafica che il brano è diventato "null" (vuoto)
+        if (onTrackChanged != null) {
+            javafx.application.Platform.runLater(() -> onTrackChanged.accept(null));
+        }
+        if (onTick != null) {
+            javafx.application.Platform.runLater(() -> onTick.accept(0.0));
+        }
     }
     
     public void addTrackToQueue(TrackComponent track) {
@@ -197,6 +205,45 @@ public class PlaybackEngine {
     public void resetTime() {
         this.currentTime = 0; 
     }
+
+
+
+public void removeTrackFromQueue(TrackComponent track) {
+        // 1. CASO CRITICO: La traccia da eliminare è quella che sta suonando ORA
+        if (currentTrack != null && currentTrack.equals(track)) {
+            System.out.println("⚠️ La traccia eliminata era in riproduzione. Fermo il player.");
+            
+            queue.remove(track); // La togliamo fisicamente dalla lista
+
+            if (queue.isEmpty()) {
+                clearQueue(); // Svuota tutto e pulisce la grafica
+            } else {
+                // Se ci sono altre canzoni, ci posizioniamo su quella precedente in pausa
+                if (currentIndex >= queue.size()) {
+                    currentIndex = queue.size() - 1;
+                    cambiaTraccia(queue.get(currentIndex));
+                    stopSimulation();
+                    setState(new StoppedState());
+                } else {
+                    cambiaTraccia(queue.get(currentIndex));
+                }
+            }
+        } 
+        // 2. CASO NORMALE: La traccia non suonava, ma era comunque in coda
+        else if (queue.contains(track)) {
+            int removedIndex = queue.indexOf(track);
+            queue.remove(track);
+            System.out.println("🗑️ Traccia '" + track.getTitle() + "' rimossa silenziosamente dalla coda.");
+
+            // Aggiustiamo l'indice in modo che non salti la canzone successiva
+            if (removedIndex < currentIndex) {
+                currentIndex--;
+            }
+        } else {
+            System.out.println("ℹ️ La traccia non era presente nella coda di riproduzione.");
+        }
+    }
+    
 
     
     public void play() { currentState.play(this); }

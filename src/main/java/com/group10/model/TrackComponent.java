@@ -81,19 +81,22 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
         hash = 29 * hash + Objects.hashCode(this.author);
         return hash;
     }
-
-    @Override
+@Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TrackComponent other = (TrackComponent) obj;
-        return true;
+        // 1. Se sono lo stesso identico oggetto in memoria, sono uguali
+        if (this == obj) return true;
+        
+        // 2. Se l'altro oggetto è nullo o è di una classe diversa, non sono uguali
+        if (obj == null || getClass() != obj.getClass()) return false;
+        
+        // 3. Confrontiamo titolo e autore
+        TrackComponent other = (TrackComponent) obj;
+        
+        boolean isTitleEqual = (this.getTitle() != null && this.getTitle().equals(other.getTitle()));
+        boolean isAuthorEqual = (this.getAuthor() != null && this.getAuthor().equals(other.getAuthor()));
+        
+        return isTitleEqual && isAuthorEqual;
     }
+
+ 
 }
