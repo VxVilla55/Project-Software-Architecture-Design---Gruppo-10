@@ -9,6 +9,8 @@ import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
+import com.group10.model.persistence.JsonPersistenceManager;
+import com.group10.model.persistence.PersistenceManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,7 +28,10 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        MusicCatalogue.getInstance().load();
+        JsonPersistenceManager persistence = new JsonPersistenceManager();
+        persistence.load();
+        MusicCatalogue.getInstance().addSubscriber(persistence);
+        
         stage.setOnCloseRequest(event -> {
         com.group10.model.state.PlaybackEngine.getInstance().stopSimulation();
         javafx.application.Platform.exit();

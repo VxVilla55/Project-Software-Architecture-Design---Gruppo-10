@@ -18,7 +18,7 @@ import com.group10.model.MusicCatalogue;
 
 public interface PersistenceManager {
  
-    void save(MusicCatalogue catalogue);
+    void save();
  
-    void load(MusicCatalogue catalogue);
+    void load();
 }
