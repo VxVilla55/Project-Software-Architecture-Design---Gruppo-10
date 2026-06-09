@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.group10.controller.playlist;
-
 
 import com.group10.controller.common.AbstractUIDetailsController;
 import com.group10.controller.factory.TrackUIComponentFactory;
@@ -32,8 +26,7 @@ import javafx.scene.layout.VBox;
  * FXML Controller class
  *
  * @author group10
- * 
- * product del pattern FACTORY
+ * * product del pattern FACTORY
  */
 public class PlaylistUIDetailsController extends AbstractUIDetailsController {
     
@@ -62,16 +55,20 @@ public class PlaylistUIDetailsController extends AbstractUIDetailsController {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //uso la factory per creare gli elementi item per ogni traccia della playlist
+        // uso la factory per creare gli elementi item per ogni traccia della playlist
         TrackUIComponentFactory factory = new TrackUIComponentFactory();
         TrackUIComponentItem item;
         
-        //DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
+        // DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
         for(TrackComponent t: playlist.getTracks()) {
             item = (TrackUIComponentItem) factory.createUIComponentItem(t);
+            
+            // MODIFICA QUI: Passiamo la playlist corrente all'item della traccia
+            item.setContextPlaylist(this.playlist);
+            
             tracksContainer.getChildren().add(item.getRoot());
         }
-        //playlistImageView;
+
         playlistNameLabel.setText(playlist.getName());
         Duration playlistDuration = Duration.ofSeconds(playlist.getDurationInSeconds());
         String formattedDuration = String.format("(%02d:%02d:%02d)", playlistDuration.toHoursPart(), playlistDuration.toMinutesPart(), playlistDuration.toSecondsPart());

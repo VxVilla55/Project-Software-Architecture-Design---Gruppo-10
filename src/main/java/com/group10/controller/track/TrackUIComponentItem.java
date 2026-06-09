@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.group10.controller.track;
 
 /**
@@ -16,7 +12,6 @@ import com.group10.controller.common.AbstractUIComponentItem;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
-
 
 import com.group10.model.state.PlaybackEngine;
 
@@ -54,6 +49,14 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     
     private TrackComponent track;
     
+    // --- NUOVO: Variabile per ricordarsi in che playlist siamo ---
+    private com.group10.model.PlaylistComponent contextPlaylist = null;
+    
+    // --- NUOVO: Metodo per ricevere la playlist dal PlaylistUIDetailsController ---
+    public void setContextPlaylist(com.group10.model.PlaylistComponent playlist) {
+        this.contextPlaylist = playlist;
+    }
+    
     public TrackUIComponentItem(TrackComponent track) {
         this.track = track;
     }
@@ -76,7 +79,6 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         genreLabel.setText(track.getGenre());
         yearLabel.setText(String.valueOf(track.getYear()));
         
-        
         Duration trackDuration = Duration.ofSeconds(track.getDurationInSeconds());
         String formattedDuration = String.format("%02d:%02d:%02d", trackDuration.toHoursPart(), trackDuration.toMinutesPart(), trackDuration.toSecondsPart());
         durationLabel.setText(formattedDuration);
@@ -92,8 +94,11 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     private void handleOptions(ActionEvent event) {
         System.out.println("OPTIONS");
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
-        MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 
         
+        // --- NUOVO: Passiamo la playlist al controller delle opzioni prima di mostrarlo! ---
+        c.setContextPlaylist(this.contextPlaylist);
+        
+        MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 
     }
     
     @FXML
@@ -101,7 +106,6 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
         
         MainViewController.getInstance().setSelectedTrack(track);
         MainViewController.getInstance().update();
-        
         
         PlaybackEngine.getInstance().setCurrentTrack(track);
         PlaybackEngine.getInstance().play();

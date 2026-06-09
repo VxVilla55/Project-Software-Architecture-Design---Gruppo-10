@@ -9,6 +9,7 @@ import com.group10.controller.common.AbstractUIDetailsController;
 import com.group10.controller.common.AbstractUIOptionsComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
+import com.group10.model.MusicCatalogue;
 import com.group10.model.TrackComponent;
 import com.group10.model.state.PlaybackEngine;
 import java.io.IOException;
@@ -34,6 +35,11 @@ import javafx.stage.Popup;
 public class TrackUIOptionsController extends AbstractUIOptionsComponent {
     @FXML
     private VBox root;
+    // --- INIZIO DELLE TUE MODIFICHE ---
+    @FXML
+    private javafx.scene.control.Button removeTrackButton;
+    private com.group10.model.PlaylistComponent contextPlaylist = null;
+    // --- FINE DELLE TUE MODIFICHE ---
     
     private final TrackComponent track;
     
@@ -54,8 +60,9 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }
+
 
     @Override
     public Parent getRoot() {
@@ -84,6 +91,7 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
         MainViewController.getInstance().hideMenuPopup();
     }
 
+
     @FXML
     private void handlePlayAsNext(ActionEvent event) {
         PlaybackEngine.getInstance().addTrackAsNext(track);
@@ -107,5 +115,35 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
         }
         //cancella popup
         MainViewController.getInstance().hideMenuPopup();
+    }
+    // NUOVO: Metodo per dire al menu in quale playlist si trova
+    public void setContextPlaylist(com.group10.model.PlaylistComponent playlist) {
+        this.contextPlaylist = playlist;
+        
+        // Se c'è una playlist, cambiamo il testo del bottone!
+        if (this.contextPlaylist != null && removeTrackButton != null) {
+            removeTrackButton.setText("Rimuovi dalla playlist");
+        }
+    }
+
+@FXML
+    private void handleRemoveTrack(ActionEvent event) {
+        if (contextPlaylist != null) {
+            // COMPORTAMENTO 1: Siamo dentro una playlist
+            contextPlaylist.remove(track);
+            System.out.println("✅ Traccia '" + track.getTitle() + "' rimossa SOLO dalla playlist: " + contextPlaylist.getName());
+            
+        } else {
+            // COMPORTAMENTO 2: Siamo nella libreria generale
+            MusicCatalogue.getInstance().removeTrack(track);
+            System.out.println("✅ Traccia '" + track.getTitle() + "' rimossa dal CATALOGO GENERALE (e a cascata dalle playlist).");
+        }
+        
+        // Chiudiamo sempre il menu a tendina
+        MainViewController.getInstance().hideMenuPopup();
+        
+        // ---> LA RIGA MAGICA <---
+        // Diciamo alla schermata principale di ricaricare la grafica immediatamente!
+        MainViewController.getInstance().update();
     }
 }
