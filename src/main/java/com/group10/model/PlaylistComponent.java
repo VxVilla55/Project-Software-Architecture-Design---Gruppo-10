@@ -6,6 +6,7 @@ package com.group10.model;
 
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.common.Playable;
+import com.group10.model.common.Subscriber;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -100,6 +101,14 @@ public class PlaylistComponent implements Playable {
         for (TrackComponent track : this.tracks) {
             track.playOnEngine(engine);
         }
+    }
+
+    public void updateTrack(TrackComponent oldTrack, TrackComponent updatedTrack) {
+        if (!tracks.contains(oldTrack)) {
+            return;
+        }
+        tracks.remove(oldTrack);
+        tracks.add(updatedTrack);
     }
 }
     

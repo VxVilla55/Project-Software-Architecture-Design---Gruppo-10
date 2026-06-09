@@ -4,8 +4,6 @@
  */
 package com.group10.model.persistence;
 
-import com.group10.model.MusicCatalogue;
-
 
 /**
  *

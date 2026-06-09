@@ -20,7 +20,7 @@ import javafx.scene.layout.HBox;
 /**
  * FXML Controller class
  *
- * @author alfon
+ * @author group10
  */
 public class HomepageController implements Initializable {
 

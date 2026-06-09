@@ -125,4 +125,23 @@ public void removeTrack(TrackComponent track) {
             s.update();
         }
     }
+    
+    public void replaceTrack(TrackComponent oldTrack, TrackComponent updatedTrack) {
+        if (oldTrack == null || updatedTrack == null) {
+            return;
+        }        
+        tracks.replaceAll(track -> {
+            if (track.equals(oldTrack)) {
+                return updatedTrack;
+            } else {
+                return track;
+            }
+        });
+        //aggiorno le playlist se contenevano la traccia vecchia
+        for (PlaylistComponent playlist: playlists.values()) {
+            if ( playlist.contains(oldTrack))
+                playlist.updateTrack(oldTrack, updatedTrack);
+        }
+        notifySubscribers();
+    }
 }
