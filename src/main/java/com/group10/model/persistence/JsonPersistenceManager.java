@@ -22,6 +22,13 @@ import java.util.Map;
 /**
  *
  * @author group10
+ * 
+ * Implementazione su file JSON di PersistenceManager (libreria Gson)
+ *
+ * Le tracce, essendo immutabili, vengono ricostruite tramite TrackBuilder
+ * in fase di caricamento; le playlist salvano solo i riferimenti alle
+ * tracce (titolo+autore) per non duplicarne i dati
+ *
  */
 
 public class JsonPersistenceManager implements PersistenceManager {
@@ -31,6 +38,7 @@ public class JsonPersistenceManager implements PersistenceManager {
 
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    // serializza lo stato corrente del catalogo sul file JSON
     @Override
     public void save(MusicCatalogue catalogue) {
         try {
@@ -43,6 +51,7 @@ public class JsonPersistenceManager implements PersistenceManager {
         }
     }
 
+    // legge il file JSON e popola il catalogo (resta vuoto se assente o corrotto)
     @Override
     public void load(MusicCatalogue catalogue) {
         if (!Files.exists(CATALOGUE_FILE)) {
@@ -80,6 +89,7 @@ public class JsonPersistenceManager implements PersistenceManager {
         }
     }
 
+    // converte il catalogo nella struttura dati salvabile su file
     private CatalogueFile toFile(MusicCatalogue catalogue) {
         CatalogueFile data = new CatalogueFile();
         for (TrackComponent track : catalogue.getTracks()) {
@@ -102,6 +112,7 @@ public class JsonPersistenceManager implements PersistenceManager {
         return data;
     }
 
+    // chiave univoca di una traccia (titolo + autore)
     private String key(String title, String author) {
         return title + "::" + author;
     }

@@ -7,6 +7,8 @@ package com.group10.model.persistence;
 /**
  *
  * @author group10
+ * 
+ * Dati di una singola traccia nel formato di salvataggio
  */
 
 public class TrackData {

@@ -10,6 +10,9 @@ import java.util.List;
 /**
  *
  * @author group10
+ * 
+ * Dati di una playlist nel formato di salvataggio: il nome e i
+ * riferimenti (titolo+autore) alle tracce che contiene
  */
 
 public class PlaylistData {

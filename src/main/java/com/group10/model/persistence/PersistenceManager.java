@@ -10,6 +10,10 @@ import com.group10.model.MusicCatalogue;
 /**
  *
  * @author group10
+ * 
+ * Astrazione per il salvataggio e il caricamento del catalogo:
+ * disaccoppia MusicCatalogue dal formato di persistenza concreto
+ *
  */
 
 public interface PersistenceManager {
