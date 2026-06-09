@@ -6,8 +6,6 @@ package com.group10.model;
 
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.common.Playable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -63,7 +61,9 @@ public class PlaylistComponent implements Playable {
     
     // aggiunge una traccia in coda
     public void add(TrackComponent track) {
-        tracks.add(track);
+        if (!contains(track)) {
+            tracks.add(track);
+        }
     }
   
     // rimuove la traccia indicata

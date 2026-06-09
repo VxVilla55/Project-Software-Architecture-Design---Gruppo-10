@@ -83,11 +83,11 @@ public class AddToPlaylistController implements Initializable {
         for (Map.Entry<String, BooleanProperty> entry : itemStates.entrySet()) {
             String playlistName = entry.getKey();
             boolean isChecked = entry.getValue().get();
-            
+                      
             if (isChecked) {
-                MusicCatalogue.getInstance().getPlaylist(playlistName).add(selectedTrack);
+                MusicCatalogue.getInstance().addTrackToPlaylist(playlistName, selectedTrack);
             } else {
-                MusicCatalogue.getInstance().getPlaylist(playlistName).remove(selectedTrack);
+                MusicCatalogue.getInstance().removeTrackFromPlaylist(playlistName, selectedTrack);
             }
         }
         
