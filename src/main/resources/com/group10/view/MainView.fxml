@@ -22,7 +22,7 @@
                      <font><Font name="System Bold" size="14.0" /></font>
                   </Button>
                   
-                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="#handleHome" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 20; -fx-font-weight: bold;" text="🏠 Home">
+                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="#handleHome" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 20; -fx-font-weight: bold;" text="⌂ Home">
                      <font><Font size="14.0" /></font>
                   </Button>
                   

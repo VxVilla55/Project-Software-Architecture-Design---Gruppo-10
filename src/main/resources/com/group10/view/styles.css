@@ -1,0 +1,23 @@
+
+#homeButton,
+#homeButton:hover,
+#homeButton:pressed,
+#homeButton:focused,
+#homeButton:armed {
+    -fx-background-color: #EFE6CC;
+    -fx-text-fill: #37474F;
+    -fx-background-radius: 20;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-effect: null;
+    -fx-padding: 6 12 6 12;
+    -fx-min-width: 80;
+    -fx-min-height: 32;
+    -fx-pref-width: 80;
+    -fx-pref-height: 32;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}

@@ -10,6 +10,7 @@ import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.builder.TrackBuilder;
+import com.group10.model.common.Subscriber;
 
 import java.io.Reader;
 import java.io.Writer;
@@ -31,20 +32,29 @@ import java.util.Map;
  *
  */
 
-public class JsonPersistenceManager implements PersistenceManager {
+public class JsonPersistenceManager implements PersistenceManager, Subscriber {
 
-    private static final Path DATA_DIR = Paths.get("data");
-    private static final Path CATALOGUE_FILE = DATA_DIR.resolve("catalogue.json");
+    private final Path catalogueFile;
 
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    
+    public JsonPersistenceManager() {
+        this.catalogueFile = Paths.get("data", "catalogue.json");
+    }
+
+    
     // serializza lo stato corrente del catalogo sul file JSON
     @Override
-    public void save(MusicCatalogue catalogue) {
+    public void save() {
+        
         try {
-            Files.createDirectories(DATA_DIR);
-            try (Writer writer = Files.newBufferedWriter(CATALOGUE_FILE)) {
-                gson.toJson(toFile(catalogue), writer);
+            Path parent = catalogueFile.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+            try (Writer writer = Files.newBufferedWriter(catalogueFile)) {
+                gson.toJson(toFile(MusicCatalogue.getInstance()), writer);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -53,11 +63,11 @@ public class JsonPersistenceManager implements PersistenceManager {
 
     // legge il file JSON e popola il catalogo (resta vuoto se assente o corrotto)
     @Override
-    public void load(MusicCatalogue catalogue) {
-        if (!Files.exists(CATALOGUE_FILE)) {
+    public void load() {
+        if (!Files.exists(catalogueFile)) {
             return;
         }
-        try (Reader reader = Files.newBufferedReader(CATALOGUE_FILE)) {
+        try (Reader reader = Files.newBufferedReader(catalogueFile)) {
             CatalogueFile data = gson.fromJson(reader, CatalogueFile.class);
             if (data == null) {
                 return;
@@ -71,7 +81,7 @@ public class JsonPersistenceManager implements PersistenceManager {
                         .setGenre(t.genre)
                         .setYear(t.year)
                         .build();
-                catalogue.addTrack(track);
+                MusicCatalogue.getInstance().addTrack(track);
                 byKey.put(key(t.title, t.author), track);
             }
             for (PlaylistData p : data.playlists) {
@@ -82,7 +92,7 @@ public class JsonPersistenceManager implements PersistenceManager {
                         playlist.add(track);
                     }
                 }
-                catalogue.addPlaylist(playlist);
+                MusicCatalogue.getInstance().addPlaylist(playlist);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,5 +125,10 @@ public class JsonPersistenceManager implements PersistenceManager {
     // chiave univoca di una traccia (titolo + autore)
     private String key(String title, String author) {
         return title + "::" + author;
+    }
+
+    @Override
+    public void update() {
+        save();
     }
 }
