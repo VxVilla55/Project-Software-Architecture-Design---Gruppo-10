@@ -6,8 +6,6 @@ package com.group10.model;
 
 import com.group10.model.common.Publisher;
 import com.group10.model.common.Subscriber;
-import com.group10.model.persistence.JsonPersistenceManager;
-import com.group10.model.persistence.PersistenceManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +24,6 @@ public class MusicCatalogue implements Publisher{
     private List<TrackComponent> tracks;
     private final Map<String, PlaylistComponent> playlists;
     private List<Subscriber> subscribers;
-    private final PersistenceManager persistence = new JsonPersistenceManager();
     
     public MusicCatalogue() {
         tracks = new ArrayList<>();
@@ -52,7 +49,6 @@ public class MusicCatalogue implements Publisher{
 
     public void addTrack (TrackComponent track) {
         tracks.add(track);
-        save();
         notifySubscribers();
     }
    public void removeTrack(TrackComponent track) {
@@ -63,7 +59,6 @@ public class MusicCatalogue implements Publisher{
         
         // 2. Rimuovi la traccia dalla libreria principale
         tracks.remove(track);
-        save();
 
         // 3. Notifica gli iscritti (es. la grafica) che ci sono stati cambiamenti
         notifySubscribers();
@@ -76,12 +71,10 @@ public class MusicCatalogue implements Publisher{
                 "Esiste già una playlist con questo nome: " + playlist.getName());
         }
         playlists.put(playlist.getName(), playlist);
-        save();
         notifySubscribers();
     }
     public void removePlaylist (PlaylistComponent playlist) {
         playlists.remove(playlist);
-        save();
         notifySubscribers();
     }
     
@@ -92,14 +85,12 @@ public class MusicCatalogue implements Publisher{
     public void addTrackToPlaylist(String playlistName, TrackComponent track) {
         PlaylistComponent playlist = getPlaylist(playlistName);
         playlist.add(track);
-        save();
         notifySubscribers();
     }
 
     public void removeTrackFromPlaylist(String playlistName, TrackComponent track) {
         PlaylistComponent playlist = getPlaylist(playlistName);
         playlist.remove(track);
-        save();
         notifySubscribers();
     }
 
@@ -122,14 +113,6 @@ public class MusicCatalogue implements Publisher{
     }
     public void removeTracks(Subscriber subscriber) {
         subscribers.remove(subscriber);
-    }
-    
-     public void load() {
-        persistence.load(this);
-    }
-    
-    public void save() {
-        persistence.save(this);
     }
     
     @Override
