@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -7,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefWidth="700.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.controller.HomepageController">
+<VBox prefWidth="700.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.controller.HomepageController">
    <children>
       
       <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Le tue playlist preferite">
@@ -22,7 +27,7 @@
          </content>
       </ScrollPane>
 
-      <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="I tuoi brani consigliati">
+      <Label fx:id="tracksLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="I tuoi brani consigliati">
          <font><Font size="20.0" /></font>
          <VBox.margin><Insets bottom="10.0" left="20.0" top="25.0" /></VBox.margin>
       </Label>
