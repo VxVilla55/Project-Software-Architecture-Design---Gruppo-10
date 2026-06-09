@@ -13,5 +13,4 @@ module com.group10 {
     
     exports com.group10;
     exports com.group10.controller;
-    requires javafx.graphicsEmpty;
 }
