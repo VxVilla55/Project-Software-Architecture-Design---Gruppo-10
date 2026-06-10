@@ -1,20 +1,15 @@
 package com.group10.controller.playlist;
 
-import com.group10.controller.common.AbstractUIDetailsController;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.controller.track.TrackUIComponentItem;
-import com.group10.controller.UIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
-import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
-import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -28,7 +23,7 @@ import javafx.scene.layout.VBox;
  * @author group10
  * * product del pattern FACTORY
  */
-public class PlaylistUIDetailsController extends AbstractUIDetailsController {
+public class PlaylistUIDetailsController implements AbstractUIComponent, Initializable {
     
     @FXML
     private AnchorPane root;

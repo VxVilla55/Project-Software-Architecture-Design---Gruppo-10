@@ -1,15 +1,14 @@
 package com.group10.controller.playlist;
 
 import com.group10.controller.MainViewController;
-import com.group10.controller.common.AbstractUIComponentItem;
-import com.group10.controller.factory.PlaylistUIComponentFactory;
-import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +19,7 @@ import javafx.scene.layout.HBox;
  * Controller per il singolo item playlist nella lista.
  * Collegato a PlaylistItemView.fxml
  */
-public class PlaylistUIComponentItem extends AbstractUIComponentItem {
+public class PlaylistUIComponentItem implements AbstractUIComponent, Initializable {
 
     @FXML
     private HBox root;

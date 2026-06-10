@@ -4,15 +4,13 @@
  */
 package com.group10.controller.common;
 
-import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author group10
  */
-public abstract class AbstractUIAdderController {
+public interface AbstractUIComponent{
     
-    public abstract Parent getRoot();
+    public Parent getRoot();
 }

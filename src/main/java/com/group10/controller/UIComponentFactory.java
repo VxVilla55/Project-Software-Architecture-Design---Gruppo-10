@@ -5,12 +5,9 @@
  */
 package com.group10.controller;
 
-import com.group10.controller.common.AbstractUIComponentItem;
-import com.group10.controller.common.AbstractUIDetailsController;
-import com.group10.controller.common.AbstractUIOptionsComponent;
-import com.group10.controller.common.AbstractUIAdderController;
-import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.common.Playable;
+import javafx.fxml.Initializable;
 
 /**
  *
@@ -21,13 +18,13 @@ import com.group10.model.common.Playable;
 
 public interface UIComponentFactory {
     
-    AbstractUIComponentItem createUIComponentItem(Playable model);
+    AbstractUIComponent createUIComponentItem(Playable model);
     
-    AbstractUIComponentCard createUIComponentCard(Playable model); 
+    AbstractUIComponent createUIComponentCard(Playable model); 
     
-    AbstractUIDetailsController createUIComponentDetails(Playable model); 
+    AbstractUIComponent createUIComponentDetails(Playable model); 
     
-    AbstractUIAdderController createUIComponentAdder();
+    AbstractUIComponent createUIComponentAdder();
     
-    AbstractUIOptionsComponent createUIComponentOptions(Playable model);
+    AbstractUIComponent createUIComponentOptions(Playable model);
 }

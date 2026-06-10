@@ -1,17 +1,20 @@
 package com.group10.controller.track;
 
 import com.group10.controller.MainViewController;
-import com.group10.controller.common.AbstractUIAdderController;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.TrackComponent;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class TrackUIAdderController extends AbstractUIAdderController {
+public class TrackUIAdderController implements AbstractUIComponent, Initializable {
 
     @FXML private TextField titleField;
     @FXML private TextField authorField;
@@ -26,6 +29,9 @@ public class TrackUIAdderController extends AbstractUIAdderController {
     }
     
     @Override
+    public void initialize(URL location, ResourceBundle resources) {
+    }
+    
     public Parent getRoot() {
         return root;
     }
