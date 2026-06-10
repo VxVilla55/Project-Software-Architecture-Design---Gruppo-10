@@ -1,10 +1,15 @@
 package com.group10.controller;
 
+import com.group10.model.strategy.PlaybackMode;
+import com.group10.model.strategy.RepeatPlaylist;
+import com.group10.model.strategy.Sequential;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
@@ -20,6 +25,9 @@ public class PlayerViewController implements Initializable {
     @FXML private Label trackTitle;
     @FXML private Label trackAuthor;
     @FXML private Pane progressFill;
+
+    @FXML private ImageView loopButtonIcon;
+    @FXML private ImageView shuffleButtonIcon;
     
     private Parent root;
 
@@ -95,6 +103,12 @@ public class PlayerViewController implements Initializable {
             trackTitle.setText("");
             trackAuthor.setText("");
         }
+
+        loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-playlist.png")));
+        loopButtonIcon.setOpacity(0.2);
+
+        shuffleButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/shuffle.png")));
+        shuffleButtonIcon.setOpacity(0.2);
     }
 
 
@@ -124,7 +138,28 @@ public class PlayerViewController implements Initializable {
     public Parent getRoot() { return this.root; }
     
     @FXML public void handleFavorite(ActionEvent event) { System.out.println("Preferiti!"); }
-    @FXML public void handleRepeat(ActionEvent event) { System.out.println("Repeat!"); }
-    @FXML public void handleShuffle(ActionEvent event) { System.out.println("Shuffle!"); }
+    @FXML public void handleRepeat(ActionEvent event) {
+        PlaybackEngine.getInstance().cycleRepeatMode();
+
+        PlaybackMode playbackMode = PlaybackEngine.getInstance().getPlaybackMode();
+        if (playbackMode instanceof Sequential) {
+            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-playlist.png")));
+            loopButtonIcon.setOpacity(0.2);
+        } else if (playbackMode instanceof RepeatPlaylist) {
+            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-playlist.png")));
+            loopButtonIcon.setOpacity(0.7);
+        } else {
+            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-track.png")));
+            loopButtonIcon.setOpacity(0.7);
+        }
+    }
+
+    @FXML public void handleShuffle(ActionEvent event) {
+        PlaybackEngine.getInstance().toggleShuffle();
+        if (PlaybackEngine.getInstance().isShuffled()) {
+            shuffleButtonIcon.setOpacity(0.7);
+        } else shuffleButtonIcon.setOpacity(0.2);
+    }
+
     @FXML public void handleNextPlaylist(ActionEvent event) { System.out.println("Next Playlist!"); }
 }
