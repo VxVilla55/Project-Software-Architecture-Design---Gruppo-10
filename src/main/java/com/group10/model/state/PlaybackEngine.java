@@ -66,6 +66,7 @@ public class PlaybackEngine {
         }
         this.currentIndex = queue.indexOf(track);
         switchTrack(track);
+        play();
     }
 
 public void clearQueue() {
@@ -229,7 +230,7 @@ public void clearQueue() {
         //se la coda è vuota
         if (queue.isEmpty())
             return null;
-        
+
         //controllo se è presente la traccia nella coda
         if (queue.contains(track)) {
             int removedIndex = queue.indexOf(track);
@@ -239,7 +240,7 @@ public void clearQueue() {
             if ( track.equals(PlaybackEngine.getInstance().getCurrentTrack()) ) {
                 //se la traccia in riproduzione era l'ultima della cosa va gestita
                 //in caso contrariocurrentIndex punterebbe già alla prossima traccia
-                if(queue.size()-1 < currentIndex) { 
+                if(queue.size()-1 < currentIndex) {
                     //puntiamo all'ultima della cosa anche se è già stata riprodotta
                     currentIndex = queue.size()-1;
                 }
@@ -254,7 +255,7 @@ public void clearQueue() {
             return null;
         }
     }
-    
+
     public void addTrackToQueueAtIndex(TrackComponent track, int index) {
         if (queue.size()-1>index) {
             queue.add(index, track);
@@ -272,6 +273,16 @@ public void clearQueue() {
     public void stop() {
         currentState.stop(this);
         queue.clear();
+    }
+
+    // serve per riprodurrre le playlist
+    public void addListToQueue(List<TrackComponent> tracks) {
+        clearQueue();
+        queue.addAll(tracks);
+        if (!queue.isEmpty()) {
+            currentIndex = 0;
+            switchTrack(queue.get(0));
+        }
     }
 
     public void cycleRepeatMode() {
