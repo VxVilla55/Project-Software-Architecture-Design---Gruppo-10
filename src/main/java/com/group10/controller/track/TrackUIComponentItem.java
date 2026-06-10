@@ -10,6 +10,7 @@ package com.group10.controller.track;
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponentItem;
 import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.model.PlaylistComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 
@@ -17,6 +18,7 @@ import com.group10.model.state.PlaybackEngine;
 
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,7 +52,7 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     private TrackComponent track;
     
     // --- NUOVO: Variabile per ricordarsi in che playlist siamo ---
-    private com.group10.model.PlaylistComponent contextPlaylist = null;
+    private PlaylistComponent contextPlaylist = null;
     
     // --- NUOVO: Metodo per ricevere la playlist dal PlaylistUIDetailsController ---
     public void setContextPlaylist(com.group10.model.PlaylistComponent playlist) {
@@ -103,12 +105,15 @@ public class TrackUIComponentItem extends AbstractUIComponentItem{
     
     @FXML
     private void handleSelection(MouseEvent event) {
-        
         MainViewController.getInstance().setSelectedTrack(track);
         MainViewController.getInstance().update();
-        
+
+        // se mi trovo in una playlist, aggiungo l'intera playlist alla coda
+        // se mi trovo nella home page, riproduco solo la traccia selezionata
+        if (contextPlaylist != null) {
+            PlaybackEngine.getInstance().addListToQueue((new ArrayList<>(contextPlaylist.getTracks())));
+        }
         PlaybackEngine.getInstance().setCurrentTrack(track);
-        PlaybackEngine.getInstance().play();
     }
     
     private void showOptionPopup(Parent popup) {        

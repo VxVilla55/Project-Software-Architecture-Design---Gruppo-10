@@ -11,12 +11,17 @@ import com.group10.model.TrackComponent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import com.group10.model.state.PlaybackEngine;
+import com.group10.model.state.PlayingState;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +45,10 @@ public class PlaylistUIDetailsController extends AbstractUIDetailsController {
     private Label playlistTracksCountLabel;
     @FXML
     private VBox tracksContainer;
-    
+    @FXML
+    private Button playlistPlayButton;
+
+
     private TrackUIComponentFactory factory;
     private PlaylistComponent playlist;
     
@@ -73,6 +81,13 @@ public class PlaylistUIDetailsController extends AbstractUIDetailsController {
         Duration playlistDuration = Duration.ofSeconds(playlist.getDurationInSeconds());
         String formattedDuration = String.format("(%02d:%02d:%02d)", playlistDuration.toHoursPart(), playlistDuration.toMinutesPart(), playlistDuration.toSecondsPart());
         playlistTracksCountLabel.setText(String.valueOf(playlist.getSize())+" tracce "+ formattedDuration);
+    }
+
+    @FXML
+    public void handlePlayPausePlaylist(ActionEvent event) {
+        PlaybackEngine.getInstance().addListToQueue(new ArrayList<>(playlist.getTracks()));
+        PlaybackEngine.getInstance().play();
+        playlistPlayButton.setVisible(false);
     }
     
     @Override
