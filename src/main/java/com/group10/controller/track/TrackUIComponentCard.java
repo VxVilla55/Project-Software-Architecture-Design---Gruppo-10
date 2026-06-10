@@ -8,7 +8,7 @@ package com.group10.controller.track;
  */
  
 import com.group10.controller.MainViewController;
-import com.group10.controller.common.AbstractUIComponentCard;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,7 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class TrackUIComponentCard extends AbstractUIComponentCard{
+public class TrackUIComponentCard implements AbstractUIComponent, Initializable {
     
     @FXML
     private AnchorPane root;
