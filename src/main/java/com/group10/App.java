@@ -38,6 +38,10 @@ public class App extends Application {
         System.exit(0);
     });
 
+    // -- ESEGUITE UNA SOLA VOLTA per riempire il programma inzialmente
+    // -- Altrimenti dovete cancellare il catalogue.json nella cartella "data"
+    // fillInstance();
+
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/MainView.fxml"));
     MainViewController controller = MainViewController.getInstance();
     loader.setController(controller);
