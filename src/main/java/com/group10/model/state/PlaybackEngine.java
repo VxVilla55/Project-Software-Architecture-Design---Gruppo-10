@@ -1,12 +1,14 @@
 package com.group10.model.state;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.function.Consumer;
 
 import com.group10.model.TrackComponent;
+
+import com.group10.model.strategy.Sequential;
+import com.group10.model.strategy.PlaybackMode;
+import com.group10.model.strategy.RepeatPlaylist;
+import com.group10.model.strategy.RepeatTrack;
 
 /**
  * Singleton: classe che modella lo stato del player
@@ -21,7 +23,11 @@ public class PlaybackEngine {
     private TrackComponent currentTrack;
     private double currentTime;
     private Timer timer;
-    
+
+    // Pattern STRATEGY
+    private PlaybackMode playbackMode = new Sequential();
+    private boolean shuffled = false;
+    private final List<TrackComponent> originalOrder = new ArrayList<>();
     
     private Consumer<TrackComponent> onTrackChanged;
     private Consumer<Double> onTick;
@@ -179,7 +185,8 @@ public void clearQueue() {
                 }
                 
                 if (currentTime >= currentTrack.getDurationInSeconds()) {
-                    next();
+                    //next();
+                    playbackMode.onTrackEnd(PlaybackEngine.this);
                 }
             }
         }, 100, 100); 
@@ -243,10 +250,65 @@ public void removeTrackFromQueue(TrackComponent track) {
             System.out.println("ℹ️ La traccia non era presente nella coda di riproduzione.");
         }
     }
-    
 
-    
     public void play() { currentState.play(this); }
     public void pause() { currentState.pause(this); }
     public void stop() { currentState.stop(this); }
+
+    public void cycleRepeatMode() {
+        if (playbackMode instanceof Sequential) {
+            // se sequenziale, imposta loop su playlist
+            playbackMode = new RepeatPlaylist();
+        } else if (playbackMode instanceof RepeatPlaylist) {
+            // se loop su playlist, imposta loop su singola traccia
+            playbackMode = new RepeatTrack();
+        } else {
+            // ritorna a sequenziale
+            playbackMode = new Sequential();
+        }
+    }
+
+    public PlaybackMode getRepeatMode() {
+        return playbackMode;
+    }
+
+    // tratta lo shuffle come toggle e usa due queue, quella mischiata e quella originale
+    public void toggleShuffle() {
+        shuffled = !shuffled;
+        if (shuffled) {
+            // salva l'ordine originale
+            originalOrder.clear();
+            originalOrder.addAll(queue);
+            // fa shuffle sulla coda attuale
+            Collections.shuffle(queue);
+            if (currentTrack != null) {
+                queue.remove(currentTrack);
+                queue.add(0, currentTrack);
+            }
+        } else {
+            // resetta l'ordine originale
+            queue.clear();
+            queue.addAll(originalOrder);
+        }
+        currentIndex = queue.indexOf(currentTrack);
+    }
+
+    public boolean getShuffled() {
+        return shuffled;
+    }
+
+    public boolean hasNext() {
+        return currentIndex < queue.size() - 1;
+    }
+
+    public void playFromStart() {
+        currentIndex = 0;
+        cambiaTraccia(queue.get(0));
+        play();
+    }
+
+    public void replayCurrent() {
+        resetTime();
+        play();
+    }
 }
