@@ -279,10 +279,18 @@ public void clearQueue() {
     public void addListToQueue(List<TrackComponent> tracks) {
         clearQueue();
         queue.addAll(tracks);
-        if (!queue.isEmpty()) {
+        if (queue.isEmpty()) return;
+
+        // controllo se alla pressione di Play sulla playlist/home sia attiva la modalità shuffle
+        // in tal caso, mischia la coda
+        if (shuffled) {
+            originalOrder.clear();
+            originalOrder.addAll(queue);
+            Collections.shuffle(queue);
+            System.out.println("\nPlaylist Shuffle all'avvio");
+        }
             currentIndex = 0;
             switchTrack(queue.get(0));
-        }
     }
 
     public void cycleRepeatMode() {
