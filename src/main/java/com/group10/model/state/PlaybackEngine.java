@@ -93,6 +93,7 @@ public void clearQueue() {
             currentTrack = queue.get(currentIndex);
         }
         System.out.println("✅ Accodato: " + track.getTitle());
+        printQueue();
     }
     
     public void addTrackAsNext(TrackComponent track) {
@@ -105,11 +106,17 @@ public void clearQueue() {
 
     public void next() {
         if (queue.isEmpty() || currentTrack == null) return;
-        
+
         if (currentIndex < queue.size() - 1) {
+            // sequenziale: va alla prossima traccia in coda
             currentIndex++;
             cambiaTraccia(queue.get(currentIndex));
+        } else if ((currentIndex == queue.size() -1) && playbackMode instanceof RepeatPlaylist) {
+            // loop playlist: riparte dall'inizio alla fine della coda
+            currentIndex = 0;
+            cambiaTraccia(queue.get(currentIndex));
         } else {
+            // sequenziale: si ferma alla fine della coda
             System.out.println("⏹️ Coda terminata.");
             stop();
         }
@@ -117,10 +124,14 @@ public void clearQueue() {
 
     public void previous() {
         if (queue.isEmpty() || currentTrack == null) return;
-        
+
         if (currentIndex > 0) {
             currentIndex--;
             cambiaTraccia(queue.get(currentIndex));
+        } else if (currentIndex == 0 && (playbackMode instanceof RepeatPlaylist)) {
+            currentIndex = queue.size() - 1;
+            cambiaTraccia(queue.get(currentIndex));
+            System.out.println("⏮️ Sei in loop, riparto dalla fine della coda.");
         } else {
             System.out.println("⏮️ Sei già alla prima traccia. Ricomincio.");
             cambiaTraccia(queue.get(0));
@@ -143,6 +154,7 @@ public void clearQueue() {
             stopSimulation();
             startSimulation();
         }
+        printQueue();
     }
     
     
@@ -185,7 +197,6 @@ public void clearQueue() {
                 }
                 
                 if (currentTime >= currentTrack.getDurationInSeconds()) {
-                    //next();
                     playbackMode.onTrackEnd(PlaybackEngine.this);
                 }
             }
@@ -251,9 +262,18 @@ public void removeTrackFromQueue(TrackComponent track) {
         }
     }
 
-    public void play() { currentState.play(this); }
-    public void pause() { currentState.pause(this); }
-    public void stop() { currentState.stop(this); }
+    public void play() {
+        currentState.play(this);
+    }
+
+    public void pause() {
+        currentState.pause(this);
+    }
+
+    public void stop() {
+        currentState.stop(this);
+        queue.clear();
+    }
 
     public void cycleRepeatMode() {
         if (playbackMode instanceof Sequential) {
@@ -266,9 +286,12 @@ public void removeTrackFromQueue(TrackComponent track) {
             // ritorna a sequenziale
             playbackMode = new Sequential();
         }
+        System.out.println("Modalità attuale: " + playbackMode);
+
+        printQueue();
     }
 
-    public PlaybackMode getRepeatMode() {
+    public PlaybackMode getPlaybackMode() {
         return playbackMode;
     }
 
@@ -279,22 +302,22 @@ public void removeTrackFromQueue(TrackComponent track) {
             // salva l'ordine originale
             originalOrder.clear();
             originalOrder.addAll(queue);
-            // fa shuffle sulla coda attuale
-            Collections.shuffle(queue);
-            if (currentTrack != null) {
-                queue.remove(currentTrack);
-                queue.add(0, currentTrack);
+            if (currentIndex < 0 || currentIndex >= queue.size() - 1) {
+                return;
             }
+            // fa shuffle solo sulle canzoni successive
+            List<TrackComponent> upcoming = queue.subList(currentIndex + 1, queue.size());
+            Collections.shuffle(upcoming);
+            System.out.println("\nShuffle abilitato");
         } else {
             // resetta l'ordine originale
+            TrackComponent current = currentTrack;
             queue.clear();
             queue.addAll(originalOrder);
+            currentIndex = queue.indexOf(current);
+            System.out.println("\nShuffle disabilitato");
         }
-        currentIndex = queue.indexOf(currentTrack);
-    }
-
-    public boolean getShuffled() {
-        return shuffled;
+        printQueue();
     }
 
     public boolean hasNext() {
@@ -310,5 +333,14 @@ public void removeTrackFromQueue(TrackComponent track) {
     public void replayCurrent() {
         resetTime();
         play();
+    }
+
+    public void printQueue() {
+        System.out.println("----- CODA ATTUALE -----");
+        int i = 1;
+        for (TrackComponent t : queue) {
+            System.out.println(">> " + i + " - " + t.getTitle());
+            i++;
+        }
     }
 }

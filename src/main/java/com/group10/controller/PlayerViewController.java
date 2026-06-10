@@ -1,5 +1,6 @@
 package com.group10.controller;
 
+import com.group10.model.strategy.PlaybackMode;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -124,7 +125,15 @@ public class PlayerViewController implements Initializable {
     public Parent getRoot() { return this.root; }
     
     @FXML public void handleFavorite(ActionEvent event) { System.out.println("Preferiti!"); }
-    @FXML public void handleRepeat(ActionEvent event) { System.out.println("Repeat!"); }
-    @FXML public void handleShuffle(ActionEvent event) { System.out.println("Shuffle!"); }
+    @FXML public void handleRepeat(ActionEvent event) {
+        PlaybackEngine.getInstance().cycleRepeatMode();
+        //aggiornaIconaRepeat();
+    }
+
+    @FXML public void handleShuffle(ActionEvent event) {
+        PlaybackEngine.getInstance().toggleShuffle();
+        //aggiornaIconaShuffle();
+    }
+
     @FXML public void handleNextPlaylist(ActionEvent event) { System.out.println("Next Playlist!"); }
 }
