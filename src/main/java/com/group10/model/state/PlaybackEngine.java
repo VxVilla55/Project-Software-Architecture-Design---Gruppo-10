@@ -65,7 +65,7 @@ public class PlaybackEngine {
             queue.add(track);
         }
         this.currentIndex = queue.indexOf(track);
-        cambiaTraccia(track);
+        switchTrack(track);
     }
 
 public void clearQueue() {
@@ -110,11 +110,11 @@ public void clearQueue() {
         if (currentIndex < queue.size() - 1) {
             // sequenziale: va alla prossima traccia in coda
             currentIndex++;
-            cambiaTraccia(queue.get(currentIndex));
+            switchTrack(queue.get(currentIndex));
         } else if ((currentIndex == queue.size() -1) && playbackMode instanceof RepeatPlaylist) {
             // loop playlist: riparte dall'inizio alla fine della coda
             currentIndex = 0;
-            cambiaTraccia(queue.get(currentIndex));
+            switchTrack(queue.get(currentIndex));
         } else {
             // sequenziale: si ferma alla fine della coda
             System.out.println("⏹️ Coda terminata.");
@@ -127,18 +127,18 @@ public void clearQueue() {
 
         if (currentIndex > 0) {
             currentIndex--;
-            cambiaTraccia(queue.get(currentIndex));
+            switchTrack(queue.get(currentIndex));
         } else if (currentIndex == 0 && (playbackMode instanceof RepeatPlaylist)) {
             currentIndex = queue.size() - 1;
-            cambiaTraccia(queue.get(currentIndex));
+            switchTrack(queue.get(currentIndex));
             System.out.println("⏮️ Sei in loop, riparto dalla fine della coda.");
         } else {
             System.out.println("⏮️ Sei già alla prima traccia. Ricomincio.");
-            cambiaTraccia(queue.get(0));
+            switchTrack(queue.get(0));
         }
     }
 
-    private void cambiaTraccia(TrackComponent newTrack) {
+    private void switchTrack(TrackComponent newTrack) {
         this.currentTrack = newTrack;
         this.currentTime = 0;
         
@@ -225,40 +225,39 @@ public void clearQueue() {
     }
 
 
-
-public void removeTrackFromQueue(TrackComponent track) {
-        // 1. CASO CRITICO: La traccia da eliminare è quella che sta suonando ORA
-        if (currentTrack != null && currentTrack.equals(track)) {
-            System.out.println("⚠️ La traccia eliminata era in riproduzione. Fermo il player.");
-            
-            queue.remove(track); // La togliamo fisicamente dalla lista
-
-            if (queue.isEmpty()) {
-                clearQueue(); // Svuota tutto e pulisce la grafica
-            } else {
-                // Se ci sono altre canzoni, ci posizioniamo su quella precedente in pausa
-                if (currentIndex >= queue.size()) {
-                    currentIndex = queue.size() - 1;
-                    cambiaTraccia(queue.get(currentIndex));
-                    stopSimulation();
-                    setState(new StoppedState());
-                } else {
-                    cambiaTraccia(queue.get(currentIndex));
-                }
-            }
-        } 
-        // 2. CASO NORMALE: La traccia non suonava, ma era comunque in coda
-        else if (queue.contains(track)) {
+    public Integer removeTrackFromQueue(TrackComponent track) {
+        //se la coda è vuota
+        if (queue.isEmpty())
+            return null;
+        
+        //controllo se è presente la traccia nella coda
+        if (queue.contains(track)) {
             int removedIndex = queue.indexOf(track);
             queue.remove(track);
-            System.out.println("🗑️ Traccia '" + track.getTitle() + "' rimossa silenziosamente dalla coda.");
-
-            // Aggiustiamo l'indice in modo che non salti la canzone successiva
-            if (removedIndex < currentIndex) {
-                currentIndex--;
+            
+            //se è quella in riproduzione attualmente
+            if ( track.equals(PlaybackEngine.getInstance().getCurrentTrack()) ) {
+                //se la traccia in riproduzione era l'ultima della cosa va gestita
+                //in caso contrariocurrentIndex punterebbe già alla prossima traccia
+                if(queue.size()-1 < currentIndex) { 
+                    //puntiamo all'ultima della cosa anche se è già stata riprodotta
+                    currentIndex = queue.size()-1;
+                }
+                currentTrack = queue.get(currentIndex);
+                switchTrack(currentTrack);
+                //ferma la riproduzione (l'uteta dovrà premere play manualmente)
+                stopSimulation();
+                setState(new StoppedState());
             }
+            return removedIndex;
         } else {
-            System.out.println("ℹ️ La traccia non era presente nella coda di riproduzione.");
+            return null;
+        }
+    }
+    
+    public void addTrackToQueueAtIndex(TrackComponent track, int index) {
+        if (queue.size()-1>index) {
+            queue.add(index, track);
         }
     }
 
@@ -330,7 +329,7 @@ public void removeTrackFromQueue(TrackComponent track) {
 
     public void playFromStart() {
         currentIndex = 0;
-        cambiaTraccia(queue.get(0));
+        switchTrack(queue.get(0));
         play();
     }
 

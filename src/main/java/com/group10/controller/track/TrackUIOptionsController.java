@@ -5,11 +5,15 @@
 package com.group10.controller.track;
 
 import com.group10.controller.MainViewController;
+import com.group10.controller.command.CommandManager;
+import com.group10.controller.command.DeleteTrackCommand;
+import com.group10.controller.command.UpdateTrackCommand;
 import com.group10.controller.common.AbstractUIDetailsController;
 import com.group10.controller.common.AbstractUIOptionsComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.state.PlaybackEngine;
 import java.io.IOException;
@@ -24,6 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 
@@ -35,13 +40,11 @@ import javafx.stage.Popup;
 public class TrackUIOptionsController extends AbstractUIOptionsComponent {
     @FXML
     private VBox root;
-    // --- INIZIO DELLE TUE MODIFICHE ---
     @FXML
-    private javafx.scene.control.Button removeTrackButton;
-    private com.group10.model.PlaylistComponent contextPlaylist = null;
-    // --- FINE DELLE TUE MODIFICHE ---
+    private Button removeTrackButton;
     
-    private final TrackComponent track;
+    private PlaylistComponent contextPlaylist = null;    
+    private TrackComponent track;
     
     public TrackUIOptionsController(TrackComponent track) {
         this.track = track;
@@ -55,6 +58,7 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
             track = (TrackComponent) t;
         }
     }
+    
     /**
      * Initializes the controller class.
      */
@@ -62,7 +66,6 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
     public void initialize(URL url, ResourceBundle rb) {
         
     }
-
 
     @Override
     public Parent getRoot() {
@@ -126,24 +129,16 @@ public class TrackUIOptionsController extends AbstractUIOptionsComponent {
         }
     }
 
-@FXML
+    @FXML
     private void handleRemoveTrack(ActionEvent event) {
-        if (contextPlaylist != null) {
-            // COMPORTAMENTO 1: Siamo dentro una playlist
-            contextPlaylist.remove(track);
-            System.out.println("✅ Traccia '" + track.getTitle() + "' rimossa SOLO dalla playlist: " + contextPlaylist.getName());
-            
-        } else {
-            // COMPORTAMENTO 2: Siamo nella libreria generale
-            MusicCatalogue.getInstance().removeTrack(track);
-            System.out.println("✅ Traccia '" + track.getTitle() + "' rimossa dal CATALOGO GENERALE (e a cascata dalle playlist).");
-        }
         
-        // Chiudiamo sempre il menu a tendina
+        //esecuzione del comando modifica traccia mediante sostituzione
+        CommandManager.getInstance().executeCommand(new DeleteTrackCommand(this.track));
+        
+        //chiudiamo sempre il menu a tendina
         MainViewController.getInstance().hideMenuPopup();
         
-        // ---> LA RIGA MAGICA <---
-        // Diciamo alla schermata principale di ricaricare la grafica immediatamente!
+        //diciamo alla schermata principale di ricaricare la grafica immediatamente!
         MainViewController.getInstance().update();
     }
 }

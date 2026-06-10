@@ -51,7 +51,11 @@ public class MusicCatalogue implements Publisher{
         tracks.add(track);
         notifySubscribers();
     }
-public void removeTrack(TrackComponent track) {
+    public void removeTrack (TrackComponent track) {
+        tracks.remove(track);
+        notifySubscribers();
+    }
+/*public void removeTrack(TrackComponent track) {
         // 1. CASCATA: Rimuovi la traccia da tutte le playlist esistenti
         for (PlaylistComponent playlist : playlists.values()) {
             playlist.remove(track); 
@@ -66,7 +70,7 @@ public void removeTrack(TrackComponent track) {
 
         // 4. Notifica gli iscritti (es. la grafica)
         notifySubscribers();
-    }
+    }*/
     
     public void addPlaylist (PlaylistComponent playlist) {
         // univocita' del nome, non si aggiunge una playlist con un nome gia' presente
@@ -100,7 +104,7 @@ public void removeTrack(TrackComponent track) {
 
     // true se esiste gia' una playlist con questo nome (ignora maiuscole/minuscole e spazi)
     // il controller la chiama PRIMA di creare, per mostrare l'errore giusto all'utente
-    public boolean isPlaylistNameTaken(String name) {
+    private boolean isPlaylistNameTaken(String name) {
         if (name == null) {
             return false;
         }

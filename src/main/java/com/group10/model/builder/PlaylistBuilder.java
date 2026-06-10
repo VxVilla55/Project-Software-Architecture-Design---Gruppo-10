@@ -65,16 +65,9 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
         }
 
         //il nome non può essere duplicato nell'app
-        if (MusicCatalogue.getInstance().isPlaylistNameTaken(name)) {
+        /*if (MusicCatalogue.getInstance().isPlaylistNameTaken(name)) {
             throw new IllegalArgumentException("Esiste già una playlist con questo nome");
-        }
-        
-        /*PlaylistComponent playlist = new PlaylistComponent(name);
-        for (TrackComponent track : tracks) {
-            playlist.add(track);
-        }
-        return playlist;*/
-        
+        }*/
         return new PlaylistComponent(this);
     }
 }
