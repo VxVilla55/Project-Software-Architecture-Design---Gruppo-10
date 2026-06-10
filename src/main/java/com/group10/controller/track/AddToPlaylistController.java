@@ -1,11 +1,10 @@
 package com.group10.controller.track;
 
 import com.group10.controller.MainViewController;
-import com.group10.controller.factory.PlaylistUIComponentFactory;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
-import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,17 +13,15 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class AddToPlaylistController implements Initializable {
+public class AddToPlaylistController implements AbstractUIComponent, Initializable {
 
     @FXML
     private VBox root;

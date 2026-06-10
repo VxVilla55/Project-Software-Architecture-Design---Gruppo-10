@@ -2,8 +2,7 @@ package com.group10.controller.track;
 
 import com.group10.controller.command.CommandManager;
 import com.group10.controller.command.UpdateTrackCommand;
-import com.group10.controller.common.AbstractUIDetailsController;
-import com.group10.model.MusicCatalogue;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 import com.group10.model.builder.TrackBuilder;
@@ -14,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import java.util.function.Consumer;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -26,7 +26,7 @@ import javafx.scene.layout.AnchorPane;
  * Controller della View di dettaglio del brano
  * @author group10
  */
-public class TrackUIDetailsController extends AbstractUIDetailsController {
+public class TrackUIDetailsController implements AbstractUIComponent, Initializable {
 
     @FXML
     private AnchorPane root;

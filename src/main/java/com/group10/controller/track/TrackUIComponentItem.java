@@ -8,7 +8,7 @@ package com.group10.controller.track;
  */
  
 import com.group10.controller.MainViewController;
-import com.group10.controller.common.AbstractUIComponentItem;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.common.Playable;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -31,7 +32,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
-public class TrackUIComponentItem extends AbstractUIComponentItem{
+public class TrackUIComponentItem implements AbstractUIComponent, Initializable {
     @FXML
     private HBox root;
     @FXML

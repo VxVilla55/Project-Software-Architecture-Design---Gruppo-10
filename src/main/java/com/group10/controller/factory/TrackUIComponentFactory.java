@@ -4,12 +4,8 @@
  */
 package com.group10.controller.factory;
 
-import com.group10.controller.common.AbstractUIAdderController;
-import com.group10.controller.common.AbstractUIComponentCard;
-import com.group10.controller.common.AbstractUIComponentItem;
-import com.group10.controller.common.AbstractUIDetailsController;
-import com.group10.controller.common.AbstractUIOptionsComponent;
 import com.group10.controller.UIComponentFactory;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.track.TrackUIOptionsController;
 import com.group10.controller.track.TrackUIComponentCard;
 import com.group10.controller.track.TrackUIComponentItem;
@@ -33,12 +29,12 @@ import javafx.scene.Parent;
 public class TrackUIComponentFactory implements UIComponentFactory{
 
     @Override
-    public AbstractUIComponentItem createUIComponentItem(Playable model) {
+    public AbstractUIComponent createUIComponentItem(Playable model) {
         //1.preparo la view
         String fxmlPath = "/com/group10/view/TrackItem.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIComponentItem controller = new TrackUIComponentItem(model);
+        AbstractUIComponent controller = new TrackUIComponentItem(model);
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view
@@ -57,12 +53,12 @@ public class TrackUIComponentFactory implements UIComponentFactory{
     }
 
     @Override
-    public AbstractUIComponentCard createUIComponentCard(Playable model) {
+    public AbstractUIComponent createUIComponentCard(Playable model) {
         //1.preparo la view
         String fxmlPath = "/com/group10/view/Card.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIComponentCard controller = new TrackUIComponentCard(model);
+        AbstractUIComponent controller = new TrackUIComponentCard(model);
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view
@@ -81,12 +77,12 @@ public class TrackUIComponentFactory implements UIComponentFactory{
     }
 
     @Override
-    public AbstractUIDetailsController createUIComponentDetails(Playable model) {
+    public AbstractUIComponent createUIComponentDetails(Playable model) {
         //1.preparo la view
         String fxmlPath = "/com/group10/view/TrackDetailsView.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIDetailsController controller = new TrackUIDetailsController(model);
+        AbstractUIComponent controller = new TrackUIDetailsController(model);
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view
@@ -105,13 +101,13 @@ public class TrackUIComponentFactory implements UIComponentFactory{
     }
 
     @Override
-    public AbstractUIAdderController createUIComponentAdder() {
+    public AbstractUIComponent createUIComponentAdder() {
         
         //1.preparo la view
         String fxmlPath = "/com/group10/view/TrackAdderView.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIAdderController controller = new TrackUIAdderController();
+        AbstractUIComponent controller = new TrackUIAdderController();
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view
@@ -130,12 +126,12 @@ public class TrackUIComponentFactory implements UIComponentFactory{
     }
 
     @Override
-    public AbstractUIOptionsComponent createUIComponentOptions(Playable model) {
+    public AbstractUIComponent createUIComponentOptions(Playable model) {
         //1.preparo la view
         String fxmlPath = "/com/group10/view/TrackOptions.fxml"; 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         //2.istanzio il controller
-        AbstractUIOptionsComponent controller = new TrackUIOptionsController(model);
+        AbstractUIComponent controller = new TrackUIOptionsController(model);
         //3.associo controller e view
         loader.setController(controller);
         //4.carico la view

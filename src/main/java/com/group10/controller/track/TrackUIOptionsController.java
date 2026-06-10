@@ -7,37 +7,29 @@ package com.group10.controller.track;
 import com.group10.controller.MainViewController;
 import com.group10.controller.command.CommandManager;
 import com.group10.controller.command.DeleteTrackCommand;
-import com.group10.controller.command.UpdateTrackCommand;
-import com.group10.controller.common.AbstractUIDetailsController;
-import com.group10.controller.common.AbstractUIOptionsComponent;
+import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
-import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.state.PlaybackEngine;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 
 /**
  * FXML Controller class
  *
  * @author group10
  */
-public class TrackUIOptionsController extends AbstractUIOptionsComponent {
+public class TrackUIOptionsController implements AbstractUIComponent, Initializable {
     @FXML
     private VBox root;
     @FXML
