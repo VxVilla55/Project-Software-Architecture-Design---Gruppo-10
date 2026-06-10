@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="1065.0" 
-            style="-fx-background-color: #FFF8E1;" 
-            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="1065.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       
       <Pane fx:id="progressFill" layoutX="313.0" layoutY="43.0" prefHeight="18.0" prefWidth="0.0" style="-fx-background-color: #00BFA5;" />
 
-      <Slider fx:id="trackSlider" 
-              layoutX="313.0" layoutY="43.0" 
-              prefHeight="18.0" prefWidth="440.0" 
-              min="0" max="100" 
-              style="-fx-control-inner-background: #EFE6CC; -fx-accent: #00BFA5; -fx-cursor: hand;" />
+      <Slider fx:id="trackSlider" layoutX="313.0" layoutY="43.0" max="100" min="0" prefHeight="18.0" prefWidth="440.0" style="-fx-control-inner-background: #EFE6CC; -fx-accent: #00BFA5; -fx-cursor: hand;" />
       
-      <Button layoutX="831.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleFavorite" style="-fx-background-color: transparent; -fx-text-fill: #FF8F00; -fx-font-size: 14px; -fx-cursor: hand;" text="❤️" />
+      <Button layoutX="819.0" layoutY="92.0" mnemonicParsing="false" onAction="#handleFavorite" prefHeight="48.0" prefWidth="47.0" style="-fx-background-color: transparent; -fx-text-fill: #FF8F00; -fx-font-size: 14px; -fx-cursor: hand;">
+         <graphic>
+            <ImageView fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/heart.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       
-      <Button layoutX="972.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleRepeat" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="REPEAT" />
-      <Button layoutX="882.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleShuffle" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="SHUFFLE" />
+      <Button fx:id="loopIcon" graphicTextGap="0.0" layoutX="936.0" layoutY="91.0" maxHeight="47.0" maxWidth="47.0" minHeight="47.0" minWidth="47.0" mnemonicParsing="false" onAction="#handleRepeat" prefHeight="47.0" prefWidth="47.0" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 30; -fx-font-weight: bold; -fx-cursor: hand;">
+         <graphic>
+            <ImageView fx:id="loopButtonIcon" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
+      <Button layoutX="877.0" layoutY="91.0" maxHeight="47.0" maxWidth="47.0" minHeight="47.0" minWidth="47.0" mnemonicParsing="false" onAction="#handleShuffle" prefHeight="47.0" prefWidth="47.0" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 30; -fx-font-weight: bold; -fx-cursor: hand;">
+         <graphic>
+            <ImageView fx:id="shuffleButtonIcon" fitHeight="26.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic></Button>
       <Button layoutX="640.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleNextPlaylist" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;" text="NEXT_PLAYLIST" />
       
       <Button layoutX="437.0" layoutY="95.0" mnemonicParsing="false" onAction="#handlePrevious" style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-font-size: 16px; -fx-cursor: hand;" text="⏮️" />

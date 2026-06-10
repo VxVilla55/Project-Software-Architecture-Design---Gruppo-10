@@ -320,6 +320,10 @@ public void removeTrackFromQueue(TrackComponent track) {
         printQueue();
     }
 
+    public boolean isShuffled() {
+        return shuffled;
+    }
+
     public boolean hasNext() {
         return currentIndex < queue.size() - 1;
     }
