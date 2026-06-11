@@ -76,10 +76,7 @@
          <right>
             <VBox prefHeight="574.0" prefWidth="393.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
                <children>
-                  <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Dettaglio traccia">
-                     <font><Font size="16.0" /></font>
-                     <VBox.margin><Insets bottom="15.0" left="15.0" top="15.0" /></VBox.margin>
-                  </Label>
+                  
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="518.0" prefWidth="490.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox fx:id="rightPane" alignment="TOP_CENTER" spacing="15.0" style="-fx-background-color: transparent;">
