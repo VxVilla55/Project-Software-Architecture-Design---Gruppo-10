@@ -37,3 +37,75 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
+
+
+
+
+
+
+#root {
+    -fx-background-color: #FFF8E1;
+}
+
+#sectionTitle, .label {
+    -fx-text-fill: #78909C;
+}
+
+#titleField {
+    -fx-text-fill: #37474F;
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}
+
+#artistField {
+    -fx-text-fill: #00BFA5; 
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}
+
+.vbox-info-container {
+    -fx-background-color: #EFE6CC;
+    -fx-background-radius: 8;
+}
+
+.vbox-info-container .label {
+    -fx-text-fill: #78909C;
+}
+
+.vbox-info-container .text-field {
+    -fx-text-fill: #37474F;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.cover-art-container {
+    -fx-background-color: #EFE6CC;
+    -fx-background-radius: 8;
+}
+
+
+#btnLeft {
+    -fx-background-color: #00BFA5;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-padding: 6 12 6 12;
+    -fx-background-insets: 0;
+    -fx-cursor: hand;
+}
+
+
+
+#btnRight {
+    -fx-background-color: #FF5252;
+    -fx-text-fill: white;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-padding: 6 12 6 12;
+    -fx-background-insets: 0;
+    -fx-cursor: hand;
+}
+
+
+
+
