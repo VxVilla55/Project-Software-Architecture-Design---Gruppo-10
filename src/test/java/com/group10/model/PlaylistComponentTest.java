@@ -4,6 +4,7 @@
  */
 package com.group10.model;
 
+import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
