@@ -65,10 +65,12 @@ public class MusicCatalogue implements Publisher{
         playlists.put(playlist.getName(), playlist);
         notifySubscribers();
     }
-    public void removePlaylist (PlaylistComponent playlist) {
-        playlists.remove(playlist);
-        notifySubscribers();
+    
+public void removePlaylist(PlaylistComponent p) {
+    if (p != null) {
+        this.playlists.remove(p.getName()); 
     }
+}
     
     public PlaylistComponent getPlaylist (String playlistName) {
         return playlists.get(playlistName);

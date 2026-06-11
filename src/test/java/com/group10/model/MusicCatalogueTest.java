@@ -198,48 +198,65 @@ public class MusicCatalogueTest {
         assertDoesNotThrow(() ->
             MusicCatalogue.getInstance().replaceTrack(makeTrack("T", "A"), null));
     }
-
-    @Test
+@Test
     void addSubscriber_dopoAddTrack_updateVieneChamato() {
-        //registro un subscriber mock e verifico che update() venga invocato da addTrack
         MusicCatalogue cat = MusicCatalogue.getInstance();
-        Subscriber sub = mock(Subscriber.class);
+        
+        // Usiamo un flag atomico per tracciare la chiamata senza classi fake
+        java.util.concurrent.atomic.AtomicBoolean chiamato = new java.util.concurrent.atomic.AtomicBoolean(false);
+        
+        // Lambda: implementiamo Subscriber al volo
+        Subscriber sub = () -> chiamato.set(true);
+        
         cat.addSubscriber(sub);
         cat.addTrack(makeTrack("T", "A"));
-        verify(sub, atLeastOnce()).update();
+        
+        assertTrue(chiamato.get(), "Il metodo update avrebbe dovuto essere chiamato!");
     }
 
     @Test
     void addSubscriber_dopoAddPlaylist_updateVieneChamato() {
-        //ogni mutazione al catalogo deve notificare i subscriber
         MusicCatalogue cat = MusicCatalogue.getInstance();
-        Subscriber sub = mock(Subscriber.class);
+        java.util.concurrent.atomic.AtomicBoolean chiamato = new java.util.concurrent.atomic.AtomicBoolean(false);
+        
+        Subscriber sub = () -> chiamato.set(true);
+        
         cat.addSubscriber(sub);
         cat.addPlaylist(makePlaylist("PL"));
-        verify(sub, atLeastOnce()).update();
+        
+        assertTrue(chiamato.get());
     }
 
     @Test
     void removeTracks_subscriberRimosso_updateNonVienePiuChiamato() {
-        //dopo la rimozione del subscriber, update non deve essere invocato
         MusicCatalogue cat = MusicCatalogue.getInstance();
-        Subscriber sub = mock(Subscriber.class);
+        java.util.concurrent.atomic.AtomicInteger contatoreChiamate = new java.util.concurrent.atomic.AtomicInteger(0);
+        
+        Subscriber sub = () -> contatoreChiamate.incrementAndGet();
+        
         cat.addSubscriber(sub);
-        cat.removeTracks(sub); //rimozione subscriber
+        cat.removeTracks(sub); // Nota: verifica se nel catalogo si chiama removeTracks o removeSubscriber
+        
         cat.addTrack(makeTrack("T", "A"));
-        verify(sub, never()).update();
+        
+        assertEquals(0, contatoreChiamate.get(), "Il subscriber non doveva ricevere notifiche dopo la rimozione");
     }
 
     @Test
     void addSubscriber_piuSubscriber_tuttiNotificati() {
-        //con due subscriber, entrambi devono ricevere update dopo una mutazione
         MusicCatalogue cat = MusicCatalogue.getInstance();
-        Subscriber sub1 = mock(Subscriber.class);
-        Subscriber sub2 = mock(Subscriber.class);
+        java.util.concurrent.atomic.AtomicBoolean chiamato1 = new java.util.concurrent.atomic.AtomicBoolean(false);
+        java.util.concurrent.atomic.AtomicBoolean chiamato2 = new java.util.concurrent.atomic.AtomicBoolean(false);
+        
+        Subscriber sub1 = () -> chiamato1.set(true);
+        Subscriber sub2 = () -> chiamato2.set(true);
+        
         cat.addSubscriber(sub1);
         cat.addSubscriber(sub2);
+        
         cat.addTrack(makeTrack("T", "A"));
-        verify(sub1, atLeastOnce()).update();
-        verify(sub2, atLeastOnce()).update();
+        
+        assertTrue(chiamato1.get());
+        assertTrue(chiamato2.get());
     }
 }

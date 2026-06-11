@@ -24,7 +24,7 @@ import java.util.TreeSet;
  *
  * PATTERN: Playable è il Component,Track è la Leaf, questa classe è il Composite
  */
-public class PlaylistComponent implements Playable {
+public class PlaylistComponent implements Playable,Comparable<PlaylistComponent> {
 
     private String name;
 
@@ -98,6 +98,7 @@ public class PlaylistComponent implements Playable {
         }
         return totalDuration;
     }
+    @Override
     public void playOnEngine(PlaybackEngine engine) {
         engine.setCurrentPlaylist(this);
         System.out.println("Playlist settata: " + getName());
@@ -107,6 +108,11 @@ public class PlaylistComponent implements Playable {
         engine.addListToQueue(new ArrayList<>(this.getTracks()));
     }
 
+    
+    public int compareTo(PlaylistComponent other) {
+        if (other == null) return 1;
+        return this.name.compareTo(other.name); // Ordina alfabeticamente per nome
+    }
     public void updateTrack(TrackComponent oldTrack, TrackComponent updatedTrack) {
         if (!tracks.contains(oldTrack)) {
             return;

@@ -8,6 +8,8 @@ import com.group10.model.builder.TrackBuilder;
 import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.model.common.Playable;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 
@@ -105,4 +107,8 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
         }
         return 0;
     } 
+    @Override
+    public void playOnEngine(PlaybackEngine engine) {
+        engine.addTrackToQueue(this);
+    }
 }

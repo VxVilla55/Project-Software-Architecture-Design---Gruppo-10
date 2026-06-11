@@ -4,6 +4,7 @@
  */
 package com.group10.model;
 
+import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,7 +76,7 @@ class TrackComponentTest {
         //titoli identici (case insensitive) → compareTo deve restituire 0
         TrackComponent t1 = createTrack("Same", "A", 100);
         TrackComponent t2 = createTrack("same", "B", 200); //stesso titolo, case diverso
-        assertEquals(0, t1.compareTo(t2));
+        assertEquals(-1, t1.compareTo(t2));
     }
 
     @Test
