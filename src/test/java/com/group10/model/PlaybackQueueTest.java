@@ -4,55 +4,65 @@ import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.model.state.PlayingState;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlaybackQueueTest {
 
+    private PlaybackEngine engine;
+
+    @BeforeEach
+    void setUp() {
+        engine = PlaybackEngine.getInstance();
+        engine.stop();
+        engine.clearQueue();
+        engine.setCurrentTrack(null);
+    }
+
+    @AfterEach
+    void tearDown() {
+        engine.stop();
+        engine.clearQueue();
+    }
+
     @Test
     public void testAccodamentoDuranteRiproduzione() {
-        PlaybackEngine engine = PlaybackEngine.getInstance();
-        engine.stop(); // Partiamo da una situazione pulita
-        
-        // 1. Creiamo e aggiungiamo la PRIMA traccia
+        // prima traccia: durata LUNGA per evitare che finisca
+        // durante il test e scatti il next() automatico del timer
         TrackComponent track1 = new TrackBuilder()
                 .setTitle("Brano in esecuzione")
                 .setAuthor("Autore A")
-                .setDuration(200)
+                .setDuration(9999) // durata lunghissima: il timer non scatterà
                 .build();
         engine.addTrackToQueue(track1);
-        
-        // 2. Avviamo la riproduzione
-        engine.play();
-        
-        // Verifichiamo che stia suonando la prima traccia
-        assertEquals("Brano in esecuzione", engine.getCurrentTrack().getTitle(), 
-            "Il motore dovrebbe riprodurre la prima traccia");
-        assertTrue(engine.getState() instanceof PlayingState, 
-            "Il motore deve essere in PlayingState");
 
-        // 3. Creiamo e aggiungiamo la SECONDA traccia MENTRE il motore è in riproduzione
+        // avvia riproduzione
+        engine.play();
+
+        assertEquals("Brano in esecuzione", engine.getCurrentTrack().getTitle(),
+                "Il motore dovrebbe riprodurre la prima traccia");
+        assertTrue(engine.getState() instanceof PlayingState,
+                "Il motore deve essere in PlayingState");
+
+        // accoda la seconda traccia MENTRE il motore è in play
         TrackComponent track2 = new TrackBuilder()
                 .setTitle("Brano accodato")
                 .setAuthor("Autore B")
                 .setDuration(180)
                 .build();
         engine.addTrackToQueue(track2);
-        
-        
-        // Aggiungere una traccia NON deve aver cambiato la traccia corrente
-        assertEquals("Brano in esecuzione", engine.getCurrentTrack().getTitle(), 
-            "L'accodamento non deve interrompere o cambiare la traccia attualmente in riproduzione");
-        
-        // Aggiungere una traccia NON deve aver fermato la musica
-        assertTrue(engine.getState() instanceof PlayingState, 
-            "Il motore deve rimanere in riproduzione dopo aver accodato un nuovo brano");
 
-        // 5. Test finale: se facciamo skip (next), deve passare esattamente alla traccia appena accodata
+        // verifica che la traccia corrente NON sia cambiata
+        assertEquals("Brano in esecuzione", engine.getCurrentTrack().getTitle(),
+                "L'accodamento non deve interrompere la traccia in riproduzione");
+        assertTrue(engine.getState() instanceof PlayingState,
+                "Il motore deve rimanere in PlayingState dopo l'accodamento");
+
+        // skip manuale → deve passare al brano accodato
         engine.next();
-        assertEquals("Brano accodato", engine.getCurrentTrack().getTitle(), 
-            "Facendo next() si deve passare alla traccia che era stata accodata durante il play");
-            
-        engine.stop(); // Pulizia finale del timer
+        assertEquals("Brano accodato", engine.getCurrentTrack().getTitle(),
+                "Dopo next() si deve passare alla traccia accodata");
     }
 }
