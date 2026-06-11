@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.group10.controller.factory;
+package com.group10.service.factory;
 
-import com.group10.controller.UIComponentFactory;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.track.TrackUIOptionsController;
 import com.group10.controller.track.TrackUIComponentCard;
