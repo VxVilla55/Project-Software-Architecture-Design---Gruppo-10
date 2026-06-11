@@ -7,6 +7,7 @@ package com.group10.service.command;
 import com.group10.controller.MainViewController;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.TrackComponent;
+import com.group10.model.state.PlaybackEngine;
 
 /**
  *
@@ -26,6 +27,8 @@ public class UpdateTrackCommand implements Command {
         //applica la modifica nel catalogo
         MainViewController.getInstance().setSelectedTrack(newTrack);
         MusicCatalogue.getInstance().replaceTrack(oldTrack, newTrack);
+        PlaybackEngine.getInstance().replaceInQueue(oldTrack, newTrack);
+        
     }
 
     @Override

@@ -5,6 +5,8 @@ import java.util.function.Consumer;
 
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
+import com.group10.model.common.Publisher;
+import com.group10.model.common.Subscriber;
 
 import com.group10.model.strategy.Sequential;
 import com.group10.model.strategy.PlaybackMode;
@@ -14,7 +16,7 @@ import com.group10.model.strategy.RepeatTrack;
 /**
  * Singleton: classe che modella lo stato del player
  */
-public class PlaybackEngine {
+public class PlaybackEngine implements Publisher{
     
     private static PlaybackEngine instance;
     private PlayerState currentState;
@@ -35,11 +37,14 @@ public class PlaybackEngine {
     private Consumer<Double> onTick;
     private Consumer<Boolean> onPlayStateChanged; 
     
+    private List<Subscriber> subscribers;
+    
     private PlaybackEngine() {
         this.currentState = new StoppedState();
         this.queue = new ArrayList<>();
         this.currentIndex = -1;
         this.currentTime = 0;
+        this.subscribers = new ArrayList<>();
     }
 
     public static PlaybackEngine getInstance() {
@@ -383,5 +388,26 @@ public Integer removeTrackFromQueue(TrackComponent track) {
             System.out.println(">> " + i + " - " + t.getTitle());
             i++;
         }
+    }
+    
+    public void replaceInQueue(TrackComponent oldTrack, TrackComponent newTrack) {
+        int i = queue.indexOf(oldTrack);
+        if (i >= 0) {
+            queue.set(i, newTrack);
+        }
+        if (currentTrack != null && currentTrack.equals(oldTrack)) {
+            currentTrack = newTrack;
+        }
+        notifySubscribers();
+    }
+
+    @Override
+    public void notifySubscribers() {
+        for (Subscriber s: subscribers) {
+            s.update();
+        }
+    }
+    public void addSubscriber(Subscriber subscriber) {
+        subscribers.add(subscriber);
     }
 }

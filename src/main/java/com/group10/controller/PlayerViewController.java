@@ -2,6 +2,8 @@ package com.group10.controller;
 
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
+import com.group10.model.TrackComponent;
+import com.group10.model.common.Subscriber;
 import com.group10.model.strategy.PlaybackMode;
 import com.group10.model.strategy.RepeatPlaylist;
 import com.group10.model.strategy.Sequential;
@@ -22,7 +24,7 @@ import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.model.state.PlayingState;
 
-public class PlayerViewController implements Initializable {
+public class PlayerViewController implements Initializable, Subscriber {
 
     @FXML private Button playPauseButton;
     @FXML private Slider trackSlider;
@@ -38,6 +40,7 @@ public class PlayerViewController implements Initializable {
 
 @Override
     public void initialize(URL location, ResourceBundle resources) {
+        PlaybackEngine.getInstance().addSubscriber(this);
         if (progressFill == null) {
             System.err.println("ERRORE: progressFill non è stato collegato! Controlla l'ID nell'FXML.");
         }
@@ -195,5 +198,14 @@ public class PlayerViewController implements Initializable {
         int nextIdx = (idx + 1) % playlists.size(); // dopo l'ultima torna alla prima
         PlaylistComponent next = playlists.get(nextIdx);
         next.playOnEngine(engine);
+    }
+
+    @Override
+    public void update() {
+        TrackComponent current = PlaybackEngine.getInstance().getCurrentTrack();
+        if (current != null) {
+            trackTitle.setText(current.getTitle());
+            trackAuthor.setText(current.getAuthor());
+        }
     }
 }
