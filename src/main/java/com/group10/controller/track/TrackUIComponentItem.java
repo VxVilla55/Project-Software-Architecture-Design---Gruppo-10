@@ -10,6 +10,7 @@ package com.group10.controller.track;
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
@@ -109,12 +110,19 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
         MainViewController.getInstance().setSelectedTrack(track);
         MainViewController.getInstance().update();
 
-        // se mi trovo in una playlist, aggiungo l'intera playlist alla coda
-        // se mi trovo nella home page, riproduco solo la traccia selezionata
+        PlaybackEngine engine = PlaybackEngine.getInstance();
+
         if (contextPlaylist != null) {
-            PlaybackEngine.getInstance().addListToQueue((new ArrayList<>(contextPlaylist.getTracks())));
+            // playlist: metto in coda l'intera playlist
+            engine.addListToQueue(new ArrayList<>(contextPlaylist.getTracks()));
+            engine.setCurrentPlaylist(contextPlaylist);
+        } else {
+            // home: pulisco la coda e metto in coda l'intera libreria
+            engine.addListToQueue(new ArrayList<>(MusicCatalogue.getInstance().getTracks()));
+            engine.setCurrentPlaylist(null);
         }
-        PlaybackEngine.getInstance().setCurrentTrack(track);
+
+        engine.setCurrentTrack(track);
     }
     
     private void showOptionPopup(Parent popup) {        

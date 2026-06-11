@@ -184,7 +184,6 @@ public void clearQueue() {
             stopSimulation();
             startSimulation();
         }
-        printQueue();
     }
     
     
