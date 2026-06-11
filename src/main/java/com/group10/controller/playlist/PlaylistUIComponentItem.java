@@ -49,6 +49,10 @@ public class PlaylistUIComponentItem implements AbstractUIComponent, Initializab
 
         int size = playlist.getSize();
         trackCountLabel.setText(size == 1 ? "1 brano" : size + " brani");
+
+
+        // Da implementare
+        // playlistMenuButton.setVisible(false);
     }
 
     @Override

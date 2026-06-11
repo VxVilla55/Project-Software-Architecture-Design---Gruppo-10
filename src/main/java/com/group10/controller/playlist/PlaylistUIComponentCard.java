@@ -65,6 +65,9 @@ public class PlaylistUIComponentCard implements AbstractUIComponent, Initializab
         Duration durataPlaylist = Duration.ofSeconds(playlist.getDurationInSeconds());
         String durataFormattata = String.format("(%02d:%02d:%02d)", durataPlaylist.toHoursPart(), durataPlaylist.toMinutesPart(), durataPlaylist.toSecondsPart());
         itemPlace2.setText(String.valueOf(playlist.getSize())+" tracce "+durataFormattata);
+
+        // Da implementare
+        menuButton.setVisible(false);
     }
     
     @Override
