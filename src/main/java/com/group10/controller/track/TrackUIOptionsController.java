@@ -7,6 +7,7 @@ package com.group10.controller.track;
 import com.group10.controller.MainViewController;
 import com.group10.controller.command.CommandManager;
 import com.group10.controller.command.DeleteTrackCommand;
+import com.group10.controller.command.RemoveTrackFromPlaylistCommand;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
@@ -64,6 +65,15 @@ public class TrackUIOptionsController implements AbstractUIComponent, Initializa
         return root;
     }
     
+    public void setContextPlaylist(com.group10.model.PlaylistComponent playlist) {
+        this.contextPlaylist = playlist;
+        
+        // Se c'è una playlist, cambiamo il testo del bottone!
+        if (this.contextPlaylist != null && removeTrackButton != null) {
+            removeTrackButton.setText("Rimuovi dalla playlist");
+        }
+    }
+    
     @FXML
     private void handleViewDetails(ActionEvent event) {
         //Istanzio il controllore che carica la view
@@ -111,26 +121,21 @@ public class TrackUIOptionsController implements AbstractUIComponent, Initializa
         //cancella popup
         MainViewController.getInstance().hideMenuPopup();
     }
-    // NUOVO: Metodo per dire al menu in quale playlist si trova
-    public void setContextPlaylist(com.group10.model.PlaylistComponent playlist) {
-        this.contextPlaylist = playlist;
-        
-        // Se c'è una playlist, cambiamo il testo del bottone!
-        if (this.contextPlaylist != null && removeTrackButton != null) {
-            removeTrackButton.setText("Rimuovi dalla playlist");
-        }
-    }
 
     @FXML
     private void handleRemoveTrack(ActionEvent event) {
+        if (contextPlaylist != null) {
+            CommandManager.getInstance().executeCommand(new RemoveTrackFromPlaylistCommand(track, contextPlaylist));
+        } else {
+            if (MainViewController.getInstance().showDeleteConfirmation(track.getTitle())) {
+                CommandManager.getInstance().executeCommand(new DeleteTrackCommand(track));
+
+                //diciamo alla schermata principale di ricaricare la grafica immediatamente!
+                MainViewController.getInstance().update();
+            }
+            //chiudiamo  il menu a tendina
+            MainViewController.getInstance().hideMenuPopup();
+        }
         
-        //esecuzione del comando modifica traccia mediante sostituzione
-        CommandManager.getInstance().executeCommand(new DeleteTrackCommand(this.track));
-        
-        //chiudiamo sempre il menu a tendina
-        MainViewController.getInstance().hideMenuPopup();
-        
-        //diciamo alla schermata principale di ricaricare la grafica immediatamente!
-        MainViewController.getInstance().update();
     }
 }

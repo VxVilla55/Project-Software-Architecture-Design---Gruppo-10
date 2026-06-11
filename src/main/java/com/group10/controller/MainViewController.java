@@ -14,6 +14,7 @@ import com.group10.model.common.Subscriber;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +22,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.HBox;
@@ -176,6 +180,39 @@ public class MainViewController implements Initializable, Subscriber {
         }
     }
     
+    //gestione degli eventi sugli elementi della view    
+    @FXML
+    private void handleAddTrack(ActionEvent event) {
+        try {
+            TrackUIAdderController c = (TrackUIAdderController) new TrackUIComponentFactory().createUIComponentAdder();
+            Parent trackAdderView = c.getRoot();
+            MainViewController.getInstance().showPopup(trackAdderView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handlePlaylistCreation(ActionEvent event) {
+        try {
+            PlaylistUIAdderController c = (PlaylistUIAdderController) new PlaylistUIComponentFactory().createUIComponentAdder();
+            Parent playlistAdderView = c.getRoot();
+            MainViewController.getInstance().showPopup(playlistAdderView);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+  
+    @FXML
+    private void handleUndo(ActionEvent event) {
+        System.out.println("Ancora da implementare");
+    }
+    
+    @FXML
+    private void handleHome(ActionEvent event) {
+        selectedPlaylist = null;
+        update();
+    }
     public void showPopup(Parent popup) {
         //chiude il popup se già presente
         closePopup();
@@ -225,37 +262,21 @@ public class MainViewController implements Initializable, Subscriber {
         }
     }
     
-    //gestione degli eventi sugli elementi della view    
-    @FXML
-    private void handleAddTrack(ActionEvent event) {
-        try {
-            TrackUIAdderController c = (TrackUIAdderController) new TrackUIComponentFactory().createUIComponentAdder();
-            Parent trackAdderView = c.getRoot();
-            MainViewController.getInstance().showPopup(trackAdderView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handlePlaylistCreation(ActionEvent event) {
-        try {
-            PlaylistUIAdderController c = (PlaylistUIAdderController) new PlaylistUIComponentFactory().createUIComponentAdder();
-            Parent playlistAdderView = c.getRoot();
-            MainViewController.getInstance().showPopup(playlistAdderView);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-  
-    @FXML
-    private void handleUndo(ActionEvent event) {
-        System.out.println("Ancora da implementare");
-    }
-    
-    @FXML
-    private void handleHome(ActionEvent event) {
-        selectedPlaylist = null;
-        update();
+    public boolean showDeleteConfirmation(String title) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma eliminazione");
+        alert.setHeaderText("Eliminare definitivamente la traccia?");
+        String context = new StringBuilder()
+                .append("Stai per eliminare '" + title + "'.\n")
+                .append("La traccia verrà rimossa da:\n")
+                .append("- Catalogo principale\n")
+                .append("- Tutte le playlist\n")
+                .append("- Coda di riproduzione (se presente)\n")
+                .append("AL MOMENTO è IRREVERSIBILE")
+                .toString();
+        alert.setContentText(context);
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
     }
 }

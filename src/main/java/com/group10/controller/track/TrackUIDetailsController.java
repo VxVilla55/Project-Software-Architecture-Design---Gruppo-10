@@ -1,6 +1,8 @@
 package com.group10.controller.track;
 
+import com.group10.controller.MainViewController;
 import com.group10.controller.command.CommandManager;
+import com.group10.controller.command.DeleteTrackCommand;
 import com.group10.controller.command.UpdateTrackCommand;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.common.Playable;
@@ -120,9 +122,12 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
             //è il tasto Elimina che deve eliminare la traccia
             //mostra alert
             //se conferma si chiude questa view è il brano viene eliminato da qui con MusicCatalogue.getInstance().removeTrack(track):
-            displayTrackDetails();
-            isEditing = false;
-            updateUIState();
+            if (MainViewController.getInstance().showDeleteConfirmation(track.getTitle())) {
+                CommandManager.getInstance().executeCommand(new DeleteTrackCommand(track));
+                displayTrackDetails();
+                isEditing = false;
+                updateUIState();
+            }
         } else {
             //è il tasto Annulla Modifiche che deve ripristinare il brano
             displayTrackDetails();
