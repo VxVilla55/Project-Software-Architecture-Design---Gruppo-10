@@ -36,6 +36,7 @@ public class AddToPlaylistTest {
     public void setUp() {
         playlist = new PlaylistComponent("Test Playlist");
         
+        // Prepariamo anche il catalogo pulito per i test di integrazione
         catalogue = MusicCatalogue.getInstance();
         catalogue.getTracks().clear();
         catalogue.getPlaylists().clear();
@@ -64,6 +65,10 @@ public class AddToPlaylistTest {
                 .setYear(1971)
                 .build();
     }
+
+    // ==========================================
+    // TEST ORIGINALI SU PlaylistComponent
+    // ==========================================
 
     @Test
     public void playlistDevePartireVuota() {
@@ -140,16 +145,18 @@ public class AddToPlaylistTest {
   @Test
     public void aggiuntaDuplicato_nonAmmesso() {
         playlist.add(track1);
-        playlist.add(track1); 
+        playlist.add(track1); // Tento di aggiungere di nuovo la stessa traccia
         
+        // La dimensione deve rimanere 1, il duplicato viene ignorato
         assertEquals(1, playlist.getSize(), "I duplicati non devono essere inseriti nella playlist");
     }
 
     @Test
     public void aggiuntaDuplicato_durataInvariata() {
         playlist.add(track1);
-        playlist.add(track1); 
+        playlist.add(track1); // Tento di aggiungere di nuovo la stessa traccia
         
+        // La durata totale deve rimanere quella della singola traccia, non raddoppiare
         assertEquals(track1.getDurationInSeconds(), playlist.getDurationInSeconds(), 
                 "La durata non deve raddoppiare se l'aggiunta del duplicato viene bloccata");
     }
@@ -168,6 +175,7 @@ public class AddToPlaylistTest {
 
     @Test
     public void catalogue_addTrackToPlaylist_notificaISubscriber() {
+        // Creiamo un subscriber fittizio (usando una classe anonima) per contare gli update
         final int[] updateCount = {0};
         Subscriber mockSubscriber = new Subscriber() {
             @Override
@@ -177,13 +185,15 @@ public class AddToPlaylistTest {
         };
         
         catalogue.addSubscriber(mockSubscriber);
-        catalogue.addPlaylist(playlist); 
+        catalogue.addPlaylist(playlist); // Questo causerà il 1° update
         
-        catalogue.addTrackToPlaylist(playlist.getName(), track1); 
+        // L'aggiunta di una traccia alla playlist tramite catalogo deve chiamare notifySubscribers()
+        catalogue.addTrackToPlaylist(playlist.getName(), track1); // Questo causerà il 2° update
         
         assertEquals(2, updateCount[0], "Il subscriber doveva essere notificato due volte (1 per addPlaylist, 1 per addTrackToPlaylist)");
         
-
+        // Pulizia finale
+        // (Nota: hai un metodo chiamato removeTracks che sembra essere usato per rimuovere i subscriber, lo uso qui)
         catalogue.removeTracks(mockSubscriber); 
     }
 }
