@@ -6,6 +6,8 @@ package com.group10.model;
 
 import com.group10.model.common.Publisher;
 import com.group10.model.common.Subscriber;
+import com.group10.model.state.PlaybackEngine;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,11 +53,26 @@ public class MusicCatalogue implements Publisher{
         tracks.add(track);
         notifySubscribers();
     }
-    public void removeTrack (TrackComponent track) {
+   public void removeTrack(TrackComponent track) {
+        if (track == null) return;
+
+        // 1. La tua rimozione originale dal catalogo (Corretta!)
         tracks.remove(track);
+
+        // 2. NOVITÀ: Elimina la traccia da TUTTE le playlist in cui era stata inserita
+        for (PlaylistComponent playlist : this.playlists.values()) {
+            // Usa il metodo appropriato in base a come è fatta la tua classe PlaylistComponent
+            // (potrebbe essere playlist.remove(track) oppure playlist.getTracks().remove(track))
+            playlist.getTracks().remove(track); 
+        }
+
+        // 3. NOVITÀ: Rimuovi la traccia dal lettore musicale, se era in coda
+        PlaybackEngine.getInstance().removeTrackFromQueue(track);
+
+        // 4. La tua notifica originale (Corretta, la teniamo alla fine!)
         notifySubscribers();
     }
-    
+
     public void addPlaylist (PlaylistComponent playlist) {
         // univocita' del nome, non si aggiunge una playlist con un nome gia' presente
         if (isPlaylistNameTaken(playlist.getName())) {

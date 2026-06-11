@@ -254,7 +254,7 @@ public void clearQueue() {
     }
 
 
-    public Integer removeTrackFromQueue(TrackComponent track) {
+public Integer removeTrackFromQueue(TrackComponent track) {
         //se la coda è vuota
         if (queue.isEmpty())
             return null;
@@ -266,17 +266,26 @@ public void clearQueue() {
             
             //se è quella in riproduzione attualmente
             if ( track.equals(PlaybackEngine.getInstance().getCurrentTrack()) ) {
-                //se la traccia in riproduzione era l'ultima della cosa va gestita
-                //in caso contrariocurrentIndex punterebbe già alla prossima traccia
-                if(queue.size()-1 < currentIndex) {
-                    //puntiamo all'ultima della cosa anche se è già stata riprodotta
-                    currentIndex = queue.size()-1;
+                
+                // --- NOVITÀ: GESTIONE CODA VUOTA ---
+                if (queue.isEmpty()) {
+                    currentTrack = null;
+                    currentIndex = -1;
+                    switchTrack(null);
+                    stopSimulation();
+                    setState(new StoppedState());
+                } else {
+                    // --- VECCHIA LOGICA ---
+                    //se la traccia in riproduzione era l'ultima della cosa va gestita
+                    if(queue.size()-1 < currentIndex) {
+                        currentIndex = queue.size()-1;
+                    }
+                    currentTrack = queue.get(currentIndex);
+                    switchTrack(currentTrack);
+                    //ferma la riproduzione (l'uteta dovrà premere play manualmente)
+                    stopSimulation();
+                    setState(new StoppedState());
                 }
-                currentTrack = queue.get(currentIndex);
-                switchTrack(currentTrack);
-                //ferma la riproduzione (l'uteta dovrà premere play manualmente)
-                stopSimulation();
-                setState(new StoppedState());
             }
             return removedIndex;
         } else {
