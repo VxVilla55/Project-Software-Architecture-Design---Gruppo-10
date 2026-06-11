@@ -31,25 +31,28 @@ public class PlaylistBuilderTest {
         assertTrue(exception.getMessage().toLowerCase().contains("vuoto"));
     }
 
-    @Test
+@Test
     public void testFallimentoNomeDuplicato() {
         MusicCatalogue catalogue = MusicCatalogue.getInstance();
         String nomePlaylist = "TestPlaylist_" + UUID.randomUUID().toString();
         
-        // 1. Creiamo e aggiungiamo la PRIMA playlist (questo NON deve fallire)
+        // 1. Creiamo e aggiungiamo la PRIMA playlist
         PlaylistComponent playlist1 = new PlaylistBuilder()
                 .setName(nomePlaylist)
                 .build();
-        catalogue.addPlaylist(playlist1);
+        catalogue.addPlaylist(playlist1); // Qui va a buon fine
         
-        // 2. Tentativo di creare la SECONDA playlist con lo STESSO NOME (questo DEVE fallire)
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new PlaylistBuilder()
+        // 2. Creiamo la SECONDA playlist in memoria con lo STESSO NOME (il Builder non dà errore)
+        PlaylistComponent playlist2 = new PlaylistBuilder()
                 .setName(nomePlaylist)
                 .build();
+
+        // 3. Tentativo di AGGIUNGERE la seconda playlist al catalogo (questo DEVE fallire!)
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            catalogue.addPlaylist(playlist2); // <-- È il catalogo che lancia l'eccezione!
         });
 
-        // 3. Verifichiamo che l'errore sia effettivamente quello del duplicato
+        // 4. Verifichiamo che l'errore sia effettivamente quello del duplicato
         assertTrue(exception.getMessage().toLowerCase().contains("già") || 
                    exception.getMessage().toLowerCase().contains("nome"));
     }
