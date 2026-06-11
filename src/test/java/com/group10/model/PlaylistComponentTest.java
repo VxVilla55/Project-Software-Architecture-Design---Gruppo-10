@@ -9,6 +9,7 @@ import com.group10.model.state.PlaybackEngine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 /**
  *
@@ -197,21 +198,43 @@ class PlaylistComponentTest {
         assertTrue(playlist.contains(existing));
     }
 
-    @Test
+@Test
     void playOnEngine_impostaCurrentPlaylistSuEngine() {
-        //verifico che playOnEngine chiami setCurrentPlaylist con questa playlist
-        PlaybackEngine engineMock = mock(PlaybackEngine.class);
-        playlist.playOnEngine(engineMock);
-        verify(engineMock, times(1)).setCurrentPlaylist(playlist);
+        // 1. Setup: prendiamo l'engine reale e resettiamo la playlist
+        PlaybackEngine engine = PlaybackEngine.getInstance();
+        engine.setCurrentPlaylist(null); 
+        
+        // 2. Azione: chiamiamo il metodo
+        playlist.playOnEngine(engine);
+        
+        // 3. Asserzione: verifichiamo che l'engine abbia ora salvato questa playlist
+        assertEquals(playlist, engine.getCurrentPlaylist(), 
+            "La playlist corrente dell'engine deve essere aggiornata dopo aver chiamato playOnEngine.");
     }
 
     @Test
     void playOnEngine_aggiungeTutteLeTracceAllaQueueDelEngine() {
-        //aggiungo due tracce e verifico che addListToQueue venga chiamato una volta
-        playlist.add(makeTrack("T1", "A", 100));
-        playlist.add(makeTrack("T2", "B", 200));
-        PlaybackEngine engineMock = mock(PlaybackEngine.class);
-        playlist.playOnEngine(engineMock);
-        verify(engineMock, times(1)).addListToQueue(any());
+        // 1. Setup
+        PlaybackEngine engine = PlaybackEngine.getInstance();
+        engine.clearQueue(); // Svuotiamo la coda dell'engine
+        
+        TrackComponent track1 = makeTrack("T1", "A", 100);
+        TrackComponent track2 = makeTrack("T2", "B", 200);
+        playlist.add(track1);
+        playlist.add(track2);
+        
+        // 2. Azione
+        playlist.playOnEngine(engine);
+        
+        // 3. Asserzioni
+        // Dal codice di PlaybackEngine, sappiamo che addListToQueue imposta 
+        // automaticamente la prima traccia della lista come "currentTrack".
+        assertEquals(track1, engine.getCurrentTrack(), 
+            "La prima traccia della playlist deve diventare la traccia corrente dell'engine.");
+            
+        // Se vogliamo essere ancora più sicuri, testiamo che ci sia anche la successiva
+        engine.next();
+        assertEquals(track2, engine.getCurrentTrack(), 
+            "La seconda traccia della playlist deve essere accodata correttamente.");
     }
 }
