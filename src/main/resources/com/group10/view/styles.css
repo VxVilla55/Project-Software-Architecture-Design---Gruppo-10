@@ -95,10 +95,9 @@
 }
 
 
-
 #btnRight {
-    -fx-background-color: #FF5252;
-    -fx-text-fill: white;
+    -fx-background-color: #EFE6CC;
+    -fx-text-fill: #37474F;
     -fx-background-radius: 20;
     -fx-font-weight: bold;
     -fx-padding: 6 12 6 12;
