@@ -32,6 +32,7 @@ public class PlayerViewController implements Initializable {
 
     @FXML private ImageView loopButtonIcon;
     @FXML private ImageView shuffleButtonIcon;
+    @FXML private ImageView playPauseIcon;
     
     private Parent root;
 
@@ -42,13 +43,13 @@ public class PlayerViewController implements Initializable {
         }
 
         var engine = PlaybackEngine.getInstance();
-        
+
         engine.setOnPlayStateChanged(isPlaying -> {
             if (playPauseButton != null) {
                 if (isPlaying) {
-                    playPauseButton.setText("⏸");
+                    playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/pause-button.png")));
                 } else {
-                    playPauseButton.setText("▶️");
+                    playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/play-button.png")));
                 }
             }
         });
@@ -99,9 +100,10 @@ public class PlayerViewController implements Initializable {
             trackTitle.setText(current.getTitle());
             trackAuthor.setText(current.getAuthor());
             if (engine.getState() instanceof PlayingState) {
-                if (playPauseButton != null) playPauseButton.setText("⏸");
+                playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/pause-button.png")));
+
             } else {
-                if (playPauseButton != null) playPauseButton.setText("▶️");
+                playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/play-button.png")));
             }
         } else {
             trackTitle.setText("");
