@@ -59,19 +59,10 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
     public int getYear() {
         return year;
     }
-@Override
+    
+    @Override
     public int getDurationInSeconds() {
         return this.duration; // Sostituisci "duration" col nome esatto della tua variabile
-    }
-
-    @Override
-    public void playOnEngine(com.group10.model.state.PlaybackEngine engine) {
-        engine.addTrackToQueue(this); // Aggiunge solo se stessa
-    }
-
-    @Override
-    public int compareTo(TrackComponent o) {
-        return this.title.compareToIgnoreCase(o.title);
     }
 
     @Override
@@ -81,15 +72,16 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
         hash = 29 * hash + Objects.hashCode(this.author);
         return hash;
     }
-@Override
+    
+    @Override
     public boolean equals(Object obj) {
-        // 1. Se sono lo stesso identico oggetto in memoria, sono uguali
+        //se sono lo stesso identico oggetto in memoria, sono uguali
         if (this == obj) return true;
         
-        // 2. Se l'altro oggetto è nullo o è di una classe diversa, non sono uguali
+        //se l'altro oggetto è nullo o è di una classe diversa, non sono uguali
         if (obj == null || getClass() != obj.getClass()) return false;
         
-        // 3. Confrontiamo titolo e autore
+        //confrontiamo titolo e autore
         TrackComponent other = (TrackComponent) obj;
         
         boolean isTitleEqual = (this.getTitle() != null && this.getTitle().equals(other.getTitle()));
@@ -97,6 +89,20 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
         
         return isTitleEqual && isAuthorEqual;
     }
-
- 
+    
+    @Override
+    public int compareTo(TrackComponent o) {
+        if (this.equals(o)) {
+            return 0;
+        }
+        //prima confronto il titolo
+        if (this.title.compareToIgnoreCase(o.getTitle()) != 0) {
+            return this.title.compareToIgnoreCase(o.getTitle());
+        }
+        //poi confronto gli autori
+        if (this.author.compareToIgnoreCase(o.getAuthor()) != 0) {
+            return this.author.compareToIgnoreCase(o.getAuthor());
+        }
+        return 0;
+    } 
 }

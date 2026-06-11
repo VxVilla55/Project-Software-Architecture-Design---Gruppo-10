@@ -98,8 +98,6 @@ public class PlaylistComponent implements Playable {
         }
         return totalDuration;
     }
-
-    @Override
     public void playOnEngine(PlaybackEngine engine) {
         engine.setCurrentPlaylist(this);
         System.out.println("Playlist settata: " + getName());
