@@ -57,7 +57,7 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
     private PlaylistComponent contextPlaylist = null;
     
     // --- NUOVO: Metodo per ricevere la playlist dal PlaylistUIDetailsController ---
-    public void setContextPlaylist(com.group10.model.PlaylistComponent playlist) {
+    public void setContextPlaylist(PlaylistComponent playlist) {
         this.contextPlaylist = playlist;
     }
     
@@ -82,6 +82,7 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
         artistLabel.setText(track.getAuthor());
         genreLabel.setText(track.getGenre());
         yearLabel.setText(String.valueOf(track.getYear()));
+        indexLabel.setText("-");
         
         Duration trackDuration = Duration.ofSeconds(track.getDurationInSeconds());
         String formattedDuration = String.format("%02d:%02d:%02d", trackDuration.toHoursPart(), trackDuration.toMinutesPart(), trackDuration.toSecondsPart());
