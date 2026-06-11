@@ -41,7 +41,7 @@
             <VBox prefWidth="280.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 1 0 0;" BorderPane.alignment="CENTER">
                <children>
                   <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Le mie playlist">
-                     <font><Font size="16.0" /></font>
+                     <font><Font size="22.0" /></font>
                      <VBox.margin><Insets bottom="15.0" left="15.0" top="15.0" /></VBox.margin>
                   </Label>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
@@ -58,10 +58,6 @@
          <center>
             <VBox prefHeight="574.0" prefWidth="547.0" style="-fx-background-color: #FFF8E1;" BorderPane.alignment="CENTER">
                <children>
-                  <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="I tuoi brani">
-                     <font><Font size="22.0" /></font>
-                     <VBox.margin><Insets bottom="15.0" left="20.0" top="20.0" /></VBox.margin>
-                  </Label>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="507.0" prefWidth="430.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox fx:id="centerPane" spacing="8.0" style="-fx-background-color: transparent;">

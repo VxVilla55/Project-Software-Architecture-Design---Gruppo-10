@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -12,32 +7,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefWidth="700.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.controller.HomepageController">
+<VBox fx:id="root" prefWidth="700.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.controller.HomepageController">
    <children>
-      
-      <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Le tue playlist preferite">
-         <font><Font size="20.0" /></font>
-         <VBox.margin><Insets bottom="10.0" left="20.0" top="20.0" /></VBox.margin>
-      </Label>
-      <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
-         <content>
-            <HBox fx:id="playlistsCardsContainer" spacing="15.0" style="-fx-background-color: transparent;">
-               <padding><Insets bottom="10.0" left="20.0" right="20.0" top="5.0" /></padding>
-            </HBox>
-         </content>
-      </ScrollPane>
+        <VBox fx:id="topPlaylistContainer">
+            <Label fx:id="topPlaylistLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Le tue playlist preferite">
+               <font><Font size="20.0" /></font>
+               <VBox.margin><Insets bottom="10.0" left="20.0" top="20.0" /></VBox.margin>
+            </Label>
+            <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+               <content>
+                  <HBox fx:id="playlistCardsContainer" spacing="15.0" style="-fx-background-color: transparent;">
+                     <padding><Insets bottom="10.0" left="20.0" right="20.0" top="5.0" /></padding>
+                  </HBox>
+               </content>
+            </ScrollPane>
+        </VBox>
 
-      <Label fx:id="tracksLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="I tuoi brani consigliati">
-         <font><Font size="20.0" /></font>
-         <VBox.margin><Insets bottom="10.0" left="20.0" top="25.0" /></VBox.margin>
-      </Label>
-      <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
-         <content>
-            <HBox fx:id="tracksCardsContainer" spacing="15.0" style="-fx-background-color: transparent;">
-               <padding><Insets bottom="10.0" left="20.0" right="20.0" top="5.0" /></padding>
-            </HBox>
-         </content>
-      </ScrollPane>
+        <VBox fx:id="topTrackContainer">
+            <Label fx:id="topTracksLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="I tuoi brani consigliati">
+               <font><Font size="20.0" /></font>
+               <VBox.margin><Insets bottom="10.0" left="20.0" top="25.0" /></VBox.margin>
+            </Label>
+            <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="NEVER">
+               <content>
+                  <HBox fx:id="trackCardsContainer" spacing="15.0" style="-fx-background-color: transparent;">
+                     <padding><Insets bottom="10.0" left="20.0" right="20.0" top="5.0" /></padding>
+                  </HBox>
+               </content>
+            </ScrollPane>
+        </VBox>
+        
+        <VBox fx:id="allTrackContainer">
+            <Label fx:id="allTracksLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="I tuoi brani">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+               <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+                  <content>
+                     <VBox fx:id="trackItemsContainer" spacing="6.0" style="-fx-background-color: transparent;">
+                       <padding>
+                           <Insets bottom="10.0" left="20.0" right="20.0" top="5.0" />
+                       </padding>
+                     </VBox>
+                  </content>
+               </ScrollPane>
+        </VBox>
 
    </children>
 </VBox>

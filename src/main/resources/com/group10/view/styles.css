@@ -22,6 +22,12 @@
     -fx-font-weight: bold;
 }
 
+#addTrackButton, 
+#playlistCreationButton{
+    
+    -fx-padding: 6 12 6 12;
+}
+
 #itemPlace1 {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
