@@ -1,175 +1,132 @@
 {
   "tracks": [
     {
-      "title": "Traccia 1",
-      "author": "artista 1",
-      "duration": 180,
-      "genre": "",
-      "year": 2026
+      "title": "Livin\u0027 on a Prayer",
+      "author": "Bon Jovi",
+      "duration": 250,
+      "genre": "rock",
+      "year": 1986
     },
     {
-      "title": "Traccia 2",
-      "author": "artista 2",
-      "duration": 200,
-      "genre": "",
-      "year": 2026
+      "title": "Sweet Child O\u0027 Mine",
+      "author": "Guns N\u0027 Roses",
+      "duration": 356,
+      "genre": "hard rock",
+      "year": 1987
     },
     {
-      "title": "Traccia 3",
-      "author": "artista 3",
-      "duration": 175,
-      "genre": "",
-      "year": 2026
+      "title": "Don\u0027t Stop Believin\u0027",
+      "author": "Journey",
+      "duration": 248,
+      "genre": "rock",
+      "year": 1981
     },
     {
-      "title": "Traccia 4",
-      "author": "artista 4",
-      "duration": 210,
-      "genre": "",
-      "year": 2026
+      "title": "November Rain",
+      "author": "Guns N\u0027 Roses",
+      "duration": 540,
+      "genre": "rock ballad",
+      "year": 1991
     },
     {
-      "title": "Traccia 5",
-      "author": "artista 5",
-      "duration": 190,
-      "genre": "",
-      "year": 2026
+      "title": "It\u0027s My Life",
+      "author": "Bon Jovi",
+      "duration": 225,
+      "genre": "rock",
+      "year": 2000
     },
     {
-      "title": "Traccia 6",
-      "author": "artista 6",
-      "duration": 205,
-      "genre": "",
-      "year": 2026
+      "title": "I Don\u0027t Want to Miss a Thing",
+      "author": "Aerosmith",
+      "duration": 290,
+      "genre": "rock ballad",
+      "year": 1998
     },
     {
-      "title": "Traccia 7",
-      "author": "artista 7",
-      "duration": 160,
-      "genre": "",
-      "year": 2026
+      "title": "The Final Countdown",
+      "author": "Europe",
+      "duration": 310,
+      "genre": "hard rock",
+      "year": 1986
     },
     {
-      "title": "Traccia 8",
-      "author": "artista 8",
-      "duration": 220,
-      "genre": "",
-      "year": 2026
-    },
-    {
-      "title": "Traccia 9",
-      "author": "artista 9",
-      "duration": 198,
-      "genre": "",
-      "year": 2026
-    },
-    {
-      "title": "Traccia 10",
-      "author": "artista 10",
-      "duration": 182,
-      "genre": "",
-      "year": 2026
-    },
-    {
-      "title": "Traccia 11",
-      "author": "artista 11",
+      "title": "Have a Nice Day",
+      "author": "Bon Jovi",
       "duration": 240,
-      "genre": "",
-      "year": 2026
+      "genre": "rock",
+      "year": 2005
     },
     {
-      "title": "Traccia 12",
-      "author": "artista 12",
-      "duration": 195,
-      "genre": "",
-      "year": 2026
+      "title": "Dream On",
+      "author": "Aerosmith",
+      "duration": 270,
+      "genre": "rock ballad",
+      "year": 1973
     },
     {
-      "title": "Traccia 13",
-      "author": "artista 13",
-      "duration": 205,
-      "genre": "",
-      "year": 2026
+      "title": "Rock You Like a Hurricane",
+      "author": "Scorpions",
+      "duration": 252,
+      "genre": "hard rock",
+      "year": 1984
     },
     {
-      "title": "Traccia 14",
-      "author": "artista 14",
-      "duration": 177,
-      "genre": "",
-      "year": 2026
+      "title": "Still Loving You",
+      "author": "Scorpions",
+      "duration": 310,
+      "genre": "rock ballad",
+      "year": 1984
     },
     {
-      "title": "Traccia 15",
-      "author": "artista 15",
-      "duration": 230,
-      "genre": "",
-      "year": 2026
+      "title": "Heaven",
+      "author": "Bryan Adams",
+      "duration": 240,
+      "genre": "rock ballad",
+      "year": 1984
     },
     {
-      "title": "Traccia 16",
-      "author": "artista 16",
-      "duration": 215,
-      "genre": "",
-      "year": 2026
+      "title": "Pour Some Sugar on Me",
+      "author": "Def Leppard",
+      "duration": 265,
+      "genre": "glam rock",
+      "year": 1987
     },
     {
-      "title": "Traccia 17",
-      "author": "artista 17",
-      "duration": 186,
-      "genre": "",
-      "year": 2026
-    },
-    {
-      "title": "Traccia 18",
-      "author": "artista 18",
-      "duration": 199,
-      "genre": "",
-      "year": 2026
-    },
-    {
-      "title": "Traccia 19",
-      "author": "artista 19",
-      "duration": 210,
-      "genre": "",
-      "year": 2026
-    },
-    {
-      "title": "Traccia 20",
-      "author": "artista 20",
-      "duration": 170,
-      "genre": "",
-      "year": 2026
+      "title": "Open Arms",
+      "author": "Journey",
+      "duration": 200,
+      "genre": "rock ballad",
+      "year": 1981
     }
   ],
   "playlists": [
     {
-      "name": "Playlist 1",
+      "name": "Classic Rock Set",
       "trackKeys": [
-        "Traccia 1::artista 1",
-        "Traccia 3::artista 3",
-        "Traccia 5::artista 5",
-        "Traccia 7::artista 7",
-        "Traccia 9::artista 9"
+        "Don\u0027t Stop Believin\u0027::Journey",
+        "Dream On::Aerosmith",
+        "Heaven::Bryan Adams",
+        "Rock You Like a Hurricane::Scorpions",
+        "The Final Countdown::Europe"
       ]
     },
     {
-      "name": "Playlist 2",
+      "name": "Full Rock Experience",
       "trackKeys": [
-        "Traccia 2::artista 2",
-        "Traccia 4::artista 4",
-        "Traccia 6::artista 6"
+        "Have a Nice Day::Bon Jovi",
+        "I Don\u0027t Want to Miss a Thing::Aerosmith",
+        "It\u0027s My Life::Bon Jovi",
+        "Livin\u0027 on a Prayer::Bon Jovi",
+        "November Rain::Guns N\u0027 Roses",
+        "Pour Some Sugar on Me::Def Leppard",
+        "Still Loving You::Scorpions"
       ]
     },
     {
-      "name": "Playlist 3",
+      "name": "Mini Rock Hits",
       "trackKeys": [
-        "Traccia 10::artista 10",
-        "Traccia 12::artista 12",
-        "Traccia 14::artista 14",
-        "Traccia 16::artista 16",
-        "Traccia 18::artista 18",
-        "Traccia 20::artista 20",
-        "Traccia 8::artista 8"
+        "Livin\u0027 on a Prayer::Bon Jovi",
+        "Sweet Child O\u0027 Mine::Guns N\u0027 Roses"
       ]
     }
   ]
