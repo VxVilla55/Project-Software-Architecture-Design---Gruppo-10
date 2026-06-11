@@ -28,24 +28,16 @@
     -fx-padding: 6 12 6 12;
 }
 
-#itemPlace1 {
+#itemPlace1, #titleLabel {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
 }
 
 
-#titleLabel {
+topPlaylistLabel, #topTracksLabel, #allTracksLabel, #trackLabel  {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
-
-#tracksLabel {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-}
-
-
-
 
 
 

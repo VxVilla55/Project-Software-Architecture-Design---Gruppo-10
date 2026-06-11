@@ -112,6 +112,9 @@ public class MainViewController implements Initializable, Subscriber {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        //nascondo elementi non ancora funzionanti
+        searchField.setVisible(false);
+        
         MusicCatalogue.getInstance().addSubscriber(this);
         update();
     }
