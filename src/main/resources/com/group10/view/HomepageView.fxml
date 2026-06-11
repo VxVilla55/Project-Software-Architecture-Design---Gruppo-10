@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" prefWidth="700.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.controller.HomepageController">
+<VBox fx:id="root" prefWidth="700.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.controller.HomepageController">
    <children>
         <VBox fx:id="topPlaylistContainer">
             <Label fx:id="topPlaylistLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Le tue playlist preferite">
