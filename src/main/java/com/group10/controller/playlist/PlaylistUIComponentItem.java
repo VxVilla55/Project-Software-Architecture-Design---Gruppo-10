@@ -52,7 +52,7 @@ public class PlaylistUIComponentItem implements AbstractUIComponent, Initializab
 
 
         // Da implementare
-        // playlistMenuButton.setVisible(false);
+        playlistMenuButton.setVisible(false);
     }
 
     @Override
