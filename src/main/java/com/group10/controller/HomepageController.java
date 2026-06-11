@@ -4,7 +4,7 @@
  */
 package com.group10.controller;
 
-import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.controller.track.TrackUIComponentItem;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.TrackComponent;

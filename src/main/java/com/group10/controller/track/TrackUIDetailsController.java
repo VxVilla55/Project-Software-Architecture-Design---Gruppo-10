@@ -1,9 +1,9 @@
 package com.group10.controller.track;
 
 import com.group10.controller.MainViewController;
-import com.group10.controller.command.CommandManager;
-import com.group10.controller.command.DeleteTrackCommand;
-import com.group10.controller.command.UpdateTrackCommand;
+import com.group10.service.command.CommandManager;
+import com.group10.service.command.DeleteTrackCommand;
+import com.group10.service.command.UpdateTrackCommand;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;

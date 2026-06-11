@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.group10.controller;
+package com.group10.service.factory;
 
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.common.Playable;

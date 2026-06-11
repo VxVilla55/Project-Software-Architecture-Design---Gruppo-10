@@ -1,7 +1,7 @@
 package com.group10.controller;
 
-import com.group10.controller.factory.TrackUIComponentFactory;
-import com.group10.controller.factory.PlaylistUIComponentFactory;
+import com.group10.service.factory.TrackUIComponentFactory;
+import com.group10.service.factory.PlaylistUIComponentFactory;
 import com.group10.controller.track.TrackUIAdderController;
 import com.group10.controller.playlist.PlaylistUIAdderController;
 import com.group10.controller.playlist.PlaylistUIComponentItem;

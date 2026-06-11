@@ -3,7 +3,7 @@ package com.group10;
 import com.group10.controller.track.TrackUIAdderController;
 import com.group10.controller.MainViewController;
 import com.group10.controller.playlist.PlaylistUIDetailsController;
-import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.PlaylistComponent;
@@ -38,10 +38,6 @@ public class App extends Application {
         System.exit(0);
     });
 
-    // -- ESEGUITE UNA SOLA VOLTA per riempire il programma inzialmente
-    // -- Altrimenti dovete cancellare il catalogue.json nella cartella "data"
-    // fillInstance();
-
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/MainView.fxml"));
     MainViewController controller = MainViewController.getInstance();
     loader.setController(controller);
@@ -52,7 +48,7 @@ public class App extends Application {
     
     stage.setMinWidth(1300); 
     stage.setMinHeight(800);
-    stage.setTitle("MyMusicPlayer");
+    stage.setTitle("MusicPlaylistManager");
     stage.show();        
 }
 

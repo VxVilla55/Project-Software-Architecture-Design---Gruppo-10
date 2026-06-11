@@ -1,132 +1,48 @@
 {
   "tracks": [
-    {
-      "title": "Livin\u0027 on a Prayer",
-      "author": "Bon Jovi",
-      "duration": 250,
-      "genre": "rock",
-      "year": 1986
-    },
-    {
-      "title": "Sweet Child O\u0027 Mine",
-      "author": "Guns N\u0027 Roses",
-      "duration": 356,
-      "genre": "hard rock",
-      "year": 1987
-    },
-    {
-      "title": "Don\u0027t Stop Believin\u0027",
-      "author": "Journey",
-      "duration": 248,
-      "genre": "rock",
-      "year": 1981
-    },
-    {
-      "title": "November Rain",
-      "author": "Guns N\u0027 Roses",
-      "duration": 540,
-      "genre": "rock ballad",
-      "year": 1991
-    },
-    {
-      "title": "It\u0027s My Life",
-      "author": "Bon Jovi",
-      "duration": 225,
-      "genre": "rock",
-      "year": 2000
-    },
-    {
-      "title": "I Don\u0027t Want to Miss a Thing",
-      "author": "Aerosmith",
-      "duration": 290,
-      "genre": "rock ballad",
-      "year": 1998
-    },
-    {
-      "title": "The Final Countdown",
-      "author": "Europe",
-      "duration": 310,
-      "genre": "hard rock",
-      "year": 1986
-    },
-    {
-      "title": "Have a Nice Day",
-      "author": "Bon Jovi",
-      "duration": 240,
-      "genre": "rock",
-      "year": 2005
-    },
-    {
-      "title": "Dream On",
-      "author": "Aerosmith",
-      "duration": 270,
-      "genre": "rock ballad",
-      "year": 1973
-    },
-    {
-      "title": "Rock You Like a Hurricane",
-      "author": "Scorpions",
-      "duration": 252,
-      "genre": "hard rock",
-      "year": 1984
-    },
-    {
-      "title": "Still Loving You",
-      "author": "Scorpions",
-      "duration": 310,
-      "genre": "rock ballad",
-      "year": 1984
-    },
-    {
-      "title": "Heaven",
-      "author": "Bryan Adams",
-      "duration": 240,
-      "genre": "rock ballad",
-      "year": 1984
-    },
-    {
-      "title": "Pour Some Sugar on Me",
-      "author": "Def Leppard",
-      "duration": 265,
-      "genre": "glam rock",
-      "year": 1987
-    },
-    {
-      "title": "Open Arms",
-      "author": "Journey",
-      "duration": 200,
-      "genre": "rock ballad",
-      "year": 1981
-    }
+    { "title": "Runaway", "author": "Bon Jovi", "duration": 230, "genre": "hard rock", "year": 1984 },
+    { "title": "Livin' on a Prayer", "author": "Bon Jovi", "duration": 250, "genre": "glam metal", "year": 1986 },
+    { "title": "You Give Love a Bad Name", "author": "Bon Jovi", "duration": 215, "genre": "glam metal", "year": 1986 },
+    { "title": "Wanted Dead or Alive", "author": "Bon Jovi", "duration": 280, "genre": "hard rock", "year": 1986 },
+    { "title": "Bad Medicine", "author": "Bon Jovi", "duration": 260, "genre": "hard rock", "year": 1988 },
+    { "title": "Lay Your Hands on Me", "author": "Bon Jovi", "duration": 245, "genre": "hard rock", "year": 1988 },
+    { "title": "Keep the Faith", "author": "Bon Jovi", "duration": 270, "genre": "rock", "year": 1992 },
+    { "title": "Bed of Roses", "author": "Bon Jovi", "duration": 330, "genre": "rock ballad", "year": 1992 },
+    { "title": "In These Arms", "author": "Bon Jovi", "duration": 320, "genre": "rock", "year": 1992 },
+    { "title": "Always", "author": "Bon Jovi", "duration": 290, "genre": "rock ballad", "year": 1994 },
+    { "title": "Someday I'll Be Saturday Night", "author": "Bon Jovi", "duration": 260, "genre": "rock", "year": 1994 },
+    { "title": "It's My Life", "author": "Bon Jovi", "duration": 225, "genre": "rock", "year": 2000 },
+    { "title": "Have a Nice Day", "author": "Bon Jovi", "duration": 240, "genre": "rock", "year": 2005 },
+    { "title": "Who Says You Can't Go Home", "author": "Bon Jovi", "duration": 235, "genre": "country rock", "year": 2005 },
+    { "title": "We Weren't Born to Follow", "author": "Bon Jovi", "duration": 250, "genre": "rock", "year": 2009 }
   ],
   "playlists": [
     {
-      "name": "Classic Rock Set",
+      "name": "Classic Bon Jovi",
       "trackKeys": [
-        "Don\u0027t Stop Believin\u0027::Journey",
-        "Dream On::Aerosmith",
-        "Heaven::Bryan Adams",
-        "Rock You Like a Hurricane::Scorpions",
-        "The Final Countdown::Europe"
+        "Runaway::Bon Jovi",
+        "Livin' on a Prayer::Bon Jovi",
+        "You Give Love a Bad Name::Bon Jovi",
+        "Wanted Dead or Alive::Bon Jovi"
       ]
     },
     {
-      "name": "Full Rock Experience",
+      "name": "Ballads & Emotion",
       "trackKeys": [
+        "Bed of Roses::Bon Jovi",
+        "Always::Bon Jovi",
+        "In These Arms::Bon Jovi",
+        "Someday I'll Be Saturday Night::Bon Jovi"
+      ]
+    },
+    {
+      "name": "Modern Era",
+      "trackKeys": [
+        "It's My Life::Bon Jovi",
         "Have a Nice Day::Bon Jovi",
-        "I Don\u0027t Want to Miss a Thing::Aerosmith",
-        "It\u0027s My Life::Bon Jovi",
-        "Livin\u0027 on a Prayer::Bon Jovi",
-        "November Rain::Guns N\u0027 Roses",
-        "Pour Some Sugar on Me::Def Leppard",
-        "Still Loving You::Scorpions"
-      ]
-    },
-    {
-      "name": "Mini Rock Hits",
-      "trackKeys": [
-        "Livin\u0027 on a Prayer::Bon Jovi",
-        "Sweet Child O\u0027 Mine::Guns N\u0027 Roses"
+        "Who Says You Can't Go Home::Bon Jovi",
+        "We Weren't Born to Follow::Bon Jovi",
+        "Keep the Faith::Bon Jovi"
       ]
     }
   ]

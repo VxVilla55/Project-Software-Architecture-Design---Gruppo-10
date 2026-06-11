@@ -9,7 +9,7 @@ package com.group10.controller.track;
  
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
-import com.group10.controller.factory.TrackUIComponentFactory;
+import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.common.Playable;
