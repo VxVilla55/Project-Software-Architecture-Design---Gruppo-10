@@ -1,24 +1,56 @@
 {
   "tracks": [
-    {
-      "title": "madre",
-      "author": "cieli",
-      "duration": 200,
-      "genre": "",
-      "year": 2026
-    },
-    {
-      "title": "sad",
-      "author": "dff",
-      "duration": 122,
-      "genre": "",
-      "year": 2026
-    }
+    { "title": "Traccia 1", "author": "artista 1", "duration": 180, "genre": "", "year": 2026 },
+    { "title": "Traccia 2", "author": "artista 2", "duration": 200, "genre": "", "year": 2026 },
+    { "title": "Traccia 3", "author": "artista 3", "duration": 175, "genre": "", "year": 2026 },
+    { "title": "Traccia 4", "author": "artista 4", "duration": 210, "genre": "", "year": 2026 },
+    { "title": "Traccia 5", "author": "artista 5", "duration": 190, "genre": "", "year": 2026 },
+    { "title": "Traccia 6", "author": "artista 6", "duration": 205, "genre": "", "year": 2026 },
+    { "title": "Traccia 7", "author": "artista 7", "duration": 160, "genre": "", "year": 2026 },
+    { "title": "Traccia 8", "author": "artista 8", "duration": 220, "genre": "", "year": 2026 },
+    { "title": "Traccia 9", "author": "artista 9", "duration": 198, "genre": "", "year": 2026 },
+    { "title": "Traccia 10", "author": "artista 10", "duration": 182, "genre": "", "year": 2026 },
+    { "title": "Traccia 11", "author": "artista 11", "duration": 240, "genre": "", "year": 2026 },
+    { "title": "Traccia 12", "author": "artista 12", "duration": 195, "genre": "", "year": 2026 },
+    { "title": "Traccia 13", "author": "artista 13", "duration": 205, "genre": "", "year": 2026 },
+    { "title": "Traccia 14", "author": "artista 14", "duration": 177, "genre": "", "year": 2026 },
+    { "title": "Traccia 15", "author": "artista 15", "duration": 230, "genre": "", "year": 2026 },
+    { "title": "Traccia 16", "author": "artista 16", "duration": 215, "genre": "", "year": 2026 },
+    { "title": "Traccia 17", "author": "artista 17", "duration": 186, "genre": "", "year": 2026 },
+    { "title": "Traccia 18", "author": "artista 18", "duration": 199, "genre": "", "year": 2026 },
+    { "title": "Traccia 19", "author": "artista 19", "duration": 210, "genre": "", "year": 2026 },
+    { "title": "Traccia 20", "author": "artista 20", "duration": 170, "genre": "", "year": 2026 }
   ],
   "playlists": [
     {
-      "name": "Playlist Di Prova",
-      "trackKeys": []
+      "name": "Playlist 1",
+      "trackKeys": [
+        "Traccia 1::artista 1",
+        "Traccia 3::artista 3",
+        "Traccia 5::artista 5",
+        "Traccia 7::artista 7",
+        "Traccia 9::artista 9"
+      ]
+    },
+    {
+      "name": "Playlist 2",
+      "trackKeys": [
+        "Traccia 2::artista 2",
+        "Traccia 4::artista 4",
+        "Traccia 6::artista 6"
+      ]
+    },
+    {
+      "name": "Playlist 3",
+      "trackKeys": [
+        "Traccia 8::artista 8",
+        "Traccia 10::artista 10",
+        "Traccia 12::artista 12",
+        "Traccia 14::artista 14",
+        "Traccia 16::artista 16",
+        "Traccia 18::artista 18",
+        "Traccia 20::artista 20"
+      ]
     }
   ]
 }

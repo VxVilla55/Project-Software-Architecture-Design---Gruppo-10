@@ -1,5 +1,7 @@
 package com.group10.controller;
 
+import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistComponent;
 import com.group10.model.strategy.PlaybackMode;
 import com.group10.model.strategy.RepeatPlaylist;
 import com.group10.model.strategy.Sequential;
@@ -14,6 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.model.state.PlayingState;
@@ -161,5 +165,33 @@ public class PlayerViewController implements Initializable {
         } else shuffleButtonIcon.setOpacity(0.2);
     }
 
-    @FXML public void handleNextPlaylist(ActionEvent event) { System.out.println("Next Playlist!"); }
+    @FXML public void handleNextPlaylist(ActionEvent event) {
+        PlaybackEngine engine = PlaybackEngine.getInstance();
+        PlaylistComponent current = engine.getCurrentPlaylist();
+
+        // nessuna playlist in riproduzione
+        if (current == null) {
+            System.out.println("Nessuna playlist in riproduzione.");
+            engine.stop();
+            return;
+        }
+
+        List<PlaylistComponent> playlists = new ArrayList<>(MusicCatalogue.getInstance().getPlaylists().values());
+        // se c'è una sola playlist in libreria
+        if (playlists.size() < 2) return;
+
+        // trovo la corrente per nome (i nomi sono univoci)
+        int idx = -1;
+        for (int i = 0; i < playlists.size(); i++) {
+            if (playlists.get(i).getName().equals(current.getName())) {
+                idx = i;
+                break;
+            }
+        }
+        if (idx == -1) return;
+
+        int nextIdx = (idx + 1) % playlists.size(); // dopo l'ultima torna alla prima
+        PlaylistComponent next = playlists.get(nextIdx);
+        next.playOnEngine(engine);
+    }
 }

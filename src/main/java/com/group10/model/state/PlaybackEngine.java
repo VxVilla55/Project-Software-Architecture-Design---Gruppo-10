@@ -3,6 +3,7 @@ package com.group10.model.state;
 import java.util.*;
 import java.util.function.Consumer;
 
+import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 
 import com.group10.model.strategy.Sequential;
@@ -23,6 +24,7 @@ public class PlaybackEngine {
     private TrackComponent currentTrack;
     private double currentTime;
     private Timer timer;
+    private PlaylistComponent currentPlaylist;
 
     // Pattern STRATEGY
     private PlaybackMode playbackMode = new Sequential();
@@ -69,6 +71,14 @@ public class PlaybackEngine {
         play();
     }
 
+    public void setCurrentPlaylist(PlaylistComponent playlist) {
+        this.currentPlaylist = playlist;
+    }
+
+    public PlaylistComponent getCurrentPlaylist() {
+        return currentPlaylist;
+    }
+
 public void clearQueue() {
         this.queue.clear();
         this.currentIndex = -1;
@@ -104,6 +114,25 @@ public void clearQueue() {
     public TrackComponent getCurrentTrack() {
         return this.currentTrack;
     }
+
+    // serve per riprodurrre le playlist
+    public void addListToQueue(List<TrackComponent> tracks) {
+        clearQueue();
+        queue.addAll(tracks);
+        if (queue.isEmpty()) return;
+
+        // controllo se alla pressione di Play sulla playlist/home sia attiva la modalità shuffle
+        // in tal caso, mischia la coda
+        if (shuffled) {
+            originalOrder.clear();
+            originalOrder.addAll(queue);
+            Collections.shuffle(queue);
+            System.out.println("\nPlaylist Shuffle all'avvio");
+        }
+        currentIndex = 0;
+        switchTrack(queue.get(0));
+    }
+
 
     public void next() {
         if (queue.isEmpty() || currentTrack == null) return;
@@ -273,24 +302,6 @@ public void clearQueue() {
     public void stop() {
         currentState.stop(this);
         queue.clear();
-    }
-
-    // serve per riprodurrre le playlist
-    public void addListToQueue(List<TrackComponent> tracks) {
-        clearQueue();
-        queue.addAll(tracks);
-        if (queue.isEmpty()) return;
-
-        // controllo se alla pressione di Play sulla playlist/home sia attiva la modalità shuffle
-        // in tal caso, mischia la coda
-        if (shuffled) {
-            originalOrder.clear();
-            originalOrder.addAll(queue);
-            Collections.shuffle(queue);
-            System.out.println("\nPlaylist Shuffle all'avvio");
-        }
-            currentIndex = 0;
-            switchTrack(queue.get(0));
     }
 
     public void cycleRepeatMode() {

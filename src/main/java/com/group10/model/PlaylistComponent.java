@@ -7,6 +7,9 @@ package com.group10.model;
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.common.Playable;
 import com.group10.model.common.Subscriber;
+import com.group10.model.state.PlaybackEngine;
+
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -97,10 +100,13 @@ public class PlaylistComponent implements Playable {
     }
 
     @Override
-    public void playOnEngine(com.group10.model.state.PlaybackEngine engine) {
-        for (TrackComponent track : this.tracks) {
+    public void playOnEngine(PlaybackEngine engine) {
+        engine.setCurrentPlaylist(this);
+        System.out.println("Playlist settata: " + getName());
+        /* for (TrackComponent track : this.tracks) {
             track.playOnEngine(engine);
-        }
+        } */
+        engine.addListToQueue(new ArrayList<>(this.getTracks()));
     }
 
     public void updateTrack(TrackComponent oldTrack, TrackComponent updatedTrack) {
