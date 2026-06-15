@@ -97,8 +97,8 @@
       "genre": "rock",
       "year": 2000,
       "tags": [
-        "EXPLICIT",
-        "FAVORITE"
+        "FAVORITE",
+        "EXPLICIT"
       ]
     },
     {
@@ -108,9 +108,9 @@
       "genre": "rock",
       "year": 2005,
       "tags": [
+        "FAVORITE",
         "NEW_RELEASE",
-        "EXPLICIT",
-        "FAVORITE"
+        "EXPLICIT"
       ]
     },
     {
@@ -155,6 +155,7 @@
       "name": "Modern Era",
       "trackKeys": [
         "Have a Nice Day::Bon Jovi",
+        "In These Arms::Bon Jovi",
         "It\u0027s My Life::Bon Jovi",
         "Keep the Faith::Bon Jovi",
         "We Weren\u0027t Born to Follow::Bon Jovi",
