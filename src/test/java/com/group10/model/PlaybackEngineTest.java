@@ -3,6 +3,7 @@ package com.group10.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.group10.model.common.Subscriber;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,8 @@ import com.group10.model.state.PlaybackEngine;
 import com.group10.model.state.PlayingState;
 
 import javafx.application.Platform;
+
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -36,12 +39,9 @@ public class PlaybackEngineTest {
     @BeforeEach
     public void setUp() {
         engine = PlaybackEngine.getInstance();
+        engine.stopSimulation();
         engine.clearQueue(); 
     }
-
-    // ==========================================
-    // I TUOI TEST ORIGINALI SULLE TRANSIZIONI
-    // ==========================================
 
     @Test
     public void testTransizioneInRiproduzione() {
@@ -220,4 +220,22 @@ public class PlaybackEngineTest {
         assertTrue(stopped, "La logica di fine traccia non ha fermato la riproduzione al termine della coda.");
     }
 
+    @Test
+    void testQueueSubscriber() {
+        PlaybackEngine engine = PlaybackEngine.getInstance();
+        TrackComponent trackA = new TrackBuilder().setTitle("Traccia A").setAuthor("A").setDuration(10).build();
+        TrackComponent trackB = new TrackBuilder().setTitle("Traccia B").setAuthor("B").setDuration(10).build();
+
+        engine.addTrackToQueue(trackA);
+        engine.addTrackToQueue(trackB);
+
+        int[] notifications = {0};
+        Subscriber sub = () -> notifications[0]++;
+        engine.addSubscriber(sub);
+
+        engine.toggleShuffle();
+
+        assertEquals(1, notifications[0], "Il subscriber dovrebbe ricevere una notifica di cambio coda.");
+        engine.removeSubscriber(sub);
+    }
 }

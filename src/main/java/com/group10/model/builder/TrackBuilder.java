@@ -21,11 +21,19 @@ public class TrackBuilder implements Builder<TrackComponent> {
     private int duration;
     private String genre; 
     private int year = 2026; 
+    private int playCount = 0;
     
     private Set<Tag> tags = new HashSet<>();
 
     public TrackBuilder setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public TrackBuilder setPlayCount(int playCount) {
+        if (playCount >= 0) {
+            this.playCount = playCount;
+        }
         return this;
     }
 
@@ -64,6 +72,9 @@ public class TrackBuilder implements Builder<TrackComponent> {
     
     public Set<Tag> getTags() {
         return tags;
+    }
+    public int getPlayCount() {
+        return playCount;
     }
 
     @Override
