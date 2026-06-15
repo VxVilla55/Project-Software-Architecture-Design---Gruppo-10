@@ -7,6 +7,8 @@ import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
+import com.group10.service.command.CommandManager;
+import com.group10.service.command.RenamePlaylistCommand;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,9 +63,13 @@ public class PlaylistUIOptionsController implements AbstractUIComponent {
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             String newName = result.get().trim();
+            if (newName == playlist.getName())
+                return;
             if (newName.isEmpty() || MusicCatalogue.getInstance().isPlaylistNameTaken(newName)) {
+                MainViewController.getInstance().showError("Errore", "Nome già usato per una playlist", "Cambiare nome");
                 return;
             }
+            CommandManager.getInstance().executeCommand(new RenamePlaylistCommand(playlist, newName));
             //MusicCatalogue.getInstance().renamePlaylist(playlist, newName);
         }
         MainViewController.getInstance().closePopup();

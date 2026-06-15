@@ -35,8 +35,9 @@ public class RenamePlaylistCommand implements Command {
     public void execute() {
         //applica la modifica nel catalogo
         MusicCatalogue.getInstance().replacePlaylist(newPlaylist, oldPlaylist);
-        MainViewController.getInstance().setSelectedPlaylist(newPlaylist);
-        
+        if (MainViewController.getInstance().getSelectedPlaylist() == oldPlaylist) {
+            MainViewController.getInstance().setSelectedPlaylist(newPlaylist);
+        }
         MusicCatalogue.getInstance().notifySubscribers();
     }
 
@@ -44,8 +45,9 @@ public class RenamePlaylistCommand implements Command {
     public void undo() {
         //applica la modifica nel catalogo
         MusicCatalogue.getInstance().replacePlaylist(oldPlaylist, newPlaylist);
-        MainViewController.getInstance().setSelectedPlaylist(oldPlaylist);
-        
+        if (MainViewController.getInstance().getSelectedPlaylist() == newPlaylist) {
+            MainViewController.getInstance().setSelectedPlaylist(oldPlaylist);
+        }
         MusicCatalogue.getInstance().notifySubscribers();
     }
 }

@@ -115,7 +115,17 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
     @FXML
     private void handleRightAction(ActionEvent event) {
         if(!isEditing) {
-            if (MainViewController.getInstance().showDeleteConfirmation(track.getTitle())) {
+            String title = "Conferma eliminazione";
+            String header = "Eliminare definitivamente la traccia?";
+            String context = new StringBuilder()
+                        .append("Stai per eliminare '" + track.getTitle() + "' di '" + track.getAuthor() + "'.\n")
+                        .append("La traccia verrà rimossa da:\n")
+                        .append("- Catalogo principale\n")
+                        .append("- Tutte le playlist\n")
+                        .append("- Coda di riproduzione (se presente)\n")
+                        .append("AL MOMENTO è IRREVERSIBILE")
+                        .toString();
+            if (MainViewController.getInstance().showConfirmation(title, header, context) ) {
                 CommandManager.getInstance().executeCommand(new DeleteTrackCommand(track));
                 displayTrackDetails();
                 isEditing = false;
