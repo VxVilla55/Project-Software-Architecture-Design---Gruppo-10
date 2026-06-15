@@ -35,6 +35,7 @@ public class PlaybackEngine implements Publisher{
     
     private Consumer<TrackComponent> onTrackChanged;
     private Consumer<Double> onTick;
+    private boolean playCounted = false; 
     private Consumer<Boolean> onPlayStateChanged; 
 
     private List<Subscriber> subscribers;
@@ -178,9 +179,10 @@ public void clearQueue() {
         }
     }
 
-    private void switchTrack(TrackComponent newTrack) {
+private void switchTrack(TrackComponent newTrack) {
         this.currentTrack = newTrack;
         this.currentTime = 0;
+        this.playCounted = false; // <-- RESETTIAMO IL FLAG OGNI VOLTA CHE CAMBIA LA CANZONE
         
         if (onTrackChanged != null) {
             javafx.application.Platform.runLater(() -> onTrackChanged.accept(newTrack));
@@ -212,14 +214,12 @@ public void clearQueue() {
     }
     
     
-    
-    public void startSimulation() {
+public void startSimulation() {
         if (currentTrack == null) {
             System.out.println("⚠️ Nessuna traccia da riprodurre! Aggiungi un brano prima.");
             setState(new StoppedState());
             return;
         }
-        
         
         if (onPlayStateChanged != null) {
             javafx.application.Platform.runLater(() -> onPlayStateChanged.accept(true));
@@ -231,6 +231,15 @@ public void clearQueue() {
             @Override
             public void run() {
                 currentTime += 0.1;
+                
+                // --- NUOVO: LOGICA DEI 30 SECONDI (Task T12.1) ---
+                if (currentTime >= 30.0 && !playCounted) {
+                    currentTrack.incrementPlayCount();
+                    playCounted = true; // Segniamo che lo abbiamo già contato
+                    System.out.println("🎵 Ascolto registrato per: " + currentTrack.getTitle() + " (Play Count totale: " + currentTrack.getPlayCount() + ")");
+                }
+                // ------------------------------------------------
+
                 if (onTick != null) {
                     javafx.application.Platform.runLater(() -> onTick.accept(currentTime));
                 }
