@@ -11,17 +11,28 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 
 public class PlaylistUIAdderController implements AbstractUIComponent, Initializable {
 
     @FXML
     private AnchorPane root;
-    
     @FXML
     private TextField playlistNameInput;
-
+    @FXML
+    private CheckBox autoCreateCheckBox;
+    @FXML
+    private VBox autoMenuContainer;
+    @FXML
+    private ComboBox<?> criterionComboBox;
+    @FXML
+    private VBox criterionOptionsWrapper;
+    @FXML
+    private TextField criterionValueInput;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -52,7 +63,7 @@ public class PlaylistUIAdderController implements AbstractUIComponent, Initializ
     }
 
 
-@FXML
+    @FXML
     private void handleAnnulla(ActionEvent event) {
         
         if (playlistNameInput != null) {
@@ -62,4 +73,14 @@ public class PlaylistUIAdderController implements AbstractUIComponent, Initializ
         MainViewController.getInstance().closePopup();
 
     }
+    
+    @FXML
+    private void toggleAutoMenu(ActionEvent event) {
+    }
+
+    @FXML
+    private void handleCriterionChange(ActionEvent event) {
+    }
+
+    
 }

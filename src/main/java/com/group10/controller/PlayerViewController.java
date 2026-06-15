@@ -219,6 +219,7 @@ public class PlayerViewController implements Initializable, Subscriber {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/QueueView.fxml"));
             Parent queueRoot = loader.load();
             MainViewController.getInstance().showOnRightPane(queueRoot);
+            MainViewController.getInstance().setSelectedTrack(null);
         } catch (IOException e) {
             e.printStackTrace();
         }

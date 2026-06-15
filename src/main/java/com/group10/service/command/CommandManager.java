@@ -16,7 +16,7 @@ public class CommandManager {
 
     private final Stack<Command> undoStack = new Stack<>();
 
-    private CommandManager() {}
+    public CommandManager() {}
 
     public static CommandManager getInstance() {
         if (instance == null) {

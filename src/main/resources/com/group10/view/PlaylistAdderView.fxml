@@ -6,15 +6,16 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.shape.Line?> 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       
-      <VBox alignment="CENTER" layoutX="120.0" layoutY="30.0" prefWidth="360.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
+      <VBox alignment="CENTER" layoutX="110.0" layoutY="15.0" prefWidth="380.0" spacing="12.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 22; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
          <children>
             
             <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Nome Playlist">
@@ -29,50 +30,76 @@
                </font>
             </TextField>
             
-            <CheckBox fx:id="autoCreateCheckBox" mnemonicParsing="false" onAction="#toggleAutoMenu" style="-fx-text-fill: #37474F; -fx-cursor: hand; -fx-font-weight: bold;" text="Genera in modo automatico">
+            <CheckBox fx:id="autoCreateCheckBox" mnemonicParsing="false" onAction="#toggleAutoMenu" style="-fx-text-fill: #00BFA5; -fx-cursor: hand; -fx-font-weight: bold;" text="Genera in modo automatico">
                <font>
                   <Font size="13.0" />
                </font>
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets bottom="5.0" />
                </VBox.margin>
             </CheckBox>
             
-            <VBox fx:id="autoMenuContainer" managed="false" visible="false" spacing="10.0" style="-fx-background-color: #F5E6BE; -fx-background-radius: 6; -fx-padding: 12;">
+            <VBox fx:id="autoMenuContainer" managed="false" visible="false" spacing="12.0" style="-fx-background-color: #F5E6BE; -fx-background-radius: 8; -fx-padding: 15;">
                <children>
-                  <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Criterio di generazione:">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
+                  <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Seleziona e combina i criteri desiderati:">
+                     <font><Font size="12.0" /></font>
                   </Label>
                   
-                  <ComboBox fx:id="criterionComboBox" onAction="#handleCriterionChange" prefHeight="30.0" prefWidth="290.0" promptText="Scegli criterio..." style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F;" />
-                  
-                  <VBox fx:id="criterionOptionsWrapper" spacing="8.0">
+                  <VBox spacing="5.0">
                      <children>
-                        <TextField fx:id="criterionValueInput" prefHeight="30.0" promptText="Valore del criterio..." style="-fx-background-color: #FFF8E1; -fx-text-fill: #37474F; -fx-background-radius: 4; -fx-border-color: transparent;" />
+                        <CheckBox fx:id="filterByTagCheckBox" onAction="#handleFilterToggle" text="Filtra per Tag" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" />
+                        <HBox fx:id="tagOptionsContainer" managed="false" visible="false" spacing="10.0" alignment="CENTER_LEFT">
+                           <children>
+                              <CheckBox fx:id="favCheckBox" text="FAV" style="-fx-text-fill: #37474F;" />
+                              <CheckBox fx:id="newCheckBox" text="NEW" style="-fx-text-fill: #37474F;" />
+                              <CheckBox fx:id="explicitCheckBox" text="EXPLICIT" style="-fx-text-fill: #37474F;" />
+                           </children>
+                           <padding><Insets left="15.0" top="2.0" bottom="2.0" /></padding>
+                        </HBox>
                      </children>
                   </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <children>
+                        <CheckBox fx:id="filterByYearCheckBox" onAction="#handleFilterToggle" text="Filtra per Anno (Range)" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" />
+                        <HBox fx:id="yearOptionsContainer" managed="false" visible="false" spacing="10.0" alignment="CENTER_LEFT">
+                           <children>
+                              <TextField fx:id="yearFromInput" prefWidth="70.0" promptText="Da" style="-fx-background-color: #FFF8E1;" />
+                              <Label text="a" style="-fx-text-fill: #37474F;" />
+                              <TextField fx:id="yearToInput" prefWidth="70.0" promptText="A" style="-fx-background-color: #FFF8E1;" />
+                           </children>
+                           <padding><Insets left="15.0" /></padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  
+                  <VBox spacing="5.0">
+                     <children>
+                        <CheckBox fx:id="filterByGenreCheckBox" onAction="#handleFilterToggle" text="Filtra per Genere" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" />
+                        <ComboBox fx:id="genreComboBox" managed="false" visible="false" prefHeight="30.0" prefWidth="310.0" promptText="Seleziona Genere..." style="-fx-background-color: #FFF8E1;">
+                           <VBox.margin><Insets left="15.0" /></VBox.margin>
+                        </ComboBox>
+                     </children>
+                  </VBox>
+                  
                </children>
             </VBox>
             
-            <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+            <Label fx:id="errorLabel" managed="false" visible="false" style="-fx-text-fill: #D32F2F; -fx-font-weight: bold;" text="Messaggio di errore" wrapText="true">
+               <font><Font size="12.0" /></font>
+            </Label>
+            
+            <HBox alignment="CENTER" prefWidth="200.0" spacing="25.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handleAnnulla" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand; -fx-font-weight: bold;" text="Annulla">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
+                     <font><Font size="13.0" /></font>
                   </Button>
                   
                   <Button mnemonicParsing="false" onAction="#handleCreatePlaylist" style="-fx-background-color: #00BFA5; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 7 24 7 24; -fx-cursor: hand; -fx-font-weight: bold;" text="Crea">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
+                     <font><Font size="13.0" /></font>
                   </Button>
                </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
+               <VBox.margin><Insets top="5.0" /></VBox.margin>
             </HBox>
             
          </children>

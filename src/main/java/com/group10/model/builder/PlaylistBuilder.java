@@ -10,6 +10,7 @@ import com.group10.model.TrackComponent;
 import com.group10.model.common.Builder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -48,10 +49,11 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
     }
 
     // aggiunge in blocco una lista di tracce scelte dall'utente (modalità manuale)
-    public PlaylistBuilder addTracks(List<TrackComponent> selectedTracks) {
+    public PlaylistBuilder addTracks(Set<TrackComponent> selectedTracks) {
         this.tracks.addAll(selectedTracks);
         return this;
-    }    
+    }
+    
     public List<TrackComponent> getTracks() {
         return tracks;
     }
