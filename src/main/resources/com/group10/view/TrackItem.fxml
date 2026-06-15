@@ -2,10 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?><?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -73,68 +69,6 @@
             </font>
          </Label>
       </HBox>
-      
-      <Button fx:id="trackMenuButton" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand;" text="⋮">
-         <HBox.margin>
-            <Insets right="15.0" />
-         </HBox.margin>
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Button>
-   </children>
-   <padding>
-      <Insets bottom="5.0" top="5.0" />
-   </padding>
-</HBox>
-
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<HBox fx:id="root" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleSelection" prefHeight="55.0" prefWidth="650.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
-         <HBox.margin>
-            <Insets left="15.0" />
-         </HBox.margin>
-         <font>
-            <Font name="System System" size="14.0" />
-         </font>
-      </Label>
-      
-      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
-         <children>
-            <Label fx:id="titleLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="artistLabel" style="-fx-text-fill: #78909C;" text="Nome Artista">
-               <font>
-                  <Font size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      
-      <Label fx:id="genreLabel" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="Rock">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      
-      <Label fx:id="yearLabel" alignment="CENTER" prefWidth="50.0" style="-fx-text-fill: #78909C;" text="1975">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
-      
-      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="05:55">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Label>
       
       <Button fx:id="trackMenuButton" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand;" text="⋮">
          <HBox.margin>
