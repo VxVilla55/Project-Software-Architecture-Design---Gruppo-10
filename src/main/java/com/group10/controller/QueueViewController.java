@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.controller.track.TrackUIComponentItem;
+import com.group10.controller.track.TrackUIQueueComponentItem;
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Subscriber;
 import com.group10.model.state.PlaybackEngine;
@@ -52,7 +53,7 @@ public class QueueViewController implements Initializable, Subscriber {
 
         TrackUIComponentFactory factory = new TrackUIComponentFactory();
         for (TrackComponent t : queue) {
-            TrackUIComponentItem item = (TrackUIComponentItem) factory.createUIComponentItem(t);
+            TrackUIQueueComponentItem item = (TrackUIQueueComponentItem) factory.createUIQueueComponentItem(t);
             container.getChildren().add(item.getRoot());
         }
         System.out.println(">>> container figli = " + container.getChildren().size()
