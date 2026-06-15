@@ -4,6 +4,11 @@
  */
 package com.group10.model.persistence;
 
+import com.group10.model.TrackComponent;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author group10
@@ -17,5 +22,6 @@ public class TrackData {
     int duration;
     String genre;
     int year;
+    List<TrackComponent.Tag> tags = new ArrayList<>();
 }
  

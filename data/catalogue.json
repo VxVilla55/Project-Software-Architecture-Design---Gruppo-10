@@ -5,98 +5,131 @@
       "author": "Bon Jovi",
       "duration": 230,
       "genre": "hard rock",
-      "year": 1984
+      "year": 1984,
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "Livin\u0027 on a Prayer",
       "author": "Bon Jovi",
       "duration": 250,
       "genre": "glam metal",
-      "year": 1986
+      "year": 1986,
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "You Give Love a Bad Name",
       "author": "Bon Jovi",
       "duration": 215,
       "genre": "glam metal",
-      "year": 1986
+      "year": 1986,
+      "tags": []
     },
     {
       "title": "Wanted Dead or Alive",
       "author": "Bon Jovi",
       "duration": 280,
       "genre": "hard rock",
-      "year": 1986
+      "year": 1986,
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "Bad Medicine",
       "author": "Bon Jovi",
       "duration": 260,
       "genre": "hard rock",
-      "year": 1988
+      "year": 1988,
+      "tags": []
     },
     {
       "title": "Keep the Faith",
       "author": "Bon Jovi",
       "duration": 270,
       "genre": "rock",
-      "year": 1992
+      "year": 1992,
+      "tags": []
     },
     {
       "title": "Bed of Roses",
       "author": "Bon Jovi",
       "duration": 330,
       "genre": "rock ballad",
-      "year": 1992
+      "year": 1992,
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "In These Arms",
       "author": "Bon Jovi",
       "duration": 320,
       "genre": "rock",
-      "year": 1992
+      "year": 1992,
+      "tags": []
     },
     {
       "title": "Always",
       "author": "Bon Jovi",
       "duration": 290,
       "genre": "rock ballad",
-      "year": 1994
+      "year": 1994,
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "Someday I\u0027ll Be Saturday Night",
       "author": "Bon Jovi",
       "duration": 260,
       "genre": "rock",
-      "year": 1994
+      "year": 1994,
+      "tags": []
     },
     {
       "title": "It\u0027s My Life",
       "author": "Bon Jovi",
       "duration": 225,
       "genre": "rock",
-      "year": 2000
+      "year": 2000,
+      "tags": [
+        "EXPLICIT",
+        "FAVORITE"
+      ]
     },
     {
       "title": "Have a Nice Day",
       "author": "Bon Jovi",
       "duration": 240,
       "genre": "rock",
-      "year": 2005
+      "year": 2005,
+      "tags": [
+        "NEW_RELEASE",
+        "EXPLICIT",
+        "FAVORITE"
+      ]
     },
     {
       "title": "Who Says You Can\u0027t Go Home",
       "author": "Bon Jovi",
       "duration": 235,
       "genre": "country rock",
-      "year": 2005
+      "year": 2005,
+      "tags": []
     },
     {
       "title": "We Weren\u0027t Born to Follow",
       "author": "Bon Jovi",
       "duration": 250,
       "genre": "rock",
-      "year": 2009
+      "year": 2009,
+      "tags": [
+        "NEW_RELEASE"
+      ]
     }
   ],
   "playlists": [

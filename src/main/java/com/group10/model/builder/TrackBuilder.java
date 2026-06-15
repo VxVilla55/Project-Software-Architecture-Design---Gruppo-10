@@ -1,5 +1,6 @@
 package com.group10.model.builder;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,6 +61,15 @@ public class TrackBuilder implements Builder<TrackComponent> {
     public TrackBuilder addTag(Tag tag) {
         if (tag != null) {
             this.tags.add(tag);
+        }
+        return this;
+    }
+
+    public TrackBuilder addAllTags(Collection<Tag> tags) {
+        if (tags != null) {
+            for (Tag tag : tags) {
+                addTag(tag);
+            }
         }
         return this;
     }

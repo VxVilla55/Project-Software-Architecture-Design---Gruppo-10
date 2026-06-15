@@ -80,7 +80,9 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
                         .setDuration(t.duration)
                         .setGenre(t.genre)
                         .setYear(t.year)
+                        .addAllTags(t.tags)
                         .build();
+
                 MusicCatalogue.getInstance().addTrack(track);
                 byKey.put(key(t.title, t.author), track);
             }
@@ -109,6 +111,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
             t.duration = track.getDurationInSeconds();
             t.genre = track.getGenre();
             t.year = track.getYear();
+            t.tags.addAll(track.getTags());
             data.tracks.add(t);
         }
         for (PlaylistComponent playlist : catalogue.getPlaylists().values()) {

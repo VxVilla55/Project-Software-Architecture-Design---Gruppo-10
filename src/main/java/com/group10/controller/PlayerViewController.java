@@ -35,13 +35,25 @@ public class PlayerViewController implements Initializable, Subscriber {
     @FXML private Label trackAuthor;
     @FXML private Pane progressFill;
 
+    // --- NUOVO: Etichette per il tempo ---
+    @FXML private Label currentTimeLabel;
+    @FXML private Label totalTimeLabel;
+
     @FXML private ImageView loopButtonIcon;
     @FXML private ImageView shuffleButtonIcon;
     @FXML private ImageView playPauseIcon;
     
     private Parent root;
 
-@Override
+    // Metodo helper per formattare i secondi in mm:ss
+    private String formatTime(double seconds) {
+        int totalSeconds = (int) Math.max(0, seconds);
+        int minutes = totalSeconds / 60;
+        int secs = totalSeconds % 60;
+        return String.format("%02d:%02d", minutes, secs);
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         PlaybackEngine.getInstance().addSubscriber(this);
         if (progressFill == null) {
@@ -71,17 +83,28 @@ public class PlayerViewController implements Initializable, Subscriber {
                         progressFill.setMaxWidth(progress * 440);
                     }
                 }
+                
+                // --- NUOVO: Aggiorniamo il timer che scorre ---
+                if (currentTimeLabel != null) {
+                    currentTimeLabel.setText(formatTime(time));
+                }
             }
         });
 
-    engine.setOnTrackChanged(track -> {
+        engine.setOnTrackChanged(track -> {
             if (track != null) {
                 trackTitle.setText(track.getTitle());
                 trackAuthor.setText(track.getAuthor());
+                
+                // --- NUOVO: Impostiamo i timer quando cambia traccia ---
+                if (totalTimeLabel != null) totalTimeLabel.setText(formatTime(track.getDurationInSeconds()));
+                if (currentTimeLabel != null) currentTimeLabel.setText("00:00");
+                
             } else {
-                // PRIMO PUNTO DA SVUOTARE
                 trackTitle.setText("");
                 trackAuthor.setText("");
+                if (totalTimeLabel != null) totalTimeLabel.setText("00:00");
+                if (currentTimeLabel != null) currentTimeLabel.setText("00:00");
             }
             if (progressFill != null) progressFill.setMaxWidth(0); 
             if (trackSlider != null) trackSlider.setValue(0);     
@@ -95,7 +118,11 @@ public class PlayerViewController implements Initializable, Subscriber {
                     if (progressFill != null) {
                         progressFill.setMaxWidth(percent * 440);
                     }
-                    engine.seek(track.getDurationInSeconds() * percent);
+                    double seekTime = track.getDurationInSeconds() * percent;
+                    engine.seek(seekTime);
+                    
+                    // Aggiorna il numeretto visivamente mentre si trascina il cursore
+                    if (currentTimeLabel != null) currentTimeLabel.setText(formatTime(seekTime));
                 }
             }
         });
@@ -105,9 +132,11 @@ public class PlayerViewController implements Initializable, Subscriber {
         if (current != null) {
             trackTitle.setText(current.getTitle());
             trackAuthor.setText(current.getAuthor());
+            if (totalTimeLabel != null) totalTimeLabel.setText(formatTime(current.getDurationInSeconds()));
+            if (currentTimeLabel != null) currentTimeLabel.setText(formatTime(engine.getCurrentTime()));
+            
             if (engine.getState() instanceof PlayingState) {
                 playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/pause-button.png")));
-
             } else {
                 playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/play-button.png")));
             }
@@ -122,7 +151,6 @@ public class PlayerViewController implements Initializable, Subscriber {
         shuffleButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/shuffle.png")));
         shuffleButtonIcon.setOpacity(0.2);
     }
-
 
     @FXML
     public void handlePlayPause(ActionEvent event) {
@@ -177,7 +205,6 @@ public class PlayerViewController implements Initializable, Subscriber {
         PlaybackEngine engine = PlaybackEngine.getInstance();
         PlaylistComponent current = engine.getCurrentPlaylist();
 
-        // nessuna playlist in riproduzione
         if (current == null) {
             System.out.println("Nessuna playlist in riproduzione.");
             engine.stop();
@@ -185,10 +212,8 @@ public class PlayerViewController implements Initializable, Subscriber {
         }
 
         List<PlaylistComponent> playlists = new ArrayList<>(MusicCatalogue.getInstance().getPlaylists().values());
-        // se c'è una sola playlist in libreria
         if (playlists.size() < 2) return;
 
-        // trovo la corrente per nome (i nomi sono univoci)
         int idx = -1;
         for (int i = 0; i < playlists.size(); i++) {
             if (playlists.get(i).getName().equals(current.getName())) {
@@ -198,7 +223,7 @@ public class PlayerViewController implements Initializable, Subscriber {
         }
         if (idx == -1) return;
 
-        int nextIdx = (idx + 1) % playlists.size(); // dopo l'ultima torna alla prima
+        int nextIdx = (idx + 1) % playlists.size(); 
         PlaylistComponent next = playlists.get(nextIdx);
         next.playOnEngine(engine);
     }
@@ -212,7 +237,6 @@ public class PlayerViewController implements Initializable, Subscriber {
         }
     }
 
-    // gestione bottone queue
     @FXML
     private void handleShowQueue(ActionEvent event) {
         try {
