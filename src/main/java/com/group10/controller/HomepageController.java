@@ -4,10 +4,14 @@
  */
 package com.group10.controller;
 
+import com.group10.controller.playlist.PlaylistUIComponentCard;
+import com.group10.controller.track.TrackUIComponentCard;
 import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.controller.track.TrackUIComponentItem;
 import com.group10.model.MusicCatalogue;
+import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
+import com.group10.service.factory.PlaylistUIComponentFactory;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -52,25 +56,25 @@ public class HomepageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //nascondi box per le stats perché non ancora implementata
-        root.getChildren().remove(topPlaylistContainer);
-        root.getChildren().remove(topTrackContainer);
+        //root.getChildren().remove(topPlaylistContainer);
+        //root.getChildren().remove(topTrackContainer);
         
-        /*//uso la factory per creare gli elementi item per ogni traccia della playlist
+        //uso la factory per creare gli elementi item per ogni traccia della playlist
         TrackUIComponentCard trackCard;
         
         //DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
-        for(TrackComponent t: MusicCatalogue.getInstance().getTracks()) {
+        for(TrackComponent t: MusicCatalogue.getInstance().getTopTracks(3)) {
             trackCard = (TrackUIComponentCard) new TrackUIComponentFactory().createUIComponentCard(t);
-            tracksCardsContainer.getChildren().add(trackCard.getRoot());
+            trackCardsContainer.getChildren().add(trackCard.getRoot());
         }
         //uso la factory per creare gli elementi item per ogni traccia della playlist
         PlaylistUIComponentCard playlistCard;
         
         //DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
-        for(PlaylistComponent t: MusicCatalogue.getInstance().getPlaylists().values() ) {
+        for(PlaylistComponent t: MusicCatalogue.getInstance().getTopPlaylists(3)) {
             playlistCard = (PlaylistUIComponentCard) new PlaylistUIComponentFactory().createUIComponentCard(t);
-            playlistsCardsContainer.getChildren().add(playlistCard.getRoot());
-        }*/
+            playlistCardsContainer.getChildren().add(playlistCard.getRoot());
+        }
         
         TrackUIComponentItem trackItem;
 
