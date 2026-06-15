@@ -107,7 +107,7 @@ public void removePlaylist(PlaylistComponent p) {
 
     // true se esiste gia' una playlist con questo nome (ignora maiuscole/minuscole e spazi)
     // il controller la chiama PRIMA di creare, per mostrare l'errore giusto all'utente
-    private boolean isPlaylistNameTaken(String name) {
+    public boolean isPlaylistNameTaken(String name) {
         if (name == null) {
             return false;
         }
