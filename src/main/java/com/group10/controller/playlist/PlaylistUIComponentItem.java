@@ -2,10 +2,13 @@ package com.group10.controller.playlist;
 
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
+import com.group10.controller.playlist.PlaylistUIOptionsController;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.group10.service.factory.PlaylistUIComponentFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -50,9 +53,6 @@ public class PlaylistUIComponentItem implements AbstractUIComponent, Initializab
         int size = playlist.getSize();
         trackCountLabel.setText(size == 1 ? "1 brano" : size + " brani");
 
-
-        // Da implementare
-        playlistMenuButton.setVisible(false);
     }
 
     @Override
@@ -62,7 +62,9 @@ public class PlaylistUIComponentItem implements AbstractUIComponent, Initializab
 
     @FXML
     private void handleOptions(ActionEvent event) {
-        // TODO: aprire menu contestuale playlist (es. rinomina, elimina)
+        System.out.println("PLAYLIST OPTIONS");
+        PlaylistUIOptionsController c = (PlaylistUIOptionsController) new PlaylistUIComponentFactory().createUIComponentOptions(playlist);
+        MainViewController.getInstance().showMenuPopup(playlistMenuButton, c.getRoot());
     }
     
     @FXML
