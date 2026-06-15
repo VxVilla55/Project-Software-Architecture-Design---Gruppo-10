@@ -176,8 +176,7 @@ public class PlayerViewController implements Initializable, Subscriber {
     }
 
     public Parent getRoot() { return this.root; }
-    
-    @FXML public void handleFavorite(ActionEvent event) { System.out.println("Preferiti!"); }
+
     @FXML public void handleRepeat(ActionEvent event) {
         PlaybackEngine.getInstance().cycleRepeatMode();
 
