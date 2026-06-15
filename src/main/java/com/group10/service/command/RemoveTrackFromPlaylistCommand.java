@@ -4,13 +4,9 @@
  */
 package com.group10.service.command;
 
-import com.group10.controller.MainViewController;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
-import com.group10.model.state.PlaybackEngine;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -20,9 +16,9 @@ public class RemoveTrackFromPlaylistCommand implements Command {
     private final TrackComponent track;
     private final PlaylistComponent playlist; //le playlist in cui era
 
-    public RemoveTrackFromPlaylistCommand(TrackComponent track, PlaylistComponent playlist) {
+    public RemoveTrackFromPlaylistCommand(TrackComponent track, String playlistName) {
         this.track = track;
-        this.playlist = playlist;
+        this.playlist = MusicCatalogue.getInstance().getPlaylist(playlistName);
     }
 
     @Override

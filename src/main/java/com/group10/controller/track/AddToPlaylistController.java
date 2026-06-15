@@ -5,6 +5,9 @@ import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
+import com.group10.service.command.AddTrackToPlaylistCommand;
+import com.group10.service.command.CommandManager;
+import com.group10.service.command.RemoveTrackFromPlaylistCommand;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +37,11 @@ public class AddToPlaylistController implements AbstractUIComponent, Initializab
     @FXML
     private Button confirmButton;
     
-    private TrackComponent selectedTrack;
-
-
-    private Map<String, BooleanProperty> itemStates = new HashMap<>();
+    private final TrackComponent selectedTrack;
+    private Map<String, BooleanProperty> itemStates;
     
     public AddToPlaylistController(TrackComponent track) {
+        this.itemStates = new HashMap<>();
         this.selectedTrack = track;
     }
 
@@ -75,16 +77,14 @@ public class AddToPlaylistController implements AbstractUIComponent, Initializab
 
     @FXML
     private void handleConfirm(ActionEvent event) {
-        boolean alMenoUnaAggiunta = false;
-
         for (Map.Entry<String, BooleanProperty> entry : itemStates.entrySet()) {
             String playlistName = entry.getKey();
             boolean isChecked = entry.getValue().get();
                       
             if (isChecked) {
-                MusicCatalogue.getInstance().addTrackToPlaylist(playlistName, selectedTrack);
+                CommandManager.getInstance().executeCommand(new AddTrackToPlaylistCommand(selectedTrack, playlistName));
             } else {
-                MusicCatalogue.getInstance().removeTrackFromPlaylist(playlistName, selectedTrack);
+                CommandManager.getInstance().executeCommand(new RemoveTrackFromPlaylistCommand(selectedTrack, playlistName));
             }
         }
         

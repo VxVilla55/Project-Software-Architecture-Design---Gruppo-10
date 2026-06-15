@@ -4,13 +4,8 @@
  */
 package com.group10.service.command;
 
-import com.group10.controller.MainViewController;
 import com.group10.model.MusicCatalogue;
-import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
-import com.group10.model.state.PlaybackEngine;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
