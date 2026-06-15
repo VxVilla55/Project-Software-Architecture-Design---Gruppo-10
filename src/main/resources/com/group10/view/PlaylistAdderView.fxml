@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,19 +11,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       
-      <VBox alignment="CENTER" layoutX="140.0" layoutY="40.0" prefHeight="220.0" prefWidth="320.0" spacing="18.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
+      <VBox alignment="CENTER" layoutX="120.0" layoutY="30.0" prefWidth="360.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
          <children>
             
             <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Nome Playlist">
                <font>
                   <Font size="16.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="2.0" />
-               </VBox.margin>
             </Label>
             
             <TextField fx:id="playlistNameInput" prefHeight="35.0" prefWidth="270.0" promptText="Inserisci il nome della playlist..." style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 4; -fx-border-color: transparent; -fx-prompt-text-fill: #78909C;">
@@ -29,6 +28,33 @@
                   <Font size="13.0" />
                </font>
             </TextField>
+            
+            <CheckBox fx:id="autoCreateCheckBox" mnemonicParsing="false" onAction="#toggleAutoMenu" style="-fx-text-fill: #37474F; -fx-cursor: hand; -fx-font-weight: bold;" text="Genera in modo automatico">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </CheckBox>
+            
+            <VBox fx:id="autoMenuContainer" managed="false" visible="false" spacing="10.0" style="-fx-background-color: #F5E6BE; -fx-background-radius: 6; -fx-padding: 12;">
+               <children>
+                  <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Criterio di generazione:">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  
+                  <ComboBox fx:id="criterionComboBox" onAction="#handleCriterionChange" prefHeight="30.0" prefWidth="290.0" promptText="Scegli criterio..." style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F;" />
+                  
+                  <VBox fx:id="criterionOptionsWrapper" spacing="8.0">
+                     <children>
+                        <TextField fx:id="criterionValueInput" prefHeight="30.0" promptText="Valore del criterio..." style="-fx-background-color: #FFF8E1; -fx-text-fill: #37474F; -fx-background-radius: 4; -fx-border-color: transparent;" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
             
             <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
                <children>

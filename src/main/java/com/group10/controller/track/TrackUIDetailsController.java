@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox; // <-- NUOVO IMPORT
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -30,26 +31,21 @@ import javafx.scene.layout.AnchorPane;
  */
 public class TrackUIDetailsController implements AbstractUIComponent, Initializable {
 
-    @FXML
-    private AnchorPane root;
-    @FXML
-    private ImageView trackImageView;
-    @FXML
-    private TextField titleField;
-    @FXML
-    private TextField artistField;
-    @FXML
-    private TextField genreField;
-    @FXML
-    private TextField yearField;
-    @FXML
-    private TextField durationField;
-    @FXML
-    private Button btnLeft;
-    @FXML
-    private Button btnRight;
-    @FXML
-    private Label sectionTitle;
+    @FXML private AnchorPane root;
+    @FXML private ImageView trackImageView;
+    @FXML private TextField titleField;
+    @FXML private TextField artistField;
+    @FXML private TextField genreField;
+    @FXML private TextField yearField;
+    @FXML private TextField durationField;
+    @FXML private Button btnLeft;
+    @FXML private Button btnRight;
+    @FXML private Label sectionTitle;
+
+    // --- NUOVO: Aggiunte le CheckBox per i tag ---
+    @FXML private CheckBox favoriteCheckBox;
+    @FXML private CheckBox newReleaseCheckBox;
+    @FXML private CheckBox explicitCheckBox;
 
     private TrackComponent track;
     
@@ -87,41 +83,38 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
         String formattedDuration = String.format("%02d:%02d:%02d", trackDuration.toHoursPart(), trackDuration.toMinutesPart(), trackDuration.toSecondsPart());
         durationField.setText(formattedDuration);
         
+        // --- NUOVO: Carica lo stato dei tag nelle checkbox ---
+        if (favoriteCheckBox != null) {
+            favoriteCheckBox.setSelected(track.hasTag(TrackComponent.Tag.FAVORITE));
+        }
+        if (newReleaseCheckBox != null) {
+            newReleaseCheckBox.setSelected(track.hasTag(TrackComponent.Tag.NEW_RELEASE));
+        }
+        if (explicitCheckBox != null) {
+            explicitCheckBox.setSelected(track.hasTag(TrackComponent.Tag.EXPLICIT));
+        }
+        
         TextField[] fields = {titleField, artistField, genreField, yearField, durationField};
         
-        // 1. Gestione dei TextField
         for (TextField field : fields) {
             field.requestLayout();
         }
-        /*javafx.scene.paint.Color antracite = javafx.scene.paint.Color.web("#37474F");
-        javafx.scene.paint.Color ottanio = javafx.scene.paint.Color.web("#00BFA5");
-        
-        if (titleField != null) titleField.setTextFill(antracite);
-        if (artistField != null) artistField.setTextFill(ottanio);
-        if (genreField != null) genreField.setTextFill(antracite);
-        if (yearField != null) yearField.setTextFill(antracite);
-        if (durationField != null) durationField.setTextFill(antracite);*/
     }
     
     @FXML
     private void handleLeftAction(ActionEvent event) {
         if(!isEditing) {
-            //è il tasto Modifica che deve attivare le modifiche 
             isEditing = true;
             updateUIState();
         } else {
-            //è il tasto Salva Modifiche che deve salvare le modifiche
             System.out.println("init"+track.toString());
-            saveTrackDetails(); //chiama un comando notifyAll che fa ricaricare la pagina
+            saveTrackDetails(); 
         }
     }
 
     @FXML
     private void handleRightAction(ActionEvent event) {
         if(!isEditing) {
-            //è il tasto Elimina che deve eliminare la traccia
-            //mostra alert
-            //se conferma si chiude questa view è il brano viene eliminato da qui con MusicCatalogue.getInstance().removeTrack(track):
             if (MainViewController.getInstance().showDeleteConfirmation(track.getTitle())) {
                 CommandManager.getInstance().executeCommand(new DeleteTrackCommand(track));
                 displayTrackDetails();
@@ -129,13 +122,11 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                 updateUIState();
             }
         } else {
-            //è il tasto Annulla Modifiche che deve ripristinare il brano
             displayTrackDetails();
             isEditing = false;
             updateUIState();
         }
     }
-
 
     @Override
     public Parent getRoot() {
@@ -143,7 +134,6 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
     }
     
     private void updateUIState() {        
-        //impostazione della schermata
         if (isEditing) {
             sectionTitle.setText("Modifica traccia");
             btnLeft.setText("Salva");
@@ -154,14 +144,12 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
             btnRight.setText("Elimina");
         }
         
-        //campi che possono essere modificabili
         TextField[] editableFields = {titleField, artistField, genreField, yearField};
 
         for (TextField field : editableFields) {
             field.setEditable(isEditing);
 
             if (isEditing) {
-                //se in modalità modifica
                 field.setStyle(
                     "-fx-background-color: white; " +
                     "-fx-border-color: #bdc3c7; " +
@@ -170,7 +158,6 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                     "-fx-padding: 4;"
                 );
             } else {
-                //se in modalità sola lettura
                 field.setStyle(
                     "-fx-background-color: transparent; " +
                     "-fx-border-color: transparent; " +
@@ -179,7 +166,6 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
             }
         }
 
-        //modifica sul text fied della durata
         if (durationField != null) {
             durationField.setEditable(false);
             durationField.setMouseTransparent(true);
@@ -189,12 +175,16 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                 "-fx-padding: 0;"
             );
         }
+
+        // --- NUOVO: Abilita/Disabilita le checkbox dei tag in base a isEditing ---
+        if (favoriteCheckBox != null) favoriteCheckBox.setDisable(!isEditing);
+        if (newReleaseCheckBox != null) newReleaseCheckBox.setDisable(!isEditing);
+        if (explicitCheckBox != null) explicitCheckBox.setDisable(!isEditing);
     }
     
     private void saveTrackDetails() {
         try {
             int year = Integer.parseInt(yearField.getText().trim());
-            //int duration = Integer.parseInt(durationField.getText().trim());
             
             TrackBuilder tb = new TrackBuilder()
                 .setTitle(titleField.getText())
@@ -202,12 +192,25 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                 .setGenre(genreField.getText())
                 .setYear(year)
                 .setDuration(track.getDurationInSeconds());
+            
+            // --- NUOVO: Aggiungi i tag al builder se le checkbox sono spuntate ---
+            if (favoriteCheckBox != null && favoriteCheckBox.isSelected()) {
+                tb.addTag(TrackComponent.Tag.FAVORITE);
+            }
+            if (newReleaseCheckBox != null && newReleaseCheckBox.isSelected()) {
+                tb.addTag(TrackComponent.Tag.NEW_RELEASE);
+            }
+            if (explicitCheckBox != null && explicitCheckBox.isSelected()) {
+                tb.addTag(TrackComponent.Tag.EXPLICIT);
+            }
                         
-            //creazione e validazione della traccia non nuovi parametri
             TrackComponent updatedTrack = tb.build();
-            //esecuzione del comando modifica traccia mediante sostituzione
             CommandManager.getInstance().executeCommand(new UpdateTrackCommand(this.track, updatedTrack));
-            //in execute() del command viene fatta una notifySubscriber che in MainViewController.update() aggiornra questa view
+            
+            // Rimettiamo la view in modalità lettura dopo aver salvato
+            isEditing = false;
+            updateUIState();
+            
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Impossibile salvare la modifica");
