@@ -125,7 +125,7 @@ public class TrackUIOptionsController implements AbstractUIComponent, Initializa
     @FXML
     private void handleRemoveTrack(ActionEvent event) {
         if (contextPlaylist != null) {
-            CommandManager.getInstance().executeCommand(new RemoveTrackFromPlaylistCommand(track, contextPlaylist));
+            CommandManager.getInstance().executeCommand(new RemoveTrackFromPlaylistCommand(track, contextPlaylist.getName()));
         } else {
             if (MainViewController.getInstance().showDeleteConfirmation(track.getTitle())) {
                 CommandManager.getInstance().executeCommand(new DeleteTrackCommand(track));

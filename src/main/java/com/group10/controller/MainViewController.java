@@ -11,6 +11,7 @@ import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Subscriber;
+import com.group10.service.command.CommandManager;
 
 import java.io.IOException;
 import java.net.URL;
@@ -208,7 +209,7 @@ public class MainViewController implements Initializable, Subscriber {
   
     @FXML
     private void handleUndo(ActionEvent event) {
-        System.out.println("Ancora da implementare");
+        CommandManager.getInstance().undo();
     }
     
     @FXML

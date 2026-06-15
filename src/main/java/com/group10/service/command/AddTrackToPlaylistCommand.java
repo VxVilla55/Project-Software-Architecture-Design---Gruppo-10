@@ -14,17 +14,17 @@ import com.group10.model.TrackComponent;
  */
 public class AddTrackToPlaylistCommand implements Command {
     private final TrackComponent track;
-    private final PlaylistComponent playlist;
+    private final String playlistName;
 
-    public AddTrackToPlaylistCommand(TrackComponent track, PlaylistComponent playlist) {
+    public AddTrackToPlaylistCommand(TrackComponent track, String playlistName) {
         this.track = track;
-        this.playlist = playlist;
+        this.playlistName = playlistName;
     }
 
     @Override
     public void execute() {
         //aggiunta al catalogo
-        MusicCatalogue.getInstance().addTrackToPlaylist(playlist.getName(), track);        
+        MusicCatalogue.getInstance().addTrackToPlaylist(playlistName, track);        
         //aggiorna ui
         MusicCatalogue.getInstance().notifySubscribers();
     }
@@ -32,7 +32,7 @@ public class AddTrackToPlaylistCommand implements Command {
     @Override
     public void undo() {
         //rimozione al catalogo
-        MusicCatalogue.getInstance().removeTrackFromPlaylist(playlist.getName(), track);
+        MusicCatalogue.getInstance().removeTrackFromPlaylist(playlistName, track);
         //aggiorna ui
         MusicCatalogue.getInstance().notifySubscribers();
     }
