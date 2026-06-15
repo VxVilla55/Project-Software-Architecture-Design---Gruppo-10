@@ -12,16 +12,12 @@ import java.net.URL;
 import java.time.Duration;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import java.util.function.Consumer;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox; // <-- NUOVO IMPORT
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -42,10 +38,9 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
     @FXML private Button btnRight;
     @FXML private Label sectionTitle;
 
-    // --- NUOVO: Aggiunte le CheckBox per i tag ---
-    @FXML private CheckBox favoriteCheckBox;
-    @FXML private CheckBox newReleaseCheckBox;
-    @FXML private CheckBox explicitCheckBox;
+    @FXML private ToggleButton favoriteButton;
+    @FXML private ToggleButton newReleaseButton;
+    @FXML private ToggleButton explicitButton;
 
     private TrackComponent track;
     
@@ -82,16 +77,16 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
         Duration trackDuration = Duration.ofSeconds(track.getDurationInSeconds());
         String formattedDuration = String.format("%02d:%02d:%02d", trackDuration.toHoursPart(), trackDuration.toMinutesPart(), trackDuration.toSecondsPart());
         durationField.setText(formattedDuration);
-        
+
         // --- NUOVO: Carica lo stato dei tag nelle checkbox ---
-        if (favoriteCheckBox != null) {
-            favoriteCheckBox.setSelected(track.hasTag(TrackComponent.Tag.FAVORITE));
+        if (favoriteButton != null) {
+            favoriteButton.setSelected(track.hasTag(TrackComponent.Tag.FAVORITE));
         }
-        if (newReleaseCheckBox != null) {
-            newReleaseCheckBox.setSelected(track.hasTag(TrackComponent.Tag.NEW_RELEASE));
+        if (newReleaseButton != null) {
+            newReleaseButton.setSelected(track.hasTag(TrackComponent.Tag.NEW_RELEASE));
         }
-        if (explicitCheckBox != null) {
-            explicitCheckBox.setSelected(track.hasTag(TrackComponent.Tag.EXPLICIT));
+        if (explicitButton != null) {
+            explicitButton.setSelected(track.hasTag(TrackComponent.Tag.EXPLICIT));
         }
         
         TextField[] fields = {titleField, artistField, genreField, yearField, durationField};
@@ -186,12 +181,23 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
             );
         }
 
-        // --- NUOVO: Abilita/Disabilita le checkbox dei tag in base a isEditing ---
-        if (favoriteCheckBox != null) favoriteCheckBox.setDisable(!isEditing);
-        if (newReleaseCheckBox != null) newReleaseCheckBox.setDisable(!isEditing);
-        if (explicitCheckBox != null) explicitCheckBox.setDisable(!isEditing);
+        //if (favoriteButton != null) favoriteButton.setDisable(!isEditing);
+        //if (newReleaseButton != null) newReleaseButton.setDisable(!isEditing);
+        //if (explicitButton != null) explicitButton.setDisable(!isEditing);
+        updateTagButton(favoriteButton, TrackComponent.Tag.FAVORITE);
+        updateTagButton(newReleaseButton, TrackComponent.Tag.NEW_RELEASE);
+        updateTagButton(explicitButton, TrackComponent.Tag.EXPLICIT);
     }
-    
+
+    private void updateTagButton(ToggleButton btn, TrackComponent.Tag tag) {
+        if (btn == null) return;
+        btn.setSelected(track.hasTag(tag));
+        btn.setOpacity(btn.isSelected() ? 1.0 : 0.2);
+        btn.setDisable(!isEditing);           // cliccabile solo in edit
+
+        btn.setOnAction(e -> btn.setOpacity(btn.isSelected() ? 1.0 : 0.2));
+    }
+
     private void saveTrackDetails() {
         try {
             int year = Integer.parseInt(yearField.getText().trim());
@@ -204,13 +210,13 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                 .setDuration(track.getDurationInSeconds());
             
             // --- NUOVO: Aggiungi i tag al builder se le checkbox sono spuntate ---
-            if (favoriteCheckBox != null && favoriteCheckBox.isSelected()) {
+            if (favoriteButton != null && favoriteButton.isSelected()) {
                 tb.addTag(TrackComponent.Tag.FAVORITE);
             }
-            if (newReleaseCheckBox != null && newReleaseCheckBox.isSelected()) {
+            if (newReleaseButton != null && newReleaseButton.isSelected()) {
                 tb.addTag(TrackComponent.Tag.NEW_RELEASE);
             }
-            if (explicitCheckBox != null && explicitCheckBox.isSelected()) {
+            if (explicitButton != null && explicitButton.isSelected()) {
                 tb.addTag(TrackComponent.Tag.EXPLICIT);
             }
                         
