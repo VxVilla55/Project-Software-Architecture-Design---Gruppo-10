@@ -28,13 +28,16 @@ public class UpdateTrackCommand implements Command {
         MainViewController.getInstance().setSelectedTrack(newTrack);
         MusicCatalogue.getInstance().replaceTrack(oldTrack, newTrack);
         PlaybackEngine.getInstance().replaceInQueue(oldTrack, newTrack);
+        MusicCatalogue.getInstance().notifySubscribers();
         
     }
 
     @Override
     public void undo() {
         //applica la modifica nel catalogo
-        MusicCatalogue.getInstance().replaceTrack(newTrack, oldTrack);
         MainViewController.getInstance().setSelectedTrack(oldTrack);
+        MusicCatalogue.getInstance().replaceTrack(newTrack, oldTrack);
+        PlaybackEngine.getInstance().replaceInQueue(newTrack, oldTrack);
+        MusicCatalogue.getInstance().notifySubscribers();
     }
 }
