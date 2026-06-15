@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="root" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleSelection" prefHeight="55.0" prefWidth="650.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="root" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleSelection" prefHeight="55.0" prefWidth="650.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
          <HBox.margin>
@@ -18,7 +23,7 @@
          </font>
       </Label>
       
-      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="157.0" HBox.hgrow="SOMETIMES">
          <children>
             <Label fx:id="titleLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">
                <font>
@@ -32,6 +37,14 @@
             </Label>
          </children>
       </VBox>
+      
+      <HBox fx:id="tagsContainer" alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="favouriteLabel" managed="false" style="-fx-background-color: #FFB300; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 10;" text="FAV" visible="false" />
+            <Label fx:id="newReleaseLabel" managed="false" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 10;" text="NEW" visible="false" />
+            <Label fx:id="explicitLabel" managed="false" style="-fx-background-color: #E53935; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 10;" text="E" visible="false" />
+         </children>
+      </HBox>
       
       <Label fx:id="genreLabel" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="Rock">
          <font>
@@ -50,25 +63,6 @@
             <Font size="13.0" />
          </font>
       </Label>
-
-      <!-- Tag visivi: visibili solo se il tag è attivo (gestiti dal controller) -->
-      <HBox alignment="CENTER" spacing="4.0">
-         <Label fx:id="favouriteIcon" managed="false" text="❤️" visible="false" style="-fx-cursor: default;">
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Label>
-         <Label fx:id="explicitIcon" managed="false" text="🅴" visible="false" style="-fx-cursor: default;">
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Label>
-         <Label fx:id="newReleaseIcon" managed="false" text="🆕" visible="false" style="-fx-cursor: default;">
-            <font>
-               <Font size="14.0" />
-            </font>
-         </Label>
-      </HBox>
       
       <Button fx:id="trackMenuButton" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand;" text="⋮">
          <HBox.margin>
