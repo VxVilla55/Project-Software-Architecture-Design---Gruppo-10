@@ -180,4 +180,14 @@ public void removePlaylist(PlaylistComponent p) {
         }
         notifySubscribers();
     }
+    public void replacePlaylist(PlaylistComponent newPlaylist, PlaylistComponent oldPlaylist) {
+        if (newPlaylist == null) {
+            return;
+        }
+        
+        removePlaylist(oldPlaylist);
+        addPlaylist(newPlaylist);
+        
+        notifySubscribers();
+    }
 }

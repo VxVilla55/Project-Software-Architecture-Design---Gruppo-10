@@ -24,7 +24,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
@@ -109,6 +108,12 @@ public class MainViewController implements Initializable, Subscriber {
     }
     public void setSelectedTrack(TrackComponent track) {
         selectedTrack = track;
+    }
+    public PlaylistComponent getSelectedPlaylist() {
+        return selectedPlaylist;
+    }
+    public TrackComponent getSelectedTrack() {
+        return selectedTrack;
     }
     
     @Override
@@ -266,18 +271,21 @@ public class MainViewController implements Initializable, Subscriber {
         }
     }
     
-    public boolean showDeleteConfirmation(String title) {
+    public boolean showConfirmation(String title, String header, String context) {
+        
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma eliminazione");
-        alert.setHeaderText("Eliminare definitivamente la traccia?");
-        String context = new StringBuilder()
-                .append("Stai per eliminare '" + title + "'.\n")
-                .append("La traccia verrà rimossa da:\n")
-                .append("- Catalogo principale\n")
-                .append("- Tutte le playlist\n")
-                .append("- Coda di riproduzione (se presente)\n")
-                .append("AL MOMENTO è IRREVERSIBILE")
-                .toString();
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(context);
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        return result.isPresent() && result.get() == ButtonType.OK;
+    }
+    
+    public boolean showError(String title, String header, String context) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
         alert.setContentText(context);
         
         Optional<ButtonType> result = alert.showAndWait();
