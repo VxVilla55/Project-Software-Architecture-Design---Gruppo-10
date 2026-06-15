@@ -3,6 +3,7 @@ package com.group10.model;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
+import java.util.ArrayList;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -15,8 +16,7 @@ import java.util.Set;
  * rappresenta una traccia come insieme
  */
 public class TrackComponent implements Comparable<TrackComponent>, Playable {
-    
-    // L'Enum è tornato qui dentro!
+
     public enum Tag {
         FAVORITE, EXPLICIT, NEW_RELEASE
     }
@@ -53,6 +53,14 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
 
     public Set<Tag> getTags() {
         return this.tags;
+    }
+    
+    public void addTags(ArrayList<Tag> tags) {
+        this.tags.addAll(tags);
+    }
+    
+    public void removeTags(ArrayList<Tag> tags) {
+        this.tags.removeAll(tags);
     }
     
     public boolean hasTag(Tag tag) {
