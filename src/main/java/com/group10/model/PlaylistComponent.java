@@ -84,6 +84,14 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
         return tracks.isEmpty();
     }
 
+
+    public int getPlayCount() {
+        // Soluzione moderna ed elegante con gli Stream di Java 8
+        return this.tracks.stream()
+                   .mapToInt(TrackComponent::getPlayCount)
+                   .sum();        
+    }
+
     private static String validateAndTrimName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("Il nome della playlist non può essere vuoto o nullo");
