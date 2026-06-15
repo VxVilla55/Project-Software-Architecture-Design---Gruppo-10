@@ -9,143 +9,141 @@
 
 <AnchorPane fx:id="root" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="324.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="562.0" prefWidth="366.0" spacing="15.0" AnchorPane.bottomAnchor="-12.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            
-            <Label fx:id="sectionTitle" style="-fx-text-fill: #37474F;" text="Dettaglio brano" textFill="#78909C">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 8;">
-               <children>
-                  <ImageView fx:id="trackImageView" fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            
-            <VBox alignment="CENTER" spacing="5.0">
-               <children>
-                  <TextField fx:id="titleField" alignment="CENTER" maxWidth="220.0" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 2;" text="Titolo della Traccia">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="artistField" alignment="CENTER" maxWidth="220.0" style="-fx-text-fill: #00BFA5; -fx-background-color: transparent; -fx-padding: 2;" text="Nome Autore">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </VBox>
-            
-            <Label style="-fx-text-fill: #78909C;" text="Informazioni Brano" textFill="#78909C">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Label>
-            
-            <VBox maxWidth="220.0" spacing="12.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 8;">
-               <children>
-                  
-                  <VBox spacing="2.0">
-                     <children>
-                        <Label style="-fx-text-fill: #78909C;" text="GENERE" textFill="#78909C">
-                           <font>
-                              <Font name="System Bold" size="9.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="genreField" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 0;" text="Rock / Pop">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </VBox>
-                  
-                  <VBox spacing="2.0">
-                     <children>
-                        <Label style="-fx-text-fill: #78909C;" text="ANNO DI PUBBLICAZIONE" textFill="#78909C">
-                           <font>
-                              <Font name="System Bold" size="9.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="yearField" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 0;" text="1975">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </VBox>
-                  
-                  <VBox spacing="2.0">
-                     <children>
-                        <Label style="-fx-text-fill: #78909C;" text="DURATA" textFill="#78909C">
-                           <font>
-                              <Font name="System Bold" size="9.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="durationField" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 0;" text="05:55">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </VBox>
-                  
-                  <VBox spacing="2.0">
-                     <children>
-                        <Label style="-fx-text-fill: #78909C;" text="TAGS" textFill="#78909C">
-                           <font>
-                              <Font name="System Bold" size="9.0" />
-                           </font>
-                        </Label>
-                        <HBox spacing="10.0">
-                           <children>
-                              <CheckBox fx:id="favoriteCheckBox" disable="true" mnemonicParsing="false" style="-fx-text-fill: #37474F;" text="FAV">
-                                 <font><Font size="11.0" /></font>
-                              </CheckBox>
-                              <CheckBox fx:id="newReleaseCheckBox" disable="true" mnemonicParsing="false" style="-fx-text-fill: #37474F;" text="NEW">
-                                 <font><Font size="11.0" /></font>
-                              </CheckBox>
-                              <CheckBox fx:id="explicitCheckBox" disable="true" mnemonicParsing="false" style="-fx-text-fill: #37474F;" text="E">
-                                 <font><Font size="11.0" /></font>
-                              </CheckBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  
-               </children>
+      <ScrollPane fitToWidth="true" style="-fx-background: #FFF8E1; -fx-background-color: transparent; -fx-border-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox alignment="TOP_CENTER" spacing="15.0">
                <padding>
-                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                  <Insets bottom="20.0" left="15.0" right="15.0" top="10.0" />
                </padding>
-            </VBox>
-            
-            <AnchorPane maxWidth="220.0">
-                <children>
-                    <HBox alignment="CENTER" maxWidth="220.0" spacing="15.0">
-                        <children>
-                            <Button fx:id="btnLeft" mnemonicParsing="false" onAction="#handleLeftAction" prefWidth="100.0" style="-fx-background-radius: 5;" text="Modifica" />
-                            <Button fx:id="btnRight" mnemonicParsing="false" onAction="#handleRightAction" prefWidth="100.0" style="-fx-background-radius: 5;" text="Elimina" />
-                        </children>
-                        <VBox.margin>
+               <children>
+                  
+                  <Label fx:id="sectionTitle" style="-fx-text-fill: #37474F;" text="Dettaglio brano" textFill="#78909C">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  
+                  <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="180.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 8;">
+                     <children>
+                        <ImageView fx:id="trackImageView" fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  
+                  <VBox alignment="CENTER" spacing="5.0">
+                     <children>
+                        <TextField fx:id="titleField" alignment="CENTER" maxWidth="220.0" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 2;" text="Titolo della Traccia">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="artistField" alignment="CENTER" maxWidth="220.0" style="-fx-text-fill: #00BFA5; -fx-background-color: transparent; -fx-padding: 2;" text="Nome Autore">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  
+                  <Label style="-fx-text-fill: #78909C;" text="Informazioni Brano" textFill="#78909C">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  
+                  <VBox maxWidth="220.0" spacing="12.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 8;">
+                     <children>
+                        
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label style="-fx-text-fill: #78909C;" text="GENERE" textFill="#78909C">
+                                 <font>
+                                    <Font name="System Bold" size="9.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="genreField" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 0;" text="Rock / Pop">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label style="-fx-text-fill: #78909C;" text="ANNO DI PUBBLICAZIONE" textFill="#78909C">
+                                 <font>
+                                    <Font name="System Bold" size="9.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="yearField" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 0;" text="1975">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label style="-fx-text-fill: #78909C;" text="DURATA" textFill="#78909C">
+                                 <font>
+                                    <Font name="System Bold" size="9.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="durationField" style="-fx-text-fill: #37474F; -fx-background-color: transparent; -fx-padding: 0;" text="05:55">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        
+                        <VBox spacing="2.0">
+                           <children>
+                              <Label style="-fx-text-fill: #78909C;" text="TAGS" textFill="#78909C">
+                                 <font>
+                                    <Font name="System Bold" size="9.0" />
+                                 </font>
+                              </Label>
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <CheckBox fx:id="favoriteCheckBox" disable="true" mnemonicParsing="false" style="-fx-text-fill: #37474F;" text="FAV">
+                                       <font><Font size="11.0" /></font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="newReleaseCheckBox" disable="true" mnemonicParsing="false" style="-fx-text-fill: #37474F;" text="NEW">
+                                       <font><Font size="11.0" /></font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="explicitCheckBox" disable="true" mnemonicParsing="false" style="-fx-text-fill: #37474F;" text="E">
+                                       <font><Font size="11.0" /></font>
+                                    </CheckBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+                  
+                  <AnchorPane maxWidth="220.0">
+                      <children>
+                          <HBox alignment="CENTER" maxWidth="220.0" spacing="15.0">
+                              <children>
+                                  <Button fx:id="btnLeft" mnemonicParsing="false" onAction="#handleLeftAction" prefWidth="100.0" style="-fx-background-radius: 5;" text="Modifica" />
+                                  <Button fx:id="btnRight" mnemonicParsing="false" onAction="#handleRightAction" prefWidth="100.0" style="-fx-background-radius: 5;" text="Elimina" />
+                              </children>
+                          </HBox>
+                     </children>
+                     <VBox.margin>
                         <Insets top="5.0" />
-                        </VBox.margin>
-                    </HBox>
+                     </VBox.margin>
+                  </AnchorPane>
+                  
                </children>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </AnchorPane>
-            
-         </children>
-         <padding>
-            <Insets left="15.0" right="15.0" />
-         </padding>
-      </VBox>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
