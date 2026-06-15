@@ -1,23 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group10.model.builder;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Builder;
 
+// IL TRUCCO È QUI: Importiamo l'Enum annidato dentro TrackComponent
+import com.group10.model.TrackComponent.Tag; 
+
 /**
- *
  * @author group10
  *
  * PATTERN BUILDER
- * Costruisce passo-passo una TrackComponent. 
- * Riceve i parametri della Component, li valida
- * e in caso di validità la build() restituisce la TrackComponent pronta.
- * 
  */
-
 public class TrackBuilder implements Builder<TrackComponent> {
     
     private String title;
@@ -25,6 +21,8 @@ public class TrackBuilder implements Builder<TrackComponent> {
     private int duration;
     private String genre; 
     private int year = 2026; 
+    
+    private Set<Tag> tags = new HashSet<>();
 
     public TrackBuilder setTitle(String title) {
         this.title = title;
@@ -51,26 +49,25 @@ public class TrackBuilder implements Builder<TrackComponent> {
         return this;
     }
 
-    //getter per permettere a TrackComponent di accedere alle sue proprietà
-    public String getTitle() {
-        return title;
+    public TrackBuilder addTag(Tag tag) {
+        if (tag != null) {
+            this.tags.add(tag);
+        }
+        return this;
     }
-    public String getAuthor() {
-        return author;
-    }
-    public int getDuration() {
-        return duration;
-    }
-    public String getGenre() {
-        return genre;
-    }
-    public int getYear() {
-        return year;
+
+    public String getTitle() { return title; }
+    public String getAuthor() { return author; }
+    public int getDuration() { return duration; }
+    public String getGenre() { return genre; }
+    public int getYear() { return year; }
+    
+    public Set<Tag> getTags() {
+        return tags;
     }
 
     @Override
     public TrackComponent build() {
-        //validazione dei campi
         if (this.title == null || this.title.trim().isEmpty()) {
             throw new IllegalStateException("Errore: Il titolo e' obbligatorio.");
         }
