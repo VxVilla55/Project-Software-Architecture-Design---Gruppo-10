@@ -59,27 +59,6 @@ public class QueueViewController implements Initializable, Subscriber {
                 + ", queue = " + queue.size());
     }
 
-    private void buildQueue() {
-        if (container.getChildren().size() > 1) {
-            container.getChildren().remove(1, container.getChildren().size());
-        }
-
-       List<TrackComponent> queue = PlaybackEngine.getInstance().getQueue();
-
-        if (queue.isEmpty()) {
-            container.getChildren().add(new Label("La coda è vuota"));
-            return;
-        }
-
-        TrackUIComponentFactory factory = new TrackUIComponentFactory();
-        for (TrackComponent t : queue) {
-            TrackUIComponentItem item = (TrackUIComponentItem) factory.createUIComponentItem(t);
-            container.getChildren().add(item.getRoot());
-        }
-        System.out.println(">>> container figli = " + container.getChildren().size()
-                + ", queue = " + queue.size());
-    }
-
     public Parent getRoot() {
         return root;
     }
