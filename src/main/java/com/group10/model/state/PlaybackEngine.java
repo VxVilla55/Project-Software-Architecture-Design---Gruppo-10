@@ -416,4 +416,8 @@ public Integer removeTrackFromQueue(TrackComponent track) {
     public void addSubscriber(Subscriber subscriber) {
         subscribers.add(subscriber);
     }
+
+    public void removeSubscriber(Subscriber s) {
+        subscribers.remove(s);
+    }
 }

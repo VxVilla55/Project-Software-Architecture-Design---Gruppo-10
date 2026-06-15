@@ -30,7 +30,7 @@ public class QueueViewController implements Initializable, Subscriber {
         PlaybackEngine.getInstance().addSubscriber(this);
         root.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene == null) {
-               // PlaybackEngine.getInstance().removeSubscriber(this);
+               PlaybackEngine.getInstance().removeSubscriber(this);
             }
         });
         update();
