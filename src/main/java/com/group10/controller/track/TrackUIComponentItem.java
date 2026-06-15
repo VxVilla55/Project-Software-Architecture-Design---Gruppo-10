@@ -1,12 +1,5 @@
 package com.group10.controller.track;
 
-/**
- * FXML Controller class
- *
- * @author group10
- * * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
- */
- 
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.service.factory.TrackUIComponentFactory;
@@ -14,7 +7,6 @@ import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
-
 import com.group10.model.state.PlaybackEngine;
 
 import java.net.URL;
@@ -34,29 +26,23 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class TrackUIComponentItem implements AbstractUIComponent, Initializable {
-    @FXML
-    private HBox root;
-    @FXML
-    private Label indexLabel;
-    @FXML
-    private Label titleLabel;
-    @FXML
-    private Label artistLabel;
-    @FXML
-    private Label genreLabel;
-    @FXML
-    private Label yearLabel;
-    @FXML
-    private Label durationLabel;
-    @FXML
-    private Button trackMenuButton;
+    @FXML private HBox root;
+    @FXML private Label indexLabel;
+    @FXML private Label titleLabel;
+    @FXML private Label artistLabel;
+    @FXML private Label genreLabel;
+    @FXML private Label yearLabel;
+    @FXML private Label durationLabel;
+    @FXML private Button trackMenuButton;
+    
+    // --- NUOVO: Aggiunte le Label dei Tag che hai messo nel FXML ---
+    @FXML private Label favouriteLabel;
+    @FXML private Label newReleaseLabel;
+    @FXML private Label explicitLabel;
     
     private TrackComponent track;
-    
-    // --- NUOVO: Variabile per ricordarsi in che playlist siamo ---
     private PlaylistComponent contextPlaylist = null;
     
-    // --- NUOVO: Metodo per ricevere la playlist dal PlaylistUIDetailsController ---
     public void setContextPlaylist(PlaylistComponent playlist) {
         this.contextPlaylist = playlist;
     }
@@ -68,14 +54,11 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
     public TrackUIComponentItem(Playable t) {
         if (!(t instanceof TrackComponent)) {
             throw new RuntimeException("Impossibile crearne l'item.");
-        }
-        else {
+        } else {
             track = (TrackComponent) t;
         }
     }
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         titleLabel.setText(track.getTitle());
@@ -88,6 +71,21 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
         String formattedDuration = String.format("%02d:%02d:%02d", trackDuration.toHoursPart(), trackDuration.toMinutesPart(), trackDuration.toSecondsPart());
         durationLabel.setText(formattedDuration);
         root.setFocusTraversable(false);
+        
+        // --- NUOVO: Logica per mostrare i Tag se presenti ---
+        // Usiamo TrackComponent.Tag perché abbiamo l'Enum annidato
+        if (track.hasTag(TrackComponent.Tag.FAVORITE)) {
+            favouriteLabel.setVisible(true);
+            favouriteLabel.setManaged(true);
+        }
+        if (track.hasTag(TrackComponent.Tag.NEW_RELEASE)) {
+            newReleaseLabel.setVisible(true);
+            newReleaseLabel.setManaged(true);
+        }
+        if (track.hasTag(TrackComponent.Tag.EXPLICIT)) {
+            explicitLabel.setVisible(true);
+            explicitLabel.setManaged(true);
+        }
     }
     
     @Override
@@ -99,10 +97,7 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
     private void handleOptions(ActionEvent event) {
         System.out.println("OPTIONS");
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
-        
-        // --- NUOVO: Passiamo la playlist al controller delle opzioni prima di mostrarlo! ---
         c.setContextPlaylist(this.contextPlaylist);
-        
         MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 
     }
     
@@ -114,11 +109,9 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
         PlaybackEngine engine = PlaybackEngine.getInstance();
 
         if (contextPlaylist != null) {
-            // playlist: metto in coda l'intera playlist
             engine.addListToQueue(new ArrayList<>(contextPlaylist.getTracks()));
             engine.setCurrentPlaylist(contextPlaylist);
         } else {
-            // home: pulisco la coda e metto in coda l'intera libreria
             engine.addListToQueue(new ArrayList<>(MusicCatalogue.getInstance().getTracks()));
             engine.setCurrentPlaylist(null);
         }
@@ -128,9 +121,7 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
     
     private void showOptionPopup(Parent popup) {        
         root.getChildren().removeIf( child -> child != root.getChildren().get(0));
-        
         StackPane layer = new StackPane();
-        
         Pane background = new Pane();        
         background.setOnMouseClicked(e -> {
             if (root.getChildren().size()>1) {
@@ -143,7 +134,6 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
         double y = buttonBounds.getMinY();
         
         layer.getChildren().addAll(popup, background);
-
         root.getChildren().add(layer);
     }
 }
