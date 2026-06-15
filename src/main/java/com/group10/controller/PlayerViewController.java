@@ -8,6 +8,7 @@ import com.group10.model.strategy.PlaybackMode;
 import com.group10.model.strategy.RepeatPlaylist;
 import com.group10.model.strategy.Sequential;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -206,6 +209,18 @@ public class PlayerViewController implements Initializable, Subscriber {
         if (current != null) {
             trackTitle.setText(current.getTitle());
             trackAuthor.setText(current.getAuthor());
+        }
+    }
+
+    // gestione bottone queue
+    @FXML
+    private void handleShowQueue(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/QueueView.fxml"));
+            Parent queueRoot = loader.load();
+            MainViewController.getInstance().showOnRightPane(queueRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

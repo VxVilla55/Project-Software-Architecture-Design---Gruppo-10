@@ -68,5 +68,14 @@
 
       <Label fx:id="trackTitle" layoutX="79.0" layoutY="74.0" prefHeight="31.0" prefWidth="150.0" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-font-size: 16px;" text="Titolo" AnchorPane.topAnchor="40.0" />
       <Label fx:id="trackAuthor" layoutX="79.0" layoutY="116.0" prefHeight="21.0" prefWidth="150.0" style="-fx-text-fill: #78909C; -fx-font-size: 14px;" text="Autore" AnchorPane.topAnchor="70.0" />
+      <Button fx:id="queueButton" layoutX="725.0" layoutY="68.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleShowQueue" prefHeight="25.0" prefWidth="25.0" style="-fx-background-color: transparent; -fx-text-fill: #37474F; -fx-background-radius: 15; -fx-font-weight: bold; -fx-cursor: hand;">
+         <graphic>
+            <ImageView fitHeight="21.0" fitWidth="20.0" opacity="0.7" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons/queue-menu.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
