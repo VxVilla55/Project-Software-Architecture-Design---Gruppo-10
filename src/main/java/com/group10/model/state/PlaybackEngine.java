@@ -36,7 +36,7 @@ public class PlaybackEngine implements Publisher{
     private Consumer<TrackComponent> onTrackChanged;
     private Consumer<Double> onTick;
     private Consumer<Boolean> onPlayStateChanged; 
-    
+
     private List<Subscriber> subscribers;
     
     private PlaybackEngine() {
@@ -82,6 +82,10 @@ public class PlaybackEngine implements Publisher{
 
     public PlaylistComponent getCurrentPlaylist() {
         return currentPlaylist;
+    }
+
+    public List<TrackComponent> getQueue() {
+        return new ArrayList<>(queue); // la view non deve poter modificare la coda interna
     }
 
 public void clearQueue() {
@@ -136,6 +140,7 @@ public void clearQueue() {
         }
         currentIndex = 0;
         switchTrack(queue.get(0));
+        notifySubscribers();
     }
 
 
@@ -359,6 +364,7 @@ public Integer removeTrackFromQueue(TrackComponent track) {
             currentIndex = queue.indexOf(current);
             System.out.println("\nShuffle disabilitato");
         }
+        notifySubscribers();
         printQueue();
     }
 
@@ -409,5 +415,9 @@ public Integer removeTrackFromQueue(TrackComponent track) {
     }
     public void addSubscriber(Subscriber subscriber) {
         subscribers.add(subscriber);
+    }
+
+    public void removeSubscriber(Subscriber s) {
+        subscribers.remove(s);
     }
 }
