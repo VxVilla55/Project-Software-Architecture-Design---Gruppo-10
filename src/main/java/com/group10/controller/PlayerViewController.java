@@ -15,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
 
@@ -33,7 +32,6 @@ public class PlayerViewController implements Initializable, Subscriber {
     @FXML private Slider trackSlider;
     @FXML private Label trackTitle;
     @FXML private Label trackAuthor;
-    @FXML private Pane progressFill;
 
     // --- NUOVO: Etichette per il tempo ---
     @FXML private Label currentTimeLabel;
@@ -53,12 +51,17 @@ public class PlayerViewController implements Initializable, Subscriber {
         return String.format("%02d:%02d", minutes, secs);
     }
 
+    private void updateSliderFill(double percent) {
+        javafx.scene.Node track = trackSlider.lookup(".track");
+        if (track != null) {
+            int p = (int) Math.round(Math.max(0, Math.min(100, percent)));
+            track.setStyle("-fx-background-color: linear-gradient(to right, #00BFA5 " + p + "%, #EFE6CC " + p + "%);");
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         PlaybackEngine.getInstance().addSubscriber(this);
-        if (progressFill == null) {
-            System.err.println("ERRORE: progressFill non è stato collegato! Controlla l'ID nell'FXML.");
-        }
 
         var engine = PlaybackEngine.getInstance();
 
@@ -76,15 +79,12 @@ public class PlayerViewController implements Initializable, Subscriber {
             var track = engine.getCurrentTrack();
             if (track != null && track.getDurationInSeconds() > 0) {
                 double progress = time / track.getDurationInSeconds();
-                
+
                 if (trackSlider != null && !trackSlider.isPressed()) {
                     trackSlider.setValue(progress * 100);
-                    if (progressFill != null) {
-                        progressFill.setMaxWidth(progress * 440);
-                    }
+                    updateSliderFill(progress * 100);
                 }
-                
-                // --- NUOVO: Aggiorniamo il timer che scorre ---
+
                 if (currentTimeLabel != null) {
                     currentTimeLabel.setText(formatTime(time));
                 }
@@ -95,19 +95,18 @@ public class PlayerViewController implements Initializable, Subscriber {
             if (track != null) {
                 trackTitle.setText(track.getTitle());
                 trackAuthor.setText(track.getAuthor());
-                
-                // --- NUOVO: Impostiamo i timer quando cambia traccia ---
+
                 if (totalTimeLabel != null) totalTimeLabel.setText(formatTime(track.getDurationInSeconds()));
                 if (currentTimeLabel != null) currentTimeLabel.setText("00:00");
-                
+
             } else {
                 trackTitle.setText("");
                 trackAuthor.setText("");
                 if (totalTimeLabel != null) totalTimeLabel.setText("00:00");
                 if (currentTimeLabel != null) currentTimeLabel.setText("00:00");
             }
-            if (progressFill != null) progressFill.setMaxWidth(0); 
-            if (trackSlider != null) trackSlider.setValue(0);     
+            if (trackSlider != null) trackSlider.setValue(0);
+            updateSliderFill(0);
         });
 
         trackSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -115,13 +114,10 @@ public class PlayerViewController implements Initializable, Subscriber {
                 var track = engine.getCurrentTrack();
                 if (track != null) {
                     double percent = newVal.doubleValue() / 100.0;
-                    if (progressFill != null) {
-                        progressFill.setMaxWidth(percent * 440);
-                    }
+                    updateSliderFill(newVal.doubleValue());
                     double seekTime = track.getDurationInSeconds() * percent;
                     engine.seek(seekTime);
-                    
-                    // Aggiorna il numeretto visivamente mentre si trascina il cursore
+
                     if (currentTimeLabel != null) currentTimeLabel.setText(formatTime(seekTime));
                 }
             }

@@ -103,6 +103,16 @@ topPlaylistLabel, #topTracksLabel, #allTracksLabel, #trackLabel  {
     -fx-cursor: hand;
 }
 
+/* pallino slider */
+.slider .thumb {
+    -fx-background-color: #00BFA5;
+}
+.slider .track {
+    -fx-background-color: #EFE6CC;
+    -fx-background-insets: 0;
+    -fx-effect: null;
+}
+
 
 
 

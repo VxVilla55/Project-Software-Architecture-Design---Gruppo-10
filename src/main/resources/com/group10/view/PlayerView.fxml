@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="130.0" prefWidth="1065.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="130.0" prefWidth="1065.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
       <Label fx:id="currentTimeLabel" alignment="CENTER_RIGHT" layoutX="268.0" layoutY="24.0" prefWidth="40.0" style="-fx-text-fill: #78909C; -fx-font-size: 12px;" text="00:00" AnchorPane.topAnchor="24.0" />
 
-      <Pane fx:id="progressFill" layoutX="313.0" layoutY="43.0" prefHeight="18.0" prefWidth="0.0" style="-fx-background-color: #00BFA5;" />
+      <Pane fx:id="progressFill" layoutX="313.0" layoutY="25.0" prefHeight="18.0" prefWidth="0.0" style="-fx-background-color: #00BFA5;" />
 
       <Slider fx:id="trackSlider" layoutX="313.0" layoutY="43.0" max="100" min="0" prefHeight="18.0" prefWidth="440.0" style="-fx-control-inner-background: #EFE6CC; -fx-accent: #00BFA5; -fx-cursor: hand;" AnchorPane.topAnchor="25.0" />
 
