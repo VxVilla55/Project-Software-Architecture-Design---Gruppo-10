@@ -118,7 +118,8 @@ public void clearQueue() {
     }
     
     public void addTrackAsNext(TrackComponent track) {
-        System.out.println("NON ANCORA IMPLEMENTATA");
+        addTrackToQueueAtIndex(track, currentIndex+1);
+        notifySubscribers();
     }
     
     public TrackComponent getCurrentTrack() {
