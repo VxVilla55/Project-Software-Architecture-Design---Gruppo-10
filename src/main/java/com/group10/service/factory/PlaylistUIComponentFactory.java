@@ -5,10 +5,7 @@
 package com.group10.service.factory;
 
 import com.group10.controller.common.AbstractUIComponent;
-import com.group10.controller.playlist.PlaylistUIComponentItem;
-import com.group10.controller.playlist.PlaylistUIComponentCard;
-import com.group10.controller.playlist.PlaylistUIAdderController;
-import com.group10.controller.playlist.PlaylistUIDetailsController;
+import com.group10.controller.playlist.*;
 import com.group10.model.common.Playable;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
@@ -125,6 +122,18 @@ public class PlaylistUIComponentFactory implements UIComponentFactory{
 
     @Override
     public AbstractUIComponent createUIComponentOptions(Playable model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        //1.preparo la view
+        String fxmlPath = "/com/group10/view/PlaylistOptions.fxml";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        //2.istanzio il controller
+        AbstractUIComponent controller = new PlaylistUIOptionsController(model);
+        //3.associo controller e view
+        loader.setController(controller);
+        //4.carico la view
+        try {
+            Parent view = loader.load();
+            return controller;
+        } catch (IOException e) {
+            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
+        }    }
 }

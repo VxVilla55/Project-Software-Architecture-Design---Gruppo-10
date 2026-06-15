@@ -4,6 +4,9 @@
  */
 package com.group10.model;
 
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 import com.group10.model.common.Publisher;
 import com.group10.model.common.Subscriber;
 import com.group10.model.state.PlaybackEngine;
@@ -107,7 +110,7 @@ public void removePlaylist(PlaylistComponent p) {
 
     // true se esiste gia' una playlist con questo nome (ignora maiuscole/minuscole e spazi)
     // il controller la chiama PRIMA di creare, per mostrare l'errore giusto all'utente
-    private boolean isPlaylistNameTaken(String name) {
+    public boolean isPlaylistNameTaken(String name) {
         if (name == null) {
             return false;
         }
@@ -117,6 +120,30 @@ public void removePlaylist(PlaylistComponent p) {
         }
         return true;
     }
+
+
+    /**
+     * T12.2 - Restituisce le prime 'n' tracce più ascoltate del catalogo,
+     * ordinate in modo decrescente in base al playCount.
+     */
+    public List<TrackComponent> getTopTracks(int n) {
+        return this.tracks.stream()
+                .sorted(Comparator.comparingInt(TrackComponent::getPlayCount).reversed())
+                .limit(n)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * T12.2 - Restituisce le prime 'n' playlist più ascoltate del catalogo,
+     * ordinate in modo decrescente in base al playCount.
+     */
+    public List<PlaylistComponent> getTopPlaylists(int n) {
+        return this.playlists.values().stream()
+                .sorted(Comparator.comparingInt(PlaylistComponent::getPlayCount).reversed())
+                .limit(n)
+                .collect(Collectors.toList());
+    }
+    
     
     //per poter aggiungere nuovi Osservaroti/Subscriber a questo elemento
     public void addSubscriber(Subscriber subscriber) {
@@ -125,6 +152,8 @@ public void removePlaylist(PlaylistComponent p) {
     public void removeTracks(Subscriber subscriber) {
         subscribers.remove(subscriber);
     }
+
+
     
     @Override
     public void notifySubscribers() {
