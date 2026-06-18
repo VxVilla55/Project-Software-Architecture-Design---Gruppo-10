@@ -120,4 +120,14 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
     public void playOnEngine(PlaybackEngine engine) {
         engine.addTrackToQueue(this);
     }
+    
+    public boolean isFavourite() {
+        return tags.contains(Tag.FAVORITE);
+    }
+    public boolean isExplicit() {
+        return tags.contains(Tag.EXPLICIT);
+    }
+    public boolean isNewRelease() {
+        return tags.contains(Tag.NEW_RELEASE);
+    }
 }

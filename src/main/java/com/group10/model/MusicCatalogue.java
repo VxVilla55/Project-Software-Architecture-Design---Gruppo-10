@@ -14,7 +14,9 @@ import com.group10.model.state.PlaybackEngine;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  *
@@ -28,11 +30,13 @@ public class MusicCatalogue implements Publisher{
     
     private List<TrackComponent> tracks;
     private final Map<String, PlaylistComponent> playlists;
+    private Set<String> genres;
     private List<Subscriber> subscribers;
     
     public MusicCatalogue() {
         tracks = new ArrayList<>();
         playlists = new TreeMap<>();
+        genres = new TreeSet<>();
         subscribers = new ArrayList<>();
     }
     
@@ -151,6 +155,18 @@ public void removePlaylist(PlaylistComponent p) {
     }
     public void removeTracks(Subscriber subscriber) {
         subscribers.remove(subscriber);
+    }
+    
+    public List<String> getGenres() {
+        return genres.stream().toList();
+    }
+    
+    public void addGenres(String genre) {
+        genres.add(genre);
+    }
+    
+    public void removeGenres(String genre) {
+        genres.remove(genre);
     }
 
 

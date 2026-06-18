@@ -53,6 +53,10 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
         this.tracks.addAll(selectedTracks);
         return this;
     }
+    public PlaylistBuilder addTracks(List<TrackComponent> selectedTracks) {
+        this.tracks.addAll(selectedTracks);
+        return this;
+    }
     
     public List<TrackComponent> getTracks() {
         return tracks;

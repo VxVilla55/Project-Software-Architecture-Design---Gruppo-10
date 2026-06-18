@@ -6,13 +6,12 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.shape.Line?> 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       
       <VBox alignment="CENTER" layoutX="110.0" layoutY="15.0" prefWidth="380.0" spacing="12.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 22; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
@@ -39,7 +38,7 @@
                </VBox.margin>
             </CheckBox>
             
-            <VBox fx:id="autoMenuContainer" managed="false" visible="false" spacing="12.0" style="-fx-background-color: #F5E6BE; -fx-background-radius: 8; -fx-padding: 15;">
+            <VBox fx:id="autoMenuContainer" spacing="12.0" style="-fx-background-color: #F5E6BE; -fx-background-radius: 8; -fx-padding: 15;">
                <children>
                   <Label style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Seleziona e combina i criteri desiderati:">
                      <font><Font size="12.0" /></font>
@@ -47,25 +46,25 @@
                   
                   <VBox spacing="5.0">
                      <children>
-                        <CheckBox fx:id="filterByTagCheckBox" onAction="#handleFilterToggle" text="Filtra per Tag" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" />
-                        <HBox fx:id="tagOptionsContainer" managed="false" visible="false" spacing="10.0" alignment="CENTER_LEFT">
+                        <CheckBox fx:id="filterByTagCheckBox" onAction="#handleFilterToggle" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" text="Filtra per Tag" />
+                        <HBox fx:id="tagOptionsContainer" alignment="CENTER_LEFT" spacing="10.0">
                            <children>
-                              <CheckBox fx:id="favCheckBox" text="FAV" style="-fx-text-fill: #37474F;" />
-                              <CheckBox fx:id="newCheckBox" text="NEW" style="-fx-text-fill: #37474F;" />
-                              <CheckBox fx:id="explicitCheckBox" text="EXPLICIT" style="-fx-text-fill: #37474F;" />
+                              <CheckBox fx:id="favCheckBox" style="-fx-text-fill: #37474F;" text="FAV" />
+                              <CheckBox fx:id="newCheckBox" style="-fx-text-fill: #37474F;" text="NEW RELEASE" />
+                              <CheckBox fx:id="explicitCheckBox" style="-fx-text-fill: #37474F;" text="EXPLICIT" />
                            </children>
-                           <padding><Insets left="15.0" top="2.0" bottom="2.0" /></padding>
+                           <padding><Insets bottom="2.0" left="15.0" top="2.0" /></padding>
                         </HBox>
                      </children>
                   </VBox>
                   
                   <VBox spacing="5.0">
                      <children>
-                        <CheckBox fx:id="filterByYearCheckBox" onAction="#handleFilterToggle" text="Filtra per Anno (Range)" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" />
-                        <HBox fx:id="yearOptionsContainer" managed="false" visible="false" spacing="10.0" alignment="CENTER_LEFT">
+                        <CheckBox fx:id="filterByYearCheckBox" onAction="#handleFilterToggle" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" text="Filtra per Anno (Range)" />
+                        <HBox fx:id="yearOptionsContainer" alignment="CENTER_LEFT" spacing="10.0">
                            <children>
                               <TextField fx:id="yearFromInput" prefWidth="70.0" promptText="Da" style="-fx-background-color: #FFF8E1;" />
-                              <Label text="a" style="-fx-text-fill: #37474F;" />
+                              <Label style="-fx-text-fill: #37474F;" text="a" />
                               <TextField fx:id="yearToInput" prefWidth="70.0" promptText="A" style="-fx-background-color: #FFF8E1;" />
                            </children>
                            <padding><Insets left="15.0" /></padding>
@@ -75,8 +74,8 @@
                   
                   <VBox spacing="5.0">
                      <children>
-                        <CheckBox fx:id="filterByGenreCheckBox" onAction="#handleFilterToggle" text="Filtra per Genere" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" />
-                        <ComboBox fx:id="genreComboBox" managed="false" visible="false" prefHeight="30.0" prefWidth="310.0" promptText="Seleziona Genere..." style="-fx-background-color: #FFF8E1;">
+                        <CheckBox fx:id="filterByGenreCheckBox" onAction="#handleFilterToggle" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-cursor: hand;" text="Filtra per Genere" />
+                        <ComboBox fx:id="genreComboBox" prefHeight="30.0" prefWidth="310.0" promptText="Seleziona Genere..." style="-fx-background-color: #FFF8E1;">
                            <VBox.margin><Insets left="15.0" /></VBox.margin>
                         </ComboBox>
                      </children>
@@ -85,7 +84,7 @@
                </children>
             </VBox>
             
-            <Label fx:id="errorLabel" managed="false" visible="false" style="-fx-text-fill: #D32F2F; -fx-font-weight: bold;" text="Messaggio di errore" wrapText="true">
+            <Label fx:id="errorLabel" style="-fx-text-fill: #D32F2F; -fx-font-weight: bold;" text="Messaggio di errore" wrapText="true">
                <font><Font size="12.0" /></font>
             </Label>
             
