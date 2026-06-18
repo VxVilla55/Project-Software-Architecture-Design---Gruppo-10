@@ -161,7 +161,7 @@ public void removePlaylist(PlaylistComponent p) {
         return genres.stream().toList();
     }
     
-    public void addGenres(String genre) {
+    public void addGenre(String genre) {
         genres.add(genre);
     }
     

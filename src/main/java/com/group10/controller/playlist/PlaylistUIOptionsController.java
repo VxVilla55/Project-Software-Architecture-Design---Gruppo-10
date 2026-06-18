@@ -8,6 +8,7 @@ import com.group10.model.TrackComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.service.command.CommandManager;
+import com.group10.service.command.DeletePlaylistCommand;
 import com.group10.service.command.RenamePlaylistCommand;
 
 import java.net.URL;
@@ -78,7 +79,8 @@ public class PlaylistUIOptionsController implements AbstractUIComponent {
     // elimina la playlist dalla libreria
     @FXML
     private void handleRemovePlaylist(ActionEvent event) {
-        MusicCatalogue.getInstance().removePlaylist(playlist);
+        new CommandManager().executeCommand(new DeletePlaylistCommand(playlist));
+        /*MusicCatalogue.getInstance().removePlaylist(playlist);*/
         MainViewController.getInstance().closePopup();
     }
 

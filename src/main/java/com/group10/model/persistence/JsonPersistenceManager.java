@@ -85,6 +85,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
                         .build();
 
                 MusicCatalogue.getInstance().addTrack(track);
+                MusicCatalogue.getInstance().addGenre(t.genre);
                 byKey.put(key(t.title, t.author), track);
             }
             for (PlaylistData p : data.playlists) {

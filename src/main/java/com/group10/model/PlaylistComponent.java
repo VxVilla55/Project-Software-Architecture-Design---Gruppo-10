@@ -34,9 +34,14 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
     private List<TrackComponent> staticTracks; //elenco statico di playlist
     private List<TrackFilterStrategy> strategies = new ArrayList<>(); //elenco dinamico (se creata automaticamente)
 
+    public PlaylistComponent() {
+        this.name = validateAndTrimName("Nuova Playlist");
+    }
+    
     public PlaylistComponent(String name) {
         this.name = validateAndTrimName(name);
         this.staticTracks = new ArrayList<>();
+        this.strategies = new ArrayList<>();
     }
     
     /*public PlaylistComponent(String name, List<TrackComponent> tracks) {
@@ -120,7 +125,7 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
   
     // rimuove la traccia indicata
     public boolean remove(TrackComponent track) {
-        return getTracks().remove(track);
+        return staticTracks.remove(track);
     }
     
     //true se contiene la traccia indicata
@@ -172,11 +177,10 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
     }
     
     public void updateTrack(TrackComponent oldTrack, TrackComponent updatedTrack) {
-        if (!getTracks().contains(oldTrack)) {
-            return;
+        int index = staticTracks.indexOf(oldTrack);
+        if (index != -1) {
+            staticTracks.set(index, updatedTrack);
         }
-        getTracks().remove(oldTrack);
-        getTracks().add(updatedTrack);
     }
 }
     
