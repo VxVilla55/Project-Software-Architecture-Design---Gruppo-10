@@ -7,7 +7,7 @@ package com.group10.model;
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
-import com.group10.service.strategy.TrackFilterStrategy;
+import com.group10.service.filter.TrackFilterStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +36,8 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
 
     public PlaylistComponent() {
         this.name = validateAndTrimName("Nuova Playlist");
+        this.staticTracks = new ArrayList<>();
+        this.strategies = new ArrayList<>();
     }
     
     public PlaylistComponent(String name) {

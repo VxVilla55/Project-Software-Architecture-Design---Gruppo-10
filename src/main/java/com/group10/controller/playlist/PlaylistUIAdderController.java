@@ -8,9 +8,9 @@ import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.service.command.AddPlaylistCommand;
 import com.group10.service.command.CommandManager;
-import com.group10.service.strategy.GenreFilterStrategy;
-import com.group10.service.strategy.TagFilterStrategy;
-import com.group10.service.strategy.YearFilterStrategy;
+import com.group10.service.filter.GenreFilterStrategy;
+import com.group10.service.filter.TagFilterStrategy;
+import com.group10.service.filter.YearFilterStrategy;
 
 import java.net.URL;
 import java.util.List;
