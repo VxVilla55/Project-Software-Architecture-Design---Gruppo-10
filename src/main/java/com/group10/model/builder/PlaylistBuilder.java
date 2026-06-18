@@ -8,7 +8,7 @@ import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Builder;
-import com.group10.service.strategy.TrackFilterStrategy;
+import com.group10.service.filter.TrackFilterStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
