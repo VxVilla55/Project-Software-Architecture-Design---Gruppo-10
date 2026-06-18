@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -74,7 +75,10 @@ public class PlaylistUIDetailsController implements AbstractUIComponent, Initial
         playlistNameLabel.setText(playlist.getName());
         Duration playlistDuration = Duration.ofSeconds(playlist.getDurationInSeconds());
         String formattedDuration = String.format("(%02d:%02d:%02d)", playlistDuration.toHoursPart(), playlistDuration.toMinutesPart(), playlistDuration.toSecondsPart());
-        playlistTracksCountLabel.setText(String.valueOf(playlist.getSize())+" tracce "+ formattedDuration);
+        playlistTracksCountLabel.setText(String.valueOf(playlist.getSize()) + " tracce " + formattedDuration);
+        playlistImageView.setImage(
+            new Image(getClass().getResourceAsStream("/com/group10/images/covers/playlist-cover.png"))
+        );
     }
 
     @FXML
