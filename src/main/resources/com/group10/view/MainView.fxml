@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="754.0" prefWidth="1260.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="root" minHeight="600.0" minWidth="900.0" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane prefHeight="754.0" prefWidth="1260.0">
+      <BorderPane>
          
          <top>
-            <HBox alignment="CENTER_LEFT" prefHeight="80.0" prefWidth="1260.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="80.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#handleUndo" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-background-radius: 20;" text="←">
                      <font><Font name="System Bold" size="14.0" /></font>
@@ -56,7 +56,7 @@
          </left>
 
          <center>
-            <VBox prefHeight="574.0" prefWidth="547.0" style="-fx-background-color: #FFF8E1;" BorderPane.alignment="CENTER">
+            <VBox style="-fx-background-color: #FFF8E1;" BorderPane.alignment="CENTER">
                <children>
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="507.0" prefWidth="430.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
                      <content>
@@ -70,7 +70,7 @@
          </center>
 
          <right>
-            <VBox prefHeight="574.0" prefWidth="393.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
+            <VBox minWidth="320.0" prefWidth="393.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
                <children>
                   
                   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="518.0" prefWidth="490.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
@@ -85,7 +85,7 @@
          </right>
 
          <bottom>
-            <HBox fx:id="bottomPane" alignment="CENTER" prefHeight="130.0" prefWidth="1260.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 1 0 0 0;" BorderPane.alignment="CENTER" />
+            <HBox fx:id="bottomPane" alignment="CENTER" prefHeight="130.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 1 0 0 0;" BorderPane.alignment="CENTER" />
          </bottom>
 
       </BorderPane>
