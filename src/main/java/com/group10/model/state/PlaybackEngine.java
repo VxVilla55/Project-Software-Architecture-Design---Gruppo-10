@@ -232,8 +232,8 @@ public void startSimulation() {
             @Override
             public void run() {
                 currentTime += 0.1;
-                
-                // --- NUOVO: LOGICA DEI 30 SECONDI (Task T12.1) ---
+
+
                 if (currentTime >= 30.0 && !playCounted) {
                     currentTrack.incrementPlayCount();
                     playCounted = true; // Segniamo che lo abbiamo già contato
@@ -430,4 +430,5 @@ public Integer removeTrackFromQueue(TrackComponent track) {
     public void removeSubscriber(Subscriber s) {
         subscribers.remove(s);
     }
+
 }

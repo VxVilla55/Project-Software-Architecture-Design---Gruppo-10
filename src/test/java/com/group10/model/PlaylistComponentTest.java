@@ -25,6 +25,7 @@ class PlaylistComponentTest {
         //creo una playlist base riusata da più test
         playlist = new PlaylistComponent("My Playlist");
     }
+
     private TrackComponent makeTrack(String title, String author, int duration) {
         TrackBuilder b = new TrackBuilder();
         b.setTitle(title);
@@ -202,7 +203,11 @@ class PlaylistComponentTest {
     void playOnEngine_impostaCurrentPlaylistSuEngine() {
         // 1. Setup: prendiamo l'engine reale e resettiamo la playlist
         PlaybackEngine engine = PlaybackEngine.getInstance();
-        engine.setCurrentPlaylist(null); 
+        engine.setCurrentPlaylist(null);
+
+        if (engine.isShuffled()) {
+            engine.toggleShuffle();
+        }
         
         // 2. Azione: chiamiamo il metodo
         playlist.playOnEngine(engine);
@@ -217,7 +222,12 @@ class PlaylistComponentTest {
         // 1. Setup
         PlaybackEngine engine = PlaybackEngine.getInstance();
         engine.clearQueue(); // Svuotiamo la coda dell'engine
-        
+        engine.setCurrentTrack(null);
+
+        if (engine.isShuffled()) {
+            engine.toggleShuffle();
+        }
+
         TrackComponent track1 = makeTrack("T1", "A", 100);
         TrackComponent track2 = makeTrack("T2", "B", 200);
         playlist.add(track1);
