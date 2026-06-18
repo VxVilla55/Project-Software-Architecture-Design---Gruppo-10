@@ -79,8 +79,7 @@ public class PlaylistUIOptionsController implements AbstractUIComponent {
     // elimina la playlist dalla libreria
     @FXML
     private void handleRemovePlaylist(ActionEvent event) {
-        new CommandManager().executeCommand(new DeletePlaylistCommand(playlist));
-        /*MusicCatalogue.getInstance().removePlaylist(playlist);*/
+        CommandManager.getInstance().executeCommand(new DeletePlaylistCommand(playlist));
         MainViewController.getInstance().closePopup();
     }
 
