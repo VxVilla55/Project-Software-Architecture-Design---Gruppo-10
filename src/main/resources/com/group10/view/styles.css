@@ -113,6 +113,46 @@ topPlaylistLabel, #topTracksLabel, #allTracksLabel, #trackLabel  {
     -fx-effect: null;
 }
 
+/* scrollbar dei ScrollPane: pollice verde come il resto */
+.scroll-pane > .scroll-bar {
+    -fx-background-color: transparent;
+}
+
+/* il pollice (la parte trascinabile) */
+.scroll-pane > .scroll-bar > .thumb {
+    -fx-background-color: #ccc0a0;
+    -fx-background-radius: 6;
+    -fx-background-insets: 2;
+}
+.scroll-pane > .scroll-bar > .thumb:hover,
+.scroll-pane > .scroll-bar > .thumb:pressed {
+    -fx-background-color: #b3a57c;
+}
+
+/* la pista dietro al pollice */
+.scroll-pane > .scroll-bar > .track {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+}
+
+/* niente frecce su/giu */
+.scroll-pane > .scroll-bar > .increment-button,
+.scroll-pane > .scroll-bar > .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.scroll-pane > .scroll-bar > .increment-button > .increment-arrow,
+.scroll-pane > .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+/* l'angolino tra le due barre */
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
 
 
 
