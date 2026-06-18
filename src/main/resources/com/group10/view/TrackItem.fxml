@@ -24,7 +24,9 @@
          </children>
       </AnchorPane>
 
-      <VBox alignment="CENTER_LEFT" prefHeight="45.0" minWidth="80.0" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+      <!-- colonna titolo: larghezza FISSA (non cresce) cosi le colonne a destra
+           cadono sempre allo stesso x in ogni riga; tronca col … via minWidth -->
+      <VBox alignment="CENTER_LEFT" prefHeight="45.0" minWidth="80.0" prefWidth="200.0" maxWidth="200.0">
          <children>
             <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">
                <font>
@@ -39,7 +41,8 @@
          </children>
       </VBox>
 
-      <HBox fx:id="tagsContainer" alignment="CENTER_RIGHT" spacing="5.0">
+      <!-- tag: e lo spacer che cresce (hgrow ALWAYS) e li tiene azzeccati a destra -->
+      <HBox fx:id="tagsContainer" alignment="CENTER_RIGHT" spacing="5.0" HBox.hgrow="ALWAYS">
          <children>
             <Label fx:id="favouriteLabel" alignment="CENTER" contentDisplay="CENTER" managed="false" maxHeight="21.0" maxWidth="21.0" minHeight="21.0" minWidth="21.0" prefHeight="21.0" prefWidth="21.0" style="-fx-background-color: #E53935; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 10;" text="" visible="false">
                <graphic>
@@ -73,7 +76,7 @@
          </font>
       </Label>
       
-      <Button fx:id="trackMenuButton" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand;" text="⋮">
+      <Button fx:id="trackMenuButton" minWidth="30.0" prefWidth="30.0" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand;" text="⋮">
          <HBox.margin>
             <Insets right="15.0" />
          </HBox.margin>

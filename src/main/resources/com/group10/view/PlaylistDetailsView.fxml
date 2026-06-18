@@ -71,10 +71,14 @@
                      <HBox.margin><Insets left="15.0" /></HBox.margin>
                      <font><Font size="12.0" /></font>
                   </Label>
+                  <!-- spacer copertina (40px) -->
                   <Region prefWidth="40.0" />
-                  <Label minWidth="80.0" style="-fx-text-fill: #78909C;" text="TITOLO" textFill="#78909C" HBox.hgrow="ALWAYS">
+                  <!-- TITOLO: stessa larghezza fissa (200) della titleVBox nei TrackItem -->
+                  <Label minWidth="80.0" prefWidth="200.0" maxWidth="200.0" style="-fx-text-fill: #78909C;" text="TITOLO" textFill="#78909C">
                      <font><Font size="12.0" /></font>
                   </Label>
+                  <!-- spacer che cresce, come il tagsContainer nei TrackItem -->
+                  <Region HBox.hgrow="ALWAYS" />
                   <Label minWidth="0.0" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="GENERE" textFill="#78909C">
                      <font><Font size="12.0" /></font>
                   </Label>
@@ -83,7 +87,8 @@
                   </Label>
                   <Label alignment="CENTER_RIGHT" minWidth="0.0" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="DURATA" textFill="#78909C">
                      <font><Font size="12.0" /></font>
-                     <HBox.margin><Insets right="45.0" /></HBox.margin>
+                     <!-- spazio del pulsante menu nei TrackItem: spacing15 + button30 + margin15 -->
+                     <HBox.margin><Insets right="60.0" /></HBox.margin>
                   </Label>
                </children>
                <VBox.margin>
