@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="root" alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleSelection" prefHeight="55.0" prefWidth="256.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="root" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" onMouseClicked="#handleSelection" prefHeight="55.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
          <HBox.margin>
@@ -30,7 +30,7 @@
          </children>
       </AnchorPane>
 
-      <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="415.0" HBox.hgrow="SOMETIMES">
+      <VBox alignment="CENTER_LEFT" prefHeight="45.0" HBox.hgrow="ALWAYS">
          <children>
             <Label fx:id="titleLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">
                <font>
