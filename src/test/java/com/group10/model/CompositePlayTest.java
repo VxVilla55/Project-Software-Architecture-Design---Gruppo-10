@@ -32,9 +32,9 @@ public class CompositePlayTest {
         
         // 2. Creiamo una playlist (usa il tuo Builder della playlist se preferisci!)
         PlaylistComponent playlist = new PlaylistComponent("La mia Playlist");
-        playlist.getTracks().add(t1); 
-        playlist.getTracks().add(t2);
-        
+        playlist.add(t1);
+        playlist.add(t2);
+                
         // 3. Le trattiamo in modo UNIFORME tramite l'interfaccia Playable
         Playable elementoDaRiprodurre = playlist;
         

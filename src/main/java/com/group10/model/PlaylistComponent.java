@@ -11,6 +11,7 @@ import com.group10.service.filter.TrackFilterStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -93,29 +94,28 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
         if (strategies.isEmpty()) {
             return Collections.unmodifiableList(staticTracks);
         }
-        //lista di unione: tracce filtrate + tracce aggiunte manualmente
-        List<TrackComponent> result = new ArrayList<>(staticTracks);
 
-        //soluzione migliore per evitare duplicati
-        Set<TrackComponent> existingTracks = new java.util.HashSet<>(result);
+        // Teniamo traccia delle esistenti per evitare duplicati
+        Set<TrackComponent> existingTracks = new HashSet<>(staticTracks);
+
         for (TrackComponent t : MusicCatalogue.getInstance().getTracks()) {
-            //flag per verificare se la traccia passa TUTTE le strategie
+            if (existingTracks.contains(t)) continue;
+
             boolean matchesAll = true;
-            //applichiamo tutti i filtri
             for (TrackFilterStrategy s : strategies) {
-                //appena ne fallisce uno la traccia può essere skippata
                 if (!s.matches(t)) {
-                    matchesAll = false; 
+                    matchesAll = false;
                     break;
                 }
             }
-            //skip delle traccia se non ha passato un filtro o è già presente
-            if (matchesAll && !existingTracks.contains(t)) {
-                result.add(t);
+
+            if (matchesAll) {
+                staticTracks.add(t);
                 existingTracks.add(t);
             }
         }
-        return result;
+
+        return staticTracks;
     }
     
     // aggiunge una traccia in coda

@@ -215,7 +215,7 @@ private void switchTrack(TrackComponent newTrack) {
     }
     
     
-public void startSimulation() {
+    public void startSimulation() {
         if (currentTrack == null) {
             System.out.println("⚠️ Nessuna traccia da riprodurre! Aggiungi un brano prima.");
             setState(new StoppedState());
@@ -245,7 +245,7 @@ public void startSimulation() {
                     javafx.application.Platform.runLater(() -> onTick.accept(currentTime));
                 }
                 
-                if (currentTime >= currentTrack.getDurationInSeconds()) {
+                if (currentTime >= currentTrack.getDurationInSeconds() && currentTrack != null) {
                     playbackMode.onTrackEnd(PlaybackEngine.this);
                 }
             }
