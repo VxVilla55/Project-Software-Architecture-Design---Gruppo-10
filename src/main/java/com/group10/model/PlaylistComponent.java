@@ -182,6 +182,13 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
             staticTracks.set(index, updatedTrack);
         }
     }
+    public void moveTrack(int fromIndex, int toIndex) {
+        if (fromIndex < 0 || fromIndex >= staticTracks.size() || toIndex < 0 || toIndex >= staticTracks.size()) 
+            return;
+
+        TrackComponent trackToMove = staticTracks.remove(fromIndex);
+        staticTracks.add(toIndex, trackToMove);
+    }
 }
     
 
