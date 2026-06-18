@@ -2,6 +2,8 @@ package com.group10.controller.track;
 
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
+import com.group10.service.command.CommandManager;
+import com.group10.service.command.ReorderTrackCommand;
 import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
@@ -23,7 +25,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -45,6 +50,7 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
     
     private TrackComponent track;
     private PlaylistComponent contextPlaylist = null;
+    private Integer position;
     
     public void setContextPlaylist(PlaylistComponent playlist) {
         this.contextPlaylist = playlist;
@@ -68,7 +74,12 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
         artistLabel.setText(track.getAuthor());
         genreLabel.setText(track.getGenre());
         yearLabel.setText(String.valueOf(track.getYear()));
-        indexLabel.setText("-");
+        if (position == null) {
+            indexLabel.setText("-");
+        }
+        else {
+            indexLabel.setText(String.valueOf(position+1));
+        }
         loadCoverImage(track.getCoverImagePath());
         
         Duration trackDuration = Duration.ofSeconds(track.getDurationInSeconds());
@@ -154,5 +165,50 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
         
         layer.getChildren().addAll(popup, background);
         root.getChildren().add(layer);
+    }
+
+    public void setIndexInContainer(Integer position) {
+        this.position = position;
+        indexLabel.setText(String.valueOf(position+1));
+        setupDragAndDrop();
+    }
+
+    private void setupDragAndDrop() {
+        //QUANDO PARTE IL DRAG
+        root.setOnDragDetected(event -> {
+            Dragboard db = root.startDragAndDrop(TransferMode.MOVE);
+            //degli appunti per salvare la posizione corrente all'inizio della trascinata
+            ClipboardContent content = new ClipboardContent();
+            content.putString(Integer.toString(position));
+            db.setContent(content);
+            event.consume();
+        });
+
+        //QUANDO QUALCOSA PASSA SOPRA
+        root.setOnDragOver(event -> {
+            if (event.getGestureSource() != root && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+            event.consume();
+        });
+
+        //QUANDO IL MOUSE VIENE RILASCIATO QUI
+        root.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+            
+            if (db.hasString() && contextPlaylist != null) {
+                //recupera dalla Dragboard la posizione vecchia
+                int fromIndex = Integer.parseInt(db.getString());
+                //raccoglie il nuovo indice
+                int toIndex = position; 
+                //lancio comando di riordino
+                CommandManager.getInstance().executeCommand(new ReorderTrackCommand(contextPlaylist, fromIndex, toIndex));
+                
+                success = true;
+            }
+            event.setDropCompleted(success);
+            event.consume();
+        });
     }
 }
