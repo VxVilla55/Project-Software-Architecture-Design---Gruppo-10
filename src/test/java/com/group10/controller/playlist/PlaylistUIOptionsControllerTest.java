@@ -9,17 +9,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.framework.junit5.Start;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Test per il menu opzioni di una playlist (accoda, rinomina, elimina)
-// I gestori degli eventi non vengono testati perché chiamano MainViewController
-@ExtendWith(ApplicationExtension.class)
+// test per il menu opzioni di una playlist (accoda, rinomina, elimina)
 class PlaylistUIOptionsControllerTest extends ApplicationTest {
 
         private FxRobot robot = new FxRobot();
@@ -45,32 +40,32 @@ class PlaylistUIOptionsControllerTest extends ApplicationTest {
     }
 
     @Test
-    void addToQueueButton_isVisible() {
-        // Il pulsante per accodare la playlist deve essere visibile con il testo corretto
+    void addToQueueButtonIsVisible() {
+        // pulsante per accodare la playlist deve essere visibile con il testo corretto
         Button btn = robot.lookup("#addPlaylistToQueueButton").queryAs(Button.class);
         assertTrue(btn.isVisible());
         assertEquals("Aggiungi alla coda", btn.getText());
     }
 
     @Test
-    void renameButton_isVisible() {
-        // Il pulsante di rinomina deve essere visibile con il testo corretto
+    void renameButtonIsVisible() {
+        // pulsante di rinomina deve essere visibile con il testo corretto
         Button btn = robot.lookup("#renamePlaylistButton").queryAs(Button.class);
         assertTrue(btn.isVisible());
         assertEquals("Rinomina playlist", btn.getText());
     }
 
     @Test
-    void deleteButton_isVisible() {
-        // Il pulsante di eliminazione deve essere visibile con il testo corretto
+    void deleteButtonIsVisible() {
+        //pulsante di eliminazione deve essere visibile con il testo corretto
         Button btn = robot.lookup("#removePlaylistButton").queryAs(Button.class);
         assertTrue(btn.isVisible());
         assertEquals("Elimina playlist", btn.getText());
     }
 
     @Test
-    void menu_hasAllThreeButtons() {
-        // Il menu deve contenere esattamente i tre pulsanti previsti
+    void menuHasAllThreeButtons() {
+        //mmenu deve contenere esattamente i tre pulsanti previsti
         assertNotNull(robot.lookup("#addPlaylistToQueueButton").queryAs(Button.class));
         assertNotNull(robot.lookup("#renamePlaylistButton").queryAs(Button.class));
         assertNotNull(robot.lookup("#removePlaylistButton").queryAs(Button.class));

@@ -3,7 +3,6 @@ package com.group10.controller;
 import com.group10.model.TrackComponent;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,25 +10,20 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.framework.junit5.ApplicationExtension;
-import org.testfx.framework.junit5.Start;
-import org.testfx.util.WaitForAsyncUtils;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Test per il pannello del player (barra inferiore di riproduzione)
-@ExtendWith(ApplicationExtension.class)
-class PlayerViewControllerTest {
+//teest per il pannello del player (barra inferiore di riproduzione)
+class PlayerViewControllerTest extends ApplicationTest {
 
+    private FxRobot robot = new FxRobot();
     private PlayerViewController controller;
 
-    @Start
-    void start(Stage stage) throws Exception {
-        // Pulizia dell'engine prima di ogni test per evitare interferenze
+    @Override
+    public void start(Stage stage) throws Exception {
         PlaybackEngine.getInstance().clearQueue();
-        WaitForAsyncUtils.waitForFxEvents();
 
         controller = new PlayerViewController();
         FXMLLoader loader = new FXMLLoader(
@@ -41,72 +35,69 @@ class PlayerViewControllerTest {
         stage.show();
     }
 
-    // --- Stato iniziale senza traccia corrente ---
 
     @Test
-    void trackTitle_isEmptyOnOpen(FxRobot robot) {
-        // Senza una traccia in riproduzione il titolo deve essere vuoto
+    void trackTitleIsEmpty() {
+        //senza una traccia in riproduzione il titolo deve essere vuoto
         Label trackTitle = robot.lookup("#trackTitle").queryAs(Label.class);
         assertEquals("", trackTitle.getText());
     }
 
     @Test
-    void trackAuthor_isEmptyOnOpen(FxRobot robot) {
-        // Senza una traccia in riproduzione l'autore deve essere vuoto
+    void trackAuthorIsEmpty() {
+        // senza una traccia in riproduzione l'autore deve essere vuoto
         Label trackAuthor = robot.lookup("#trackAuthor").queryAs(Label.class);
         assertEquals("", trackAuthor.getText());
     }
 
     @Test
-    void currentTimeLabel_showsZeroOnOpen(FxRobot robot) {
+    void currentTimeLabelShowsZero() {
         Label currentTimeLabel = robot.lookup("#currentTimeLabel").queryAs(Label.class);
         assertEquals("00:00", currentTimeLabel.getText());
     }
 
     @Test
-    void totalTimeLabel_showsZeroOnOpen(FxRobot robot) {
+    void totalTimeLabelShowsZero() {
         Label totalTimeLabel = robot.lookup("#totalTimeLabel").queryAs(Label.class);
         assertEquals("00:00", totalTimeLabel.getText());
     }
 
     @Test
-    void playPauseIcon_hasImageOnOpen(FxRobot robot) {
-        // L'icona play/pausa deve essere già caricata all'apertura
+    void playPauseIconHasImage() {
+        // k'icona play/pausa deve essere già caricata all'apertura
         ImageView icon = robot.lookup("#playPauseIcon").queryAs(ImageView.class);
         assertNotNull(icon.getImage());
     }
 
     @Test
-    void loopIcon_hasImageOnOpen(FxRobot robot) {
+    void loopIconHasImage() {
         ImageView icon = robot.lookup("#loopButtonIcon").queryAs(ImageView.class);
         assertNotNull(icon.getImage());
     }
 
     @Test
-    void shuffleIcon_hasImageOnOpen(FxRobot robot) {
+    void shuffleIconHasImage() {
         ImageView icon = robot.lookup("#shuffleButtonIcon").queryAs(ImageView.class);
         assertNotNull(icon.getImage());
     }
 
     @Test
-    void loopIcon_isDimmedInitially(FxRobot robot) {
-        // Loop disabilitato → icona a opacità ridotta (0.2)
+    void loopIconIsDimmedInitially() {
+        // loop disabilitato -> icona a opacità ridotta (0.2)
         ImageView icon = robot.lookup("#loopButtonIcon").queryAs(ImageView.class);
         assertEquals(0.2, icon.getOpacity(), 0.01);
     }
 
     @Test
-    void shuffleIcon_isDimmedInitially(FxRobot robot) {
-        // Shuffle disabilitato → icona a opacità ridotta (0.2)
+    void shuffleIconIsDimmedInitially() {
+        // shuffle disabilitato -> icona a opacità ridotta (0.2)
         ImageView icon = robot.lookup("#shuffleButtonIcon").queryAs(ImageView.class);
         assertEquals(0.2, icon.getOpacity(), 0.01);
     }
 
-    // --- Interazione con l'engine ---
-
     @Test
-    void update_doesNotCrashWithTrackInQueue(FxRobot robot) {
-        // Verifica che il metodo update() non lanci eccezioni con una traccia in coda
+    void update_DoesNotCrashWithTrackInQueue() {
+        // verifica che il metodo update() non lanci eccezioni con una traccia in coda
         TrackComponent track = new TrackBuilder()
                 .setTitle("Dark Side of the Moon")
                 .setAuthor("Pink Floyd")
@@ -114,24 +105,22 @@ class PlayerViewControllerTest {
                 .build();
 
         PlaybackEngine.getInstance().addTrackToQueue(track);
-        Platform.runLater(() -> controller.update());
-        WaitForAsyncUtils.waitForFxEvents();
+        interact(() -> controller.update());
 
         Label trackTitle = robot.lookup("#trackTitle").queryAs(Label.class);
         assertNotNull(trackTitle);
     }
 
     @Test
-    void shuffleIcon_opacityChangesAfterToggle(FxRobot robot) {
-        // Attivare lo shuffle deve cambiare l'opacità dell'icona
+    void shuffleIconOpacityChangesAfterToggle() {
+        // attivare lo shuffle deve cambiare l'opacità dell'icona
         ImageView shuffleIcon = robot.lookup("#shuffleButtonIcon").queryAs(ImageView.class);
         double opacityBefore = shuffleIcon.getOpacity();
 
-        Platform.runLater(() -> {
+        interact(() -> {
             PlaybackEngine.getInstance().toggleShuffle();
             shuffleIcon.setOpacity(PlaybackEngine.getInstance().isShuffled() ? 0.7 : 0.2);
         });
-        WaitForAsyncUtils.waitForFxEvents();
 
         assertNotEquals(opacityBefore, shuffleIcon.getOpacity());
     }

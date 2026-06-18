@@ -12,11 +12,10 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationTest;
-import org.testfx.framework.junit5.Start;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Test per la card della playlist nella griglia
+// test per la card della playlist nella griglia
 class PlaylistUIComponentCardTest extends ApplicationTest {
 
     private FxRobot robot = new FxRobot();
@@ -42,21 +41,21 @@ class PlaylistUIComponentCardTest extends ApplicationTest {
     }
 
     @Test
-    void name_isDisplayed() {
-        // Il nome della playlist deve comparire nel primo slot
+    void nameIsDisplayed() {
+        // il nome della playlist deve comparire nel primo slot
         Label nameLabel = robot.lookup("#itemPlace1").queryAs(Label.class);
         assertEquals("My Favourites", nameLabel.getText());
     }
 
     @Test
-    void trackCount_isInSubtitle() {
-        // Il sottotitolo deve contenere il numero di tracce
+    void trackCountIsInSubtitle() {
+        // il sottotitolo deve contenere il numero di tracce
         Label subtitleLabel = robot.lookup("#itemPlace2").queryAs(Label.class);
         assertTrue(subtitleLabel.getText().contains("2 tracce"));
     }
 
     @Test
-    void coverImage_isLoaded() {
+    void coverImageIsLoaded() {
         // L'immagine di copertina della playlist deve essere caricata
         ImageView imageView = robot.lookup("#imageView").queryAs(ImageView.class);
         assertNotNull(imageView.getImage());

@@ -9,19 +9,18 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
-import org.testfx.framework.junit5.ApplicationExtension;
-import org.testfx.framework.junit5.Start;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Test per la riga della traccia nella lista libreria/playlist
-@ExtendWith(ApplicationExtension.class)
-class TrackUIComponentItemTest {
+//teest per la riga della traccia nella lista libreria/playlist
+class TrackUIComponentItemTest extends ApplicationTest {
 
-    @Start
-    void start(Stage stage) throws Exception {
+    private FxRobot robot = new FxRobot();
+
+    @Override
+    public void start(Stage stage) throws Exception {
         TrackComponent track = new TrackBuilder()
                 .setTitle("Hotel California")
                 .setAuthor("Eagles")
@@ -41,47 +40,47 @@ class TrackUIComponentItemTest {
     }
 
     @Test
-    void title_isDisplayed(FxRobot robot) {
+    void titleIsDisplayed() {
         Label titleLabel = robot.lookup("#titleLabel").queryAs(Label.class);
         assertEquals("Hotel California", titleLabel.getText());
     }
 
     @Test
-    void artist_isDisplayed(FxRobot robot) {
+    void artitIsDisplayed() {
         Label artistLabel = robot.lookup("#artistLabel").queryAs(Label.class);
         assertEquals("Eagles", artistLabel.getText());
     }
 
     @Test
-    void genre_isDisplayed(FxRobot robot) {
+    void genreIsDisplayed() {
         Label genreLabel = robot.lookup("#genreLabel").queryAs(Label.class);
         assertEquals("Rock", genreLabel.getText());
     }
 
     @Test
-    void year_isDisplayed(FxRobot robot) {
+    void yearIsDisplayed() {
         Label yearLabel = robot.lookup("#yearLabel").queryAs(Label.class);
         assertEquals("1977", yearLabel.getText());
     }
 
     @Test
-    void duration_isFormatted(FxRobot robot) {
-        // 391 secondi → 00:06:31
+    void durationIsFormatted() {
+        // 391 secondi -> 00:06:31
         Label durationLabel = robot.lookup("#durationLabel").queryAs(Label.class);
         assertEquals("00:06:31", durationLabel.getText());
     }
 
     @Test
-    void coverImage_isLoaded(FxRobot robot) {
-        // La miniatura della copertina deve essere caricata
+    void coverImageIsLoaded() {
+        // ka miniatura della copertina deve essere caricata
         ImageView coverImage = robot.lookup("#coverImage").queryAs(ImageView.class);
         assertNotNull(coverImage.getImage());
         assertTrue(coverImage.getImage().getWidth() > 0);
     }
 
     @Test
-    void tagLabels_areHiddenByDefault(FxRobot robot) {
-        // I tag speciali devono essere nascosti se la traccia non li ha impostati
+    void tagLabelsAreHiddenByDefault() {
+        //i tag speciali devono essere nascosti se la traccia non li ha impostati
         Label favourite = robot.lookup("#favouriteLabel").queryAs(Label.class);
         Label newRelease = robot.lookup("#newReleaseLabel").queryAs(Label.class);
         Label explicit   = robot.lookup("#explicitLabel").queryAs(Label.class);

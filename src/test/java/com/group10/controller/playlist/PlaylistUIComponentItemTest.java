@@ -17,7 +17,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Test per la riga della playlist nella lista della libreria
+// test per la riga della playlist nella lista della libreria
 @ExtendWith(ApplicationExtension.class)
 class PlaylistUIComponentItemTest extends ApplicationTest {
 
@@ -47,27 +47,21 @@ class PlaylistUIComponentItemTest extends ApplicationTest {
     }
 
     @Test
-    void name_isDisplayed() {
+    void nameIsDisplayed() {
         Label nameLabel = robot.lookup("#nameLabel").queryAs(Label.class);
         assertEquals("Rock Classics", nameLabel.getText());
     }
 
     @Test
-    void trackCount_pluralForm() {
+    void trackCountPlural() {
         // deve mostrare il plurale "brani"
         Label trackCountLabel = robot.lookup("#trackCountLabel").queryAs(Label.class);
         assertEquals("3 brani", trackCountLabel.getText());
-    }
-
-    @Test
-    void trackCount_notWrongSingular() {
-        // verifica che non venga usato il singolare con più tracce
-        Label trackCountLabel = robot.lookup("#trackCountLabel").queryAs(Label.class);
         assertFalse(trackCountLabel.getText().equals("3 brano"));
     }
 
     @Test
-    void coverImage_isLoaded() {
+    void coverImageIsLoaded() {
         // la copertina di default per le playlist deve essere caricata
         ImageView coverImage = robot.lookup("#coverImage").queryAs(ImageView.class);
         assertNotNull(coverImage.getImage());

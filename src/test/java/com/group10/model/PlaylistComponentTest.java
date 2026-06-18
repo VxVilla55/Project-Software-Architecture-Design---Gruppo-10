@@ -25,7 +25,7 @@ class PlaylistComponentTest {
         //creo una playlist base riusata da più test
         playlist = new PlaylistComponent("My Playlist");
     }
-    
+
     private TrackComponent makeTrack(String title, String author, int duration) {
         TrackBuilder b = new TrackBuilder();
         b.setTitle(title);
@@ -218,6 +218,7 @@ class PlaylistComponentTest {
         // 1. Setup
         PlaybackEngine engine = PlaybackEngine.getInstance();
         engine.clearQueue(); // Svuotiamo la coda dell'engine
+        engine.setCurrentTrack(null);
         
         TrackComponent track1 = makeTrack("T1", "A", 100);
         TrackComponent track2 = makeTrack("T2", "B", 200);
