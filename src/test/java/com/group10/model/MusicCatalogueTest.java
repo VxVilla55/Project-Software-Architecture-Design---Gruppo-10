@@ -259,4 +259,127 @@ public class MusicCatalogueTest {
         assertTrue(chiamato1.get());
         assertTrue(chiamato2.get());
     }
+    // ====================================================================================
+    // TASK T12.4 - TEST SU GET TOP TRACKS E GET TOP PLAYLISTS
+    // ====================================================================================
+
+    @Test
+    void getTopTracks_ordinamentoCorretto() {
+        MusicCatalogue cat = MusicCatalogue.getInstance();
+        TrackComponent t1 = makeTrack("Canzone Poco Ascoltata", "A");
+        TrackComponent t2 = makeTrack("Hit Estiva", "A");
+        TrackComponent t3 = makeTrack("Canzone Media", "A");
+
+        // Simuliamo gli ascolti
+        for(int i = 0; i < 10; i++) t2.incrementPlayCount(); // 10 ascolti
+        for(int i = 0; i < 5; i++) t3.incrementPlayCount();  // 5 ascolti
+        // t1 rimane a 0 ascolti
+
+        cat.addTrack(t1);
+        cat.addTrack(t2);
+        cat.addTrack(t3);
+
+        // Chiediamo la top 2
+        java.util.List<TrackComponent> top = cat.getTopTracks(2);
+
+        assertEquals(2, top.size(), "La lista deve contenere esattamente 2 elementi");
+        assertEquals(t2, top.get(0), "Al primo posto deve esserci la Hit Estiva (10 ascolti)");
+        assertEquals(t3, top.get(1), "Al secondo posto deve esserci la Canzone Media (5 ascolti)");
+    }
+
+    @Test
+    void getTopTracks_listaVuota() {
+        MusicCatalogue cat = MusicCatalogue.getInstance();
+        
+        // Catalogo vuoto, chiediamo la top 5
+        java.util.List<TrackComponent> top = cat.getTopTracks(5);
+        
+        assertNotNull(top, "La lista non deve essere null, ma vuota");
+        assertTrue(top.isEmpty(), "La lista deve essere vuota se il catalogo non ha tracce");
+    }
+
+    @Test
+    void getTopTracks_paritaDiContatore() {
+        MusicCatalogue cat = MusicCatalogue.getInstance();
+        TrackComponent t1 = makeTrack("Pareggio 1", "A");
+        TrackComponent t2 = makeTrack("Pareggio 2", "B");
+
+        // Stesso numero di ascolti
+        t1.incrementPlayCount();
+        t2.incrementPlayCount();
+
+        cat.addTrack(t1);
+        cat.addTrack(t2);
+
+        java.util.List<TrackComponent> top = cat.getTopTracks(2);
+
+        assertEquals(2, top.size());
+        assertEquals(1, top.get(0).getPlayCount(), "Il primo elemento deve avere 1 ascolto");
+        assertEquals(1, top.get(1).getPlayCount(), "Il secondo elemento deve avere 1 ascolto");
+        assertTrue(top.contains(t1) && top.contains(t2), "Entrambe le tracce devono essere nella top 2");
+    }
+
+    @Test
+    void getTopPlaylists_ordinamentoCorretto() {
+        MusicCatalogue cat = MusicCatalogue.getInstance();
+        
+        PlaylistComponent p1 = makePlaylist("Playlist Flop"); // 0 ascolti
+        PlaylistComponent p2 = makePlaylist("Playlist Top");  // 10 ascolti
+        PlaylistComponent p3 = makePlaylist("Playlist Mid");  // 5 ascolti
+
+        TrackComponent hit = makeTrack("Hit", "A");
+        for(int i = 0; i < 10; i++) hit.incrementPlayCount();
+        
+        TrackComponent mid = makeTrack("Mid", "A");
+        for(int i = 0; i < 5; i++) mid.incrementPlayCount();
+
+        p2.add(hit); // p2 totalizza 10 ascolti
+        p3.add(mid); // p3 totalizza 5 ascolti
+        // p1 rimane vuota/a 0 ascolti
+
+        cat.addPlaylist(p1);
+        cat.addPlaylist(p2);
+        cat.addPlaylist(p3);
+
+        java.util.List<PlaylistComponent> top = cat.getTopPlaylists(2);
+
+        assertEquals(2, top.size());
+        assertEquals(p2, top.get(0), "Al primo posto deve esserci la Playlist Top");
+        assertEquals(p3, top.get(1), "Al secondo posto deve esserci la Playlist Mid");
+    }
+
+    @Test
+    void getTopPlaylists_listaVuota() {
+        MusicCatalogue cat = MusicCatalogue.getInstance();
+        java.util.List<PlaylistComponent> top = cat.getTopPlaylists(3);
+        
+        assertNotNull(top);
+        assertTrue(top.isEmpty(), "La lista deve essere vuota se non ci sono playlist");
+    }
+
+    @Test
+    void getTopPlaylists_paritaDiContatore() {
+        MusicCatalogue cat = MusicCatalogue.getInstance();
+        
+        PlaylistComponent p1 = makePlaylist("Playlist Pari 1");
+        PlaylistComponent p2 = makePlaylist("Playlist Pari 2");
+
+        TrackComponent t1 = makeTrack("Track 1", "A");
+        TrackComponent t2 = makeTrack("Track 2", "B");
+        t1.incrementPlayCount(); // 1 ascolto
+        t2.incrementPlayCount(); // 1 ascolto
+
+        p1.add(t1);
+        p2.add(t2);
+
+        cat.addPlaylist(p1);
+        cat.addPlaylist(p2);
+
+        java.util.List<PlaylistComponent> top = cat.getTopPlaylists(2);
+
+        assertEquals(2, top.size());
+        assertEquals(1, top.get(0).getPlayCount());
+        assertEquals(1, top.get(1).getPlayCount());
+        assertTrue(top.contains(p1) && top.contains(p2), "Entrambe le playlist devono essere presenti");
+    }
 }
