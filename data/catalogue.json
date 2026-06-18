@@ -7,7 +7,9 @@
       "genre": "hard rock",
       "year": 1984,
       "tags": [
-        "FAVORITE"
+        "NEW_RELEASE",
+        "FAVORITE",
+        "EXPLICIT"
       ]
     },
     {
@@ -97,8 +99,8 @@
       "genre": "rock",
       "year": 2000,
       "tags": [
-        "EXPLICIT",
-        "FAVORITE"
+        "FAVORITE",
+        "EXPLICIT"
       ]
     },
     {
@@ -108,8 +110,8 @@
       "genre": "rock",
       "year": 2005,
       "tags": [
-        "EXPLICIT",
-        "FAVORITE"
+        "FAVORITE",
+        "EXPLICIT"
       ]
     },
     {
