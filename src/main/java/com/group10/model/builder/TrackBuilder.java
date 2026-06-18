@@ -6,8 +6,6 @@ import java.util.Set;
 
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Builder;
-
-// IL TRUCCO È QUI: Importiamo l'Enum annidato dentro TrackComponent
 import com.group10.model.TrackComponent.Tag; 
 
 /**
@@ -80,13 +78,24 @@ public class TrackBuilder implements Builder<TrackComponent> {
         return this;
     }
 
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public int getDuration() { return duration; }
-    public String getGenre() { return genre; }
-    public int getYear() { return year; }
-    public String getCoverImagePath() { return coverImagePath; }
-
+    public String getTitle() {
+        return title;
+    }
+    public String getAuthor() {
+        return author;
+    }
+    public int getDuration() {
+        return duration;
+    }
+    public String getGenre() {
+        return genre;
+    }
+    public int getYear() {
+        return year;
+    }
+    public String getCoverImagePath() {
+        return coverImagePath;
+    }
     public Set<Tag> getTags() {
         return tags;
     }
