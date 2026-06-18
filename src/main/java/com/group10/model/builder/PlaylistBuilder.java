@@ -8,6 +8,8 @@ import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Builder;
+import com.group10.service.strategy.TrackFilterStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -27,10 +29,12 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
 
     private String name;
     private final List<TrackComponent> tracks;
+    private final List<TrackFilterStrategy> strategies;
 
     public PlaylistBuilder() {
         this.name = "Nuova Playlist";   
         this.tracks = new ArrayList<>();
+        this.strategies = new ArrayList<>();
     }
 
     // imposta il nome della playlist da costruire
@@ -57,9 +61,17 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
         this.tracks.addAll(selectedTracks);
         return this;
     }
+
+    public PlaylistBuilder addStrategy(TrackFilterStrategy strategy) {
+        this.strategies.add(strategy);
+        return this;
+    }
     
     public List<TrackComponent> getTracks() {
         return tracks;
+    }
+    public List<TrackFilterStrategy> getStrategies() {
+        return strategies;
     }
 
     // costruisce la playlist con il nome e le tracce accumulati finora

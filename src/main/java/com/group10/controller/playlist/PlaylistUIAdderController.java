@@ -8,6 +8,10 @@ import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.service.command.AddPlaylistCommand;
 import com.group10.service.command.CommandManager;
+import com.group10.service.strategy.GenreFilterStrategy;
+import com.group10.service.strategy.TagFilterStrategy;
+import com.group10.service.strategy.YearFilterStrategy;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -66,6 +70,7 @@ public class PlaylistUIAdderController implements AbstractUIComponent, Initializ
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         genreComboBox.setItems(FXCollections.observableArrayList(MusicCatalogue.getInstance().getGenres()) );
+        hideError();
         update();
     }
     
@@ -92,55 +97,41 @@ public class PlaylistUIAdderController implements AbstractUIComponent, Initializ
     
     @FXML
     private void handleCreatePlaylist(ActionEvent event) {
-        String playlistName = playlistNameInput.getText();
+        String playlistName = playlistNameInput.getText().trim();
+        if (playlistName == null || playlistName.trim().isEmpty()) {
+            showError("Il nome della playlist non può essere vuoto.");
+        }
+
+        PlaylistComponent playlist;
         try {
-            PlaylistComponent playlist;
+            PlaylistBuilder builder = new PlaylistBuilder()
+                        .setName(playlistName);
 
             if (autoCreateCheckBox.isSelected()) {
                 
                 if (!automaticCreationValidation()) {
                     return;
                 }
-                //estraiamo le tracce secondo i filtri
-                List<TrackComponent> selectedTracks = MusicCatalogue.getInstance().getTracks()
-                        .stream()
-                        .filter(track -> {
-                            //fitraggio sui tag se attivo
-                            if (filterByTagCheckBox.isSelected()) {
-                                //
-                                if (favCheckBox.isSelected() && !track.isFavourite()) return false;
-                                if (newCheckBox.isSelected() && !track.isNewRelease()) return false;
-                                if (explicitCheckBox.isSelected() && !track.isExplicit()) return false;
-                            }
+                if (filterByTagCheckBox.isSelected()) {
+                    builder.addStrategy(new TagFilterStrategy(
+                        favCheckBox.isSelected(),
+                        newCheckBox.isSelected(),
+                        explicitCheckBox.isSelected()
+                    ));
+                }
+                if (filterByYearCheckBox.isSelected()) {
+                    int from = yearFromInput.getText().isEmpty() ? Integer.MIN_VALUE 
+                            : Integer.parseInt(yearFromInput.getText());
+                    int to   = yearToInput.getText().isEmpty()   ? Integer.MAX_VALUE 
+                            : Integer.parseInt(yearToInput.getText());
+                    builder.addStrategy(new YearFilterStrategy(from, to));
+                }
+                if (filterByGenreCheckBox.isSelected()) {
+                    builder.addStrategy(new GenreFilterStrategy(genreComboBox.getValue()));
+                }
 
-                            //fitraggio sul anno
-                            if (filterByYearCheckBox.isSelected()) {
-                                int trackYear = track.getYear();
-                                if (!yearFromInput.getText().isEmpty()) {
-                                    int from = Integer.parseInt(yearFromInput.getText());
-                                    if (trackYear < from) return false;
-                                }
-                                if (!yearToInput.getText().isEmpty()) {
-                                    int to = Integer.parseInt(yearToInput.getText());
-                                    if (trackYear > to) return false;
-                                }
-                            }
-
-                            //filtraggio sul genere
-                            if (filterByGenreCheckBox.isSelected() && genreComboBox.getValue() != null) {
-                                String selectedGenre = genreComboBox.getValue().toString();
-                                if (!selectedGenre.equalsIgnoreCase(track.getGenre())) return false;
-                            }
-
-                            return true;
-                        })
-                        .collect(Collectors.toList());
-
-                //inseriamo le tracce filtrate nella playlist
-                playlist = new PlaylistBuilder()
-                        .setName(playlistName)
-                        .addTracks(selectedTracks.stream().toList())
-                        .build();
+                
+                playlist = builder.build();
             } else {
                 // Playlist manuale vuota
                 playlist = new PlaylistBuilder()

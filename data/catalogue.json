@@ -97,8 +97,8 @@
       "genre": "rock",
       "year": 2000,
       "tags": [
-        "FAVORITE",
-        "EXPLICIT"
+        "EXPLICIT",
+        "FAVORITE"
       ]
     },
     {
@@ -108,8 +108,8 @@
       "genre": "rock",
       "year": 2005,
       "tags": [
-        "FAVORITE",
-        "EXPLICIT"
+        "EXPLICIT",
+        "FAVORITE"
       ]
     },
     {
@@ -159,6 +159,43 @@
         "Keep the Faith::Bon Jovi",
         "We Weren\u0027t Born to Follow::Bon Jovi",
         "Who Says You Can\u0027t Go Home::Bon Jovi"
+      ]
+    },
+    {
+      "name": "asdasd",
+      "trackKeys": [
+        "We Weren\u0027t Born to Follow::Bon Jovi"
+      ]
+    },
+    {
+      "name": "asdasdasd",
+      "trackKeys": [
+        "Runaway::Bon Jovi",
+        "Livin\u0027 on a Prayer::Bon Jovi",
+        "Wanted Dead or Alive::Bon Jovi",
+        "Bed of Roses::Bon Jovi",
+        "Always::Bon Jovi",
+        "It\u0027s My Life::Bon Jovi",
+        "Have a Nice Day::Bon Jovi"
+      ]
+    },
+    {
+      "name": "sasadasdasd",
+      "trackKeys": [
+        "Runaway::Bon Jovi",
+        "Livin\u0027 on a Prayer::Bon Jovi",
+        "You Give Love a Bad Name::Bon Jovi",
+        "Wanted Dead or Alive::Bon Jovi",
+        "Bad Medicine::Bon Jovi",
+        "Keep the Faith::Bon Jovi",
+        "Bed of Roses::Bon Jovi",
+        "In These Arms::Bon Jovi",
+        "Always::Bon Jovi",
+        "Someday I\u0027ll Be Saturday Night::Bon Jovi",
+        "It\u0027s My Life::Bon Jovi",
+        "Have a Nice Day::Bon Jovi",
+        "Who Says You Can\u0027t Go Home::Bon Jovi",
+        "We Weren\u0027t Born to Follow::Bon Jovi"
       ]
     }
   ]
