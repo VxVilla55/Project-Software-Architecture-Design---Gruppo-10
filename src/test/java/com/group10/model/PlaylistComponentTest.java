@@ -25,6 +25,7 @@ class PlaylistComponentTest {
         //creo una playlist base riusata da più test
         playlist = new PlaylistComponent("My Playlist");
     }
+    
     private TrackComponent makeTrack(String title, String author, int duration) {
         TrackBuilder b = new TrackBuilder();
         b.setTitle(title);

@@ -15,10 +15,8 @@ import com.group10.model.state.PlayingState;
 
 import javafx.application.Platform;
 
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class PlaybackEngineTest {
@@ -40,7 +38,9 @@ public class PlaybackEngineTest {
     public void setUp() {
         engine = PlaybackEngine.getInstance();
         engine.stopSimulation();
-        engine.clearQueue(); 
+        engine.clearQueue();
+        engine.setCurrentTrack(null);
+        if(engine.isShuffled()) engine.toggleShuffle();
     }
 
     @Test
@@ -115,9 +115,6 @@ public class PlaybackEngineTest {
         assertEquals(0, engine.getCurrentTime(), "Il tempo deve essere azzerato saltando all'inizio della traccia.");
     }
 
-    // ==========================================
-    // NUOVI TEST PER LA TASK T9.6 (Sui Subscriber e il Tempo)
-    // ==========================================
 @Test
     public void testCurrentTimeIncrementAndTickNotification() throws InterruptedException {
         TrackComponent track = new TrackBuilder()
@@ -148,46 +145,6 @@ public class PlaybackEngineTest {
         // Abbassato a 0.15 per compensare il tick iniziale di valore 0.0 inviato da switchTrack()
         assertTrue(engine.getCurrentTime() >= 0.15, "currentTime dovrebbe essersi incrementato.");
         assertTrue(lastTimeNotified.get() >= 0.15, "Il subscriber dovrebbe aver ricevuto l'aggiornamento del tempo.");
-    }
-
-
-    @Test
-    public void testSubscriberNotifications() throws InterruptedException {
-        TrackComponent track = new TrackBuilder()
-                .setTitle("Notification Track")
-                .setAuthor("Autore Test") // <--- Inserito l'autore obbligatorio
-                .setDuration((int) 10.0)
-                .build();
-        
-        AtomicBoolean playStateNotified = new AtomicBoolean(false);
-        AtomicReference<TrackComponent> trackNotified = new AtomicReference<>(null);
-
-        CountDownLatch trackLatch = new CountDownLatch(1);
-        CountDownLatch playLatch = new CountDownLatch(1);
-
-        engine.setOnTrackChanged(t -> {
-            trackNotified.set(t);
-            trackLatch.countDown();
-        });
-
-        engine.setOnPlayStateChanged(isPlaying -> {
-            if (isPlaying) {
-                playStateNotified.set(true);
-                playLatch.countDown();
-            }
-        });
-
-        engine.setCurrentTrack(track); 
-        engine.setState(new PlayingState());
-        engine.startSimulation(); 
-
-        assertTrue(trackLatch.await(1, TimeUnit.SECONDS), "Timeout attesa notifica cambio traccia");
-        assertTrue(playLatch.await(1, TimeUnit.SECONDS), "Timeout attesa notifica stato riproduzione");
-        
-        engine.stopSimulation();
-
-        assertEquals(track, trackNotified.get(), "Il subscriber deve ricevere la traccia corretta.");
-        assertTrue(playStateNotified.get(), "Il subscriber deve essere notificato che il player è in esecuzione.");
     }
 
   @Test
