@@ -114,7 +114,7 @@
                               </Label>
                               <HBox alignment="CENTER" spacing="10.0">
                                  <children>
-                                    <ToggleButton fx:id="favoriteButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #E53935; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 13;">
+                                    <ToggleButton fx:id="favoriteButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" style="-fx-background-color: #c36558; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 13;">
                                        <graphic>
                                           <ImageView fitHeight="15.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true" translateY="1.0">
                                              <image>
@@ -125,8 +125,8 @@
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin></ToggleButton>
-                                    <ToggleButton fx:id="newReleaseButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 13;" text="NEW" />
-                                    <ToggleButton fx:id="explicitButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: #FFB300; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 13;" text="E" />
+                                    <ToggleButton fx:id="newReleaseButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: #98b193; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 13;" text="NEW" />
+                                    <ToggleButton fx:id="explicitButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="30.0" style="-fx-background-color: #d6b35e; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 13;" text="E" />
                                  </children>
                               </HBox>
                            </children>
