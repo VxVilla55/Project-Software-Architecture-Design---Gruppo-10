@@ -24,22 +24,22 @@
          </children>
       </AnchorPane>
 
-      <VBox alignment="CENTER_LEFT" prefHeight="45.0" HBox.hgrow="ALWAYS">
+      <VBox alignment="CENTER_LEFT" prefHeight="45.0" minWidth="80.0" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
          <children>
-            <Label fx:id="titleLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">
+            <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="artistLabel" style="-fx-text-fill: #78909C;" text="Nome Artista">
+            <Label fx:id="artistLabel" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #78909C;" text="Nome Artista">
                <font>
                   <Font size="12.0" />
                </font>
             </Label>
          </children>
       </VBox>
-      
-      <HBox fx:id="tagsContainer" alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+
+      <HBox fx:id="tagsContainer" alignment="CENTER_RIGHT" spacing="5.0">
          <children>
             <Label fx:id="favouriteLabel" alignment="CENTER" contentDisplay="CENTER" managed="false" maxHeight="21.0" maxWidth="21.0" minHeight="21.0" minWidth="21.0" prefHeight="21.0" prefWidth="21.0" style="-fx-background-color: #E53935; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 10;" text="" visible="false">
                <graphic>
@@ -55,19 +55,19 @@
          </children>
       </HBox>
       
-      <Label fx:id="genreLabel" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="Rock">
+      <Label fx:id="genreLabel" minWidth="0.0" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="Rock">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      
-      <Label fx:id="yearLabel" alignment="CENTER" prefWidth="50.0" style="-fx-text-fill: #78909C;" text="1975">
+
+      <Label fx:id="yearLabel" alignment="CENTER" minWidth="0.0" prefWidth="50.0" style="-fx-text-fill: #78909C;" text="1975">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
-      
-      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="05:55">
+
+      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" minWidth="0.0" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="05:55">
          <font>
             <Font size="13.0" />
          </font>
