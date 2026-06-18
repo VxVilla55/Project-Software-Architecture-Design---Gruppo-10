@@ -49,7 +49,7 @@ public class RimozioneTracciaTest {
 
         // Controllo di sicurezza: verifichiamo che il setup sia andato a buon fine
         assertTrue(catalogue.getTracks().contains(track));
-        assertTrue(playlist.getTracks().contains(track));
+        assertTrue(playlist.contains(track));
         assertNotNull(engine.getCurrentTrack(), "L'engine dovrebbe avere una traccia in riproduzione");
 
 
@@ -63,7 +63,7 @@ public class RimozioneTracciaTest {
         assertFalse(catalogue.getTracks().contains(track), "ERRORE: La traccia è ancora nel catalogo!");
         
         // B) Verifica rimozione a cascata dalla playlist
-        assertFalse(playlist.getTracks().contains(track), "ERRORE: La traccia è rimasta bloccata nella playlist!");
+        assertFalse(playlist.contains(track), "ERRORE: La traccia è rimasta bloccata nella playlist!");
         
         // C) Verifica rimozione dalla coda 
         // Se eliminiamo l'unica traccia in riproduzione, il lettore si ferma e currentTrack diventa null

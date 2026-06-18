@@ -8,10 +8,10 @@ import com.group10.model.TrackComponent;
 import com.group10.model.common.Publisher;
 import com.group10.model.common.Subscriber;
 
-import com.group10.model.strategy.Sequential;
-import com.group10.model.strategy.PlaybackMode;
-import com.group10.model.strategy.RepeatPlaylist;
-import com.group10.model.strategy.RepeatTrack;
+import com.group10.model.playback.Sequential;
+import com.group10.model.playback.PlaybackMode;
+import com.group10.model.playback.RepeatPlaylist;
+import com.group10.model.playback.RepeatTrack;
 
 /**
  * Singleton: classe che modella lo stato del player
@@ -215,7 +215,7 @@ private void switchTrack(TrackComponent newTrack) {
     }
     
     
-public void startSimulation() {
+    public void startSimulation() {
         if (currentTrack == null) {
             System.out.println("⚠️ Nessuna traccia da riprodurre! Aggiungi un brano prima.");
             setState(new StoppedState());
@@ -245,7 +245,7 @@ public void startSimulation() {
                     javafx.application.Platform.runLater(() -> onTick.accept(currentTime));
                 }
                 
-                if (currentTime >= currentTrack.getDurationInSeconds()) {
+                if (currentTime >= currentTrack.getDurationInSeconds() && currentTrack != null) {
                     playbackMode.onTrackEnd(PlaybackEngine.this);
                 }
             }

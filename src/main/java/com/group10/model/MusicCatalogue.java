@@ -70,7 +70,7 @@ public class MusicCatalogue implements Publisher{
         for (PlaylistComponent playlist : this.playlists.values()) {
             // Usa il metodo appropriato in base a come è fatta la tua classe PlaylistComponent
             // (potrebbe essere playlist.remove(track) oppure playlist.getTracks().remove(track))
-            playlist.getTracks().remove(track); 
+            playlist.remove(track); 
         }
 
         // 3. NOVITÀ: Rimuovi la traccia dal lettore musicale, se era in coda

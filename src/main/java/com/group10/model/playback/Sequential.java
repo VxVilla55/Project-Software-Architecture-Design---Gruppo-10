@@ -1,4 +1,4 @@
-package com.group10.model.strategy;
+package com.group10.model.playback;
 
 import com.group10.model.state.PlaybackEngine;
 
