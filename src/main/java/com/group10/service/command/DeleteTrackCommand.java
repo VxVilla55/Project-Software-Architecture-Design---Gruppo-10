@@ -46,9 +46,6 @@ public class DeleteTrackCommand implements Command {
         
         //rimozione dal catalogo
         MusicCatalogue.getInstance().removeTrack(trackDeleted);
-        
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 
     @Override
@@ -66,7 +63,5 @@ public class DeleteTrackCommand implements Command {
         for (PlaylistComponent playlist : playlists) {
             playlist.add(trackDeleted);
         }
-        
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

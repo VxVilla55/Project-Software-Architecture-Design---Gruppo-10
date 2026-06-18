@@ -33,15 +33,11 @@ public class AddTagCommand implements Command {
     public void execute() {
         //aggiunta del tag alla traccia
         track.addTags(tags);
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 
     @Override
     public void undo() {
         //rimozione del tag alla traccia
         track.removeTags(tags);
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

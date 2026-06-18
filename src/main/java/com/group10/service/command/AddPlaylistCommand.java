@@ -22,15 +22,11 @@ public class AddPlaylistCommand implements Command {
     public void execute() {
         //aggiunge la playlist al catalogo globale
         MusicCatalogue.getInstance().addPlaylist(playlist);
-        // notifica eventuali viste collegate
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 
     @Override
     public void undo() {
         // rimuove la playlist se l'utente annulla l'azione
         MusicCatalogue.getInstance().removePlaylist(playlist);
-        
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

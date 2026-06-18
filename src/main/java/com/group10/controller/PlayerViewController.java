@@ -33,7 +33,6 @@ public class PlayerViewController implements Initializable, Subscriber {
     @FXML private Label trackTitle;
     @FXML private Label trackAuthor;
 
-    // --- NUOVO: Etichette per il tempo ---
     @FXML private Label currentTimeLabel;
     @FXML private Label totalTimeLabel;
 

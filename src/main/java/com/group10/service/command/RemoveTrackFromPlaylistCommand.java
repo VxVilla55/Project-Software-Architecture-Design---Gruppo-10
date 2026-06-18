@@ -25,17 +25,11 @@ public class RemoveTrackFromPlaylistCommand implements Command {
     public void execute() {
         //prima rimozione solo da tutte le playlist
         playlist.remove(track);
-        
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 
     @Override
     public void undo() {
         //prima rimozione solo da tutte le playlist
         playlist.add(track);
-        
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

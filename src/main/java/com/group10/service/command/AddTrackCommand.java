@@ -22,15 +22,11 @@ public class AddTrackCommand implements Command {
     public void execute() {
         //aggiunta al catalogo
         MusicCatalogue.getInstance().addTrack(track);        
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 
     @Override
     public void undo() {
         //rimozione al catalogo
         MusicCatalogue.getInstance().removeTrack(track);
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

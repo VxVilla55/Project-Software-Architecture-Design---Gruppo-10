@@ -6,6 +6,8 @@ package com.group10.service.command;
 
 import java.util.Stack;
 
+import com.group10.model.MusicCatalogue;
+
 /**
  *
  * @author group10
@@ -28,12 +30,14 @@ public class CommandManager {
     public void executeCommand(Command command) {
         command.execute();
         undoStack.push(command);
+        MusicCatalogue.getInstance().notifySubscribers();
     }
 
     public void undo() {
         if (!undoStack.isEmpty()) {
             Command command = undoStack.pop();
             command.undo();
+            MusicCatalogue.getInstance().notifySubscribers();
         }
     }
 }

@@ -24,16 +24,12 @@ public class AddTrackToPlaylistCommand implements Command {
     @Override
     public void execute() {
         //aggiunta al catalogo
-        MusicCatalogue.getInstance().addTrackToPlaylist(playlistName, track);        
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
+        MusicCatalogue.getInstance().addTrackToPlaylist(playlistName, track);
     }
 
     @Override
     public void undo() {
         //rimozione al catalogo
         MusicCatalogue.getInstance().removeTrackFromPlaylist(playlistName, track);
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

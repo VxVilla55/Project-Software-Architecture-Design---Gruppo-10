@@ -7,10 +7,7 @@ package com.group10.service.command;
 import com.group10.controller.MainViewController;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
-import com.group10.model.TrackComponent;
 import com.group10.model.builder.PlaylistBuilder;
-import com.group10.model.state.PlaybackEngine;
-import java.util.TreeSet;
 
 /**
  *
@@ -38,7 +35,6 @@ public class RenamePlaylistCommand implements Command {
         if (MainViewController.getInstance().getSelectedPlaylist() == oldPlaylist) {
             MainViewController.getInstance().setSelectedPlaylist(newPlaylist);
         }
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 
     @Override
@@ -48,6 +44,5 @@ public class RenamePlaylistCommand implements Command {
         if (MainViewController.getInstance().getSelectedPlaylist() == newPlaylist) {
             MainViewController.getInstance().setSelectedPlaylist(oldPlaylist);
         }
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

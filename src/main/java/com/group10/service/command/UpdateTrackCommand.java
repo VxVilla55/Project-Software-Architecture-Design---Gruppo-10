@@ -28,7 +28,6 @@ public class UpdateTrackCommand implements Command {
         MainViewController.getInstance().setSelectedTrack(newTrack);
         MusicCatalogue.getInstance().replaceTrack(oldTrack, newTrack);
         PlaybackEngine.getInstance().replaceInQueue(oldTrack, newTrack);
-        MusicCatalogue.getInstance().notifySubscribers();
         
     }
 
@@ -38,6 +37,5 @@ public class UpdateTrackCommand implements Command {
         MainViewController.getInstance().setSelectedTrack(oldTrack);
         MusicCatalogue.getInstance().replaceTrack(newTrack, oldTrack);
         PlaybackEngine.getInstance().replaceInQueue(newTrack, oldTrack);
-        MusicCatalogue.getInstance().notifySubscribers();
     }
 }

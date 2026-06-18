@@ -17,28 +17,21 @@ import java.util.List;
  * @author group10
  */
 public class DeletePlaylistCommand implements Command {
-    private PlaylistComponent playlist;
+    private final PlaylistComponent playlistDeleted;
 
-    public DeletePlaylistCommand(TrackComponent trackDeleted) {
-        this.playlist = playlist;
-        //this.trackDeleted = trackDeleted;
-        //indexInQueue = null;
+    public DeletePlaylistCommand(PlaylistComponent playlistDeleted) {
+        this.playlistDeleted = playlistDeleted;
     }
 
     @Override
     public void execute() {
         //rimozione della playlist dal catalogo
-        MusicCatalogue.getInstance().removePlaylist(playlist);
-        
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
+        MusicCatalogue.getInstance().removePlaylist(playlistDeleted);
     }
 
     @Override
     public void undo() {
         //aggiunta della playlist dal catalogo
-        MusicCatalogue.getInstance().addPlaylist(playlist);
-        //aggiorna ui
-        MusicCatalogue.getInstance().notifySubscribers();
+        MusicCatalogue.getInstance().addPlaylist(playlistDeleted);
     }
 }
