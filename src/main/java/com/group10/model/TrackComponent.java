@@ -44,7 +44,7 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
     public TrackComponent() {
         this.title = "--";
         this.author = "--";
-        this.duration = 1;
+        this.duration = 31;
         this.genre = "";
         this.year = 2026;
         this.tags = new HashSet<>();

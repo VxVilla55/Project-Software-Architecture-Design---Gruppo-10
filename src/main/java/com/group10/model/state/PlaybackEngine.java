@@ -245,8 +245,10 @@ private void switchTrack(TrackComponent newTrack) {
                     javafx.application.Platform.runLater(() -> onTick.accept(currentTime));
                 }
                 
-                if (currentTime >= currentTrack.getDurationInSeconds() && currentTrack != null) {
-                    playbackMode.onTrackEnd(PlaybackEngine.this);
+                if (currentTrack != null) {
+                    if (currentTime >= currentTrack.getDurationInSeconds()) {
+                        playbackMode.onTrackEnd(PlaybackEngine.this);
+                    }
                 }
             }
         }, 100, 100); 
