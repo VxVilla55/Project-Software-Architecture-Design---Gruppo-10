@@ -13,8 +13,9 @@ import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 
-import com.group10.model.state.PlaybackEngine; 
+import com.group10.model.state.PlaybackEngine;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -23,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -58,7 +60,7 @@ public class TrackUIComponentCard implements AbstractUIComponent, Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //imageView.setImage(track.getImagePath());
+        loadCoverImage(track.getCoverImagePath());
         itemPlace1.setText(track.getTitle());
         itemPlace2.setText(track.getAuthor());
     }
@@ -66,6 +68,24 @@ public class TrackUIComponentCard implements AbstractUIComponent, Initializable 
     @Override
     public Parent getRoot() {
         return root;
+    }
+
+    private void loadCoverImage(String coverImagePath) {
+        try {
+            if (coverImagePath != null && !coverImagePath.isEmpty()) {
+                File file = new File(coverImagePath);
+                if (file.exists()) {
+                    imageView.setImage(new Image(file.toURI().toString()));
+                    return;
+                }
+            }
+            imageView.setImage(
+                    new Image(getClass().getResourceAsStream("/com/group10/images/covers/default-cover.png"))
+            );
+        } catch (Exception e) {
+            System.err.println("Errore nel caricamento della cover: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
     @FXML

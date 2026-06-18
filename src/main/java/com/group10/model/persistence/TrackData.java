@@ -23,5 +23,6 @@ public class TrackData {
     String genre;
     int year;
     List<TrackComponent.Tag> tags = new ArrayList<>();
+    String coverImagePath;
 }
  

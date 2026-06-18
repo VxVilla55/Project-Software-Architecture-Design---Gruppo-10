@@ -28,6 +28,7 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
     private final int year;
     private final Set<Tag> tags;
     private int playCount;
+    private final String coverImagePath;
 
     public TrackComponent(TrackBuilder builder) {
         this.title = builder.getTitle();
@@ -35,24 +36,27 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
         this.duration = builder.getDuration();
         this.genre = builder.getGenre();
         this.year = builder.getYear();
-        this.tags = builder.getTags(); 
+        this.tags = builder.getTags();
         this.playCount = builder.getPlayCount();
+        this.coverImagePath = builder.getCoverImagePath();
     }
-    
+
     public TrackComponent() {
         this.title = "--";
         this.author = "--";
         this.duration = 1;
         this.genre = "";
         this.year = 2026;
-        this.tags = new HashSet<>(); 
+        this.tags = new HashSet<>();
         this.playCount = 0;
+        this.coverImagePath = null;
     }
 
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public String getGenre() { return genre; }
     public int getYear() { return year; }
+    public String getCoverImagePath() { return coverImagePath; }
 
     public Set<Tag> getTags() {
         return this.tags;
