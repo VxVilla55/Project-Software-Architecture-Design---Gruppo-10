@@ -2,20 +2,21 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <HBox fx:id="root" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" minHeight="-Infinity" onMouseClicked="#handleSelection" prefHeight="60.0" spacing="12.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
 
-      <StackPane prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 6; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.1), 6, 0, 0, 2);">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #D7CCC8; -fx-background-radius: 4;">
          <HBox.margin>
             <Insets left="15.0" />
          </HBox.margin>
          <children>
-            <Text fill="#00BFA5" style="-fx-font-size: 22px;" text="♪" />
+            <ImageView fx:id="coverImage" fitHeight="42.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
-      </StackPane>
+      </AnchorPane>
 
       <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
          <children>

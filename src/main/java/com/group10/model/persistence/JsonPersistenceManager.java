@@ -81,6 +81,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
                         .setGenre(t.genre)
                         .setYear(t.year)
                         .addAllTags(t.tags)
+                        .setCoverImagePath(t.coverImagePath)
                         .build();
 
                 MusicCatalogue.getInstance().addTrack(track);
@@ -112,6 +113,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
             t.genre = track.getGenre();
             t.year = track.getYear();
             t.tags.addAll(track.getTags());
+            t.coverImagePath = track.getCoverImagePath();
             data.tracks.add(t);
         }
         for (PlaylistComponent playlist : catalogue.getPlaylists().values()) {

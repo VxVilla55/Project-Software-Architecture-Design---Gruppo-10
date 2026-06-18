@@ -9,6 +9,7 @@ import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
 import com.group10.model.state.PlaybackEngine;
 
+import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -31,6 +34,7 @@ public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializ
     @FXML private Label titleLabel;
     @FXML private Label artistLabel;
     @FXML private Button trackMenuButton;
+    @FXML private ImageView coverImage;
     
     
     private TrackComponent track;
@@ -57,8 +61,25 @@ public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializ
         titleLabel.setText(track.getTitle());
         artistLabel.setText(track.getAuthor());
         indexLabel.setText("-");
-        
+        loadCoverImage(track.getCoverImagePath());
         root.setFocusTraversable(false);
+    }
+
+    private void loadCoverImage(String coverImagePath) {
+        try {
+            if (coverImagePath != null && !coverImagePath.isEmpty()) {
+                File file = new File(coverImagePath);
+                if (file.exists()) {
+                    coverImage.setImage(new Image(file.toURI().toString()));
+                    return;
+                }
+            }
+            coverImage.setImage(
+                new Image(getClass().getResourceAsStream("/com/group10/images/covers/default-cover.png"))
+            );
+        } catch (Exception e) {
+            System.err.println("Errore nel caricamento della cover: " + e.getMessage());
+        }
     }
     
     @Override

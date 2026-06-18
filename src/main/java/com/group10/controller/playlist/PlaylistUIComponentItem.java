@@ -15,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
@@ -24,14 +26,11 @@ import javafx.scene.layout.HBox;
  */
 public class PlaylistUIComponentItem implements AbstractUIComponent, Initializable {
 
-    @FXML
-    private HBox root;
-    @FXML
-    private Label nameLabel;
-    @FXML
-    private Label trackCountLabel;
-    @FXML
-    private Button playlistMenuButton;
+    @FXML private HBox root;
+    @FXML private Label nameLabel;
+    @FXML private Label trackCountLabel;
+    @FXML private Button playlistMenuButton;
+    @FXML private ImageView coverImage;
 
     private PlaylistComponent playlist;
 
@@ -52,7 +51,9 @@ public class PlaylistUIComponentItem implements AbstractUIComponent, Initializab
 
         int size = playlist.getSize();
         trackCountLabel.setText(size == 1 ? "1 brano" : size + " brani");
-
+        coverImage.setImage(
+            new Image(getClass().getResourceAsStream("/com/group10/images/covers/playlist-cover.png"))
+        );
     }
 
     @Override

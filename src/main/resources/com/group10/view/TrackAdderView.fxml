@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,11 +13,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="600.0" style="-fx-background-color: transparent; -fx-focus-color: transparent; -fx-faint-focus-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="100.0" layoutY="25.0" prefHeight="350.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
+      <VBox layoutX="100.0" layoutY="15.0" prefHeight="450.0" prefWidth="400.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 10; -fx-padding: 25; -fx-effect: dropshadow(three-pass-box, rgba(55,71,79,0.15), 15, 0, 0, 5);">
          <children>
-            
+
             <Label style="-fx-font-weight: bold; -fx-text-fill: #37474F;" text="Aggiungi Traccia">
                <font>
                   <Font size="20.0" />
@@ -25,7 +26,24 @@
                   <Insets bottom="5.0" />
                </VBox.margin>
             </Label>
-            
+
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <AnchorPane prefHeight="90.0" prefWidth="90.0" style="-fx-background-color: #EFE6CC; -fx-background-radius: 6;">
+                     <children>
+                        <ImageView fx:id="coverPreview" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+                  <VBox spacing="6.0">
+                     <children>
+                        <Label style="-fx-text-fill: #78909C; -fx-font-weight: bold;" text="Copertina" />
+                        <Button fx:id="pickImageButton" mnemonicParsing="false" onAction="#handlePickImage" style="-fx-background-color: #EFE6CC; -fx-text-fill: #37474F; -fx-border-color: #bdc3c7; -fx-border-radius: 4; -fx-background-radius: 4; -fx-cursor: hand; -fx-font-size: 12;" text="Scegli immagine..." />
+                        <Label fx:id="coverNameLabel" style="-fx-text-fill: #78909C; -fx-font-size: 10;" text="Immagine di default" wrapText="true" maxWidth="200.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+
             <GridPane vgap="10.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="110.0" />

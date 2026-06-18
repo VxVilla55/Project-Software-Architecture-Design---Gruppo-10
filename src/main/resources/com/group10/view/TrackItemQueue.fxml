@@ -3,6 +3,7 @@
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
@@ -23,6 +24,12 @@
          </font>
       </Label>
       
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #D7CCC8; -fx-background-radius: 4;">
+         <children>
+            <ImageView fx:id="coverImage" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+
       <VBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="415.0" HBox.hgrow="SOMETIMES">
          <children>
             <Label fx:id="titleLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">

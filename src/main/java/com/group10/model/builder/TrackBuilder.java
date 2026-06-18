@@ -20,10 +20,11 @@ public class TrackBuilder implements Builder<TrackComponent> {
     private String title;
     private String author;
     private int duration;
-    private String genre; 
-    private int year = 2026; 
+    private String genre;
+    private int year = 2026;
     private int playCount = 0;
-    
+    private String coverImagePath;
+
     private Set<Tag> tags = new HashSet<>();
 
     public TrackBuilder setTitle(String title) {
@@ -74,12 +75,18 @@ public class TrackBuilder implements Builder<TrackComponent> {
         return this;
     }
 
+    public TrackBuilder setCoverImagePath(String path) {
+        this.coverImagePath = path;
+        return this;
+    }
+
     public String getTitle() { return title; }
     public String getAuthor() { return author; }
     public int getDuration() { return duration; }
     public String getGenre() { return genre; }
     public int getYear() { return year; }
-    
+    public String getCoverImagePath() { return coverImagePath; }
+
     public Set<Tag> getTags() {
         return tags;
     }

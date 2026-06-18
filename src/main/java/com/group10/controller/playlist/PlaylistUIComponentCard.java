@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -59,14 +60,14 @@ public class PlaylistUIComponentCard implements AbstractUIComponent, Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         itemPlace1.setText(playlist.getName());
-        
+
         Duration durataPlaylist = Duration.ofSeconds(playlist.getDurationInSeconds());
         String durataFormattata = String.format("(%02d:%02d:%02d)", durataPlaylist.toHoursPart(), durataPlaylist.toMinutesPart(), durataPlaylist.toSecondsPart());
-        itemPlace2.setText(String.valueOf(playlist.getSize())+" tracce "+durataFormattata);
-
-        // Da implementare
+        itemPlace2.setText(String.valueOf(playlist.getSize()) + " tracce " + durataFormattata);
+        imageView.setImage(
+                new Image(getClass().getResourceAsStream("/com/group10/images/covers/playlist-cover.png"))
+        );
         menuButton.setVisible(false);
     }
     
