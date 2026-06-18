@@ -2,13 +2,13 @@ package com.group10.controller.playlist;
 
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.service.factory.TrackUIComponentFactory;
+import com.group10.service.factory.UIComponentFactory;
 import com.group10.controller.track.TrackUIComponentItem;
 import com.group10.model.common.Playable;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import java.net.URL;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
 import javafx.event.ActionEvent;
@@ -59,17 +59,18 @@ public class PlaylistUIDetailsController implements AbstractUIComponent, Initial
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // uso la factory per creare gli elementi item per ogni traccia della playlist
-        TrackUIComponentFactory factory = new TrackUIComponentFactory();
-        TrackUIComponentItem item;
+        factory = new TrackUIComponentFactory();
+        TrackUIComponentItem itemController;
         
         // DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
         for(TrackComponent t: playlist.getTracks()) {
-            item = (TrackUIComponentItem) factory.createUIComponentItem(t);
+            //carica tutti gli elementi nella VBox tracksContainer
+            itemController = (TrackUIComponentItem) factory.createUIComponentItem(t);
+            itemController.setContextPlaylist(this.playlist);
+
+            itemController.setIndexInContainer(tracksContainer.getChildren().size());
             
-            // MODIFICA QUI: Passiamo la playlist corrente all'item della traccia
-            item.setContextPlaylist(this.playlist);
-            
-            tracksContainer.getChildren().add(item.getRoot());
+            tracksContainer.getChildren().add(itemController.getRoot());
         }
 
         playlistNameLabel.setText(playlist.getName());

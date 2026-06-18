@@ -3,10 +3,22 @@ package com.group10.model;
 import com.group10.model.common.Playable;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CompositePlayTest {
+
+    private PlaybackEngine engine;
+
+    @BeforeEach
+    public void setUp() {
+        engine = PlaybackEngine.getInstance();
+        engine.stopSimulation();
+        engine.clearQueue();
+        engine.setCurrentTrack(null);
+        if(engine.isShuffled()) engine.toggleShuffle();
+    }
 
     @Test
     public void testPlayUniformePlaylist() {

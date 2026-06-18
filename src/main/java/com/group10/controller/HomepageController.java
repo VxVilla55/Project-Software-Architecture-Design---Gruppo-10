@@ -80,6 +80,7 @@ public class HomepageController implements Initializable {
 
         for(TrackComponent t: MusicCatalogue.getInstance().getTracks() ) {
             trackItem = (TrackUIComponentItem) new TrackUIComponentFactory().createUIComponentItem(t);
+            trackItem.setIndexInContainer(trackItemsContainer.getChildren().size());
             trackItemsContainer.getChildren().add(trackItem.getRoot());
         }
     }    
