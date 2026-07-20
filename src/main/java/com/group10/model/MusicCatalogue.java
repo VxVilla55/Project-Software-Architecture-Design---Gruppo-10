@@ -33,7 +33,7 @@ public class MusicCatalogue implements Publisher{
     private Set<String> genres;
     private List<Subscriber> subscribers;
     
-    public MusicCatalogue() {
+    private MusicCatalogue() {
         tracks = new ArrayList<>();
         playlists = new TreeMap<>();
         genres = new TreeSet<>();

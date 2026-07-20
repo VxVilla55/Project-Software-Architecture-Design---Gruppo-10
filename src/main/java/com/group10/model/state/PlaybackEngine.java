@@ -99,10 +99,10 @@ public void clearQueue() {
 
         // notifica alla view che non c'è più un brano corrente
         if (onTrackChanged != null) {
-            javafx.application.Platform.runLater(() -> onTrackChanged.accept(null));
+            onTrackChanged.accept(null);
         }
         if (onTick != null) {
-            javafx.application.Platform.runLater(() -> onTick.accept(0.0));
+            onTick.accept(0.0);
         }
     }
     
@@ -181,13 +181,13 @@ private void switchTrack(TrackComponent newTrack) {
         this.playCounted = false; // ogni cambio traccia riapre il conteggio dell'ascolto
 
         if (onTrackChanged != null) {
-            javafx.application.Platform.runLater(() -> onTrackChanged.accept(newTrack));
+            onTrackChanged.accept(newTrack);
         }
-        
+
         if (onTick != null) {
-            javafx.application.Platform.runLater(() -> onTick.accept(0.0));
+            onTick.accept(0.0);
         }
-        
+
         if (currentState instanceof PlayingState) {
             stopSimulation();
             startSimulation();
@@ -218,7 +218,7 @@ private void switchTrack(TrackComponent newTrack) {
         }
 
         if (onPlayStateChanged != null) {
-            javafx.application.Platform.runLater(() -> onPlayStateChanged.accept(true));
+            onPlayStateChanged.accept(true);
         }
 
         timer = new Timer();
@@ -234,7 +234,7 @@ private void switchTrack(TrackComponent newTrack) {
                 }
 
                 if (onTick != null) {
-                    javafx.application.Platform.runLater(() -> onTick.accept(currentTime));
+                    onTick.accept(currentTime);
                 }
                 
                 if (currentTrack != null) {
@@ -258,7 +258,7 @@ private void switchTrack(TrackComponent newTrack) {
         
         
         if (onPlayStateChanged != null) {
-            javafx.application.Platform.runLater(() -> onPlayStateChanged.accept(false));
+            onPlayStateChanged.accept(false);
         }
     }
 

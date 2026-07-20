@@ -140,7 +140,7 @@ public class PlaylistUIAdderController implements AbstractUIComponent, Initializ
             }
             
             hideError();
-            new CommandManager().executeCommand(new AddPlaylistCommand(playlist));
+            CommandManager.getInstance().executeCommand(new AddPlaylistCommand(playlist));
             playlistNameInput.clear();
             MainViewController.getInstance().closePopup();
         } catch (IllegalArgumentException ex ) {

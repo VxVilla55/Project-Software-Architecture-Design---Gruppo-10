@@ -11,6 +11,10 @@ import com.group10.model.MusicCatalogue;
 /**
  *
  * @author group10
+ *
+ * Esegue i Command dell'applicazione e ne tiene lo storico per l'undo.
+ *
+ * PATTERN: Invoker del Command; Singleton
  */
 public class CommandManager {
 
@@ -18,7 +22,7 @@ public class CommandManager {
 
     private final Stack<Command> undoStack = new Stack<>();
 
-    public CommandManager() {}
+    private CommandManager() {}
 
     public static CommandManager getInstance() {
         if (instance == null) {

@@ -7,6 +7,7 @@ import com.group10.model.common.Subscriber;
 import com.group10.model.playback.PlaybackMode;
 import com.group10.model.playback.RepeatPlaylist;
 import com.group10.model.playback.Sequential;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,7 +65,9 @@ public class PlayerViewController implements Initializable, Subscriber {
 
         var engine = PlaybackEngine.getInstance();
 
-        engine.setOnPlayStateChanged(isPlaying -> {
+        // il motore notifica anche dal thread del timer di riproduzione: ogni
+        // aggiornamento della UI va quindi eseguito sul thread di JavaFX
+        engine.setOnPlayStateChanged(isPlaying -> Platform.runLater(() -> {
             if (playPauseButton != null) {
                 if (isPlaying) {
                     playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/pause-button.png")));
@@ -72,9 +75,9 @@ public class PlayerViewController implements Initializable, Subscriber {
                     playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/play-button.png")));
                 }
             }
-        });
-        
-        engine.setOnTick(time -> { 
+        }));
+
+        engine.setOnTick(time -> Platform.runLater(() -> {
             var track = engine.getCurrentTrack();
             if (track != null && track.getDurationInSeconds() > 0) {
                 double progress = time / track.getDurationInSeconds();
@@ -88,9 +91,9 @@ public class PlayerViewController implements Initializable, Subscriber {
                     currentTimeLabel.setText(formatTime(time));
                 }
             }
-        });
+        }));
 
-        engine.setOnTrackChanged(track -> {
+        engine.setOnTrackChanged(track -> Platform.runLater(() -> {
             if (track != null) {
                 trackTitle.setText(track.getTitle());
                 trackAuthor.setText(track.getAuthor());
@@ -106,7 +109,7 @@ public class PlayerViewController implements Initializable, Subscriber {
             }
             if (trackSlider != null) trackSlider.setValue(0);
             updateSliderFill(0);
-        });
+        }));
 
         trackSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (trackSlider.isPressed()) {
