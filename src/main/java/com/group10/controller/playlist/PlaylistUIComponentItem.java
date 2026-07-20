@@ -63,7 +63,6 @@ public class PlaylistUIComponentItem implements AbstractUIComponent, Initializab
 
     @FXML
     private void handleOptions(ActionEvent event) {
-        System.out.println("PLAYLIST OPTIONS");
         PlaylistUIOptionsController c = (PlaylistUIOptionsController) new PlaylistUIComponentFactory().createUIComponentOptions(playlist);
         MainViewController.getInstance().showMenuPopup(playlistMenuButton, c.getRoot());
     }

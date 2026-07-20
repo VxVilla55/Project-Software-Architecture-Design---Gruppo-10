@@ -63,20 +63,16 @@ public class MusicCatalogue implements Publisher{
    public void removeTrack(TrackComponent track) {
         if (track == null) return;
 
-        // 1. La tua rimozione originale dal catalogo (Corretta!)
         tracks.remove(track);
 
-        // 2. NOVITÀ: Elimina la traccia da TUTTE le playlist in cui era stata inserita
+        //la traccia va tolta anche da ogni playlist che la conteneva
         for (PlaylistComponent playlist : this.playlists.values()) {
-            // Usa il metodo appropriato in base a come è fatta la tua classe PlaylistComponent
-            // (potrebbe essere playlist.remove(track) oppure playlist.getTracks().remove(track))
-            playlist.remove(track); 
+            playlist.remove(track);
         }
 
-        // 3. NOVITÀ: Rimuovi la traccia dal lettore musicale, se era in coda
+        //e dalla coda di riproduzione, se presente
         PlaybackEngine.getInstance().removeTrackFromQueue(track);
 
-        // 4. La tua notifica originale (Corretta, la teniamo alla fine!)
         notifySubscribers();
     }
 
@@ -149,7 +145,7 @@ public void removePlaylist(PlaylistComponent p) {
     }
     
     
-    //per poter aggiungere nuovi Osservaroti/Subscriber a questo elemento
+    //per poter aggiungere nuovi Osservatori/Subscriber a questo elemento
     public void addSubscriber(Subscriber subscriber) {
         subscribers.add(subscriber);
     }

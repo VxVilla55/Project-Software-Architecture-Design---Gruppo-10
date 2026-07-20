@@ -38,7 +38,11 @@ import javafx.stage.Popup;
  * FXML Controller class
  *
  * @author group10
- * * Singleton
+ *
+ * Controller della schermata principale: ospita i pannelli dell'app e fa da
+ * punto di accesso unico per popup, dialog e selezione corrente.
+ *
+ * PATTERN: Singleton; è inoltre Subscriber di MusicCatalogue (Observer)
  */
 public class MainViewController implements Initializable, Subscriber { 
 
@@ -129,19 +133,17 @@ public class MainViewController implements Initializable, Subscriber {
     public void update() {
         FXMLLoader loader;
         leftPane.getChildren().clear();
-        //carico
+        //ricarico l'elenco delle playlist nella barra laterale
         for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists().values()) {
             PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
             try {
                 leftPane.getChildren().add(item.getRoot());
             } catch (Exception ex) {
-                System.out.println(ex.getCause());
+                ex.printStackTrace();
             }
         }
-        
-        //azzero il contenuto
-        //rightPane.getChildren().clear();
-        //carico
+
+        //il pannello destro mostra il dettaglio della traccia selezionata, se c'è
         if(selectedTrack != null) {
             try {
                 TrackUIDetailsController c = (TrackUIDetailsController) new TrackUIComponentFactory().createUIComponentDetails(selectedTrack);
@@ -154,9 +156,7 @@ public class MainViewController implements Initializable, Subscriber {
             rightPane.getChildren().clear();
         }
 
-        //azzero il contenuto
-        //centerPane.getChildren().clear();
-        //carico
+        //al centro va la homepage, oppure il dettaglio della playlist selezionata
         if(selectedPlaylist == null) {
             loader = new FXMLLoader(getClass().getResource("/com/group10/view/HomepageView.fxml"));
             try {
@@ -175,7 +175,7 @@ public class MainViewController implements Initializable, Subscriber {
             }
         }
         
-     // ---> LA SOLUZIONE: Carichiamo il Player SOLO se non c'è già! <---
+        // il player si carica una volta sola: ricaricarlo interromperebbe la riproduzione
         if (bottomPane.getChildren().isEmpty()) {
             loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
             PlayerViewController controller = new PlayerViewController();

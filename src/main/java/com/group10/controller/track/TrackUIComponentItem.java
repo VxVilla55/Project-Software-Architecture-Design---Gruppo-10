@@ -125,7 +125,6 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
 
     @FXML
     private void handleOptions(ActionEvent event) {
-        System.out.println("OPTIONS");
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
         c.setContextPlaylist(this.contextPlaylist);
         MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 

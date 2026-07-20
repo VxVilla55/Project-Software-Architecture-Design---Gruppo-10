@@ -200,7 +200,7 @@ public class PlayerViewController implements Initializable, Subscriber {
         PlaylistComponent current = engine.getCurrentPlaylist();
 
         if (current == null) {
-            System.out.println("Nessuna playlist in riproduzione.");
+            // nessuna playlist in riproduzione: non c'è una successiva a cui passare
             engine.stop();
             return;
         }

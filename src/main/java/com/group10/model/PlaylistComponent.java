@@ -140,8 +140,8 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
     }
 
 
+    // il conteggio della playlist è la somma degli ascolti delle sue tracce
     public int getPlayCount() {
-        // Soluzione moderna ed elegante con gli Stream di Java 8
         return this.getTracks().stream()
                    .mapToInt(TrackComponent::getPlayCount)
                    .sum();        
@@ -164,11 +164,8 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
     }
     @Override
     public void playOnEngine(PlaybackEngine engine) {
+        // il Composite si riproduce accodando in blocco le proprie tracce
         engine.setCurrentPlaylist(this);
-        System.out.println("Playlist settata: " + getName());
-        /* for (TrackComponent track : this.tracks) {
-            track.playOnEngine(engine);
-        } */
         engine.addListToQueue(new ArrayList<>(this.getTracks()));
     }
 

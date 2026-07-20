@@ -12,8 +12,10 @@ import java.util.Set;
 /**
  * @author group10
  *
- * Nel PATTERN COMPOSITE è l'elemento Composite:
- * rappresenta una traccia come insieme
+ * Rappresenta una singola traccia musicale, elemento indivisibile del catalogo.
+ *
+ * PATTERN: Leaf del Composite. Playable è il Component, PlaylistComponent è il
+ * Composite; questa classe è la foglia e non contiene altri Playable.
  */
 public class TrackComponent implements Comparable<TrackComponent>, Playable {
 

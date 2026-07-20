@@ -62,9 +62,9 @@ public class PlaylistUIComponentCard implements AbstractUIComponent, Initializab
     public void initialize(URL url, ResourceBundle rb) {
         itemPlace1.setText(playlist.getName());
 
-        Duration durataPlaylist = Duration.ofSeconds(playlist.getDurationInSeconds());
-        String durataFormattata = String.format("(%02d:%02d:%02d)", durataPlaylist.toHoursPart(), durataPlaylist.toMinutesPart(), durataPlaylist.toSecondsPart());
-        itemPlace2.setText(String.valueOf(playlist.getSize()) + " tracce " + durataFormattata);
+        Duration playlistDuration = Duration.ofSeconds(playlist.getDurationInSeconds());
+        String formattedDuration = String.format("(%02d:%02d:%02d)", playlistDuration.toHoursPart(), playlistDuration.toMinutesPart(), playlistDuration.toSecondsPart());
+        itemPlace2.setText(String.valueOf(playlist.getSize()) + " tracce " + formattedDuration);
         imageView.setImage(
                 new Image(getClass().getResourceAsStream("/com/group10/images/covers/playlist-cover.png"))
         );
@@ -82,9 +82,8 @@ public class PlaylistUIComponentCard implements AbstractUIComponent, Initializab
         MainViewController.getInstance().update();
     }
     
+    // sulle card della homepage il menu opzioni non è previsto: il bottone resta nascosto
     @FXML
     private void handleOptions(ActionEvent event) {
-        System.out.println("Operazioni su playlist non ancora definite");
-        
     }
 }

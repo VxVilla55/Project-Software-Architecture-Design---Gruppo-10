@@ -99,9 +99,7 @@ public class TrackUIComponentCard implements AbstractUIComponent, Initializable 
     
     @FXML
     private void handleOptions(ActionEvent event) {
-        //System.out.println("OPTIONS");
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
-        MainViewController.getInstance().showMenuPopup(menuButton, c.getRoot()); 
-        
+        MainViewController.getInstance().showMenuPopup(menuButton, c.getRoot());
     }
 }
