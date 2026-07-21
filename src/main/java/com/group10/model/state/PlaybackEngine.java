@@ -322,7 +322,7 @@ public Integer removeTrackFromQueue(TrackComponent track) {
 
     public void stop() {
         currentState.stop();
-        queue.clear();
+        clearQueue();
     }
 
     public void cycleRepeatMode() {
