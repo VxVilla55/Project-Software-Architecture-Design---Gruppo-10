@@ -8,13 +8,15 @@ package com.group10.model.state;
  * ogni stato concreto reagisce a play/pause/stop a modo proprio ed è
  * responsabile della transizione verso lo stato successivo.
  *
- * PATTERN: State del pattern omonimo, PlaybackEngine è il Context
+ * PATTERN: State del pattern omonimo, PlaybackEngine è il Context.
  */
 public interface PlayerState {
 
-    void play(PlaybackEngine context);
+    void setContext(PlaybackEngine context);
 
-    void pause(PlaybackEngine context);
+    void play();
 
-    void stop(PlaybackEngine context);
+    void pause();
+
+    void stop();
 }

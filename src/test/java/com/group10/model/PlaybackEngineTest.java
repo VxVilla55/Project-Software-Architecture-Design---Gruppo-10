@@ -113,7 +113,7 @@ public class PlaybackEngineTest {
                 
         engine.addTrackToQueue(track);
         engine.setCurrentTrack(track);
-        engine.setState(new PlayingState());
+        engine.changeState(new PlayingState());
 
         CountDownLatch tickLatch = new CountDownLatch(3);
         AtomicReference<Double> lastTimeNotified = new AtomicReference<>(0.0);
@@ -145,7 +145,7 @@ public class PlaybackEngineTest {
         
         engine.addTrackToQueue(shortTrack);
         engine.setCurrentTrack(shortTrack);
-        engine.setState(new PlayingState());
+        engine.changeState(new PlayingState());
 
         CountDownLatch stopLatch = new CountDownLatch(1);
         

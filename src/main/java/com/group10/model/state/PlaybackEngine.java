@@ -41,7 +41,7 @@ public class PlaybackEngine implements Publisher{
     private List<Subscriber> subscribers;
     
     private PlaybackEngine() {
-        this.currentState = new StoppedState();
+        changeState(new StoppedState()); // stato iniziale
         this.queue = new ArrayList<>();
         this.currentIndex = -1;
         this.currentTime = 0;
@@ -55,8 +55,9 @@ public class PlaybackEngine implements Publisher{
         return instance;
     }
 
-    public void setState(PlayerState state) {
+    public void changeState(PlayerState state) {
         this.currentState = state;
+        this.currentState.setContext(this);
     }
 
     public PlayerState getState() {
@@ -95,7 +96,7 @@ public void clearQueue() {
         this.currentTrack = null;
         this.currentTime = 0;
         stopSimulation();
-        setState(new StoppedState());
+        changeState(new StoppedState());
 
         // notifica alla view che non c'è più un brano corrente
         if (onTrackChanged != null) {
@@ -213,7 +214,7 @@ private void switchTrack(TrackComponent newTrack) {
     public void startSimulation() {
         if (currentTrack == null) {
             // senza traccia corrente non c'è nulla da simulare
-            setState(new StoppedState());
+            changeState(new StoppedState());
             return;
         }
 
@@ -286,7 +287,7 @@ public Integer removeTrackFromQueue(TrackComponent track) {
                     currentIndex = -1;
                     switchTrack(null);
                     stopSimulation();
-                    setState(new StoppedState());
+                    changeState(new StoppedState());
                 } else {
                     //se la traccia rimossa era l'ultima della coda, arretra l'indice
                     if(queue.size()-1 < currentIndex) {
@@ -296,7 +297,7 @@ public Integer removeTrackFromQueue(TrackComponent track) {
                     switchTrack(currentTrack);
                     //ferma la riproduzione (l'utente dovrà premere play manualmente)
                     stopSimulation();
-                    setState(new StoppedState());
+                    changeState(new StoppedState());
                 }
             }
             return removedIndex;
@@ -312,15 +313,15 @@ public Integer removeTrackFromQueue(TrackComponent track) {
     }
 
     public void play() {
-        currentState.play(this);
+        currentState.play();
     }
 
     public void pause() {
-        currentState.pause(this);
+        currentState.pause();
     }
 
     public void stop() {
-        currentState.stop(this);
+        currentState.stop();
         queue.clear();
     }
 
