@@ -11,11 +11,11 @@ import com.group10.model.MusicCatalogue;
 /**
  *
  * @author group10
- *
  * Esegue i Command dell'applicazione e ne tiene lo storico per l'undo.
  *
- * PATTERN: Invoker del Command; Singleton
+ * PATTERN: Invoker del Command.
  */
+
 public class CommandManager {
 
     private static CommandManager instance;
