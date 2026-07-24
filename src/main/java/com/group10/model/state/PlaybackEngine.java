@@ -91,12 +91,13 @@ public class PlaybackEngine implements Publisher{
     }
 
 public void clearQueue() {
+        // svuota tutto
+        // prima ferma la riproduzione (stop), poi azzera la coda
+        stop();
         this.queue.clear();
         this.currentIndex = -1;
         this.currentTrack = null;
         this.currentTime = 0;
-        stopSimulation();
-        changeState(new StoppedState());
 
         // notifica alla view che non c'è più un brano corrente
         if (onTrackChanged != null) {
@@ -322,7 +323,6 @@ public Integer removeTrackFromQueue(TrackComponent track) {
 
     public void stop() {
         currentState.stop();
-        clearQueue();
     }
 
     public void cycleRepeatMode() {
