@@ -27,6 +27,7 @@ public class App extends Application {
         MusicCatalogue.getInstance().addSubscriber(persistence);
         
         stage.setOnCloseRequest(event -> {
+            persistence.save();
             PlaybackEngine.getInstance().stopSimulation();
             javafx.application.Platform.exit();
             System.exit(0);
