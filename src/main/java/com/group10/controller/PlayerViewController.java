@@ -199,30 +199,9 @@ public class PlayerViewController implements Initializable, Subscriber {
     }
 
     @FXML public void handleNextPlaylist(ActionEvent event) {
-        PlaybackEngine engine = PlaybackEngine.getInstance();
-        PlaylistComponent current = engine.getCurrentPlaylist();
-
-        if (current == null) {
-            // nessuna playlist in riproduzione: non c'è una successiva, si azzera tutto
-            engine.clearQueue();
-            return;
-        }
-
+        // la logica di skip sta nel motore: qui si passa solo l'elenco ordinato delle playlist
         List<PlaylistComponent> playlists = new ArrayList<>(MusicCatalogue.getInstance().getPlaylists().values());
-        if (playlists.size() < 2) return;
-
-        int idx = -1;
-        for (int i = 0; i < playlists.size(); i++) {
-            if (playlists.get(i).getName().equals(current.getName())) {
-                idx = i;
-                break;
-            }
-        }
-        if (idx == -1) return;
-
-        int nextIdx = (idx + 1) % playlists.size(); 
-        PlaylistComponent next = playlists.get(nextIdx);
-        next.playOnEngine(engine);
+        PlaybackEngine.getInstance().skipToNextPlaylist(playlists);
     }
 
     @Override

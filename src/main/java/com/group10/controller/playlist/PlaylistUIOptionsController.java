@@ -4,7 +4,6 @@ import com.group10.controller.common.AbstractUIComponent;
 import com.group10.controller.MainViewController;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
-import com.group10.model.TrackComponent;
 import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.service.command.CommandManager;
@@ -44,13 +43,11 @@ public class PlaylistUIOptionsController implements AbstractUIComponent {
     public void initialize(URL url, ResourceBundle rb) {
     }
 
-    // accoda tutte le tracce della playlist alla coda di riproduzione
+    // accoda la playlist in attesa: verrà riprodotta al prossimo skip playlist
     @FXML
     private void handleAddPlaylistToQueue(ActionEvent event) {
-        for (TrackComponent track : playlist.getTracks()) {
-            PlaybackEngine.getInstance().addTrackToQueue(track);
-        }
-        MainViewController.getInstance().closePopup();
+        PlaybackEngine.getInstance().addPendingPlaylist(playlist);
+        MainViewController.getInstance().hideMenuPopup();
     }
 
     // rinomina la playlist chiedendo il nuovo nome, validando l'univocita'
@@ -71,16 +68,15 @@ public class PlaylistUIOptionsController implements AbstractUIComponent {
                 return;
             }
             CommandManager.getInstance().executeCommand(new RenamePlaylistCommand(playlist, newName));
-            //MusicCatalogue.getInstance().renamePlaylist(playlist, newName);
         }
-        MainViewController.getInstance().closePopup();
+        MainViewController.getInstance().hideMenuPopup();
     }
 
     // elimina la playlist dalla libreria
     @FXML
     private void handleRemovePlaylist(ActionEvent event) {
         CommandManager.getInstance().executeCommand(new DeletePlaylistCommand(playlist));
-        MainViewController.getInstance().closePopup();
+        MainViewController.getInstance().hideMenuPopup();
     }
 
     @Override

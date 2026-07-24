@@ -26,7 +26,10 @@ public class PlaybackEngine implements Publisher{
     private TrackComponent currentTrack;
     private double currentTime;
     private Timer timer;
+
+    // per accodamento playlist
     private PlaylistComponent currentPlaylist;
+    private final List<PlaylistComponent> pendingPlaylists = new ArrayList<>();
 
     // Pattern STRATEGY
     private PlaybackMode playbackMode = new Sequential();
@@ -84,6 +87,43 @@ public class PlaybackEngine implements Publisher{
 
     public PlaylistComponent getCurrentPlaylist() {
         return currentPlaylist;
+    }
+
+    public void addPendingPlaylist(PlaylistComponent playlist) {
+        pendingPlaylists.add(playlist);
+    }
+
+    public List<PlaylistComponent> getPendingPlaylists() {
+        return new ArrayList<>(pendingPlaylists);
+    }
+
+    public void skipToNextPlaylist(List<PlaylistComponent> playlists) {
+        if (!pendingPlaylists.isEmpty()) {
+            startPlaylist(pendingPlaylists.remove(0));
+            return;
+        }
+
+        if (currentPlaylist != null) {
+            if (playlists.size() < 2) return;
+            int idx = -1;
+            for (int i = 0; i < playlists.size(); i++) {
+                if (playlists.get(i).getName().equals(currentPlaylist.getName())) {
+                    idx = i;
+                    break;
+                }
+            }
+            if (idx == -1) return;
+            startPlaylist(playlists.get((idx + 1) % playlists.size()));
+            return;
+        }
+
+        clearQueue();
+    }
+
+    private void startPlaylist(PlaylistComponent playlist) {
+        setCurrentPlaylist(playlist);
+        addListToQueue(new ArrayList<>(playlist.getTracks()));
+        play();
     }
 
     public List<TrackComponent> getQueue() {
