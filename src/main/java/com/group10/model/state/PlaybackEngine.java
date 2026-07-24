@@ -66,7 +66,11 @@ public class PlaybackEngine implements Publisher{
     public PlayerState getState() {
         return currentState;
     }
-    
+
+    public boolean isPlaying() {
+        return currentState instanceof PlayingState;
+    }
+
     public double getCurrentTime() {
         return currentTime;
     }
@@ -212,7 +216,7 @@ private void switchTrack(TrackComponent newTrack) {
             onTick.accept(0.0);
         }
 
-        if (currentState instanceof PlayingState) {
+        if (isPlaying()) {
             stopSimulation();
             startSimulation();
         }

@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
-import com.group10.model.state.PlayingState;
 
 public class PlayerViewController implements Initializable, Subscriber {
 
@@ -133,7 +132,7 @@ public class PlayerViewController implements Initializable, Subscriber {
             if (totalTimeLabel != null) totalTimeLabel.setText(formatTime(current.getDurationInSeconds()));
             if (currentTimeLabel != null) currentTimeLabel.setText(formatTime(engine.getCurrentTime()));
             
-            if (engine.getState() instanceof PlayingState) {
+            if (engine.isPlaying()) {
                 playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/pause-button.png")));
             } else {
                 playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/play-button.png")));
@@ -155,7 +154,7 @@ public class PlayerViewController implements Initializable, Subscriber {
         var engine = PlaybackEngine.getInstance();
         if (engine.getCurrentTrack() == null) return;
 
-        if (engine.getState() instanceof PlayingState) {
+        if (engine.isPlaying()) {
             engine.pause();
         } else {
             engine.play();

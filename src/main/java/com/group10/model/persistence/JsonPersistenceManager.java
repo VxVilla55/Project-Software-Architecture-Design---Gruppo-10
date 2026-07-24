@@ -80,6 +80,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
                         .setDuration(t.duration)
                         .setGenre(t.genre)
                         .setYear(t.year)
+                        .setPlayCount(t.playCount)
                         .addAllTags(t.tags)
                         .setCoverImagePath(t.coverImagePath)
                         .build();
@@ -113,6 +114,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
             t.duration = track.getDurationInSeconds();
             t.genre = track.getGenre();
             t.year = track.getYear();
+            t.playCount = track.getPlayCount();
             t.tags.addAll(track.getTags());
             t.coverImagePath = track.getCoverImagePath();
             data.tracks.add(t);
