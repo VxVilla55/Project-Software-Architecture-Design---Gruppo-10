@@ -93,34 +93,16 @@ public class PlaybackEngine implements Publisher{
         pendingPlaylists.add(playlist);
     }
 
-    public List<PlaylistComponent> getPendingPlaylists() {
-        return new ArrayList<>(pendingPlaylists);
+    // restituisce e rimuove la prima playlist in attesa, o null se non ce ne sono
+    public PlaylistComponent getPendingPlaylist() {
+        if (pendingPlaylists.isEmpty()) {
+            return null;
+        }
+        return pendingPlaylists.remove(0);
     }
 
-    public void skipToNextPlaylist(List<PlaylistComponent> playlists) {
-        if (!pendingPlaylists.isEmpty()) {
-            startPlaylist(pendingPlaylists.remove(0));
-            return;
-        }
-
-        if (currentPlaylist != null) {
-            if (playlists.size() < 2) return;
-            int idx = -1;
-            for (int i = 0; i < playlists.size(); i++) {
-                if (playlists.get(i).getName().equals(currentPlaylist.getName())) {
-                    idx = i;
-                    break;
-                }
-            }
-            if (idx == -1) return;
-            startPlaylist(playlists.get((idx + 1) % playlists.size()));
-            return;
-        }
-
-        clearQueue();
-    }
-
-    private void startPlaylist(PlaylistComponent playlist) {
+    // fa partire una playlist da capo: la imposta come corrente, carica le tracce e avvia
+    public void startPlaylist(PlaylistComponent playlist) {
         setCurrentPlaylist(playlist);
         addListToQueue(new ArrayList<>(playlist.getTracks()));
         play();
