@@ -9,7 +9,7 @@
 
 <HBox fx:id="root" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" onMouseClicked="#handleSelection" prefHeight="55.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
+      <Label fx:id="indexLabel" alignment="CENTER" minWidth="30.0" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
          <HBox.margin>
             <Insets left="15.0" />
          </HBox.margin>
@@ -53,24 +53,24 @@
                   </ImageView>
                </graphic>
             </Label>
-            <Label fx:id="newReleaseLabel" managed="false" maxHeight="21.0" minHeight="21.0" prefHeight="21.0" style="-fx-background-color: #98b193; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 12;" text="NEW" visible="false" />
+            <Label fx:id="newReleaseLabel" managed="false" maxHeight="21.0" minHeight="21.0" minWidth="-Infinity" prefHeight="21.0" style="-fx-background-color: #98b193; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 12;" text="NEW" visible="false" />
             <Label fx:id="explicitLabel" managed="false" maxHeight="21.0" maxWidth="21.0" minHeight="21.0" minWidth="21.0" prefHeight="21.0" prefWidth="21.0" style="-fx-background-color: #d6b35e; -fx-text-fill: white; -fx-background-radius: 3; -fx-padding: 2 6 2 6; -fx-font-weight: bold; -fx-font-size: 12;" text="E" visible="false" />
          </children>
       </HBox>
 
-      <Label fx:id="genreLabel" minWidth="0.0" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="Rock">
+      <Label fx:id="genreLabel" minWidth="100.0" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="Rock">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
 
-      <Label fx:id="yearLabel" alignment="CENTER" minWidth="0.0" prefWidth="50.0" style="-fx-text-fill: #78909C;" text="1975">
+      <Label fx:id="yearLabel" alignment="CENTER" minWidth="50.0" prefWidth="50.0" style="-fx-text-fill: #78909C;" text="1975">
          <font>
             <Font size="13.0" />
          </font>
       </Label>
 
-      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" minWidth="0.0" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="05:55">
+      <Label fx:id="durationLabel" alignment="CENTER_RIGHT" minWidth="60.0" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="05:55">
          <font>
             <Font size="13.0" />
          </font>
