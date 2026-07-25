@@ -323,19 +323,13 @@ public class MusicCatalogueTest {
     void getTopPlaylists_ordinamentoCorretto() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         
-        PlaylistComponent p1 = makePlaylist("Playlist Flop"); // 0 ascolti
-        PlaylistComponent p2 = makePlaylist("Playlist Top");  // 10 ascolti
-        PlaylistComponent p3 = makePlaylist("Playlist Mid");  // 5 ascolti
+        PlaylistComponent p1 = makePlaylist("Playlist Flop"); // 0 riproduzioni
+        PlaylistComponent p2 = makePlaylist("Playlist Top");  // 10 riproduzioni
+        PlaylistComponent p3 = makePlaylist("Playlist Mid");  // 5 riproduzioni
 
-        TrackComponent hit = makeTrack("Hit", "A");
-        for(int i = 0; i < 10; i++) hit.incrementPlayCount();
-        
-        TrackComponent mid = makeTrack("Mid", "A");
-        for(int i = 0; i < 5; i++) mid.incrementPlayCount();
-
-        p2.add(hit); // p2 totalizza 10 ascolti
-        p3.add(mid); // p3 totalizza 5 ascolti
-        // p1 rimane vuota/a 0 ascolti
+        for(int i = 0; i < 10; i++) p2.incrementPlayCount();
+        for(int i = 0; i < 5; i++) p3.incrementPlayCount();
+        // p1 rimane a 0 riproduzioni
 
         cat.addPlaylist(p1);
         cat.addPlaylist(p2);
@@ -364,13 +358,8 @@ public class MusicCatalogueTest {
         PlaylistComponent p1 = makePlaylist("Playlist Pari 1");
         PlaylistComponent p2 = makePlaylist("Playlist Pari 2");
 
-        TrackComponent t1 = makeTrack("Track 1", "A");
-        TrackComponent t2 = makeTrack("Track 2", "B");
-        t1.incrementPlayCount(); // 1 ascolto
-        t2.incrementPlayCount(); // 1 ascolto
-
-        p1.add(t1);
-        p2.add(t2);
+        p1.incrementPlayCount(); // 1 riproduzione
+        p2.incrementPlayCount(); // 1 riproduzione
 
         cat.addPlaylist(p1);
         cat.addPlaylist(p2);

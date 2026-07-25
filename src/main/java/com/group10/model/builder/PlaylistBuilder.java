@@ -30,6 +30,7 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
     private String name;
     private final List<TrackComponent> tracks;
     private final List<TrackFilterStrategy> strategies;
+    private int playCount;
 
     public PlaylistBuilder() {
         this.name = "Nuova Playlist";   
@@ -66,7 +67,16 @@ public class PlaylistBuilder implements Builder<PlaylistComponent> {
         this.strategies.add(strategy);
         return this;
     }
-    
+
+    // conserva il conteggio di riproduzione (es. quando si rinomina una playlist)
+    public PlaylistBuilder setPlayCount(int playCount) {
+        this.playCount = playCount;
+        return this;
+    }
+    public int getPlayCount() {
+        return playCount;
+    }
+
     public List<TrackComponent> getTracks() {
         return tracks;
     }

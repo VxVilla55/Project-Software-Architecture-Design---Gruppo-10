@@ -34,6 +34,7 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
     //private Set<TrackComponent> tracks;
     private List<TrackComponent> staticTracks; //elenco statico di playlist
     private List<TrackFilterStrategy> strategies = new ArrayList<>(); //elenco dinamico (se creata automaticamente)
+    private int playCount; //quante volte la playlist è stata avviata o accodata
 
     public PlaylistComponent() {
         this.name = validateAndTrimName("Nuova Playlist");
@@ -61,6 +62,7 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
         this.name = validateAndTrimName(builder.getName());
         this.staticTracks = new ArrayList<>(builder.getTracks());
         this.strategies = new ArrayList<>(builder.getStrategies());
+        this.playCount = builder.getPlayCount();
     }
 
 
@@ -140,11 +142,18 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
     }
 
 
-    // il conteggio della playlist è la somma degli ascolti delle sue tracce
+    // conteggio proprio della playlist: quante volte è stata avviata o accodata
     public int getPlayCount() {
-        return this.getTracks().stream()
-                   .mapToInt(TrackComponent::getPlayCount)
-                   .sum();        
+        return this.playCount;
+    }
+
+    public void incrementPlayCount() {
+        this.playCount++;
+    }
+
+    // usato dalla persistenza per ripristinare il conteggio salvato
+    public void setPlayCount(int playCount) {
+        this.playCount = playCount;
     }
 
     private static String validateAndTrimName(String name) {

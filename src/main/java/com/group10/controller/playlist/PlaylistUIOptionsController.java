@@ -46,6 +46,7 @@ public class PlaylistUIOptionsController implements AbstractUIComponent {
     // accoda la playlist in attesa: verrà riprodotta al prossimo skip playlist
     @FXML
     private void handleAddPlaylistToQueue(ActionEvent event) {
+        playlist.incrementPlayCount();
         PlaybackEngine.getInstance().addPendingPlaylist(playlist);
         MainViewController.getInstance().hideMenuPopup();
     }

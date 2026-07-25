@@ -84,6 +84,7 @@ public class PlaylistUIDetailsController implements AbstractUIComponent, Initial
 
     @FXML
     public void handlePlayPausePlaylist(ActionEvent event) {
+        playlist.incrementPlayCount();
         playlist.playOnEngine(PlaybackEngine.getInstance());
         PlaybackEngine.getInstance().play();
         playlistPlayButton.setVisible(false);

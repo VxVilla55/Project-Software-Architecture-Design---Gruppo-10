@@ -25,6 +25,7 @@ public class RenamePlaylistCommand implements Command {
         this.newPlaylist = new PlaylistBuilder()
                 .setName(newPlaylistName)
                 .addTracks(oldPlaylist.getTracks())
+                .setPlayCount(oldPlaylist.getPlayCount()) // il rinomino non azzera i suoi ascolti
                 .build();
     }
 

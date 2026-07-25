@@ -234,6 +234,7 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                 .setGenre(genreField.getText())
                 .setYear(year)
                 .setDuration(track.getDurationInSeconds())
+                .setPlayCount(track.getPlayCount()) 
                 .setCoverImagePath(coverPath);
 
             if (favoriteButton != null && favoriteButton.isSelected()) {

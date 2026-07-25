@@ -17,5 +17,6 @@ import java.util.List;
 
 public class PlaylistData {
     String name;
+    int playCount;
     List<String> trackKeys = new ArrayList<>();
 }

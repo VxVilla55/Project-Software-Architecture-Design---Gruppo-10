@@ -91,6 +91,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
             }
             for (PlaylistData p : data.playlists) {
                 PlaylistComponent playlist = new PlaylistComponent(p.name);
+                playlist.setPlayCount(p.playCount);
                 for (String trackKey : p.trackKeys) {
                     TrackComponent track = byKey.get(trackKey);
                     if (track != null) {
@@ -122,6 +123,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
         for (PlaylistComponent playlist : catalogue.getPlaylists().values()) {
             PlaylistData p = new PlaylistData();
             p.name = playlist.getName();
+            p.playCount = playlist.getPlayCount();
             for (TrackComponent track : playlist.getTracks()) {
                 p.trackKeys.add(key(track.getTitle(), track.getAuthor()));
             }
