@@ -17,7 +17,10 @@ import com.group10.model.playback.RepeatTrack;
  * Singleton: classe che modella lo stato del player
  */
 public class PlaybackEngine implements Publisher{
-    
+
+    // secondi di ascolto oltre i quali un'ascolto di una traccia lunga viene conteggiata
+    private static final double PLAYCOUNT_THRESHOLD = 30.0;
+
     private static PlaybackEngine instance;
     private PlayerState currentState;
     
@@ -254,8 +257,11 @@ private void switchTrack(TrackComponent newTrack) {
             public void run() {
                 currentTime += 0.1;
 
-                // l'ascolto viene conteggiato una sola volta, dopo i primi 30 secondi
-                if (currentTime >= 30.0 && !playCounted) {
+                // soglia = 30 secondi, o l'intera durata se la traccia è più corta
+                double playCountThreshold = Math.min(PLAYCOUNT_THRESHOLD, currentTrack.getDurationInSeconds());
+
+                // l'ascolto viene conteggiato una sola volta, al raggiungimento della soglia
+                if (currentTime >= playCountThreshold && !playCounted) {
                     currentTrack.incrementPlayCount();
                     playCounted = true;
                 }
