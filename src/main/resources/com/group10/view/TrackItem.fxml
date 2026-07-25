@@ -58,7 +58,7 @@
          </children>
       </HBox>
 
-      <Label fx:id="genreLabel" minWidth="100.0" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="Rock">
+      <Label fx:id="genreLabel" minWidth="80.0" prefWidth="80.0" style="-fx-text-fill: #78909C;" text="Rock">
          <font>
             <Font size="13.0" />
          </font>
