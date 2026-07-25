@@ -9,10 +9,7 @@
 
 <HBox fx:id="root" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" onMouseClicked="#handleSelection" prefHeight="55.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="indexLabel" alignment="CENTER" minWidth="30.0" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
-         <HBox.margin>
-            <Insets left="15.0" />
-         </HBox.margin>
+      <Label fx:id="indexLabel" alignment="CENTER_LEFT" minWidth="30.0" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
          <font>
             <Font name="System System" size="14.0" />
          </font>
