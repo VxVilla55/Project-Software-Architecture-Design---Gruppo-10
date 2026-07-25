@@ -205,8 +205,7 @@ public void clearQueue() {
 
 private void switchTrack(TrackComponent newTrack) {
         this.currentTrack = newTrack;
-        this.currentTime = 0;
-        this.playCounted = false; // ogni cambio traccia riapre il conteggio dell'ascolto
+        resetTime();
 
         if (onTrackChanged != null) {
             onTrackChanged.accept(newTrack);
@@ -291,7 +290,8 @@ private void switchTrack(TrackComponent newTrack) {
     }
 
     public void resetTime() {
-        this.currentTime = 0; 
+        this.currentTime = 0;
+        this.playCounted = false; // l'ascolto può essere ricontato
     }
 
 

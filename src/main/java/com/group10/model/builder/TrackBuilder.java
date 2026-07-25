@@ -20,7 +20,7 @@ public class TrackBuilder implements Builder<TrackComponent> {
     private int duration;
     private String genre;
     private int year = 2026;
-    private int playCount = 0;
+    private int playCount;
     private String coverImagePath;
 
     private Set<Tag> tags = new HashSet<>();
