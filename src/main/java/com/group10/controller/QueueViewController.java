@@ -47,8 +47,10 @@ public class QueueViewController implements Initializable, Subscriber {
         }
 
         TrackUIComponentFactory factory = new TrackUIComponentFactory();
+        int position = 1;
         for (TrackComponent t : queue) {
             TrackUIQueueComponentItem item = (TrackUIQueueComponentItem) factory.createUIQueueComponentItem(t);
+            item.setIndex(position++);
             container.getChildren().add(item.getRoot());
         }
     }
