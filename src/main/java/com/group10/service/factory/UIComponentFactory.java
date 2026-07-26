@@ -14,9 +14,9 @@ import javafx.fxml.Initializable;
  *
  * Ruolo: AbstractFactory. Dichiara un metodo di creazione per ogni tipo di
  * componente UI della famiglia (Item, Card, Details, Adder, Options).
- * Ogni ConcreteFactory ({@link TrackUIComponentFactory}, {@link PlaylistUIComponentFactory})
+ * Ogni ConcreteFactory (TrackUIComponentFactory, PlaylistUIComponentFactory)
  * produce l'intera famiglia di componenti per il proprio tipo di model.
- * Il prodotto astratto e' {@link AbstractUIComponent}.
+ * Il prodotto astratto e' AbstractUIComponent.
  *
  * @author group10
  */
