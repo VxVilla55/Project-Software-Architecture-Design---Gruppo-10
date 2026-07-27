@@ -45,8 +45,8 @@ public class PlayerViewController implements Initializable, Subscriber {
 
     // ciclo delle modalità di ripetizione gestito lato client (strategy)
     // il controller possiede le strategie (stateless, quindi condivisibili) e le passa
-    // al Context col setter. L'ordine definisce il ciclo del pulsante loop.
-    private final List<PlaybackMode> playbackModes = List.of(new Sequential(), new RepeatPlaylist(), new RepeatTrack());
+    // al Context col setter, l 'ordine definisce il ciclo del pulsante loop
+    private final PlaybackMode[] playbackModes = { new Sequential(), new RepeatPlaylist(), new RepeatTrack() };
     private int playbackModeIndex = 0;
 
     // Metodo helper per formattare i secondi in mm:ss
@@ -183,8 +183,8 @@ public class PlayerViewController implements Initializable, Subscriber {
 
     @FXML public void handleRepeat(ActionEvent event) {
         // il client avanza nel ciclo, sceglie la strategia e la passa al Context (setter)
-        playbackModeIndex = (playbackModeIndex + 1) % playbackModes.size();
-        PlaybackMode mode = playbackModes.get(playbackModeIndex);
+        playbackModeIndex = (playbackModeIndex + 1) % playbackModes.length;
+        PlaybackMode mode = playbackModes[playbackModeIndex];
         PlaybackEngine.getInstance().setPlaybackMode(mode);
 
         // icona in base alla strategy

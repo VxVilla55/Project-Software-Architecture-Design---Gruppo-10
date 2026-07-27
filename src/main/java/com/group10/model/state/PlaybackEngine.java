@@ -359,7 +359,8 @@ public Integer removeTrackFromQueue(TrackComponent track) {
         return playbackMode;
     }
 
-    // setter del pattern Strategy: il client (controller) sostituisce la strategia a runtime
+    // setter del pattern Strategy
+    // il client (controller) sostituisce la strategia a runtime
     public void setPlaybackMode(PlaybackMode mode) {
         this.playbackMode = mode;
     }
