@@ -5,6 +5,7 @@ import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
 import java.util.ArrayList;
 
+import java.time.Year;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -46,9 +47,9 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
     public TrackComponent() {
         this.title = "--";
         this.author = "--";
-        this.duration = 31;
+        this.duration = 1;
         this.genre = "";
-        this.year = 2026;
+        this.year = Year.now().getValue();
         this.tags = new HashSet<>();
         this.playCount = 0;
         this.coverImagePath = null;
