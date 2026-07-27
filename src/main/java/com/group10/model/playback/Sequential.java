@@ -9,7 +9,7 @@ import com.group10.model.state.PlaybackEngine;
  * Strategy concreta sequenziale: a fine traccia passa alla
  * successiva, oppure ferma la riproduzione se la coda è terminata
  *
- * PATTERN: ConcreteStrategy di RepeatMode
+ * PATTERN: ConcreteStrategy di PlaybackMode
  */
 public class Sequential implements PlaybackMode {
 
@@ -21,5 +21,10 @@ public class Sequential implements PlaybackMode {
         } else {
             engine.stop();
         }
+    }
+
+    @Override
+    public PlaybackMode nextMode() {
+        return new RepeatPlaylist();
     }
 }

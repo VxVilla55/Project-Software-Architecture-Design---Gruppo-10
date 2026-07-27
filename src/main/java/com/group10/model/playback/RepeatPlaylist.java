@@ -9,7 +9,7 @@ import com.group10.model.state.PlaybackEngine;
  * Strategy concreta con ripetizione dell'intera playlist: a fine coda
  * riparte dalla prima traccia
  *
- * PATTERN: ConcreteStrategy di RepeatMode
+ * PATTERN: ConcreteStrategy di PlaybackMode
  */
 public class RepeatPlaylist implements PlaybackMode {
 
@@ -21,5 +21,16 @@ public class RepeatPlaylist implements PlaybackMode {
         } else {
             engine.playFromStart();
         }
+    }
+
+    @Override
+    public PlaybackMode nextMode() {
+        return new RepeatTrack();
+    }
+
+    // in loop-playlist la coda fa wrap-around: dall'ultima si torna alla prima e viceversa
+    @Override
+    public boolean loopsQueue() {
+        return true;
     }
 }

@@ -10,8 +10,6 @@ import com.group10.model.common.Subscriber;
 
 import com.group10.model.playback.Sequential;
 import com.group10.model.playback.PlaybackMode;
-import com.group10.model.playback.RepeatPlaylist;
-import com.group10.model.playback.RepeatTrack;
 
 /**
  * Singleton: classe che modella lo stato del player
@@ -180,8 +178,8 @@ public void clearQueue() {
             // sequenziale: va alla prossima traccia in coda
             currentIndex++;
             switchTrack(queue.get(currentIndex));
-        } else if ((currentIndex == queue.size() -1) && playbackMode instanceof RepeatPlaylist) {
-            // loop playlist: riparte dall'inizio alla fine della coda
+        } else if ((currentIndex == queue.size() -1) && playbackMode.loopsQueue()) {
+            // loop playlist, riparte dall'inizio alla fine della coda
             currentIndex = 0;
             switchTrack(queue.get(currentIndex));
         } else {
@@ -196,8 +194,8 @@ public void clearQueue() {
         if (currentIndex > 0) {
             currentIndex--;
             switchTrack(queue.get(currentIndex));
-        } else if (currentIndex == 0 && (playbackMode instanceof RepeatPlaylist)) {
-            // loop playlist: dalla prima traccia si torna all'ultima
+        } else if (currentIndex == 0 && playbackMode.loopsQueue()) {
+            // loop playlist, dalla prima traccia si torna all'ultima
             currentIndex = queue.size() - 1;
             switchTrack(queue.get(currentIndex));
         } else {
@@ -357,21 +355,20 @@ public Integer removeTrackFromQueue(TrackComponent track) {
         currentState.stop();
     }
 
+    // avanza alla modalità successiva nel ciclo, delegando alla strategia (niente instanceof)
     public void cycleRepeatMode() {
-        if (playbackMode instanceof Sequential) {
-            // se sequenziale, imposta loop su playlist
-            playbackMode = new RepeatPlaylist();
-        } else if (playbackMode instanceof RepeatPlaylist) {
-            // se loop su playlist, imposta loop su singola traccia
-            playbackMode = new RepeatTrack();
-        } else {
-            // ritorna a sequenziale
-            playbackMode = new Sequential();
-        }
+        playbackMode = playbackMode.nextMode();
     }
 
     public PlaybackMode getPlaybackMode() {
         return playbackMode;
+    }
+
+    // setter per sostituire la strategia a runtime
+    public void setPlaybackMode(PlaybackMode mode) {
+        if (mode != null) {
+            this.playbackMode = mode;
+        }
     }
 
     // tratta lo shuffle come toggle e usa due queue, quella mischiata e quella originale

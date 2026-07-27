@@ -15,4 +15,12 @@ public interface PlaybackMode {
 
     // azione da eseguire quando la traccia corrente finisce
     void onTrackEnd(PlaybackEngine engine);
+
+    // modalità successiva nel ciclo Sequential -> RepeatPlaylist -> RepeatTrack -> Sequential
+    PlaybackMode nextMode();
+
+    // true se a fine/inizio coda la riproduzione riparte 
+    default boolean loopsQueue() {
+        return false;
+    }
 }
