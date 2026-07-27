@@ -20,7 +20,7 @@ public class RepeatTrack implements PlaybackMode {
     }
 
     @Override
-    public PlaybackMode nextMode() {
-        return new Sequential();
+    public boolean loopsTrack() {
+        return true;
     }
 }

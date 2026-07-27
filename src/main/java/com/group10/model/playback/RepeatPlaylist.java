@@ -23,11 +23,6 @@ public class RepeatPlaylist implements PlaybackMode {
         }
     }
 
-    @Override
-    public PlaybackMode nextMode() {
-        return new RepeatTrack();
-    }
-
     // in loop-playlist la coda fa wrap-around: dall'ultima si torna alla prima e viceversa
     @Override
     public boolean loopsQueue() {

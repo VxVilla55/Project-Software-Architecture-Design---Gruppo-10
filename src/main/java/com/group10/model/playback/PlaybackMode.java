@@ -16,11 +16,14 @@ public interface PlaybackMode {
     // azione da eseguire quando la traccia corrente finisce
     void onTrackEnd(PlaybackEngine engine);
 
-    // modalità successiva nel ciclo Sequential -> RepeatPlaylist -> RepeatTrack -> Sequential
-    PlaybackMode nextMode();
-
-    // true se a fine/inizio coda la riproduzione riparte 
+    // true se a fine/inizio coda la riproduzione riparte dall'altro capo (loop della coda).
+    // Evita che il Context debba controllare il tipo concreto della strategia.
     default boolean loopsQueue() {
+        return false;
+    }
+
+    // true se questa modalità ripete la singola traccia (usato dalla UI per scegliere l'icona)
+    default boolean loopsTrack() {
         return false;
     }
 }

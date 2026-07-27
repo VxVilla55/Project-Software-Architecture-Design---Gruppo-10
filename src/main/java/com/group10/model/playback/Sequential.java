@@ -22,9 +22,4 @@ public class Sequential implements PlaybackMode {
             engine.stop();
         }
     }
-
-    @Override
-    public PlaybackMode nextMode() {
-        return new RepeatPlaylist();
-    }
 }

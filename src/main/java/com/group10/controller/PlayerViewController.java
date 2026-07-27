@@ -6,6 +6,7 @@ import com.group10.model.TrackComponent;
 import com.group10.model.common.Subscriber;
 import com.group10.model.playback.PlaybackMode;
 import com.group10.model.playback.RepeatPlaylist;
+import com.group10.model.playback.RepeatTrack;
 import com.group10.model.playback.Sequential;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -41,6 +42,12 @@ public class PlayerViewController implements Initializable, Subscriber {
     @FXML private ImageView playPauseIcon;
     
     private Parent root;
+
+    // ciclo delle modalità di ripetizione gestito lato client (strategy)
+    // il controller possiede le strategie (stateless, quindi condivisibili) e le passa
+    // al Context col setter. L'ordine definisce il ciclo del pulsante loop.
+    private final List<PlaybackMode> playbackModes = List.of(new Sequential(), new RepeatPlaylist(), new RepeatTrack());
+    private int playbackModeIndex = 0;
 
     // Metodo helper per formattare i secondi in mm:ss
     private String formatTime(double seconds) {
@@ -175,18 +182,24 @@ public class PlayerViewController implements Initializable, Subscriber {
     public Parent getRoot() { return this.root; }
 
     @FXML public void handleRepeat(ActionEvent event) {
-        PlaybackEngine.getInstance().cycleRepeatMode();
+        // il client avanza nel ciclo, sceglie la strategia e la passa al Context (setter)
+        playbackModeIndex = (playbackModeIndex + 1) % playbackModes.size();
+        PlaybackMode mode = playbackModes.get(playbackModeIndex);
+        PlaybackEngine.getInstance().setPlaybackMode(mode);
 
-        PlaybackMode playbackMode = PlaybackEngine.getInstance().getPlaybackMode();
-        if (playbackMode instanceof Sequential) {
-            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-playlist.png")));
-            loopButtonIcon.setOpacity(0.2);
-        } else if (playbackMode instanceof RepeatPlaylist) {
-            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-playlist.png")));
+        // icona in base alla strategy
+        String icon;
+        if (mode.loopsTrack()) {
+            icon = "/com/group10/images/loop-track.png";
+        } else {
+            icon = "/com/group10/images/loop-playlist.png";
+        }
+        loopButtonIcon.setImage(new Image(getClass().getResourceAsStream(icon)));
+
+        if (mode.loopsQueue() || mode.loopsTrack()) {
             loopButtonIcon.setOpacity(0.7);
         } else {
-            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-track.png")));
-            loopButtonIcon.setOpacity(0.7);
+            loopButtonIcon.setOpacity(0.2);
         }
     }
 

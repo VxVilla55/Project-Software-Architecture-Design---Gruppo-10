@@ -355,20 +355,13 @@ public Integer removeTrackFromQueue(TrackComponent track) {
         currentState.stop();
     }
 
-    // avanza alla modalità successiva nel ciclo, delegando alla strategia (niente instanceof)
-    public void cycleRepeatMode() {
-        playbackMode = playbackMode.nextMode();
-    }
-
     public PlaybackMode getPlaybackMode() {
         return playbackMode;
     }
 
-    // setter per sostituire la strategia a runtime
+    // setter del pattern Strategy: il client (controller) sostituisce la strategia a runtime
     public void setPlaybackMode(PlaybackMode mode) {
-        if (mode != null) {
-            this.playbackMode = mode;
-        }
+        this.playbackMode = mode;
     }
 
     // tratta lo shuffle come toggle e usa due queue, quella mischiata e quella originale
