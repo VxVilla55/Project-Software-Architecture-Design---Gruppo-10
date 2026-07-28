@@ -338,7 +338,7 @@ public Integer removeTrackFromQueue(TrackComponent track) {
     }
 
     public void addTrackToQueueAtIndex(TrackComponent track, int index) {
-        if (queue.size()-1>index) {
+        if (index >= 0 && index <= queue.size()) {
             queue.add(index, track);
         }
     }
