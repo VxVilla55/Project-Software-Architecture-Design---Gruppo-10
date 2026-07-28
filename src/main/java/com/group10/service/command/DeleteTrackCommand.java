@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * PATTERN: Command (ConcreteCommand). Elimina una traccia dal catalogo e la ripristina
+ * con l'undo, memorizzando le playlist che la contenevano e la sua posizione in coda.
  *
  * @author group10
  */
@@ -29,22 +31,25 @@ public class DeleteTrackCommand implements Command {
 
     @Override
     public void execute() {
-        //prima rimozione solo da tutte le playlist
+        //ripulisce lo stato salvato per non accumulare tra esecuzioni successive
+        playlists.clear();
+
+        //memorizza (senza rimuovere) le playlist che contenevano la traccia, per l'undo.
+        //la rimozione effettiva la fa MusicCatalogue.removeTrack(), che toglie la traccia
+        //da catalogo, playlist e coda in un colpo solo: qui non va duplicata
         for (PlaylistComponent playlist : MusicCatalogue.getInstance().getPlaylists().values()) {
             if (playlist.contains(trackDeleted)) {
-                playlist.remove(trackDeleted);                
-                //ma me le salvo
                 playlists.add(playlist);
             }
         }
-        
-        //rimozione dalla coda di riproduzione di playbackengine
+
+        //rimuove dalla coda memorizzando la posizione (per ripristinarla in undo)
         indexInQueue = PlaybackEngine.getInstance().removeTrackFromQueue(trackDeleted);
-        
+
         //elimina il focus alla traccia
         MainViewController.getInstance().setSelectedTrack(null);
-        
-        //rimozione dal catalogo
+
+        //rimozione effettiva dal catalogo (che rimuove anche dalle playlist rimaste)
         MusicCatalogue.getInstance().removeTrack(trackDeleted);
     }
 
@@ -52,14 +57,17 @@ public class DeleteTrackCommand implements Command {
     public void undo() {
         //riaggiunge la traccia al catalogo
         MusicCatalogue.getInstance().addTrack(trackDeleted);
-        
+
         //rimette il focus alla traccia
         MainViewController.getInstance().setSelectedTrack(trackDeleted);
-        
-        //rimette nella coda di riproduzione di playbackengine
-        //PlaybackEngine.getInstance().addTrackToQueueAtIndex(trackDeleted, indexInQueue);
-        
-        //riaggiunge la traccia alle playlist
+
+        //ripristina la traccia nella coda alla posizione che aveva, se era in coda
+        if (indexInQueue != null) {
+            PlaybackEngine.getInstance().addTrackToQueueAtIndex(trackDeleted, indexInQueue);
+            PlaybackEngine.getInstance().notifySubscribers();
+        }
+
+        //riaggiunge la traccia alle playlist da cui era stata tolta
         for (PlaylistComponent playlist : playlists) {
             playlist.add(trackDeleted);
         }
