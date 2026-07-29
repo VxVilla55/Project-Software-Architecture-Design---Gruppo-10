@@ -11,7 +11,7 @@
 <VBox fx:id="root" style="-fx-background-color: #FFF8E1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.group10.controller.HomepageController">
    <children>
         <VBox fx:id="topPlaylistContainer">
-            <Label fx:id="topPlaylistLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-font-size: 20px;" text="Le tue playlist preferite">
+            <Label fx:id="topPlaylistLabel" style="-fx-text-fill: #37474F; -fx-font-weight: bold; -fx-font-size: 20px;" text="Le tue playlist consigliate">
                <font><Font size="20.0" /></font>
                <VBox.margin><Insets bottom="10.0" left="20.0" top="20.0" /></VBox.margin>
             </Label>
