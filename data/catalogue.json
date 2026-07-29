@@ -1,203 +1,246 @@
 {
   "tracks": [
     {
-      "title": "Runaway",
-      "author": "Bon Jovi",
-      "duration": 230,
-      "genre": "hard rock",
-      "year": 1984,
+      "title": "Bohemian Rhapsody",
+      "author": "Queen",
+      "duration": 355,
+      "genre": "Rock",
+      "year": 1975,
+      "playCount": 42,
       "tags": [
-        "NEW_RELEASE",
-        "FAVORITE",
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "Billie Jean",
+      "author": "Michael Jackson",
+      "duration": 294,
+      "genre": "Pop",
+      "year": 1982,
+      "playCount": 35,
+      "tags": [
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "Hotel California",
+      "author": "Eagles",
+      "duration": 391,
+      "genre": "Rock",
+      "year": 1976,
+      "playCount": 28,
+      "tags": []
+    },
+    {
+      "title": "Blinding Lights",
+      "author": "The Weeknd",
+      "duration": 200,
+      "genre": "Synth-pop",
+      "year": 2019,
+      "playCount": 25,
+      "tags": [
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "Take Five",
+      "author": "Dave Brubeck Quartet",
+      "duration": 324,
+      "genre": "Jazz",
+      "year": 1959,
+      "playCount": 21,
+      "tags": [
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "Smells Like Teen Spirit",
+      "author": "Nirvana",
+      "duration": 301,
+      "genre": "Grunge",
+      "year": 1991,
+      "playCount": 19,
+      "tags": [
         "EXPLICIT"
       ]
     },
     {
-      "title": "Livin\u0027 on a Prayer",
-      "author": "Bon Jovi",
-      "duration": 250,
-      "genre": "glam metal",
-      "year": 1986,
+      "title": "Lose Yourself",
+      "author": "Eminem",
+      "duration": 326,
+      "genre": "Hip Hop",
+      "year": 2002,
+      "playCount": 17,
       "tags": [
-        "FAVORITE"
-      ]
-    },
-    {
-      "title": "You Give Love a Bad Name",
-      "author": "Bon Jovi",
-      "duration": 215,
-      "genre": "glam metal",
-      "year": 1986,
-      "tags": []
-    },
-    {
-      "title": "Wanted Dead or Alive",
-      "author": "Bon Jovi",
-      "duration": 280,
-      "genre": "hard rock",
-      "year": 1986,
-      "tags": [
-        "FAVORITE"
-      ]
-    },
-    {
-      "title": "Bad Medicine",
-      "author": "Bon Jovi",
-      "duration": 260,
-      "genre": "hard rock",
-      "year": 1988,
-      "tags": []
-    },
-    {
-      "title": "Keep the Faith",
-      "author": "Bon Jovi",
-      "duration": 270,
-      "genre": "rock",
-      "year": 1992,
-      "tags": []
-    },
-    {
-      "title": "Bed of Roses",
-      "author": "Bon Jovi",
-      "duration": 330,
-      "genre": "rock ballad",
-      "year": 1992,
-      "tags": [
-        "FAVORITE"
-      ]
-    },
-    {
-      "title": "In These Arms",
-      "author": "Bon Jovi",
-      "duration": 320,
-      "genre": "rock",
-      "year": 1992,
-      "tags": []
-    },
-    {
-      "title": "Always",
-      "author": "Bon Jovi",
-      "duration": 290,
-      "genre": "rock ballad",
-      "year": 1994,
-      "tags": [
-        "FAVORITE"
-      ]
-    },
-    {
-      "title": "Someday I\u0027ll Be Saturday Night",
-      "author": "Bon Jovi",
-      "duration": 260,
-      "genre": "rock",
-      "year": 1994,
-      "tags": []
-    },
-    {
-      "title": "It\u0027s My Life",
-      "author": "Bon Jovi",
-      "duration": 225,
-      "genre": "rock",
-      "year": 2000,
-      "tags": [
-        "FAVORITE",
         "EXPLICIT"
       ]
     },
     {
-      "title": "Have a Nice Day",
-      "author": "Bon Jovi",
-      "duration": 240,
-      "genre": "rock",
-      "year": 2005,
-      "tags": [
-        "FAVORITE",
-        "EXPLICIT"
-      ]
-    },
-    {
-      "title": "Who Says You Can\u0027t Go Home",
-      "author": "Bon Jovi",
-      "duration": 235,
-      "genre": "country rock",
-      "year": 2005,
+      "title": "Rolling in the Deep",
+      "author": "Adele",
+      "duration": 228,
+      "genre": "Soul",
+      "year": 2010,
+      "playCount": 14,
       "tags": []
     },
     {
-      "title": "We Weren\u0027t Born to Follow",
-      "author": "Bon Jovi",
-      "duration": 250,
-      "genre": "rock",
-      "year": 2009,
+      "title": "So What",
+      "author": "Miles Davis",
+      "duration": 562,
+      "genre": "Jazz",
+      "year": 1959,
+      "playCount": 12,
+      "tags": []
+    },
+    {
+      "title": "Get Lucky",
+      "author": "Daft Punk",
+      "duration": 369,
+      "genre": "Dance",
+      "year": 2013,
+      "playCount": 11,
+      "tags": []
+    },
+    {
+      "title": "Shape of You",
+      "author": "Ed Sheeran",
+      "duration": 233,
+      "genre": "Pop",
+      "year": 2017,
+      "playCount": 9,
+      "tags": []
+    },
+    {
+      "title": "Nuvole Bianche",
+      "author": "Ludovico Einaudi",
+      "duration": 348,
+      "genre": "Classica",
+      "year": 2004,
+      "playCount": 8,
+      "tags": [
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "Clair de Lune",
+      "author": "Claude Debussy",
+      "duration": 300,
+      "genre": "Classica",
+      "year": 1905,
+      "playCount": 6,
+      "tags": []
+    },
+    {
+      "title": "Seven Nation Army",
+      "author": "The White Stripes",
+      "duration": 232,
+      "genre": "Rock",
+      "year": 2003,
+      "playCount": 5,
+      "tags": []
+    },
+    {
+      "title": "Flowers",
+      "author": "Miley Cyrus",
+      "duration": 200,
+      "genre": "Pop",
+      "year": 2023,
+      "playCount": 4,
       "tags": [
         "NEW_RELEASE"
       ]
+    },
+    {
+      "title": "Texas Hold \u0027Em",
+      "author": "Beyonce",
+      "duration": 233,
+      "genre": "Country",
+      "year": 2024,
+      "playCount": 3,
+      "tags": [
+        "NEW_RELEASE"
+      ]
+    },
+    {
+      "title": "Money Trees",
+      "author": "Kendrick Lamar",
+      "duration": 386,
+      "genre": "Hip Hop",
+      "year": 2012,
+      "playCount": 2,
+      "tags": [
+        "EXPLICIT",
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "Interstellar Main Theme",
+      "author": "Hans Zimmer",
+      "duration": 274,
+      "genre": "Colonna sonora",
+      "year": 2014,
+      "playCount": 1,
+      "tags": []
     }
   ],
   "playlists": [
     {
-      "name": "Ballads \u0026 Emotion",
+      "name": "Anni 80 e 90",
+      "playCount": 4,
       "trackKeys": [
-        "Always::Bon Jovi",
-        "Bed of Roses::Bon Jovi",
-        "In These Arms::Bon Jovi",
-        "Someday I\u0027ll Be Saturday Night::Bon Jovi"
+        "Billie Jean::Michael Jackson",
+        "Smells Like Teen Spirit::Nirvana"
       ]
     },
     {
-      "name": "Classic Bon Jovi",
+      "name": "I miei preferiti",
+      "playCount": 18,
       "trackKeys": [
-        "Livin\u0027 on a Prayer::Bon Jovi",
-        "Runaway::Bon Jovi",
-        "Wanted Dead or Alive::Bon Jovi",
-        "You Give Love a Bad Name::Bon Jovi"
+        "Bohemian Rhapsody::Queen",
+        "Billie Jean::Michael Jackson",
+        "Blinding Lights::The Weeknd",
+        "Take Five::Dave Brubeck Quartet",
+        "Nuvole Bianche::Ludovico Einaudi",
+        "Money Trees::Kendrick Lamar"
       ]
     },
     {
-      "name": "Modern Era",
+      "name": "Jazz Essentials",
+      "playCount": 9,
       "trackKeys": [
-        "Have a Nice Day::Bon Jovi",
-        "In These Arms::Bon Jovi",
-        "It\u0027s My Life::Bon Jovi",
-        "Keep the Faith::Bon Jovi",
-        "We Weren\u0027t Born to Follow::Bon Jovi",
-        "Who Says You Can\u0027t Go Home::Bon Jovi"
+        "Take Five::Dave Brubeck Quartet",
+        "So What::Miles Davis"
       ]
     },
     {
-      "name": "asdasd",
+      "name": "Relax e Studio",
+      "playCount": 6,
       "trackKeys": [
-        "We Weren\u0027t Born to Follow::Bon Jovi"
+        "Nuvole Bianche::Ludovico Einaudi",
+        "Clair de Lune::Claude Debussy",
+        "Interstellar Main Theme::Hans Zimmer",
+        "So What::Miles Davis"
       ]
     },
     {
-      "name": "asdasdasd",
+      "name": "Rock Classics",
+      "playCount": 12,
       "trackKeys": [
-        "Runaway::Bon Jovi",
-        "Livin\u0027 on a Prayer::Bon Jovi",
-        "Wanted Dead or Alive::Bon Jovi",
-        "Bed of Roses::Bon Jovi",
-        "Always::Bon Jovi",
-        "It\u0027s My Life::Bon Jovi",
-        "Have a Nice Day::Bon Jovi"
+        "Bohemian Rhapsody::Queen",
+        "Hotel California::Eagles",
+        "Smells Like Teen Spirit::Nirvana",
+        "Seven Nation Army::The White Stripes"
       ]
     },
     {
-      "name": "sasadasdasd",
+      "name": "Workout",
+      "playCount": 15,
       "trackKeys": [
-        "Runaway::Bon Jovi",
-        "Livin\u0027 on a Prayer::Bon Jovi",
-        "You Give Love a Bad Name::Bon Jovi",
-        "Wanted Dead or Alive::Bon Jovi",
-        "Bad Medicine::Bon Jovi",
-        "Keep the Faith::Bon Jovi",
-        "Bed of Roses::Bon Jovi",
-        "In These Arms::Bon Jovi",
-        "Always::Bon Jovi",
-        "Someday I\u0027ll Be Saturday Night::Bon Jovi",
-        "It\u0027s My Life::Bon Jovi",
-        "Have a Nice Day::Bon Jovi",
-        "Who Says You Can\u0027t Go Home::Bon Jovi",
-        "We Weren\u0027t Born to Follow::Bon Jovi"
+        "Blinding Lights::The Weeknd",
+        "Lose Yourself::Eminem",
+        "Get Lucky::Daft Punk",
+        "Seven Nation Army::The White Stripes"
       ]
     }
   ]
