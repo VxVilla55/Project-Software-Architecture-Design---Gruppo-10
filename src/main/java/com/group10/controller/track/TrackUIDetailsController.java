@@ -25,7 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 /**
@@ -35,7 +35,7 @@ import javafx.stage.FileChooser;
  */
 public class TrackUIDetailsController implements AbstractUIComponent, Initializable {
 
-    @FXML private AnchorPane root;
+    @FXML private VBox root;
     @FXML private ImageView trackImageView;
     @FXML private Button changeCoverButton;
     @FXML private TextField titleField;

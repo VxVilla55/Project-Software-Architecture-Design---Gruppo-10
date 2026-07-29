@@ -70,10 +70,10 @@
          </center>
 
          <right>
-            <VBox minWidth="320.0" prefWidth="393.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
+            <VBox minWidth="290.0" prefWidth="330.0" style="-fx-background-color: #FFF8E1; -fx-border-color: #EFE6CC; -fx-border-width: 0 0 0 1;" BorderPane.alignment="CENTER">
                <children>
                   
-                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="518.0" prefWidth="490.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
+                  <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="518.0" prefWidth="330.0" style="-fx-background: transparent; -fx-background-color: transparent;" vbarPolicy="AS_NEEDED" VBox.vgrow="ALWAYS">
                      <content>
                         <VBox fx:id="rightPane" alignment="TOP_CENTER" spacing="15.0" style="-fx-background-color: transparent;">
                            <padding><Insets left="15.0" right="15.0" /></padding>
