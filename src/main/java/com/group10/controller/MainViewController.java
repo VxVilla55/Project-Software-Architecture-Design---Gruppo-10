@@ -81,6 +81,9 @@ public class MainViewController implements Initializable, Subscriber {
     private Popup activePopup = null;
     private PlaylistComponent selectedPlaylist;
     private TrackComponent selectedTrack;
+    // true quando il pannello destro mostra la coda: serve a ricostruirla ad ogni
+    // update(), altrimenti cambiando schermata il pannello verrebbe svuotato
+    private boolean showingQueue = false;
 
     public static MainViewController getInstance() {
         if (singleton == null) {
@@ -107,10 +110,30 @@ public class MainViewController implements Initializable, Subscriber {
         bottomPane.getChildren().add(pane);
     }
     
+    // mostra la coda nel pannello destro e la mantiene visibile ai successivi update()
+    public void showQueue() {
+        showingQueue = true;
+        selectedTrack = null;
+        loadQueueOnRightPane();
+    }
+
+    private void loadQueueOnRightPane() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/QueueView.fxml"));
+            showOnRightPane(loader.load());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void setSelectedPlaylist(PlaylistComponent playlist) {
         selectedPlaylist = playlist;
     }
     public void setSelectedTrack(TrackComponent track) {
+        //selezionare una traccia sostituisce la coda col suo dettaglio
+        if (track != null) {
+            showingQueue = false;
+        }
         selectedTrack = track;
     }
     public PlaylistComponent getSelectedPlaylist() {
@@ -143,8 +166,11 @@ public class MainViewController implements Initializable, Subscriber {
             }
         }
 
-        //il pannello destro mostra il dettaglio della traccia selezionata, se c'è
-        if(selectedTrack != null) {
+        //il pannello destro mostra la coda, oppure il dettaglio della traccia selezionata
+        if(showingQueue) {
+            //la coda va ricaricata, altrimenti cambiando schermata sparirebbe
+            loadQueueOnRightPane();
+        } else if(selectedTrack != null) {
             try {
                 TrackUIDetailsController c = (TrackUIDetailsController) new TrackUIComponentFactory().createUIComponentDetails(selectedTrack);
                 Parent trackView = c.getRoot();

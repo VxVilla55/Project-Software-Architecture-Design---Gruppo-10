@@ -141,6 +141,7 @@ public void clearQueue() {
             currentIndex = 0;
             currentTrack = queue.get(currentIndex);
         }
+        notifySubscribers();
     }
     
     public void addTrackAsNext(TrackComponent track) {
