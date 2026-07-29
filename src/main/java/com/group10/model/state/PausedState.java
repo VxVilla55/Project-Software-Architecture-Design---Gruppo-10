@@ -3,10 +3,8 @@ package com.group10.model.state;
 /**
  *
  * @author group10
- *
- * Stato di riproduzione sospesa: il punto raggiunto viene conservato.
- *
- * PATTERN: ConcreteState del pattern State, PlaybackEngine è il Context
+ * PATTERN: State. ConcreteState, rappresenta il player in pausa: il punto raggiunto
+ * nella traccia resta salvato finche' non si riprende.
  */
 public class PausedState implements PlayerState {
 

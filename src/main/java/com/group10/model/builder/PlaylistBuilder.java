@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group10.model.builder;
 
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Builder;
 import com.group10.service.filter.TrackFilterStrategy;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

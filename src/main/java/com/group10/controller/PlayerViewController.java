@@ -25,6 +25,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Strategy (il Client).
+ * òl
+ *
+ * Possiede le istanze delle modalita' di ripetizione (playbackModes) e decide quale
+ * passare al Context (PlaybackEngine) col setter, quando l'utente clicca il pulsante loop.
+ * E' anche Subscriber del pattern Observer, per aggiornarsi quando cambia lo stato del player.
+ * Controller della barra del player in basso (play/pausa, avanti/indietro, barra di
+ * avanzamento, shuffle e repeat).
+ */
 public class PlayerViewController implements Initializable, Subscriber {
 
     @FXML private Button playPauseButton;
@@ -41,9 +53,8 @@ public class PlayerViewController implements Initializable, Subscriber {
     
     private Parent root;
 
-    // ciclo delle modalità di ripetizione gestito lato client (strategy)
-    // il controller possiede le strategie (stateless, quindi condivisibili) e le passa
-    // al Context col setter, l 'ordine definisce il ciclo del pulsante loop
+    // ciclo delle modalita' di ripetizione, gestito qui lato client (pattern strategy)
+    // l'ordine dell'array e' l'ordine con cui il pulsante loop le cicla
     private final PlaybackMode[] playbackModes = { new Sequential(), new RepeatPlaylist(), new RepeatTrack() };
     private int playbackModeIndex = 0;
 
@@ -69,8 +80,14 @@ public class PlayerViewController implements Initializable, Subscriber {
 
         var engine = PlaybackEngine.getInstance();
 
-        // il motore notifica anche dal thread del timer di riproduzione: ogni
-        // aggiornamento della UI va quindi eseguito sul thread di JavaFX
+        /*  
+        PERCHE' Platform.runLater
+        Timer di PlaybackEngine gira su un thread diverso da quello di JavaFX
+        La UI può essere aggiornata peròsolo dal thread di JavaFX
+        Platform.runLater() quindi esegue il codice sul thread corretto
+        */
+
+        // si aggiorna solo l'icona play/pausa quando lo stato di riproduzione cambia
         engine.setOnPlayStateChanged(isPlaying -> Platform.runLater(() -> {
             if (playPauseButton != null) {
                 if (isPlaying) {
@@ -81,6 +98,8 @@ public class PlayerViewController implements Initializable, Subscriber {
             }
         }));
 
+        // chiamato circa ogni 100ms dal Timer del player (PlaybackEngine.startSimulation)
+        // aggiorna la barra di avanzamento e il tempo trascorso mentre la traccia suona
         engine.setOnTick(time -> Platform.runLater(() -> {
             var track = engine.getCurrentTrack();
             if (track != null && track.getDurationInSeconds() > 0) {
@@ -97,6 +116,8 @@ public class PlayerViewController implements Initializable, Subscriber {
             }
         }));
 
+        // scatta quando cambia la traccia in riproduzione
+        // aggiorna titolo, autore e resetta la barra e i tempi mostrati
         engine.setOnTrackChanged(track -> Platform.runLater(() -> {
             if (track != null) {
                 trackTitle.setText(track.getTitle());

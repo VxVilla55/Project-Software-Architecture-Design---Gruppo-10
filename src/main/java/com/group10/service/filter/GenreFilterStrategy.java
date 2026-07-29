@@ -9,6 +9,7 @@ import com.group10.model.TrackComponent;
 /**
  *
  * @author group10
+ * PATTERN: Strategy. ConcreteStrategy, accetta le tracce con un certo genere.
  */
 public class GenreFilterStrategy  implements TrackFilterStrategy {
     private final String genre;

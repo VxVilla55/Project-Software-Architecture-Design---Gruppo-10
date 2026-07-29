@@ -30,8 +30,12 @@ import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
- * Controller della View di dettaglio del brano
+ *
  * @author group10
+ * PATTERN: Abstract Factory (ConcreteProduct), Command (il Client per modifica/eliminazione).
+ * Modifica e eliminazione creano rispettivamente un UpdateTrackCommand e un
+ * DeleteTrackCommand, passati a CommandManager per essere annullabili.
+ * Controller della View di dettaglio del brano.
  */
 public class TrackUIDetailsController implements AbstractUIComponent, Initializable {
 

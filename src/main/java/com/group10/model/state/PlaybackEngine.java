@@ -12,11 +12,18 @@ import com.group10.model.playback.Sequential;
 import com.group10.model.playback.PlaybackMode;
 
 /**
- * Singleton: classe che modella lo stato del player
+ *
+ * @author group10
+ * PATTERN: Singleton; e' anche il Context del pattern State (delega play/pause/stop allo
+ * stato corrente) e il Context del pattern Strategy (usa playbackMode per decidere cosa
+ * fare a fine traccia). E' anche Publisher del pattern Observer, per notificare le viste
+ * quando cambia la coda/traccia corrente.
+ * Modella lo stato del player: coda di riproduzione, traccia corrente e simulazione del
+ * tempo che passa.
  */
 public class PlaybackEngine implements Publisher{
 
-    // secondi di ascolto oltre i quali un'ascolto di una traccia lunga viene conteggiata
+    // secondi di ascolto dopo i quali una traccia lunga viene conteggiata come ascoltata
     private static final double PLAYCOUNT_THRESHOLD = 30.0;
 
     private static PlaybackEngine instance;
@@ -32,7 +39,7 @@ public class PlaybackEngine implements Publisher{
     private PlaylistComponent currentPlaylist;
     private final List<PlaylistComponent> pendingPlaylists = new ArrayList<>();
 
-    // Pattern STRATEGY
+    // pattern strategy
     private PlaybackMode playbackMode = new Sequential();
     private boolean shuffled = false;
     private final List<TrackComponent> originalOrder = new ArrayList<>();
@@ -98,7 +105,7 @@ public class PlaybackEngine implements Publisher{
         pendingPlaylists.add(playlist);
     }
 
-    // restituisce e rimuove la prima playlist in attesa, o null se non ce ne sono
+    // prende e rimuove la prima playlist in attesa, null se non ce ne sono
     public PlaylistComponent getPendingPlaylist() {
         if (pendingPlaylists.isEmpty()) {
             return null;
@@ -106,7 +113,7 @@ public class PlaybackEngine implements Publisher{
         return pendingPlaylists.remove(0);
     }
 
-    // fa partire una playlist da capo: la imposta come corrente, carica le tracce e avvia
+    // riparte da capo con una playlist: la mette come corrente, carica le tracce e fa play
     public void startPlaylist(PlaylistComponent playlist) {
         setCurrentPlaylist(playlist);
         addListToQueue(new ArrayList<>(playlist.getTracks()));
@@ -118,8 +125,7 @@ public class PlaybackEngine implements Publisher{
     }
 
 public void clearQueue() {
-        // svuota tutto
-        // prima ferma la riproduzione (stop), poi azzera la coda
+        // ferma la riproduzione e poi azzera la coda
         stop();
         this.queue.clear();
         this.currentIndex = -1;
@@ -159,8 +165,7 @@ public void clearQueue() {
         queue.addAll(tracks);
         if (queue.isEmpty()) return;
 
-        // controllo se alla pressione di Play sulla playlist/home sia attiva la modalità shuffle
-        // in tal caso, mischia la coda
+        // se lo shuffle era gia' attivo quando premo play, mischio subito la coda
         if (shuffled) {
             originalOrder.clear();
             originalOrder.addAll(queue);
@@ -205,6 +210,10 @@ public void clearQueue() {
         }
     }
 
+// cambia la traccia corrente e azzera il tempo. Se si stava gia' riproducendo,
+// il vecchio Timer (che simulava la traccia precedente) va fermato e se ne
+// riparte uno nuovo per la traccia nuova, altrimenti continuerebbe a girare
+// col tempo/durata sbagliati
 private void switchTrack(TrackComponent newTrack) {
         this.currentTrack = newTrack;
         resetTime();
@@ -222,9 +231,11 @@ private void switchTrack(TrackComponent newTrack) {
             startSimulation();
         }
     }
-    
-    
-    
+
+    // questi 3 setter sono gli "aggganci" (callback) che il controller usa per farsi
+    // avvisare quando succede qualcosa nel player, senza che il model conosca la UI.
+    // vengono chiamati dal Timer di startSimulation(), quindi da un thread diverso da
+    // quello di JavaFX: chi li usa deve usare Platform.runLater
     public void setOnTick(Consumer<Double> onTick) {
         this.onTick = onTick;
     }
@@ -232,13 +243,16 @@ private void switchTrack(TrackComponent newTrack) {
     public void setOnTrackChanged(Consumer<TrackComponent> listener) {
         this.onTrackChanged = listener;
     }
-    
-    
+
     public void setOnPlayStateChanged(Consumer<Boolean> listener) {
         this.onPlayStateChanged = listener;
     }
-    
-    
+
+    // qui non c'e' nessun audio vero: "simulare" la riproduzione significa far avanzare
+    // currentTime con un java.util.Timer, che ogni 100ms esegue il TimerTask su un threadseparato
+    // (non quello di JavaFX). Ad ogni tick si incrementa il tempo, si controlla se e' il momento
+    // di contare l'ascolto, si notifica la UI (onTick) e si controlla se la traccia e' finita,
+    // per far scattare la modalita' di ripetizione attiva (playbackMode.onTrackEnd)
     public void startSimulation() {
         if (currentTrack == null) {
             // senza traccia corrente non c'è nulla da simulare
@@ -268,27 +282,30 @@ private void switchTrack(TrackComponent newTrack) {
                 if (onTick != null) {
                     onTick.accept(currentTime);
                 }
-                
+
                 if (currentTrack != null) {
                     if (currentTime >= currentTrack.getDurationInSeconds()) {
                         playbackMode.onTrackEnd(PlaybackEngine.this);
                     }
                 }
             }
-        }, 100, 100); 
+        }, 100, 100);
     }
 
+    // sposta manualmente il tempo corrente (usato quando l'utente trascina lo slider)
     public void seek(double seconds) {
         this.currentTime = seconds;
     }
-    
+
+    // ferma e distrugge il Timer: va richiamato ogni volta che si mette in pausa,
+    // si passa traccia o si ferma, altrimenti il vecchio Timer continuerebbe a girare
+    // in background insieme al nuovo
     public void stopSimulation() {
         if (timer != null) {
-            timer.cancel(); 
+            timer.cancel();
             timer = null;
         }
-        
-        
+
         if (onPlayStateChanged != null) {
             onPlayStateChanged.accept(false);
         }
@@ -366,21 +383,22 @@ public Integer removeTrackFromQueue(TrackComponent track) {
         this.playbackMode = mode;
     }
 
-    // tratta lo shuffle come toggle e usa due queue, quella mischiata e quella originale
+    // shuffle e' un semplice toggle, non una Strategy: quando si attiva, si salva l'ordine
+    // vero in originalOrder e si mischiano solo le tracce dopo quella corrente (quelle gia'
+    // ascoltate restano dove sono). queue.subList(...) ritorna una "vista" della stessa
+    // lista, quindi Collections.shuffle su upcoming rimescola davvero anche queue.
+    // Quando si disattiva si butta via l'ordine mischiato e si ripristina originalOrder
     public void toggleShuffle() {
         shuffled = !shuffled;
         if (shuffled) {
-            // salva l'ordine originale
             originalOrder.clear();
             originalOrder.addAll(queue);
             if (currentIndex < 0 || currentIndex >= queue.size() - 1) {
                 return;
             }
-            // fa shuffle solo sulle canzoni successive
             List<TrackComponent> upcoming = queue.subList(currentIndex + 1, queue.size());
             Collections.shuffle(upcoming);
         } else {
-            // resetta l'ordine originale
             TrackComponent current = currentTrack;
             queue.clear();
             queue.addAll(originalOrder);

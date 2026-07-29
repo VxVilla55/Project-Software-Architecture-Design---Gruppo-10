@@ -8,10 +8,10 @@ package com.group10.controller.playlist;
  * FXML Controller class
  *
  * @author group10
- * 
- * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
+ * PATTERN: Abstract Factory. ConcreteProduct, controller della card compatta di
+ * una playlist (usata in homepage tra le playlist piu' ascoltate)
  */
- 
+
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.model.common.Playable;

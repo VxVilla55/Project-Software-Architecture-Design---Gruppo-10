@@ -31,6 +31,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Builder e Strategy (Client di entrambi)
+ * Costruisce la playlist con un PlaylistBuilder, e se l'utente sceglie la creazione automatica
+ * aggiunge le TrackFilterStrategy scelte (genere, tag, anno) al builder prima di chiamare build().
+ * Controller del form per la creazione di una nuova playlist, manuale o automatica.
+ */
 public class PlaylistUIAdderController implements AbstractUIComponent, Initializable {
 
     @FXML

@@ -7,12 +7,10 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 
 /**
- * PATTERN: Abstract Factory.
- *
- * Ruolo: ConcreteFactory. Produce la famiglia di componenti UI (prodotti concreti)
- * relativi a una Playlist. Ogni prodotto e' un AbstractUIComponent (AbstractProduct).
  *
  * @author group10
+ * PATTERN: Abstract Factory. ConcreteFactory, produce la famiglia di componenti UI
+ * (prodotti concreti) relativi a una Playlist.
  */
 public class PlaylistUIComponentFactory implements UIComponentFactory {
 
@@ -41,14 +39,10 @@ public class PlaylistUIComponentFactory implements UIComponentFactory {
         return load("/com/group10/view/PlaylistOptions.fxml", new PlaylistUIOptionsController(model));
     }
 
-    /**
-     * Carica la view FXML associandole il controller passato e lo restituisce.
-     * Il {@code loader.load()} esegue l'initialize() del controller, che popola le label dal model.
-     */
+    // carica la view fxml, ci associa il controller passato e lo ritorna.
+    // loader.load() esegue anche l'initialize() del controller (popola le label dal model)
     private AbstractUIComponent load(String fxmlPath, AbstractUIComponent controller) {
-        //preparo la view
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        //associo controller e view
         loader.setController(controller);
         try {
             loader.load();

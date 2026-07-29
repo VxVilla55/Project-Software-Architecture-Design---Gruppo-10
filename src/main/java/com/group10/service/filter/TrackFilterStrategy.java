@@ -9,6 +9,11 @@ import com.group10.model.TrackComponent;
 /**
  *
  * @author group10
+ * PATTERN: Strategy (l'interfaccia Strategy).
+ * Un solo metodo, matches(track), che decide se una traccia rispetta un certo criterio.
+ * Il Context e' PlaylistComponent: una playlist "automatica" tiene una lista di
+ * TrackFilterStrategy e considera una traccia valida solo se TUTTE le strategie
+ * restituiscono true (vedi PlaylistComponent.getTracks()).
  */
 public interface TrackFilterStrategy {
     boolean matches(TrackComponent track);

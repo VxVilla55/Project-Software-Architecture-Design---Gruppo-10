@@ -10,17 +10,14 @@ import com.group10.model.common.Playable;
 import javafx.fxml.Initializable;
 
 /**
- * PATTERN: Abstract Factory.
- *
- * Ruolo: AbstractFactory. Dichiara un metodo di creazione per ogni tipo di
- * componente UI della famiglia (Item, Card, Details, Adder, Options).
- * Ogni ConcreteFactory (TrackUIComponentFactory, PlaylistUIComponentFactory)
- * produce l'intera famiglia di componenti per il proprio tipo di model.
- * Il prodotto astratto e' AbstractUIComponent.
  *
  * @author group10
+ * PATTERN: Abstract Factory (l'AbstractFactory).
+ * Dichiara un metodo di creazione per ogni tipo di componente UI della famiglia (Item,
+ * Card, Details, Adder, Options). Le due ConcreteFactory (TrackUIComponentFactory e
+ * PlaylistUIComponentFactory) producono l'intera famiglia, ciascuna per il proprio tipo
+ * di model; il prodotto astratto e' AbstractUIComponent.
  */
-
 public interface UIComponentFactory {
     
     AbstractUIComponent createUIComponentItem(Playable model);

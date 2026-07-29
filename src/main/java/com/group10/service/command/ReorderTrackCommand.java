@@ -13,6 +13,8 @@ import com.group10.model.builder.PlaylistBuilder;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, sposta una traccia di posizione dentro una
+ * playlist (drag anddrop); l'undo rifa' lo spostamento inverso.
  */
 public class ReorderTrackCommand implements Command{
     private final PlaylistComponent playlist;

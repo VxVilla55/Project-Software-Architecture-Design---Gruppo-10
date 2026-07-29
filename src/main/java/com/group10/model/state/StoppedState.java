@@ -3,10 +3,8 @@ package com.group10.model.state;
 /**
  *
  * @author group10
- *
- * Stato di lettore fermo: la riproduzione riparte dall'inizio della traccia.
- *
- * PATTERN: ConcreteState del pattern State, PlaybackEngine è il Context
+ * PATTERN: State. ConcreteState, rappresenta il player fermo: alla prossima play
+ * si riparte dall'inizio della traccia (e' anche lo stato iniziale del player).
  */
 public class StoppedState implements PlayerState {
 

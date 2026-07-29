@@ -17,6 +17,15 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Observer (il Subscriber). Si iscrive a PlaybackEngine e si ridisegna ogni
+ * volta che la coda cambia
+ * Si disiscrive da solo quando la view viene tolta di scena, per non restare in ascolto
+ * inutilmente dopo che la coda non e' piu' visibile.
+ * Controller della vista che mostra la coda di riproduzione.
+ */
 public class QueueViewController implements Initializable, Subscriber {
 
     @FXML private AnchorPane root;

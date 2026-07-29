@@ -1,18 +1,14 @@
 package com.group10.model.common;
 
 /**
- *
- * @author group10
  * 
- * Interfaccia base per il pattern Builder (Task T1.3).
- * Utilizza i Generics <T> in modo che possa essere usata 
- * sia per TrackBuilder che per PlaylistBuilder.
+ * @author group10
+ * PATTERN: Builder.
+ * L'interfaccia definisce il metodo build(), che crea e restituisce l'oggetto finale.
+ * Il tipo generico T permette di riutilizzarla per builder diversi (ad esempio
+ * TrackBuilder e PlaylistBuilder), senza duplicare il codice.
  */
 public interface Builder<T> {
-    
-    /**
-     * Metodo finale che restituisce l'oggetto costruito.
-     * @return L'istanza dell'oggetto costruito e validato.
-     */
+
     T build();
 }

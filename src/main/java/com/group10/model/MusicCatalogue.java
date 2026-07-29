@@ -21,8 +21,9 @@ import java.util.TreeSet;
 /**
  *
  * @author group10
- * 
- * Singleton: classe che modella lo stato dell'App
+ * PATTERN: Singleton; e' anche Publisher del pattern Observer, notifica le viste e la
+ * persistenza ad ogni modifica del catalogo.
+ * Tiene lo stato dell'app: l'elenco delle tracce, delle playlist e dei generi disponibili.
  */
 public class MusicCatalogue implements Publisher{
     
@@ -108,8 +109,8 @@ public void removePlaylist(PlaylistComponent p) {
         notifySubscribers();
     }
 
-    // true se esiste gia' una playlist con questo nome (ignora maiuscole/minuscole e spazi)
-    // il controller la chiama PRIMA di creare, per mostrare l'errore giusto all'utente
+    // true se esiste gia' una playlist con questo nome (il controller la chiama prima
+    // di crearla, cosi' puo' mostrare l'errore giusto)
     public boolean isPlaylistNameTaken(String name) {
         if (name == null) {
             return false;

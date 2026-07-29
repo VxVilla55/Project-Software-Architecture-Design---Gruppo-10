@@ -24,6 +24,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.VBox;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Command (il Client). Per ogni playlist spuntata/deselezionata crea un
+ * AddTrackToPlaylistCommand o RemoveTrackFromPlaylistCommand e lo passa a CommandManager,
+ * rendendo annullabile anche questa operazione multipla.
+ * Controller del popup che permette di aggiungere/togliere una traccia da piu' playlist
+ * contemporaneamente
+ */
 public class AddToPlaylistController implements AbstractUIComponent, Initializable {
 
     @FXML

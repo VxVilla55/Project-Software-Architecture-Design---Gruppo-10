@@ -5,11 +5,8 @@ import com.group10.model.state.PlaybackEngine;
 /**
  *
  * @author group10
- *
- * Strategy concreta sequenziale: a fine traccia passa alla
- * successiva, oppure ferma la riproduzione se la coda è terminata
- *
- * PATTERN: ConcreteStrategy di PlaybackMode
+ * PATTERN: Strategy. ConcreteStrategy, modalita' normale: a fine traccia passa
+ * alla prossima, o si ferma se la coda e' finita.
  */
 public class Sequential implements PlaybackMode {
 

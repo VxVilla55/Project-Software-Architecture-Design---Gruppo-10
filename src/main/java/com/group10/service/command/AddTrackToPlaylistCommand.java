@@ -11,6 +11,7 @@ import com.group10.model.TrackComponent;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, aggiunge una traccia a una playlist (annullabile).
  */
 public class AddTrackToPlaylistCommand implements Command {
     private final TrackComponent track;

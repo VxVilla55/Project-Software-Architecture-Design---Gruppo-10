@@ -25,6 +25,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Builder (il Client), Abstract Factory (ConcreteProduct).
+ * Legge i campi del form e li passa a un TrackBuilder per costruire la nuova traccia;
+ * e' build() del TrackBuilder a validare i dati
+ * Controller del form per l'aggiunta di una nuova traccia al catalogo.
+ */
 public class TrackUIAdderController implements AbstractUIComponent, Initializable {
 
     @FXML private TextField titleField;

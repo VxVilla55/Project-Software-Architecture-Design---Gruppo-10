@@ -12,10 +12,8 @@ import java.util.List;
 /**
  *
  * @author group10
- * 
- * Dati di una singola traccia nel formato di salvataggio
+ * Dati di una traccia nel formato usato per il salvataggio su file.
  */
-
 public class TrackData {
     String title;
     String author;

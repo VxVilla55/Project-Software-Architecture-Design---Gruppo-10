@@ -5,14 +5,15 @@
 package com.group10.service.command;
 
 /**
- * PATTERN: Command
- *
- * Ruolo: Command (interfaccia). incapsula una richiesta come oggetto, così può essere
- * eseguita, annullata e conservata in uno storico. Ogni ConcreteCommand implementa
- * {execute() (l'azione) e undo() (l'operazione inversa richiesta per
- * il supporto all'undo). l'invoker è CommandManager, il client sono i controller.
  *
  * @author group10
+ * PATTERN: Command (l'interfaccia Command).
+ * Incapsula una richiesta come oggetto, cosi' puo' essere eseguita, annullata e tenuta
+ * in uno storico: execute() applica l'azione, undo() la inverte. CommandManager e'
+ * l'Invoker (esegue i comandi e ne tiene lo storico), i controller sono il Client
+ * (creano il ConcreteCommand giusto e lo passano all'Invoker). Ogni ConcreteCommand
+ * salva nei propri campi tutto cio' che serve per fare e disfare l'operazione, cosi'
+ * l'Invoker non deve sapere nulla dei dettagli di ogni singola azione.
  */
 public interface Command {
 

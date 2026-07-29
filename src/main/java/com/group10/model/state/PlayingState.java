@@ -3,10 +3,7 @@ package com.group10.model.state;
 /**
  *
  * @author group10
- *
- * Stato di riproduzione in corso.
- *
- * PATTERN: ConcreteState del pattern State, PlaybackEngine è il Context
+ * PATTERN: State. ConcreteState, rappresenta il player mentre sta suonando una traccia.
  */
 public class PlayingState implements PlayerState {
 

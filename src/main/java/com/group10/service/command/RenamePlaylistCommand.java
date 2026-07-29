@@ -12,6 +12,9 @@ import com.group10.model.builder.PlaylistBuilder;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, rinomina una playlist (annullabile): costruisce
+ * subito la versione con il nome nuovo, cosi' execute()/undo() si limitano a scambiare
+ * vecchia e nuova playlist nel catalogo.
  */
 public class RenamePlaylistCommand implements Command {
     private final String newPlaylistName;

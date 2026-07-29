@@ -5,11 +5,8 @@ import com.group10.model.state.PlaybackEngine;
 /**
  *
  * @author group10
- *
- * Strategy concreta con ripetizione dell'intera playlist: a fine coda
- * riparte dalla prima traccia
- *
- * PATTERN: ConcreteStrategy di PlaybackMode
+ * PATTERN: Strategy. ConcreteStrategy, ripete tutta la playlist: a fine coda
+ * si riparte dalla prima traccia.
  */
 public class RepeatPlaylist implements PlaybackMode {
 

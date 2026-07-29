@@ -21,6 +21,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Abstract Factory. Prodotto specifico della famiglia Track, la famiglia Playlist non ne ha bisogno.
+ * Controller della riga di una traccia dentro la vista Coda.
+ */
 public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializable {
     @FXML private HBox root;
     @FXML private Label indexLabel;
@@ -36,6 +42,7 @@ public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializ
         this.contextPlaylist = playlist;
     }
 
+    //mostra la posizione della traccia nella coda al posto del vecchio trattino
     public void setIndex(int position) {
         indexLabel.setText(String.valueOf(position));
     }

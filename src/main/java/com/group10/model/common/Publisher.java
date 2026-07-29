@@ -7,11 +7,14 @@ package com.group10.model.common;
 /**
  *
  * @author group10
- * 
- * Elemento Publisher del pattern Observer
+ * PATTERN: Observer (il Publisher).
+ * Chi implementa questa interfaccia (MusicCatalogue, PlaybackEngine) tiene una lista di
+ * Subscriber e li avvisa chiamando notifySubscribers() ogni volta che il proprio stato
+ * cambia. Cosi' il model non deve conoscere le classi concrete delle viste o del gestore
+ * di persistenza.
  */
 public interface Publisher {
-    
+
     public void notifySubscribers();
-    
+
 }

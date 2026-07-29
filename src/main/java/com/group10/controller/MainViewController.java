@@ -39,12 +39,14 @@ import javafx.stage.Popup;
  *
  * @author group10
  *
- * Controller della schermata principale: ospita i pannelli dell'app e fa da
- * punto di accesso unico per popup, dialog e selezione corrente.
- *
- * PATTERN: Singleton; è inoltre Subscriber di MusicCatalogue (Observer)
+ * PATTERN: Singleton, edè anche Subscriber di MusicCatalogue (Observer)
+ * 
+ * controller della schermata principale: gestisce i pannelli dell'app (playlist a
+ * sinistra, home/dettaglio al centro, coda/dettaglio traccia a destra, player sotto)
+ * e fa da punto unico per popup, dialog e selezione corrente.
  */
-public class MainViewController implements Initializable, Subscriber { 
+
+public class MainViewController implements Initializable, Subscriber {
 
     @FXML
     private TextField searchField;
@@ -248,31 +250,33 @@ public class MainViewController implements Initializable, Subscriber {
         selectedPlaylist = null;
         update();
     }
+
     public void showPopup(Parent popup) {
         //chiude il popup se già presente
         closePopup();
-        
+
         StackPane layer = new StackPane();
         Pane pane = new Pane();
         pane.setEffect(new GaussianBlur(10));
-        
+
         pane.setOnMouseClicked(e -> {
             if (root.getChildren().size()>1) {
                 root.getChildren().remove(root.getChildren().size()-1);
                 root.getChildren().get(0).setEffect(null);
             }
         });
-        
+
         layer.getChildren().add(pane);
         layer.getChildren().add(popup);
         root.getChildren().add(layer);
     }
+    
     public void closePopup() {
         root.getChildren().get(0).setEffect(new GaussianBlur(10));
         root.getChildren().removeIf(child -> child != root.getChildren().get(0));
         root.getChildren().get(0).setEffect(null);
     }
-    
+
     public void showMenuPopup(Button source, Parent content) {
         // Se esiste già un popup attivo, chiudiamolo prima di aprirne uno nuovo
         if (activePopup != null && activePopup.isShowing()) {
@@ -285,7 +289,7 @@ public class MainViewController implements Initializable, Subscriber {
         popup.setAutoHide(true);
 
         activePopup = popup;
-        
+
         //ottieni coordinate dello schermo
         Point2D screenPoint = source.localToScreen(0, source.getHeight());
         popup.show(source, screenPoint.getX(), screenPoint.getY());

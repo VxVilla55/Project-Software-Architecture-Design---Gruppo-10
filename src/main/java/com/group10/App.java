@@ -15,6 +15,9 @@ import java.io.IOException;
 
 /**
  * JavaFX App
+ * Punto di ingresso dell'applicazione 
+ * carica il catalogo salvato, registra la persistenza e il MainViewController 
+ * come Subscriber di MusicCatalogue (pattern Observer), e mostra la finestra principale
  */
 public class App extends Application {
 
@@ -62,21 +65,4 @@ public class App extends Application {
         launch();
     }
     
-    //metodo per testare
-    public static void openAddTrackForm() throws IOException {
-        /*FXMLLoader loader = new FXMLLoader(App.class.getResource("AddTrackView.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle("Aggiungi Traccia");
-        stage.setScene(new Scene(root));
-        stage.show();*/
-        TrackUIAdderController p = new TrackUIAdderController(); //magari includiamo PlaylistUIController nel pattern factory
-
-        Parent root = p.getRoot();
-
-        Stage stage = new Stage();
-        stage.setTitle("Aggiungi traccia");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
 }

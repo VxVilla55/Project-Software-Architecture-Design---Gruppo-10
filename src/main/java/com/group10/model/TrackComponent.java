@@ -11,12 +11,11 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
+ *
  * @author group10
- *
- * Rappresenta una singola traccia musicale, elemento indivisibile del catalogo.
- *
- * PATTERN: Leaf del Composite. Playable è il Component, PlaylistComponent è il
- * Composite; questa classe è la foglia e non contiene altri Playable.
+ * PATTERN: Composite (la Leaf). Playable e' il Component, PlaylistComponent e' il
+ * Composite; questa classe rappresenta la singola traccia, l'elemento indivisibile
+ * del catalogo, e non contiene al suo interno altri Playable.
  */
 public class TrackComponent implements Comparable<TrackComponent>, Playable {
 

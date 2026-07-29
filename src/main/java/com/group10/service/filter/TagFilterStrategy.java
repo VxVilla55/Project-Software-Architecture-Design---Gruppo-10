@@ -9,6 +9,8 @@ import com.group10.model.TrackComponent;
 /**
  *
  * @author group10
+ * PATTERN: Strategy. ConcreteStrategy, accetta le tracce che hanno i tag scelti
+ * (preferito, novita', esplicito).
  */
 public class TagFilterStrategy implements TrackFilterStrategy {
     private final boolean isFavouriteSelected;

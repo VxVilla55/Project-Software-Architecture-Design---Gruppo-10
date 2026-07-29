@@ -21,8 +21,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 /**
- * Controller per il singolo item playlist nella lista.
- * Collegato a PlaylistItemView.fxml
+ *
+ * @author group10
+ * PATTERN: Abstract Factory. ConcreteProduct, controller del singolo item playlist
+ * nella barra laterale. Collegato a PlaylistItemView.fxml.
  */
 public class PlaylistUIComponentItem implements AbstractUIComponent, Initializable {
 

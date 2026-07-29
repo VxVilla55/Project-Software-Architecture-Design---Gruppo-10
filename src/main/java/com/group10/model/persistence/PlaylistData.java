@@ -10,11 +10,9 @@ import java.util.List;
 /**
  *
  * @author group10
- * 
- * Dati di una playlist nel formato di salvataggio: il nome e i
- * riferimenti (titolo+autore) alle tracce che contiene
+ * Dati di una playlist nel formato di salvataggio: nome, playCount e i riferimenti
+ * (titolo+autore) alle tracce che contiene, invece delle tracce intere.
  */
-
 public class PlaylistData {
     String name;
     int playCount;

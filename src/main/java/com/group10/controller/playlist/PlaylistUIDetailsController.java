@@ -26,8 +26,10 @@ import javafx.scene.layout.VBox;
  * FXML Controller class
  *
  * @author group10
- * * product del pattern FACTORY
+ * PATTERN: Abstract Factory. ConcreteProduct, controller della view di dettaglio
+ * di una playlist.
  */
+
 public class PlaylistUIDetailsController implements AbstractUIComponent, Initializable {
     
     @FXML
@@ -62,7 +64,6 @@ public class PlaylistUIDetailsController implements AbstractUIComponent, Initial
         factory = new TrackUIComponentFactory();
         TrackUIComponentItem itemController;
         
-        // DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
         for(TrackComponent t: playlist.getTracks()) {
             //carica tutti gli elementi nella VBox tracksContainer
             itemController = (TrackUIComponentItem) factory.createUIComponentItem(t);

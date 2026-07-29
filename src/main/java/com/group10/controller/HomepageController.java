@@ -24,6 +24,9 @@ import javafx.scene.layout.VBox;
  * FXML Controller class
  *
  * @author group10
+ *
+ * controller della schermata home contenente le tracce e playlist consigliate, e la libreria
+ * musicale per intero.
  */
 public class HomepageController implements Initializable {
 
@@ -50,27 +53,19 @@ public class HomepageController implements Initializable {
     private Label allTracksLabel;
     @FXML
     private VBox trackItemsContainer;
-    /**
-     * Initializes the controller class.
-     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //nascondi box per le stats perché non ancora implementata
-        //root.getChildren().remove(topPlaylistContainer);
-        //root.getChildren().remove(topTrackContainer);
-        
         //uso la factory per creare gli elementi item per ogni traccia della playlist
         TrackUIComponentCard trackCard;
-        
-        //DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
+
         for(TrackComponent t: MusicCatalogue.getInstance().getTopTracks(3)) {
             trackCard = (TrackUIComponentCard) new TrackUIComponentFactory().createUIComponentCard(t);
             trackCardsContainer.getChildren().add(trackCard.getRoot());
         }
         //uso la factory per creare gli elementi item per ogni traccia della playlist
         PlaylistUIComponentCard playlistCard;
-        
-        //DA SOSTITUIRE SE USIAMO ITERATOR PER PLAYLIST
+
         for(PlaylistComponent t: MusicCatalogue.getInstance().getTopPlaylists(3)) {
             playlistCard = (PlaylistUIComponentCard) new PlaylistUIComponentFactory().createUIComponentCard(t);
             playlistCardsContainer.getChildren().add(playlistCard.getRoot());

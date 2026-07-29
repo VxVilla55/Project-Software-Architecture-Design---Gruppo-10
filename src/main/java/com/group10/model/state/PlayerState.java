@@ -3,12 +3,10 @@ package com.group10.model.state;
 /**
  *
  * @author group10
- *
- * Astrae il comportamento del lettore in base allo stato in cui si trova:
- * ogni stato concreto reagisce a play/pause/stop a modo proprio ed è
- * responsabile della transizione verso lo stato successivo.
- *
- * PATTERN: State del pattern omonimo, PlaybackEngine è il Context.
+ * PATTERN: State (l'interfaccia State).
+ * Rappresenta lo stato in cui si trova il player in un dato momento: ogni stato concreto
+ * implementa play/pause/stop a modo suo e decide qual e' lo stato successivo. Il Context e'
+ * PlaybackEngine.
  */
 public interface PlayerState {
 

@@ -24,10 +24,11 @@ import java.util.Optional;
 /**
  *
  * @author group10
- *
- * Controller del menu opzioni di una playlist: accodamento, rinomina, eliminazione
+ * PATTERN: Command (il Client), Abstract Factory (ConcreteProduct).
+ * Crea i Command giusti (RenamePlaylistCommand, DeletePlaylistCommand) e li passa a
+ * CommandManager per l'esecuzione, così rinomina ed eliminazione risultano annullabili.
+ * Controller del menu opzioni di una playlist: accodamento, rinomina, eliminazione.
  */
-
 public class PlaylistUIOptionsController implements AbstractUIComponent {
 
     @FXML

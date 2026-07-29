@@ -18,13 +18,9 @@ import java.util.Set;
 /**
  *
  * @author group10
- * 
- * Composite del pattern omonimo: rappresenta una playlist come insieme
- * ordinato di elementi Playable (Track)
- *
- * L'ordine di inserimento coincide con l'ordine di riproduzione; 
- *
- * PATTERN: Playable è il Component,Track è la Leaf, questa classe è il Composite
+ * PATTERN: Composite. Playable e' il Component, TrackComponent e' la Leaf;
+ * questa classe rappresenta una playlist come insieme ordinato di tracce (l'ordine di
+ * inserimento e' l'ordine di riproduzione) e implementa le operazioni di Playable
  */
 public class PlaylistComponent implements Playable,Comparable<PlaylistComponent> {
 
@@ -92,6 +88,12 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
         }
         return Collections.unmodifiableList(staticTracks);
     }*/
+    // se la playlist NON ha filtri (strategies vuoto) è una playlist normale: si ritorna
+    // solo staticTracks. Se invece ha dei filtri (playlist "automatica"), si scorre tutto
+    // il catalogo e si aggiungono a staticTracks le tracce nuove che soddisfano TUTTI i
+    // filtri: attenzione, questo metodo quindi non si limita a leggere, ma modifica anche
+    // staticTracks (le tracce che iniziano a rispettare i filtri restano salvate li' dentro
+    // per le chiamate successive, non vengono mai tolte se poi smettono di rispettarli)
     public List<TrackComponent> getTracks() {
         if (strategies.isEmpty()) {
             return Collections.unmodifiableList(staticTracks);

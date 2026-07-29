@@ -15,6 +15,7 @@ import java.util.List;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, elimina una playlist dal catalogo (annullabile).
  */
 public class DeletePlaylistCommand implements Command {
     private final PlaylistComponent playlistDeleted;

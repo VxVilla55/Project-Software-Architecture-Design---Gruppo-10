@@ -23,15 +23,13 @@ import java.util.Map;
 /**
  *
  * @author group10
- * 
- * Implementazione su file JSON di PersistenceManager (libreria Gson)
- *
- * Le tracce, essendo immutabili, vengono ricostruite tramite TrackBuilder
- * in fase di caricamento; le playlist salvano solo i riferimenti alle
- * tracce (titolo+autore) per non duplicarne i dati
- *
+ * Implementazione di PersistenceManager su file JSON (libreria Gson). E' anche
+ * Subscriber del pattern Observer: viene notificata da MusicCatalogue ad ogni modifica
+ * e salva subito su file.
+ * Le tracce sono immutabili, quindi vengono ricostruite col TrackBuilder al caricamento;
+ * le playlist invece salvano solo i riferimenti (titolo+autore) alle tracce, per non
+ * duplicarne i dati su file.
  */
-
 public class JsonPersistenceManager implements PersistenceManager, Subscriber {
 
     private final Path catalogueFile;
