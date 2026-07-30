@@ -10,6 +10,7 @@ import com.group10.model.common.Subscriber;
 
 import com.group10.model.playback.Sequential;
 import com.group10.model.playback.PlaybackMode;
+import javafx.animation.AnimationTimer;
 
 /**
  *
@@ -33,7 +34,8 @@ public class PlaybackEngine implements Publisher{
     private int currentIndex;
     private TrackComponent currentTrack;
     private double currentTime;
-    private Timer timer;
+    private AnimationTimer timer;
+    private long lastTickNanos = -1;
 
     // per accodamento playlist
     private PlaylistComponent currentPlaylist;
@@ -264,16 +266,21 @@ private void switchTrack(TrackComponent newTrack) {
             onPlayStateChanged.accept(true);
         }
 
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        lastTickNanos = -1;
+        timer = new AnimationTimer() {
             @Override
-            public void run() {
-                currentTime += 0.1;
+            public void handle(long nowNanos) {
+                if (lastTickNanos < 0) {
+                    lastTickNanos = nowNanos;
+                    return;
+                }
 
-                // soglia = 30 secondi, o l'intera durata se la traccia è più corta
+                double elapsed = (nowNanos - lastTickNanos) / 1_000_000_000.0;
+                lastTickNanos = nowNanos;
+
+                currentTime += elapsed;
+
                 double playCountThreshold = Math.min(PLAYCOUNT_THRESHOLD, currentTrack.getDurationInSeconds());
-
-                // l'ascolto viene conteggiato una sola volta, al raggiungimento della soglia
                 if (currentTime >= playCountThreshold && !playCounted) {
                     currentTrack.incrementPlayCount();
                     playCounted = true;
@@ -283,13 +290,12 @@ private void switchTrack(TrackComponent newTrack) {
                     onTick.accept(currentTime);
                 }
 
-                if (currentTrack != null) {
-                    if (currentTime >= currentTrack.getDurationInSeconds()) {
-                        playbackMode.onTrackEnd(PlaybackEngine.this);
-                    }
+                if (currentTrack != null && currentTime >= currentTrack.getDurationInSeconds()) {
+                    playbackMode.onTrackEnd(PlaybackEngine.this);
                 }
             }
-        }, 100, 100);
+        };
+        timer.start();
     }
 
     // sposta manualmente il tempo corrente (usato quando l'utente trascina lo slider)
@@ -302,7 +308,7 @@ private void switchTrack(TrackComponent newTrack) {
     // in background insieme al nuovo
     public void stopSimulation() {
         if (timer != null) {
-            timer.cancel();
+            timer.stop();
             timer = null;
         }
 
