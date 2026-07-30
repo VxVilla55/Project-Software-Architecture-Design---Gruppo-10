@@ -4,6 +4,7 @@
  */
 package com.group10.model;
 
+import com.group10.controller.MainViewController;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -59,6 +60,7 @@ public class MusicCatalogue implements Publisher{
 
     public void addTrack (TrackComponent track) {
         tracks.add(track);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
    public void removeTrack(TrackComponent track) {
@@ -74,6 +76,7 @@ public class MusicCatalogue implements Publisher{
         //e dalla coda di riproduzione, se presente
         PlaybackEngine.getInstance().removeTrackFromQueue(track);
 
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
 
@@ -84,12 +87,14 @@ public class MusicCatalogue implements Publisher{
                 "Esiste già una playlist con questo nome: " + playlist.getName());
         }
         playlists.put(playlist.getName(), playlist);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
     
 public void removePlaylist(PlaylistComponent p) {
     if (p != null) {
         this.playlists.remove(p.getName()); 
+        MainViewController.getInstance().setSidebarCachedNull();
     }
 }
     
@@ -100,12 +105,14 @@ public void removePlaylist(PlaylistComponent p) {
     public void addTrackToPlaylist(String playlistName, TrackComponent track) {
         PlaylistComponent playlist = getPlaylist(playlistName);
         playlist.add(track);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
 
     public void removeTrackFromPlaylist(String playlistName, TrackComponent track) {
         PlaylistComponent playlist = getPlaylist(playlistName);
         playlist.remove(track);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
 
@@ -191,6 +198,7 @@ public void removePlaylist(PlaylistComponent p) {
             if ( playlist.contains(oldTrack))
                 playlist.updateTrack(oldTrack, updatedTrack);
         }
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
     public void replacePlaylist(PlaylistComponent newPlaylist, PlaylistComponent oldPlaylist) {

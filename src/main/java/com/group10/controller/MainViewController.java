@@ -86,6 +86,9 @@ public class MainViewController implements Initializable, Subscriber {
     // true quando il pannello destro mostra la coda: serve a ricostruirla ad ogni
     // update(), altrimenti cambiando schermata il pannello verrebbe svuotato
     private boolean showingQueue = false;
+    private Parent cachedSidebar = null;
+    private Parent cachedHomeview = null;
+    
 
     public static MainViewController getInstance() {
         if (singleton == null) {
@@ -157,17 +160,24 @@ public class MainViewController implements Initializable, Subscriber {
     @Override
     public void update() {
         FXMLLoader loader;
-        leftPane.getChildren().clear();
-        //ricarico l'elenco delle playlist nella barra laterale
-        for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists().values()) {
-            PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
-            try {
-                leftPane.getChildren().add(item.getRoot());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+        
+        if (cachedSidebar == null) {
+            VBox sidebar = new VBox();
+            leftPane.getChildren().clear();
+            //ricarico l'elenco delle playlist nella barra laterale
+            for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists().values()) {
+                PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
+                try {
+                    sidebar.getChildren().add(item.getRoot());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
+            cachedSidebar = sidebar;
+            leftPane.getChildren().clear();
+            leftPane.getChildren().add(cachedSidebar);
+            
         }
-
         //il pannello destro mostra la coda, oppure il dettaglio della traccia selezionata
         if(showingQueue) {
             //la coda va ricaricata, altrimenti cambiando schermata sparirebbe
@@ -186,12 +196,14 @@ public class MainViewController implements Initializable, Subscriber {
 
         //al centro va la homepage, oppure il dettaglio della playlist selezionata
         if(selectedPlaylist == null) {
-            loader = new FXMLLoader(getClass().getResource("/com/group10/view/HomepageView.fxml"));
-            try {
-                Parent homeView = loader.load();
-                showOnCenterPane(homeView); //contiene una clear() del center pane
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (cachedHomeview == null) {
+                loader = new FXMLLoader(getClass().getResource("/com/group10/view/HomepageView.fxml"));
+                try {
+                cachedHomeview = loader.load();
+                showOnCenterPane(cachedHomeview); //contiene una clear() del center pane
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         } else {
             try {
@@ -202,7 +214,7 @@ public class MainViewController implements Initializable, Subscriber {
                 e.printStackTrace();
             }
         }
-        
+
         // il player si carica una volta sola: ricaricarlo interromperebbe la riproduzione
         if (bottomPane.getChildren().isEmpty()) {
             loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
@@ -248,6 +260,7 @@ public class MainViewController implements Initializable, Subscriber {
     @FXML
     private void handleHome(ActionEvent event) {
         selectedPlaylist = null;
+        setSidebarCachedNull();
         update();
     }
 
@@ -320,5 +333,10 @@ public class MainViewController implements Initializable, Subscriber {
         
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
+    }
+
+    public void setSidebarCachedNull() {
+        cachedSidebar = null;
+        cachedHomeview = null;
     }
 }
