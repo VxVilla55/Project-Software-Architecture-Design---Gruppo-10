@@ -418,7 +418,8 @@ public Integer removeTrackFromQueue(TrackComponent track) {
 
     public void replayCurrent() {
         resetTime();
-        play();
+        stopSimulation();
+        startSimulation();
     }
 
     public void replaceInQueue(TrackComponent oldTrack, TrackComponent newTrack) {
