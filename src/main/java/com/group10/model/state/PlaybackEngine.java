@@ -262,7 +262,7 @@ public class PlaybackEngine implements Publisher{
             onPlayStateChanged.accept(true);
         }
         
-        final double INTERVAL = 1;
+        final double INTERVAL = 0.1;
 
         timer = new Timeline(new KeyFrame(Duration.seconds(INTERVAL), e -> {
             currentTime += INTERVAL;
