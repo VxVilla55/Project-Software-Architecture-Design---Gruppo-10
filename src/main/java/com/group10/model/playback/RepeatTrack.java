@@ -5,11 +5,8 @@ import com.group10.model.state.PlaybackEngine;
 /**
  *
  * @author group10
- *
- * Strategy concreta con ripetizione della singola traccia: a fine
- * traccia la riproduce di nuovo dall'inizio
- *
- * PATTERN: ConcreteStrategy di RepeatMode
+ * PATTERN: Strategy. ConcreteStrategy, ripete solo la traccia corrente,
+ * da capo ogni volta che finisce.
  */
 public class RepeatTrack implements PlaybackMode {
 
@@ -17,5 +14,10 @@ public class RepeatTrack implements PlaybackMode {
     @Override
     public void onTrackEnd(PlaybackEngine engine) {
         engine.replayCurrent();
+    }
+
+    @Override
+    public boolean loopsTrack() {
+        return true;
     }
 }

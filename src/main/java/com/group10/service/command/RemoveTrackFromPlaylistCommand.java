@@ -11,6 +11,7 @@ import com.group10.model.TrackComponent;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, toglie una traccia da una playlist (annullabile).
  */
 public class RemoveTrackFromPlaylistCommand implements Command {
     private final TrackComponent track;
@@ -23,13 +24,13 @@ public class RemoveTrackFromPlaylistCommand implements Command {
 
     @Override
     public void execute() {
-        //prima rimozione solo da tutte le playlist
+        //toglie la traccia dalla playlist
         playlist.remove(track);
     }
 
     @Override
     public void undo() {
-        //prima rimozione solo da tutte le playlist
+        //la rimette
         playlist.add(track);
     }
 }

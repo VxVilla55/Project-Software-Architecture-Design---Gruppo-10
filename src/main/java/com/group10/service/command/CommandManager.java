@@ -11,6 +11,10 @@ import com.group10.model.MusicCatalogue;
 /**
  *
  * @author group10
+ * PATTERN: Command (l'Invoker); e' anche un Singleton.
+ * Esegue i Command che riceve dal Client (i controller) e li impila in undoStack:
+ * l'undo() sfila l'ultimo comando eseguito e ne richiama l'operazione inversa. Comunica
+ * coi comandi solo tramite l'interfaccia Command, senza conoscerne mai il tipo concreto.
  */
 public class CommandManager {
 
@@ -18,7 +22,7 @@ public class CommandManager {
 
     private final Stack<Command> undoStack = new Stack<>();
 
-    public CommandManager() {}
+    private CommandManager() {}
 
     public static CommandManager getInstance() {
         if (instance == null) {

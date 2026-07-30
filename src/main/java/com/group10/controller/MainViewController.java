@@ -38,9 +38,15 @@ import javafx.stage.Popup;
  * FXML Controller class
  *
  * @author group10
- * * Singleton
+ *
+ * PATTERN: Singleton, edè anche Subscriber di MusicCatalogue (Observer)
+ * 
+ * controller della schermata principale: gestisce i pannelli dell'app (playlist a
+ * sinistra, home/dettaglio al centro, coda/dettaglio traccia a destra, player sotto)
+ * e fa da punto unico per popup, dialog e selezione corrente.
  */
-public class MainViewController implements Initializable, Subscriber { 
+
+public class MainViewController implements Initializable, Subscriber {
 
     @FXML
     private TextField searchField;
@@ -77,6 +83,12 @@ public class MainViewController implements Initializable, Subscriber {
     private Popup activePopup = null;
     private PlaylistComponent selectedPlaylist;
     private TrackComponent selectedTrack;
+    // true quando il pannello destro mostra la coda: serve a ricostruirla ad ogni
+    // update(), altrimenti cambiando schermata il pannello verrebbe svuotato
+    private boolean showingQueue = false;
+    private Parent cachedSidebar = null;
+    private Parent cachedHomeview = null;
+    
 
     public static MainViewController getInstance() {
         if (singleton == null) {
@@ -103,10 +115,30 @@ public class MainViewController implements Initializable, Subscriber {
         bottomPane.getChildren().add(pane);
     }
     
+    // mostra la coda nel pannello destro e la mantiene visibile ai successivi update()
+    public void showQueue() {
+        showingQueue = true;
+        selectedTrack = null;
+        loadQueueOnRightPane();
+    }
+
+    private void loadQueueOnRightPane() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/QueueView.fxml"));
+            showOnRightPane(loader.load());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void setSelectedPlaylist(PlaylistComponent playlist) {
         selectedPlaylist = playlist;
     }
     public void setSelectedTrack(TrackComponent track) {
+        //selezionare una traccia sostituisce la coda col suo dettaglio
+        if (track != null) {
+            showingQueue = false;
+        }
         selectedTrack = track;
     }
     public PlaylistComponent getSelectedPlaylist() {
@@ -128,21 +160,29 @@ public class MainViewController implements Initializable, Subscriber {
     @Override
     public void update() {
         FXMLLoader loader;
-        leftPane.getChildren().clear();
-        //carico
-        for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists().values()) {
-            PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
-            try {
-                leftPane.getChildren().add(item.getRoot());
-            } catch (Exception ex) {
-                System.out.println(ex.getCause());
-            }
-        }
         
-        //azzero il contenuto
-        //rightPane.getChildren().clear();
-        //carico
-        if(selectedTrack != null) {
+        if (cachedSidebar == null) {
+            VBox sidebar = new VBox();
+            leftPane.getChildren().clear();
+            //ricarico l'elenco delle playlist nella barra laterale
+            for(PlaylistComponent p: MusicCatalogue.getInstance().getPlaylists().values()) {
+                PlaylistUIComponentItem item = (PlaylistUIComponentItem) new PlaylistUIComponentFactory().createUIComponentItem(p);
+                try {
+                    sidebar.getChildren().add(item.getRoot());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            cachedSidebar = sidebar;
+            leftPane.getChildren().clear();
+            leftPane.getChildren().add(cachedSidebar);
+            
+        }
+        //il pannello destro mostra la coda, oppure il dettaglio della traccia selezionata
+        if(showingQueue) {
+            //la coda va ricaricata, altrimenti cambiando schermata sparirebbe
+            loadQueueOnRightPane();
+        } else if(selectedTrack != null) {
             try {
                 TrackUIDetailsController c = (TrackUIDetailsController) new TrackUIComponentFactory().createUIComponentDetails(selectedTrack);
                 Parent trackView = c.getRoot();
@@ -154,16 +194,16 @@ public class MainViewController implements Initializable, Subscriber {
             rightPane.getChildren().clear();
         }
 
-        //azzero il contenuto
-        //centerPane.getChildren().clear();
-        //carico
+        //al centro va la homepage, oppure il dettaglio della playlist selezionata
         if(selectedPlaylist == null) {
-            loader = new FXMLLoader(getClass().getResource("/com/group10/view/HomepageView.fxml"));
-            try {
-                Parent homeView = loader.load();
-                showOnCenterPane(homeView); //contiene una clear() del center pane
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (cachedHomeview == null) {
+                loader = new FXMLLoader(getClass().getResource("/com/group10/view/HomepageView.fxml"));
+                try {
+                cachedHomeview = loader.load();
+                showOnCenterPane(cachedHomeview); //contiene una clear() del center pane
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         } else {
             try {
@@ -174,8 +214,8 @@ public class MainViewController implements Initializable, Subscriber {
                 e.printStackTrace();
             }
         }
-        
-     // ---> LA SOLUZIONE: Carichiamo il Player SOLO se non c'è già! <---
+
+        // il player si carica una volta sola: ricaricarlo interromperebbe la riproduzione
         if (bottomPane.getChildren().isEmpty()) {
             loader = new FXMLLoader(getClass().getResource("/com/group10/view/PlayerView.fxml"));
             PlayerViewController controller = new PlayerViewController();
@@ -220,33 +260,36 @@ public class MainViewController implements Initializable, Subscriber {
     @FXML
     private void handleHome(ActionEvent event) {
         selectedPlaylist = null;
+        setSidebarCachedNull();
         update();
     }
+
     public void showPopup(Parent popup) {
         //chiude il popup se già presente
         closePopup();
-        
+
         StackPane layer = new StackPane();
         Pane pane = new Pane();
         pane.setEffect(new GaussianBlur(10));
-        
+
         pane.setOnMouseClicked(e -> {
             if (root.getChildren().size()>1) {
                 root.getChildren().remove(root.getChildren().size()-1);
                 root.getChildren().get(0).setEffect(null);
             }
         });
-        
+
         layer.getChildren().add(pane);
         layer.getChildren().add(popup);
         root.getChildren().add(layer);
     }
+    
     public void closePopup() {
         root.getChildren().get(0).setEffect(new GaussianBlur(10));
         root.getChildren().removeIf(child -> child != root.getChildren().get(0));
         root.getChildren().get(0).setEffect(null);
     }
-    
+
     public void showMenuPopup(Button source, Parent content) {
         // Se esiste già un popup attivo, chiudiamolo prima di aprirne uno nuovo
         if (activePopup != null && activePopup.isShowing()) {
@@ -259,7 +302,7 @@ public class MainViewController implements Initializable, Subscriber {
         popup.setAutoHide(true);
 
         activePopup = popup;
-        
+
         //ottieni coordinate dello schermo
         Point2D screenPoint = source.localToScreen(0, source.getHeight());
         popup.show(source, screenPoint.getX(), screenPoint.getY());
@@ -290,5 +333,10 @@ public class MainViewController implements Initializable, Subscriber {
         
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;
+    }
+
+    public void setSidebarCachedNull() {
+        cachedSidebar = null;
+        cachedHomeview = null;
     }
 }

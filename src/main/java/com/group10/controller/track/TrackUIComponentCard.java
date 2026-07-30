@@ -1,20 +1,11 @@
 package com.group10.controller.track;
 
-/**
- * FXML Controller class
- *
- * @author group10
- * * è il ConcreteProduct, rappresenta il Controller dell'Item.fxml che mostra i dettagli della traccia
- */
- 
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
 import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.model.common.Playable;
 import com.group10.model.TrackComponent;
-
 import com.group10.model.state.PlaybackEngine;
-
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +19,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+
+/**
+ * FXML Controller class
+ *
+ * @author group10
+ * PATTERN: Abstract Factory. ConcreteProduct, controller della card compatta di
+ * una traccia.
+ */
 
 public class TrackUIComponentCard implements AbstractUIComponent, Initializable {
     
@@ -99,9 +98,7 @@ public class TrackUIComponentCard implements AbstractUIComponent, Initializable 
     
     @FXML
     private void handleOptions(ActionEvent event) {
-        //System.out.println("OPTIONS");
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
-        MainViewController.getInstance().showMenuPopup(menuButton, c.getRoot()); 
-        
+        MainViewController.getInstance().showMenuPopup(menuButton, c.getRoot());
     }
 }

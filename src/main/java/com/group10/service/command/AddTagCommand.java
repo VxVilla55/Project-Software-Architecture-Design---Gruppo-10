@@ -13,6 +13,7 @@ import java.util.Set;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, aggiunge uno o piu' tag a una traccia (annullabile).
  */
 public class AddTagCommand implements Command {
     private final TrackComponent track;

@@ -10,6 +10,7 @@ import com.group10.model.PlaylistComponent;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, aggiunge una playlist al catalogo (annullabile).
  */
 public class AddPlaylistCommand implements Command {
     private final PlaylistComponent playlist;

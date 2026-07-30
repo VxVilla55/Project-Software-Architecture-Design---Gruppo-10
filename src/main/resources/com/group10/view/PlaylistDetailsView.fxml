@@ -67,29 +67,32 @@
             
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" spacing="15.0" style="-fx-border-color: #EFE6CC; -fx-border-width: 0 0 1 0;">
                <children>
-                  <Label alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="#" textFill="#78909C">
+                  <Label alignment="CENTER_LEFT" minWidth="30.0" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="#">
                      <HBox.margin><Insets left="15.0" /></HBox.margin>
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <!-- spacer copertina (40px) -->
-                  <Region prefWidth="40.0" />
-                  <!-- TITOLO: stessa larghezza fissa (200) della titleVBox nei TrackItem -->
-                  <Label minWidth="80.0" prefWidth="200.0" maxWidth="200.0" style="-fx-text-fill: #78909C;" text="TITOLO" textFill="#78909C">
+                  <Region minWidth="40.0" prefWidth="40.0" />
+                  <!-- TITOLO: unica colonna flessibile, come nei TrackItem -->
+                  <Label maxWidth="1.7976931348623157E308" minWidth="80.0" prefWidth="200.0" style="-fx-text-fill: #78909C;" text="TITOLO" HBox.hgrow="ALWAYS">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <!-- spacer che cresce, come il tagsContainer nei TrackItem -->
-                  <Region HBox.hgrow="ALWAYS" />
-                  <Label minWidth="0.0" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="GENERE" textFill="#78909C">
+                  <Label alignment="CENTER_RIGHT" minWidth="100.0" prefWidth="100.0" style="-fx-text-fill: #78909C;" text="TAG">
+                     <font><Font size="12.0" /></font>
+                     <HBox.margin><Insets right="20.0" /></HBox.margin>
+                  </Label>
+                  <Label minWidth="80.0" prefWidth="80.0" style="-fx-text-fill: #78909C;" text="GENERE">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label alignment="CENTER" minWidth="0.0" prefWidth="50.0" style="-fx-text-fill: #78909C;" text="ANNO" textFill="#78909C">
+                  <Label alignment="CENTER" minWidth="50.0" prefWidth="50.0" style="-fx-text-fill: #78909C;" text="ANNO">
                      <font><Font size="12.0" /></font>
                   </Label>
-                  <Label alignment="CENTER_RIGHT" minWidth="0.0" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="DURATA" textFill="#78909C">
+                  <Label alignment="CENTER_RIGHT" minWidth="60.0" prefWidth="60.0" style="-fx-text-fill: #78909C;" text="DURATA">
                      <font><Font size="12.0" /></font>
-                     <!-- spazio del pulsante menu nei TrackItem: spacing15 + button30 + margin15 -->
-                     <HBox.margin><Insets right="60.0" /></HBox.margin>
                   </Label>
+                  <!-- spazio del pulsante menu nei TrackItem -->
+                  <Region minWidth="30.0" prefWidth="30.0">
+                     <HBox.margin><Insets right="15.0" /></HBox.margin>
+                  </Region>
                </children>
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="10.0" />

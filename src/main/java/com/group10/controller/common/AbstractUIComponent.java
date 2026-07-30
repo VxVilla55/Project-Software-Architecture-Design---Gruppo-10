@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group10.controller.common;
 
 import javafx.scene.Parent;
@@ -9,8 +5,12 @@ import javafx.scene.Parent;
 /**
  *
  * @author group10
+ * PATTERN: Abstract Factory (l'AbstractProduct)
+ * interfaccia comune a tutti i controller UI creati dalle factory,  possono
+ * essere gestiti in modo uniforme
  */
+
 public interface AbstractUIComponent{
-    
+
     public Parent getRoot();
 }

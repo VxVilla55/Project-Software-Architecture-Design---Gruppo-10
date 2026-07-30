@@ -2,7 +2,6 @@ package com.group10.controller.track;
 
 import com.group10.controller.MainViewController;
 import com.group10.controller.common.AbstractUIComponent;
-import com.group10.service.factory.TrackUIComponentFactory;
 import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.common.Playable;
@@ -11,29 +10,28 @@ import com.group10.model.state.PlaybackEngine;
 
 import java.io.File;
 import java.net.URL;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Abstract Factory. Prodotto specifico della famiglia Track, la famiglia Playlist non ne ha bisogno.
+ * Controller della riga di una traccia dentro la vista Coda.
+ */
 public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializable {
     @FXML private HBox root;
     @FXML private Label indexLabel;
     @FXML private Label titleLabel;
     @FXML private Label artistLabel;
-    @FXML private Button trackMenuButton;
     @FXML private ImageView coverImage;
     
     
@@ -42,6 +40,11 @@ public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializ
     
     public void setContextPlaylist(PlaylistComponent playlist) {
         this.contextPlaylist = playlist;
+    }
+
+    //mostra la posizione della traccia nella coda al posto del vecchio trattino
+    public void setIndex(int position) {
+        indexLabel.setText(String.valueOf(position));
     }
     
     public TrackUIQueueComponentItem(TrackComponent track) {
@@ -60,7 +63,6 @@ public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializ
     public void initialize(URL url, ResourceBundle rb) {
         titleLabel.setText(track.getTitle());
         artistLabel.setText(track.getAuthor());
-        indexLabel.setText("-");
         loadCoverImage(track.getCoverImagePath());
         root.setFocusTraversable(false);
     }
@@ -88,14 +90,6 @@ public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializ
     }
     
     @FXML
-    private void handleOptions(ActionEvent event) {
-        System.out.println("OPTIONS");
-        TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
-        c.setContextPlaylist(this.contextPlaylist);
-        MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 
-    }
-    
-    @FXML
     private void handleSelection(MouseEvent event) {
         MainViewController.getInstance().setSelectedTrack(track);
         MainViewController.getInstance().update();
@@ -111,23 +105,5 @@ public class TrackUIQueueComponentItem implements AbstractUIComponent, Initializ
         }
 
         engine.setCurrentTrack(track);
-    }
-    
-    private void showOptionPopup(Parent popup) {        
-        root.getChildren().removeIf( child -> child != root.getChildren().get(0));
-        StackPane layer = new StackPane();
-        Pane background = new Pane();        
-        background.setOnMouseClicked(e -> {
-            if (root.getChildren().size()>1) {
-                root.getChildren().remove(root.getChildren().size()-1);
-                root.getChildren().get(0).setEffect(null);
-            }
-        });
-        Bounds buttonBounds = trackMenuButton.getBoundsInLocal();
-        double x = buttonBounds.getMinX() + trackMenuButton.getWidth();
-        double y = buttonBounds.getMinY();
-        
-        layer.getChildren().addAll(popup, background);
-        root.getChildren().add(layer);
     }
 }

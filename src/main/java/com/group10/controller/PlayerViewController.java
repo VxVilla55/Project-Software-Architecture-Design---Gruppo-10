@@ -6,9 +6,10 @@ import com.group10.model.TrackComponent;
 import com.group10.model.common.Subscriber;
 import com.group10.model.playback.PlaybackMode;
 import com.group10.model.playback.RepeatPlaylist;
+import com.group10.model.playback.RepeatTrack;
 import com.group10.model.playback.Sequential;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,14 +19,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.Parent;
 import javafx.event.ActionEvent;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import com.group10.model.state.PlaybackEngine;
-import com.group10.model.state.PlayingState;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Strategy (il Client).
+ * òl
+ *
+ * Possiede le istanze delle modalita' di ripetizione (playbackModes) e decide quale
+ * passare al Context (PlaybackEngine) col setter, quando l'utente clicca il pulsante loop.
+ * E' anche Subscriber del pattern Observer, per aggiornarsi quando cambia lo stato del player.
+ * Controller della barra del player in basso (play/pausa, avanti/indietro, barra di
+ * avanzamento, shuffle e repeat).
+ */
 public class PlayerViewController implements Initializable, Subscriber {
 
     @FXML private Button playPauseButton;
@@ -41,6 +52,11 @@ public class PlayerViewController implements Initializable, Subscriber {
     @FXML private ImageView playPauseIcon;
     
     private Parent root;
+
+    // ciclo delle modalita' di ripetizione, gestito qui lato client (pattern strategy)
+    // l'ordine dell'array e' l'ordine con cui il pulsante loop le cicla
+    private final PlaybackMode[] playbackModes = { new Sequential(), new RepeatPlaylist(), new RepeatTrack() };
+    private int playbackModeIndex = 0;
 
     // Metodo helper per formattare i secondi in mm:ss
     private String formatTime(double seconds) {
@@ -64,7 +80,15 @@ public class PlayerViewController implements Initializable, Subscriber {
 
         var engine = PlaybackEngine.getInstance();
 
-        engine.setOnPlayStateChanged(isPlaying -> {
+        /*  
+        PERCHE' Platform.runLater
+        Timer di PlaybackEngine gira su un thread diverso da quello di JavaFX
+        La UI può essere aggiornata peròsolo dal thread di JavaFX
+        Platform.runLater() quindi esegue il codice sul thread corretto
+        */
+
+        // si aggiorna solo l'icona play/pausa quando lo stato di riproduzione cambia
+        engine.setOnPlayStateChanged(isPlaying -> Platform.runLater(() -> {
             if (playPauseButton != null) {
                 if (isPlaying) {
                     playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/pause-button.png")));
@@ -72,9 +96,11 @@ public class PlayerViewController implements Initializable, Subscriber {
                     playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/play-button.png")));
                 }
             }
-        });
-        
-        engine.setOnTick(time -> { 
+        }));
+
+        // chiamato circa ogni 100ms dal Timer del player (PlaybackEngine.startSimulation)
+        // aggiorna la barra di avanzamento e il tempo trascorso mentre la traccia suona
+        engine.setOnTick(time -> Platform.runLater(() -> {
             var track = engine.getCurrentTrack();
             if (track != null && track.getDurationInSeconds() > 0) {
                 double progress = time / track.getDurationInSeconds();
@@ -88,9 +114,11 @@ public class PlayerViewController implements Initializable, Subscriber {
                     currentTimeLabel.setText(formatTime(time));
                 }
             }
-        });
+        }));
 
-        engine.setOnTrackChanged(track -> {
+        // scatta quando cambia la traccia in riproduzione
+        // aggiorna titolo, autore e resetta la barra e i tempi mostrati
+        engine.setOnTrackChanged(track -> Platform.runLater(() -> {
             if (track != null) {
                 trackTitle.setText(track.getTitle());
                 trackAuthor.setText(track.getAuthor());
@@ -106,7 +134,7 @@ public class PlayerViewController implements Initializable, Subscriber {
             }
             if (trackSlider != null) trackSlider.setValue(0);
             updateSliderFill(0);
-        });
+        }));
 
         trackSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (trackSlider.isPressed()) {
@@ -130,7 +158,7 @@ public class PlayerViewController implements Initializable, Subscriber {
             if (totalTimeLabel != null) totalTimeLabel.setText(formatTime(current.getDurationInSeconds()));
             if (currentTimeLabel != null) currentTimeLabel.setText(formatTime(engine.getCurrentTime()));
             
-            if (engine.getState() instanceof PlayingState) {
+            if (engine.isPlaying()) {
                 playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/pause-button.png")));
             } else {
                 playPauseIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/icons/play-button.png")));
@@ -152,7 +180,7 @@ public class PlayerViewController implements Initializable, Subscriber {
         var engine = PlaybackEngine.getInstance();
         if (engine.getCurrentTrack() == null) return;
 
-        if (engine.getState() instanceof PlayingState) {
+        if (engine.isPlaying()) {
             engine.pause();
         } else {
             engine.play();
@@ -173,18 +201,24 @@ public class PlayerViewController implements Initializable, Subscriber {
     public Parent getRoot() { return this.root; }
 
     @FXML public void handleRepeat(ActionEvent event) {
-        PlaybackEngine.getInstance().cycleRepeatMode();
+        // il client avanza nel ciclo, sceglie la strategia e la passa al Context (setter)
+        playbackModeIndex = (playbackModeIndex + 1) % playbackModes.length;
+        PlaybackMode mode = playbackModes[playbackModeIndex];
+        PlaybackEngine.getInstance().setPlaybackMode(mode);
 
-        PlaybackMode playbackMode = PlaybackEngine.getInstance().getPlaybackMode();
-        if (playbackMode instanceof Sequential) {
-            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-playlist.png")));
-            loopButtonIcon.setOpacity(0.2);
-        } else if (playbackMode instanceof RepeatPlaylist) {
-            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-playlist.png")));
+        // icona in base alla strategy
+        String icon;
+        if (mode.loopsTrack()) {
+            icon = "/com/group10/images/loop-track.png";
+        } else {
+            icon = "/com/group10/images/loop-playlist.png";
+        }
+        loopButtonIcon.setImage(new Image(getClass().getResourceAsStream(icon)));
+
+        if (mode.loopsQueue() || mode.loopsTrack()) {
             loopButtonIcon.setOpacity(0.7);
         } else {
-            loopButtonIcon.setImage(new Image(getClass().getResourceAsStream("/com/group10/images/loop-track.png")));
-            loopButtonIcon.setOpacity(0.7);
+            loopButtonIcon.setOpacity(0.2);
         }
     }
 
@@ -197,29 +231,33 @@ public class PlayerViewController implements Initializable, Subscriber {
 
     @FXML public void handleNextPlaylist(ActionEvent event) {
         PlaybackEngine engine = PlaybackEngine.getInstance();
-        PlaylistComponent current = engine.getCurrentPlaylist();
 
-        if (current == null) {
-            System.out.println("Nessuna playlist in riproduzione.");
-            engine.stop();
+        // se c'è una playlist accodata in attesa parte quella
+        PlaylistComponent pending = engine.getPendingPlaylist();
+        if (pending != null) {
+            engine.startPlaylist(pending);
             return;
         }
 
-        List<PlaylistComponent> playlists = new ArrayList<>(MusicCatalogue.getInstance().getPlaylists().values());
-        if (playlists.size() < 2) return;
-
-        int idx = -1;
-        for (int i = 0; i < playlists.size(); i++) {
-            if (playlists.get(i).getName().equals(current.getName())) {
-                idx = i;
-                break;
+        // se c'è una playlist corrente, si avanza alla successiva della lista
+        PlaylistComponent current = engine.getCurrentPlaylist();
+        if (current != null) {
+            List<PlaylistComponent> playlists = new ArrayList<>(MusicCatalogue.getInstance().getPlaylists().values());
+            if (playlists.size() < 2) return;
+            int idx = -1;
+            for (int i = 0; i < playlists.size(); i++) {
+                if (playlists.get(i).getName().equals(current.getName())) {
+                    idx = i;
+                    break;
+                }
             }
+            if (idx == -1) return;
+            engine.startPlaylist(playlists.get((idx + 1) % playlists.size()));
+            return;
         }
-        if (idx == -1) return;
 
-        int nextIdx = (idx + 1) % playlists.size(); 
-        PlaylistComponent next = playlists.get(nextIdx);
-        next.playOnEngine(engine);
+        // altrimenti ferma e svuota
+        engine.clearQueue();
     }
 
     @Override
@@ -233,13 +271,6 @@ public class PlayerViewController implements Initializable, Subscriber {
 
     @FXML
     private void handleShowQueue(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/group10/view/QueueView.fxml"));
-            Parent queueRoot = loader.load();
-            MainViewController.getInstance().showOnRightPane(queueRoot);
-            MainViewController.getInstance().setSelectedTrack(null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        MainViewController.getInstance().showQueue();
     }
 }

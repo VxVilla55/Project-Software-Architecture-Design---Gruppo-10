@@ -9,6 +9,8 @@ import com.group10.model.TrackComponent;
 /**
  *
  * @author group10
+ * PATTERN: Strategy. ConcreteStrategy, accetta le tracce pubblicate in un certo
+ * intervallo di anni.
  */
 public class YearFilterStrategy implements TrackFilterStrategy {
     private final int from;

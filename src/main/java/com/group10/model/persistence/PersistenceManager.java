@@ -8,12 +8,9 @@ package com.group10.model.persistence;
 /**
  *
  * @author group10
- * 
- * Astrazione per il salvataggio e il caricamento del catalogo:
- * disaccoppia MusicCatalogue dal formato di persistenza concreto
- *
+ * Astrae il salvataggio e il caricamento del catalogo, cosi' il resto dell'app non
+ * dipende dal formato concreto usato per persistere i dati.
  */
-
 public interface PersistenceManager {
  
     void save();

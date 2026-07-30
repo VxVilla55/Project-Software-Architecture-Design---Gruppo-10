@@ -1,23 +1,36 @@
 package com.group10.model.state;
 
+/**
+ *
+ * @author group10
+ * PATTERN: State. ConcreteState, rappresenta il player mentre sta suonando una traccia.
+ */
 public class PlayingState implements PlayerState {
-    @Override
-    public void play(PlaybackEngine context) {
-        System.out.println("⚠️ La traccia è già in riproduzione.");
-    }
+
+    private PlaybackEngine context;
 
     @Override
-    public void pause(PlaybackEngine context) {
-        System.out.println("⏸️ Riproduzione messa in pausa al secondo " + context.getCurrentTime() + ".");
-        context.stopSimulation(); 
-        context.setState(new PausedState());
+    public void setContext(PlaybackEngine context) {
+        this.context = context;
     }
 
+    // già in riproduzione: il play non ha effetto
     @Override
-    public void stop(PlaybackEngine context) {
-        System.out.println("⏹️ Riproduzione interrotta. Torno all'inizio.");
-        context.stopSimulation(); 
-        context.resetTime();      
-        context.setState(new StoppedState());
+    public void play() {
+    }
+
+    // sospende la simulazione mantenendo il punto raggiunto
+    @Override
+    public void pause() {
+        context.stopSimulation();
+        context.changeState(new PausedState());
+    }
+
+    // interrompe la riproduzione e riporta la traccia all'inizio
+    @Override
+    public void stop() {
+        context.stopSimulation();
+        context.resetTime();
+        context.changeState(new StoppedState());
     }
 }

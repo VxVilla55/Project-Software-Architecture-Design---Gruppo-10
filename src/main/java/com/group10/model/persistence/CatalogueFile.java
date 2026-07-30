@@ -10,11 +10,9 @@ import java.util.List;
 /**
  *
  * @author group10
- * 
- * Struttura dati che rappresenta il contenuto del file JSON:
- * l'elenco delle tracce e delle playlist salvate
+ * Rappresenta il contenuto dell'intero file JSON: l'elenco delle tracce e delle
+ * playlist salvate. E' la radice della struttura che Gson serializza/deserializza.
  */
- 
 public class CatalogueFile {
  
     public List<TrackData> tracks = new ArrayList<>();

@@ -25,17 +25,21 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
- * Controller della View di dettaglio del brano
+ *
  * @author group10
+ * PATTERN: Abstract Factory (ConcreteProduct), Command (il Client per modifica/eliminazione).
+ * Modifica e eliminazione creano rispettivamente un UpdateTrackCommand e un
+ * DeleteTrackCommand, passati a CommandManager per essere annullabili.
+ * Controller della View di dettaglio del brano.
  */
 public class TrackUIDetailsController implements AbstractUIComponent, Initializable {
 
-    @FXML private AnchorPane root;
+    @FXML private VBox root;
     @FXML private ImageView trackImageView;
     @FXML private Button changeCoverButton;
     @FXML private TextField titleField;
@@ -142,7 +146,6 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                         .append("- Catalogo principale\n")
                         .append("- Tutte le playlist\n")
                         .append("- Coda di riproduzione (se presente)\n")
-                        .append("AL MOMENTO è IRREVERSIBILE")
                         .toString();
             if (MainViewController.getInstance().showConfirmation(title, header, context)) {
                 CommandManager.getInstance().executeCommand(new DeleteTrackCommand(track));
@@ -235,6 +238,7 @@ public class TrackUIDetailsController implements AbstractUIComponent, Initializa
                 .setGenre(genreField.getText())
                 .setYear(year)
                 .setDuration(track.getDurationInSeconds())
+                .setPlayCount(track.getPlayCount()) 
                 .setCoverImagePath(coverPath);
 
             if (favoriteButton != null && favoriteButton.isSelected()) {

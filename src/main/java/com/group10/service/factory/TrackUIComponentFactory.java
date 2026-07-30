@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.group10.service.factory;
 
 import com.group10.controller.common.AbstractUIComponent;
@@ -14,161 +10,56 @@ import com.group10.controller.track.TrackUIDetailsController;
 import com.group10.model.common.Playable;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
 /**
  *
  * @author group10
- * 
- * ConcreteFactory: 
- * per JavaFx forse è meglio usare 'fxmlLoader.setControllerFactory(param -> new PlaylistUIComponent(playlist);' 
- * invece di 'fxmlLoader.setControllerFactory(new PlaylistUIComponentFactory(playlistSelected));' 
+ * PATTERN: Abstract Factory. ConcreteFactory, produce la famiglia di componenti UI
+ * (prodotti concreti) relativi a una Track.
  */
-
-
-public class TrackUIComponentFactory implements UIComponentFactory{
+public class TrackUIComponentFactory implements UIComponentFactory {
 
     @Override
     public AbstractUIComponent createUIComponentItem(Playable model) {
-        //1.preparo la view
-        String fxmlPath = "/com/group10/view/TrackItem.fxml"; 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        //2.istanzio il controller
-        AbstractUIComponent controller = new TrackUIComponentItem(model);
-        //3.associo controller e view
-        loader.setController(controller);
-        //4.carico la view
-        try {
-            Parent view = loader.load();
-            
-            //-- viene eseguito l'intialize() del controller associatogli: carichiamo i valori del model nelle label
-            
-            //iniettiamo la view al controller
-            //controller.setViewNode(viewNode); //non serve, il controller ha già l'attributo fxml dell'elemento root
-            return controller;
-            
-        } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
-        }
+        return load("/com/group10/view/TrackItem.fxml", new TrackUIComponentItem(model));
     }
-    
+
+    // prodotto specifico della famiglia Track, usato dalla coda di riproduzione:
+    // non fa parte del contratto UIComponentFactory (la famiglia Playlist non ha un equivalente)
     public AbstractUIComponent createUIQueueComponentItem(Playable model) {
-        //1.preparo la view
-        String fxmlPath = "/com/group10/view/TrackItemQueue.fxml"; 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        //2.istanzio il controller
-        AbstractUIComponent controller = new TrackUIQueueComponentItem(model);
-        //3.associo controller e view
-        loader.setController(controller);
-        //4.carico la view
-        try {
-            Parent view = loader.load();
-            
-            //-- viene eseguito l'intialize() del controller associatogli: carichiamo i valori del model nelle label
-            
-            //iniettiamo la view al controller
-            //controller.setViewNode(viewNode); //non serve, il controller ha già l'attributo fxml dell'elemento root
-            return controller;
-            
-        } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
-        }
+        return load("/com/group10/view/TrackItemQueue.fxml", new TrackUIQueueComponentItem(model));
     }
 
     @Override
     public AbstractUIComponent createUIComponentCard(Playable model) {
-        //1.preparo la view
-        String fxmlPath = "/com/group10/view/Card.fxml"; 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        //2.istanzio il controller
-        AbstractUIComponent controller = new TrackUIComponentCard(model);
-        //3.associo controller e view
-        loader.setController(controller);
-        //4.carico la view
-        try {
-            Parent view = loader.load();
-            
-            //-- viene eseguito l'intialize() del controller associatogli: carichiamo i valori del model nelle label
-            
-            //iniettiamo la view al controller
-            //controller.setViewNode(viewNode); //non serve, il controller ha già l'attributo fxml dell'elemento root
-            return controller;
-            
-        } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
-        }
+        return load("/com/group10/view/Card.fxml", new TrackUIComponentCard(model));
     }
 
     @Override
     public AbstractUIComponent createUIComponentDetails(Playable model) {
-        //1.preparo la view
-        String fxmlPath = "/com/group10/view/TrackDetailsView.fxml"; 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        //2.istanzio il controller
-        AbstractUIComponent controller = new TrackUIDetailsController(model);
-        //3.associo controller e view
-        loader.setController(controller);
-        //4.carico la view
-        try {
-            Parent view = loader.load();
-            
-            //-- viene eseguito l'intialize() del controller associatogli: carichiamo i valori del model nelle label
-            
-            //iniettiamo la view al controller
-            //controller.setViewNode(viewNode); //non serve, il controller ha già l'attributo fxml dell'elemento root
-            return controller;
-            
-        } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento TrackDetailsView", e);
-        }
+        return load("/com/group10/view/TrackDetailsView.fxml", new TrackUIDetailsController(model));
     }
 
     @Override
     public AbstractUIComponent createUIComponentAdder() {
-        
-        //1.preparo la view
-        String fxmlPath = "/com/group10/view/TrackAdderView.fxml"; 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        //2.istanzio il controller
-        AbstractUIComponent controller = new TrackUIAdderController();
-        //3.associo controller e view
-        loader.setController(controller);
-        //4.carico la view
-        try {
-            Parent view = loader.load();
-            
-            //-- viene eseguito l'intialize() del controller associatogli: carichiamo i valori del model nelle label
-            
-            //iniettiamo la view al controller
-            //controller.setViewNode(viewNode); //non serve, il controller ha già l'attributo fxml dell'elemento root
-            return controller;
-            
-        } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
-        }
+        return load("/com/group10/view/TrackAdderView.fxml", new TrackUIAdderController());
     }
 
     @Override
     public AbstractUIComponent createUIComponentOptions(Playable model) {
-        //1.preparo la view
-        String fxmlPath = "/com/group10/view/TrackOptions.fxml"; 
+        return load("/com/group10/view/TrackOptions.fxml", new TrackUIOptionsController(model));
+    }
+
+    // carica la view fxml, ci associa il controller passato e lo ritorna.
+    // loader.load() esegue anche l'initialize() del controller (popola le label dal model)
+    private AbstractUIComponent load(String fxmlPath, AbstractUIComponent controller) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        //2.istanzio il controller
-        AbstractUIComponent controller = new TrackUIOptionsController(model);
-        //3.associo controller e view
         loader.setController(controller);
-        //4.carico la view
         try {
-            Parent view = loader.load();
-            
-            //-- viene eseguito l'intialize() del controller associatogli: carichiamo i valori del model nelle label
-            
-            //iniettiamo la view al controller
-            //controller.setViewNode(viewNode); //non serve, il controller ha già l'attributo fxml dell'elemento root
+            loader.load();
             return controller;
-            
         } catch (IOException e) {
-            throw new RuntimeException("Errore nel caricamento della View comune della Card", e);
+            throw new RuntimeException("Errore nel caricamento della view: " + fxmlPath, e);
         }
-    }    
+    }
 }

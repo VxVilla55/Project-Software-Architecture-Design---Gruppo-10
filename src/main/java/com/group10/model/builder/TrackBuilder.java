@@ -1,26 +1,34 @@
 package com.group10.model.builder;
 
+import java.time.Year;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Builder;
-import com.group10.model.TrackComponent.Tag; 
+import com.group10.model.TrackComponent.Tag;
 
 /**
  * @author group10
  *
  * PATTERN BUILDER
+ * ConcreteBuilder, costruisce passo-passo un TrackComponent con metodi setX() che
+ * ritornano this. build() valida titolo, autore, durata e anno prima di restituire
+ * la traccia, cosi' un TrackComponent non e' mai in uno stato incompleto o non valido.
  */
+
 public class TrackBuilder implements Builder<TrackComponent> {
-    
+
+    // anno corrente, usato come default e come massimo consentito 
+    private static final int CURRENT_YEAR = Year.now().getValue();
+
     private String title;
     private String author;
     private int duration;
     private String genre;
-    private int year = 2026;
-    private int playCount = 0;
+    private int year = CURRENT_YEAR;
+    private int playCount;
     private String coverImagePath;
 
     private Set<Tag> tags = new HashSet<>();
@@ -117,7 +125,7 @@ public class TrackBuilder implements Builder<TrackComponent> {
             throw new IllegalStateException("Errore: La durata deve essere maggiore di 0.");
         }
 
-        if (this.year < 1000 || this.year > 2100) {
+        if (this.year < 1000 || this.year > CURRENT_YEAR) {
             throw new IllegalStateException("Errore: Anno di pubblicazione non valido.");
         }
 

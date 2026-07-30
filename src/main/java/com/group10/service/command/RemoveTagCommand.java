@@ -13,6 +13,7 @@ import java.util.Set;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, toglie uno o piu' tag da una traccia (annullabile).
  */
 public class RemoveTagCommand implements Command {
     private final TrackComponent track;

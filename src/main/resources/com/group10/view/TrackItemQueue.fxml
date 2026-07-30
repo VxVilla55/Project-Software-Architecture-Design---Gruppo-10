@@ -15,7 +15,7 @@
 
 <HBox fx:id="root" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" onMouseClicked="#handleSelection" prefHeight="55.0" spacing="15.0" style="-fx-background-color: #FFF8E1; -fx-background-radius: 6; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="indexLabel" alignment="CENTER" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
+      <Label fx:id="indexLabel" alignment="CENTER" minWidth="30.0" prefWidth="30.0" style="-fx-text-fill: #78909C;" text="1">
          <HBox.margin>
             <Insets left="15.0" />
          </HBox.margin>
@@ -32,6 +32,9 @@
 
       <!-- titolo: cresce per riempire lo spazio; tronca col … se troppo lungo -->
       <VBox alignment="CENTER_LEFT" prefHeight="45.0" minWidth="0.0" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets right="15.0" />
+         </HBox.margin>
          <children>
             <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" style="-fx-text-fill: #37474F; -fx-font-weight: bold;" text="Titolo della Traccia">
                <font>
@@ -45,16 +48,6 @@
             </Label>
          </children>
       </VBox>
-
-      <!-- menu: larghezza fissa cosi resta sempre ancorato a destra in ogni riga -->
-      <Button fx:id="trackMenuButton" minWidth="30.0" prefWidth="30.0" mnemonicParsing="false" onAction="#handleOptions" style="-fx-background-color: transparent; -fx-text-fill: #78909C; -fx-cursor: hand;" text="⋮">
-         <HBox.margin>
-            <Insets right="15.0" />
-         </HBox.margin>
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font>
-      </Button>
    </children>
    <padding>
       <Insets bottom="5.0" top="5.0" />

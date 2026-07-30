@@ -34,15 +34,15 @@
 }
 
 
-topPlaylistLabel, #topTracksLabel, #allTracksLabel, #trackLabel  {
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
-
-
-
 #root {
     -fx-background-color: #FFF8E1;
+}
+
+/* riga traccia orizzontale: leggero scurimento all'hover.
+   la HBox ha fx:id="root" (quindi id CSS "root"): l'hover va reso più specifico
+   della regola #root, altrimenti quest'ultima vince e lo sfondo non cambia */
+#root.track-row:hover {
+    -fx-background-color: #F5EED3;
 }
 
 #sectionTitle, .label {

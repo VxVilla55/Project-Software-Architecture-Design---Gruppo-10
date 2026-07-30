@@ -6,101 +6,93 @@ package com.group10.model;
 
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.common.Playable;
+import com.group10.model.common.Subscriber;
 import com.group10.model.state.PlaybackEngine;
 import com.group10.service.filter.TrackFilterStrategy;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- *
- * @author group10
- * 
  * Composite del pattern omonimo: rappresenta una playlist come insieme
- * ordinato di elementi Playable (Track)
+ * ordinato di elementi Playable (Track).
  *
- * L'ordine di inserimento coincide con l'ordine di riproduzione; 
+ * Due modalità alla costruzione:
+ *  manuale (strategies vuota):
+ *     tracks = staticTracks
  *
- * PATTERN: Playable è il Component,Track è la Leaf, questa classe è il Composite
+ *  automatica (strategies non vuota):
+ *      tracks = staticTracks, aggiornata ad ogni lettura mediante applicazione delle strategie.
+ *      Ad ogni getTracks(), le strategy vengono applicate al catalogo per trovare tracce nuove da aggiungere a staticTracks.
+ *      Le strategy eseguono filtri sul catalogo per identificare tracce che soddisfano i criteri:
+ *      - se la traccia è già in staticTracks, viene mantenuta (con il loro ordine),
+ *      - se la traccia è in excludedTracks, viene ignorata (rimossa dalla playlist e non va riaggiunta anche se soddisfa le strategy),
+ *      - se la traccia non è in staticTracks e non è in excludedTracks, viene aggiunta a staticTracks se soddisfa tutte le strategy così che possa essere riordinata come le altre.
+ * 
+ * PATTERN: Playable è il Component, Track è la Leaf, questa classe è il Composite.
  */
-public class PlaylistComponent implements Playable,Comparable<PlaylistComponent> {
+public class PlaylistComponent implements Playable, Comparable<PlaylistComponent>, Subscriber {
 
     private String name;
-
-    // lista ordinata delle tracce: l'ordine di inserimento è l'ordine di riproduzione
-    //private Set<TrackComponent> tracks;
-    private List<TrackComponent> staticTracks; //elenco statico di playlist
-    private List<TrackFilterStrategy> strategies = new ArrayList<>(); //elenco dinamico (se creata automaticamente)
+    private final List<TrackComponent> staticTracks;
+    //per la parte di playlist riempite automaticamente
+    private final List<TrackFilterStrategy> strategies;
+    private final Set<TrackComponent> excludedTracks;
+    //per le statistiche di riproduzione
+    private int playCount;
 
     public PlaylistComponent() {
-        this.name = validateAndTrimName("Nuova Playlist");
-        this.staticTracks = new ArrayList<>();
-        this.strategies = new ArrayList<>();
+        this.name           = validateAndTrimName("Nuova Playlist");
+        this.staticTracks   = new ArrayList<>();
+        this.strategies     = new ArrayList<>();
+        this.excludedTracks = new HashSet<>();
     }
-    
+
     public PlaylistComponent(String name) {
-        this.name = validateAndTrimName(name);
-        this.staticTracks = new ArrayList<>();
-        this.strategies = new ArrayList<>();
+        this.name           = validateAndTrimName(name);
+        this.staticTracks   = new ArrayList<>();
+        this.strategies     = new ArrayList<>();
+        this.excludedTracks = new HashSet<>();
     }
-    
-    /*public PlaylistComponent(String name, List<TrackComponent> tracks) {
-        this.name = validateAndTrimName(name);
-        this.staticTracks = new ArrayList<>(tracks);
-        this.strategies = Collections.emptyList();
-    }
-    public PlaylistComponent(String name, List<TrackFilterStrategy> strategies) {
-        this.name = validateAndTrimName(name);
-        this.staticTracks = null;
-        this.strategies = new ArrayList<>(strategies);
-    }*/
+
     public PlaylistComponent(PlaylistBuilder builder) {
-        this.name = validateAndTrimName(builder.getName());
-        this.staticTracks = new ArrayList<>(builder.getTracks());
-        this.strategies = new ArrayList<>(builder.getStrategies());
-    }
-
-
-    public boolean isAuto() {
-        return strategies != null && !strategies.isEmpty();
+        this.name           = validateAndTrimName(builder.getName());
+        this.staticTracks   = new ArrayList<>(builder.getTracks());
+        this.strategies     = new ArrayList<>(builder.getStrategies());
+        this.excludedTracks = new HashSet<>();
+        this.playCount      = builder.getPlayCount();
+        if (isAuto())
+            MusicCatalogue.getInstance().addSubscriber(this);
     }
     
- 
+    public boolean isAuto() {
+        return !strategies.isEmpty();
+    }
+
     public String getName() {
         return name;
     }
-    
+
     public void setName(String newName) {
         this.name = validateAndTrimName(newName);
     }
-    
+
     public int getSize() {
         return getTracks().size();
     }
-    /*
-    public List<TrackComponent> getTracks() {
-        if (isAuto()) {
-            // ricalcola ogni volta dal catalogo live
-            return MusicCatalogue.getInstance().getTracks().stream()
-                .filter(t -> strategies.stream().allMatch(s -> s.matches(t)))
-                .collect(Collectors.toList());
-        }
-        return Collections.unmodifiableList(staticTracks);
-    }*/
-    public List<TrackComponent> getTracks() {
-        if (strategies.isEmpty()) {
-            return Collections.unmodifiableList(staticTracks);
-        }
 
-        // Teniamo traccia delle esistenti per evitare duplicati
-        Set<TrackComponent> existingTracks = new HashSet<>(staticTracks);
+    //chiamato dal catalogo per la sincronizzazione automatica delle playlist con i nuovi brani che soddisfano le strategie
+    @Override
+    public void update() {
+        syncFromCatalogue();
+    }
 
+    private void syncFromCatalogue() {
+        Set<TrackComponent> existing = new HashSet<>(staticTracks);
         for (TrackComponent t : MusicCatalogue.getInstance().getTracks()) {
-            if (existingTracks.contains(t)) continue;
-
+            if (existing.contains(t) || excludedTracks.contains(t)) continue;
             boolean matchesAll = true;
             for (TrackFilterStrategy s : strategies) {
                 if (!s.matches(t)) {
@@ -108,43 +100,106 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
                     break;
                 }
             }
-
             if (matchesAll) {
                 staticTracks.add(t);
-                existingTracks.add(t);
+                existing.add(t);
             }
         }
+    }
 
+    public List<TrackComponent> getTracks() {
+        if (isAuto())
+            syncFromCatalogue();
         return staticTracks;
     }
-    
-    // aggiunge una traccia in coda
+
     public void add(TrackComponent track) {
-        if (!contains(track)) {
+        //in AUTO rimuove anche l'eventuale esclusione
+        if (isAuto())
+            excludedTracks.remove(track);
+        // aggiunge in coda a staticTracks 
+        if (!staticTracks.contains(track))
             staticTracks.add(track);
-        }
     }
-  
-    // rimuove la traccia indicata
+
+    // rimuove da staticTracks; in AUTO aggiunge anche a excludedTracks
+    // così la sincronizzazione non la riporta mai più
     public boolean remove(TrackComponent track) {
-        return staticTracks.remove(track);
+        boolean removed = staticTracks.remove(track);
+        if (isAuto()) {
+            //vedo prima se quella traccia eliminata verrebbe riaggiunta dalle strategy
+            boolean matchesAll = true;
+            for (TrackFilterStrategy s : strategies) {
+                if (!s.matches(track)) {
+                    matchesAll = false;
+                    break;
+                }
+            }
+            //se verrebbe messa la aggiungo a quelle che le strategy devono escludere
+            //in questo modod se rimuovo una traccia e poi la modifico facendola rientrare nei requisiti validati dalle strategie viene aggiunta dinamicamente.
+            if (matchesAll) {
+                excludedTracks.add(track);
+            }
+        }
+        return removed;
     }
-    
-    //true se contiene la traccia indicata
+
     public boolean contains(TrackComponent track) {
         return getTracks().contains(track);
     }
-  
+
     public boolean isEmpty() {
         return getTracks().isEmpty();
     }
 
+    // funziona in entrambe le modalità: staticTracks è sempre la sorgente
+    public void moveTrack(int fromIndex, int toIndex) {
+        if (fromIndex < 0 || fromIndex >= staticTracks.size()
+                || toIndex < 0 || toIndex >= staticTracks.size()) return;
+        TrackComponent t = staticTracks.remove(fromIndex);
+        staticTracks.add(toIndex, t);
+    }
 
-    public int getPlayCount() {
-        // Soluzione moderna ed elegante con gli Stream di Java 8
-        return this.getTracks().stream()
-                   .mapToInt(TrackComponent::getPlayCount)
-                   .sum();        
+    public void updateTrack(TrackComponent oldTrack, TrackComponent updatedTrack) {
+        int index = staticTracks.indexOf(oldTrack);
+
+        if (index != -1)
+            staticTracks.set(index, updatedTrack);
+
+        if (excludedTracks.remove(oldTrack))
+            excludedTracks.add(updatedTrack);
+    }
+
+  //playcount per le statistiche di riproduzione
+    public int getPlayCount(){ 
+        return playCount;
+    }
+    public void incrementPlayCount() {
+        playCount++;
+    }
+    public void setPlayCount(int count) {
+        playCount = count;
+    }
+
+
+    //dall0interfacciaPlayable
+    @Override
+    public int getDurationInSeconds() {
+        int total = 0;
+        for (TrackComponent t : getTracks()) total += t.getDurationInSeconds();
+        return total;
+    }
+
+    @Override
+    public void playOnEngine(PlaybackEngine engine) {
+        engine.setCurrentPlaylist(this);
+        engine.addListToQueue(new ArrayList<>(getTracks()));
+    }
+
+    @Override
+    public int compareTo(PlaylistComponent other) {
+        if (other == null) return 1;
+        return this.name.compareTo(other.name);
     }
 
     private static String validateAndTrimName(String name) {
@@ -153,47 +208,4 @@ public class PlaylistComponent implements Playable,Comparable<PlaylistComponent>
         }
         return name.trim();
     }
-
-    @Override
-    public int getDurationInSeconds() {
-        int totalDuration = 0;
-        for (TrackComponent track : this.getTracks()) {
-            totalDuration += track.getDurationInSeconds();
-        }
-        return totalDuration;
-    }
-    @Override
-    public void playOnEngine(PlaybackEngine engine) {
-        engine.setCurrentPlaylist(this);
-        System.out.println("Playlist settata: " + getName());
-        /* for (TrackComponent track : this.tracks) {
-            track.playOnEngine(engine);
-        } */
-        engine.addListToQueue(new ArrayList<>(this.getTracks()));
-    }
-
-    
-    public int compareTo(PlaylistComponent other) {
-        if (other == null) return 1;
-        return this.name.compareTo(other.name); // Ordina alfabeticamente per nome
-    }
-    
-    public void updateTrack(TrackComponent oldTrack, TrackComponent updatedTrack) {
-        int index = staticTracks.indexOf(oldTrack);
-        if (index != -1) {
-            staticTracks.set(index, updatedTrack);
-        }
-    }
-    public void moveTrack(int fromIndex, int toIndex) {
-        if (fromIndex < 0 || fromIndex >= staticTracks.size() || toIndex < 0 || toIndex >= staticTracks.size()) 
-            return;
-
-        TrackComponent trackToMove = staticTracks.remove(fromIndex);
-        staticTracks.add(toIndex, trackToMove);
-    }
 }
-    
-
-
-
-

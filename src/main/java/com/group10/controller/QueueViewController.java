@@ -17,6 +17,15 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Observer (il Subscriber). Si iscrive a PlaybackEngine e si ridisegna ogni
+ * volta che la coda cambia
+ * Si disiscrive da solo quando la view viene tolta di scena, per non restare in ascolto
+ * inutilmente dopo che la coda non e' piu' visibile.
+ * Controller della vista che mostra la coda di riproduzione.
+ */
 public class QueueViewController implements Initializable, Subscriber {
 
     @FXML private AnchorPane root;
@@ -24,11 +33,9 @@ public class QueueViewController implements Initializable, Subscriber {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(">>> QueueView initialize PARTITO");
-        System.out.println(">>> root = " + root);
-        System.out.println(">>> container = " + container);
-
         PlaybackEngine.getInstance().addSubscriber(this);
+
+        //quando la view esce di scena si disiscrive, per non restare in ascolto inutilmente
         root.sceneProperty().addListener((obs, oldScene, newScene) -> {
             if (newScene == null) {
                PlaybackEngine.getInstance().removeSubscriber(this);
@@ -40,9 +47,6 @@ public class QueueViewController implements Initializable, Subscriber {
     @Override
     public void update() {
         container.getChildren().clear();
-        //if (container.getChildren().size() > 1) {
-        //    container.getChildren().remove(1, container.getChildren().size());
-        //}
 
         List<TrackComponent> queue = PlaybackEngine.getInstance().getQueue();
 
@@ -52,12 +56,12 @@ public class QueueViewController implements Initializable, Subscriber {
         }
 
         TrackUIComponentFactory factory = new TrackUIComponentFactory();
+        int position = 1;
         for (TrackComponent t : queue) {
             TrackUIQueueComponentItem item = (TrackUIQueueComponentItem) factory.createUIQueueComponentItem(t);
+            item.setIndex(position++);
             container.getChildren().add(item.getRoot());
         }
-        System.out.println(">>> container figli = " + container.getChildren().size()
-                + ", queue = " + queue.size());
     }
 
     public Parent getRoot() {

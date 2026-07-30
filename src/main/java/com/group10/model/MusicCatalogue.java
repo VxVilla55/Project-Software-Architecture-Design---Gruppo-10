@@ -4,6 +4,7 @@
  */
 package com.group10.model;
 
+import com.group10.controller.MainViewController;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -21,8 +22,9 @@ import java.util.TreeSet;
 /**
  *
  * @author group10
- * 
- * Singleton: classe che modella lo stato dell'App
+ * PATTERN: Singleton; e' anche Publisher del pattern Observer, notifica le viste e la
+ * persistenza ad ogni modifica del catalogo.
+ * Tiene lo stato dell'app: l'elenco delle tracce, delle playlist e dei generi disponibili.
  */
 public class MusicCatalogue implements Publisher{
     
@@ -33,7 +35,7 @@ public class MusicCatalogue implements Publisher{
     private Set<String> genres;
     private List<Subscriber> subscribers;
     
-    public MusicCatalogue() {
+    private MusicCatalogue() {
         tracks = new ArrayList<>();
         playlists = new TreeMap<>();
         genres = new TreeSet<>();
@@ -58,25 +60,23 @@ public class MusicCatalogue implements Publisher{
 
     public void addTrack (TrackComponent track) {
         tracks.add(track);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
    public void removeTrack(TrackComponent track) {
         if (track == null) return;
 
-        // 1. La tua rimozione originale dal catalogo (Corretta!)
         tracks.remove(track);
 
-        // 2. NOVITÀ: Elimina la traccia da TUTTE le playlist in cui era stata inserita
+        //la traccia va tolta anche da ogni playlist che la conteneva
         for (PlaylistComponent playlist : this.playlists.values()) {
-            // Usa il metodo appropriato in base a come è fatta la tua classe PlaylistComponent
-            // (potrebbe essere playlist.remove(track) oppure playlist.getTracks().remove(track))
-            playlist.remove(track); 
+            playlist.remove(track);
         }
 
-        // 3. NOVITÀ: Rimuovi la traccia dal lettore musicale, se era in coda
+        //e dalla coda di riproduzione, se presente
         PlaybackEngine.getInstance().removeTrackFromQueue(track);
 
-        // 4. La tua notifica originale (Corretta, la teniamo alla fine!)
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
 
@@ -87,12 +87,14 @@ public class MusicCatalogue implements Publisher{
                 "Esiste già una playlist con questo nome: " + playlist.getName());
         }
         playlists.put(playlist.getName(), playlist);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
     
 public void removePlaylist(PlaylistComponent p) {
     if (p != null) {
         this.playlists.remove(p.getName()); 
+        MainViewController.getInstance().setSidebarCachedNull();
     }
 }
     
@@ -103,17 +105,19 @@ public void removePlaylist(PlaylistComponent p) {
     public void addTrackToPlaylist(String playlistName, TrackComponent track) {
         PlaylistComponent playlist = getPlaylist(playlistName);
         playlist.add(track);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
 
     public void removeTrackFromPlaylist(String playlistName, TrackComponent track) {
         PlaylistComponent playlist = getPlaylist(playlistName);
         playlist.remove(track);
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
 
-    // true se esiste gia' una playlist con questo nome (ignora maiuscole/minuscole e spazi)
-    // il controller la chiama PRIMA di creare, per mostrare l'errore giusto all'utente
+    // true se esiste gia' una playlist con questo nome (il controller la chiama prima
+    // di crearla, cosi' puo' mostrare l'errore giusto)
     public boolean isPlaylistNameTaken(String name) {
         if (name == null) {
             return false;
@@ -149,7 +153,7 @@ public void removePlaylist(PlaylistComponent p) {
     }
     
     
-    //per poter aggiungere nuovi Osservaroti/Subscriber a questo elemento
+    //per poter aggiungere nuovi Osservatori/Subscriber a questo elemento
     public void addSubscriber(Subscriber subscriber) {
         subscribers.add(subscriber);
     }
@@ -194,6 +198,7 @@ public void removePlaylist(PlaylistComponent p) {
             if ( playlist.contains(oldTrack))
                 playlist.updateTrack(oldTrack, updatedTrack);
         }
+        MainViewController.getInstance().setSidebarCachedNull();
         notifySubscribers();
     }
     public void replacePlaylist(PlaylistComponent newPlaylist, PlaylistComponent oldPlaylist) {

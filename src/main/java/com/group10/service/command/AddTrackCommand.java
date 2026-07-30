@@ -10,6 +10,7 @@ import com.group10.model.TrackComponent;
 /**
  *
  * @author group10
+ * PATTERN: Command. ConcreteCommand, aggiunge una traccia al catalogo (annullabile).
  */
 public class AddTrackCommand implements Command {
     private final TrackComponent track;

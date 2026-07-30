@@ -5,15 +5,17 @@ import com.group10.model.common.Playable;
 import com.group10.model.state.PlaybackEngine;
 import java.util.ArrayList;
 
+import java.time.Year;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * @author group10
  *
- * Nel PATTERN COMPOSITE è l'elemento Composite:
- * rappresenta una traccia come insieme
+ * @author group10
+ * PATTERN: Composite (la Leaf). Playable e' il Component, PlaylistComponent e' il
+ * Composite; questa classe rappresenta la singola traccia, l'elemento indivisibile
+ * del catalogo, e non contiene al suo interno altri Playable.
  */
 public class TrackComponent implements Comparable<TrackComponent>, Playable {
 
@@ -44,9 +46,9 @@ public class TrackComponent implements Comparable<TrackComponent>, Playable {
     public TrackComponent() {
         this.title = "--";
         this.author = "--";
-        this.duration = 31;
+        this.duration = 1;
         this.genre = "";
-        this.year = 2026;
+        this.year = Year.now().getValue();
         this.tags = new HashSet<>();
         this.playCount = 0;
         this.coverImagePath = null;

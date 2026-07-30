@@ -23,15 +23,13 @@ import java.util.Map;
 /**
  *
  * @author group10
- * 
- * Implementazione su file JSON di PersistenceManager (libreria Gson)
- *
- * Le tracce, essendo immutabili, vengono ricostruite tramite TrackBuilder
- * in fase di caricamento; le playlist salvano solo i riferimenti alle
- * tracce (titolo+autore) per non duplicarne i dati
- *
+ * Implementazione di PersistenceManager su file JSON (libreria Gson). E' anche
+ * Subscriber del pattern Observer: viene notificata da MusicCatalogue ad ogni modifica
+ * e salva subito su file.
+ * Le tracce sono immutabili, quindi vengono ricostruite col TrackBuilder al caricamento;
+ * le playlist invece salvano solo i riferimenti (titolo+autore) alle tracce, per non
+ * duplicarne i dati su file.
  */
-
 public class JsonPersistenceManager implements PersistenceManager, Subscriber {
 
     private final Path catalogueFile;
@@ -80,6 +78,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
                         .setDuration(t.duration)
                         .setGenre(t.genre)
                         .setYear(t.year)
+                        .setPlayCount(t.playCount)
                         .addAllTags(t.tags)
                         .setCoverImagePath(t.coverImagePath)
                         .build();
@@ -90,6 +89,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
             }
             for (PlaylistData p : data.playlists) {
                 PlaylistComponent playlist = new PlaylistComponent(p.name);
+                playlist.setPlayCount(p.playCount);
                 for (String trackKey : p.trackKeys) {
                     TrackComponent track = byKey.get(trackKey);
                     if (track != null) {
@@ -113,6 +113,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
             t.duration = track.getDurationInSeconds();
             t.genre = track.getGenre();
             t.year = track.getYear();
+            t.playCount = track.getPlayCount();
             t.tags.addAll(track.getTags());
             t.coverImagePath = track.getCoverImagePath();
             data.tracks.add(t);
@@ -120,6 +121,7 @@ public class JsonPersistenceManager implements PersistenceManager, Subscriber {
         for (PlaylistComponent playlist : catalogue.getPlaylists().values()) {
             PlaylistData p = new PlaylistData();
             p.name = playlist.getName();
+            p.playCount = playlist.getPlayCount();
             for (TrackComponent track : playlist.getTracks()) {
                 p.trackKeys.add(key(track.getTitle(), track.getAuthor()));
             }

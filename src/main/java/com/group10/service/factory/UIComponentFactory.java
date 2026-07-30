@@ -12,10 +12,12 @@ import javafx.fxml.Initializable;
 /**
  *
  * @author group10
- * 
- * AbstractFactory nel pattern Factory delle componenti UI per gli elementi di liste come Playlist e Track
+ * PATTERN: Abstract Factory (l'AbstractFactory).
+ * Dichiara un metodo di creazione per ogni tipo di componente UI della famiglia (Item,
+ * Card, Details, Adder, Options). Le due ConcreteFactory (TrackUIComponentFactory e
+ * PlaylistUIComponentFactory) producono l'intera famiglia, ciascuna per il proprio tipo
+ * di model; il prodotto astratto e' AbstractUIComponent.
  */
-
 public interface UIComponentFactory {
     
     AbstractUIComponent createUIComponentItem(Playable model);

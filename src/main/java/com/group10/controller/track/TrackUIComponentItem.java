@@ -33,6 +33,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
+/**
+ *
+ * @author group10
+ * PATTERN: Abstract Factory (ConcreteProduct), Command (il Client per il riordino).
+ * Il drag and drop crea un ReorderTrackCommand quando una traccia viene
+ * rilasciata in una nuova posizione, così anche il riordino è annullabile.
+ * Controller della riga di una traccia nelle liste (catalogo, dettaglio playlist).
+ */
 public class TrackUIComponentItem implements AbstractUIComponent, Initializable {
     @FXML private HBox root;
     @FXML private Label indexLabel;
@@ -125,7 +133,6 @@ public class TrackUIComponentItem implements AbstractUIComponent, Initializable 
 
     @FXML
     private void handleOptions(ActionEvent event) {
-        System.out.println("OPTIONS");
         TrackUIOptionsController c = (TrackUIOptionsController) new TrackUIComponentFactory().createUIComponentOptions(track);
         c.setContextPlaylist(this.contextPlaylist);
         MainViewController.getInstance().showMenuPopup(trackMenuButton, c.getRoot()); 

@@ -29,6 +29,9 @@ import javafx.scene.layout.VBox;
  * FXML Controller class
  *
  * @author group10
+ * PATTERN: Abstract Factory (ConcreteProduct), Command (il Client).
+ * Crea DeleteTrackCommand/RemoveTrackFromPlaylistCommand a seconda del contesto e li
+ * passa a CommandManager per l'esecuzione. Controller del menu opzioni di una traccia
  */
 public class TrackUIOptionsController implements AbstractUIComponent, Initializable {
     @FXML
@@ -135,7 +138,6 @@ public class TrackUIOptionsController implements AbstractUIComponent, Initializa
                         .append("- Catalogo principale\n")
                         .append("- Tutte le playlist\n")
                         .append("- Coda di riproduzione (se presente)\n")
-                        .append("AL MOMENTO è IRREVERSIBILE")
                         .toString();
             if (MainViewController.getInstance().showConfirmation(title, header, context)) {
                 CommandManager.getInstance().executeCommand(new DeleteTrackCommand(track));

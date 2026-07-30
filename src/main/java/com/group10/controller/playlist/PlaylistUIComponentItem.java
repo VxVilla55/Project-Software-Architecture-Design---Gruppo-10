@@ -21,8 +21,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 /**
- * Controller per il singolo item playlist nella lista.
- * Collegato a PlaylistItemView.fxml
+ *
+ * @author group10
+ * PATTERN: Abstract Factory. ConcreteProduct, controller del singolo item playlist
+ * nella barra laterale. Collegato a PlaylistItemView.fxml.
  */
 public class PlaylistUIComponentItem implements AbstractUIComponent, Initializable {
 
@@ -63,7 +65,6 @@ public class PlaylistUIComponentItem implements AbstractUIComponent, Initializab
 
     @FXML
     private void handleOptions(ActionEvent event) {
-        System.out.println("PLAYLIST OPTIONS");
         PlaylistUIOptionsController c = (PlaylistUIOptionsController) new PlaylistUIComponentFactory().createUIComponentOptions(playlist);
         MainViewController.getInstance().showMenuPopup(playlistMenuButton, c.getRoot());
     }
