@@ -5,8 +5,8 @@
       "author": "Queen",
       "duration": 355,
       "genre": "Rock",
-      "year": 1975,
-      "playCount": 42,
+      "year": 1111,
+      "playCount": 44,
       "tags": [
         "FAVORITE"
       ]
@@ -17,7 +17,7 @@
       "duration": 294,
       "genre": "Pop",
       "year": 1982,
-      "playCount": 35,
+      "playCount": 40,
       "tags": [
         "FAVORITE"
       ]
@@ -28,16 +28,18 @@
       "duration": 391,
       "genre": "Rock",
       "year": 1976,
-      "playCount": 28,
-      "tags": []
+      "playCount": 30,
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "Blinding Lights",
       "author": "The Weeknd",
       "duration": 200,
       "genre": "Synth-pop",
-      "year": 2019,
-      "playCount": 25,
+      "year": 1998,
+      "playCount": 28,
       "tags": [
         "FAVORITE"
       ]
@@ -48,20 +50,9 @@
       "duration": 324,
       "genre": "Jazz",
       "year": 1959,
-      "playCount": 21,
+      "playCount": 23,
       "tags": [
         "FAVORITE"
-      ]
-    },
-    {
-      "title": "Smells Like Teen Spirit",
-      "author": "Nirvana",
-      "duration": 301,
-      "genre": "Grunge",
-      "year": 1991,
-      "playCount": 19,
-      "tags": [
-        "EXPLICIT"
       ]
     },
     {
@@ -70,9 +61,10 @@
       "duration": 326,
       "genre": "Hip Hop",
       "year": 2002,
-      "playCount": 17,
+      "playCount": 18,
       "tags": [
-        "EXPLICIT"
+        "EXPLICIT",
+        "FAVORITE"
       ]
     },
     {
@@ -90,8 +82,11 @@
       "duration": 562,
       "genre": "Jazz",
       "year": 1959,
-      "playCount": 12,
-      "tags": []
+      "playCount": 15,
+      "tags": [
+        "NEW_RELEASE",
+        "FAVORITE"
+      ]
     },
     {
       "title": "Get Lucky",
@@ -99,7 +94,7 @@
       "duration": 369,
       "genre": "Dance",
       "year": 2013,
-      "playCount": 11,
+      "playCount": 12,
       "tags": []
     },
     {
@@ -108,7 +103,7 @@
       "duration": 233,
       "genre": "Pop",
       "year": 2017,
-      "playCount": 9,
+      "playCount": 10,
       "tags": []
     },
     {
@@ -117,10 +112,8 @@
       "duration": 348,
       "genre": "Classica",
       "year": 2004,
-      "playCount": 8,
-      "tags": [
-        "FAVORITE"
-      ]
+      "playCount": 9,
+      "tags": []
     },
     {
       "title": "Clair de Lune",
@@ -129,7 +122,9 @@
       "genre": "Classica",
       "year": 1905,
       "playCount": 6,
-      "tags": []
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "Seven Nation Army",
@@ -146,7 +141,7 @@
       "duration": 200,
       "genre": "Pop",
       "year": 2023,
-      "playCount": 4,
+      "playCount": 5,
       "tags": [
         "NEW_RELEASE"
       ]
@@ -168,7 +163,7 @@
       "duration": 386,
       "genre": "Hip Hop",
       "year": 2012,
-      "playCount": 2,
+      "playCount": 3,
       "tags": [
         "EXPLICIT",
         "FAVORITE"
@@ -180,7 +175,29 @@
       "duration": 274,
       "genre": "Colonna sonora",
       "year": 2014,
+      "playCount": 2,
+      "tags": [
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "abc",
+      "author": "abc",
+      "duration": 17,
+      "genre": "",
+      "year": 2026,
       "playCount": 1,
+      "tags": [
+        "FAVORITE"
+      ]
+    },
+    {
+      "title": "sdfsdf",
+      "author": "sdfsdf",
+      "duration": 14,
+      "genre": "",
+      "year": 2010,
+      "playCount": 0,
       "tags": []
     }
   ],
@@ -190,19 +207,7 @@
       "playCount": 4,
       "trackKeys": [
         "Billie Jean::Michael Jackson",
-        "Smells Like Teen Spirit::Nirvana"
-      ]
-    },
-    {
-      "name": "I miei preferiti",
-      "playCount": 18,
-      "trackKeys": [
-        "Bohemian Rhapsody::Queen",
-        "Billie Jean::Michael Jackson",
-        "Blinding Lights::The Weeknd",
-        "Take Five::Dave Brubeck Quartet",
-        "Nuvole Bianche::Ludovico Einaudi",
-        "Money Trees::Kendrick Lamar"
+        "Seven Nation Army::The White Stripes"
       ]
     },
     {
@@ -217,30 +222,54 @@
       "name": "Relax e Studio",
       "playCount": 6,
       "trackKeys": [
-        "Nuvole Bianche::Ludovico Einaudi",
         "Clair de Lune::Claude Debussy",
         "Interstellar Main Theme::Hans Zimmer",
         "So What::Miles Davis"
       ]
     },
     {
-      "name": "Rock Classics",
-      "playCount": 12,
+      "name": "favoriti",
+      "playCount": 0,
       "trackKeys": [
         "Bohemian Rhapsody::Queen",
+        "Billie Jean::Michael Jackson",
         "Hotel California::Eagles",
-        "Smells Like Teen Spirit::Nirvana",
-        "Seven Nation Army::The White Stripes"
+        "Blinding Lights::The Weeknd",
+        "Take Five::Dave Brubeck Quartet",
+        "Lose Yourself::Eminem",
+        "So What::Miles Davis",
+        "Shape of You::Ed Sheeran",
+        "Clair de Lune::Claude Debussy",
+        "Money Trees::Kendrick Lamar",
+        "Interstellar Main Theme::Hans Zimmer",
+        "Get Lucky::Daft Punk",
+        "Seven Nation Army::The White Stripes",
+        "abc::abc"
       ]
     },
     {
-      "name": "Workout",
-      "playCount": 15,
+      "name": "zxczcx",
+      "playCount": 0,
       "trackKeys": [
-        "Blinding Lights::The Weeknd",
+        "Bohemian Rhapsody::Queen",
         "Lose Yourself::Eminem",
+        "Billie Jean::Michael Jackson",
+        "Hotel California::Eagles",
+        "Blinding Lights::The Weeknd",
+        "Rolling in the Deep::Adele",
+        "So What::Miles Davis",
+        "Shape of You::Ed Sheeran",
         "Get Lucky::Daft Punk",
-        "Seven Nation Army::The White Stripes"
+        "Take Five::Dave Brubeck Quartet",
+        "Nuvole Bianche::Ludovico Einaudi",
+        "Clair de Lune::Claude Debussy",
+        "Seven Nation Army::The White Stripes",
+        "Flowers::Miley Cyrus",
+        "Texas Hold \u0027Em::Beyonce",
+        "Money Trees::Kendrick Lamar",
+        "Interstellar Main Theme::Hans Zimmer",
+        "abc::abc",
+        "sdfsdf::sdfsdf"
       ]
     }
   ]

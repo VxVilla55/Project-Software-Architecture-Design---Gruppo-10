@@ -10,7 +10,9 @@ import com.group10.model.common.Subscriber;
 
 import com.group10.model.playback.Sequential;
 import com.group10.model.playback.PlaybackMode;
-import javafx.animation.AnimationTimer;
+import javafx.util.Duration;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
 /**
  *
@@ -34,7 +36,7 @@ public class PlaybackEngine implements Publisher{
     private int currentIndex;
     private TrackComponent currentTrack;
     private double currentTime;
-    private AnimationTimer timer;
+    private Timeline timer;
     private long lastTickNanos = -1;
 
     // per accodamento playlist
@@ -126,7 +128,7 @@ public class PlaybackEngine implements Publisher{
         return new ArrayList<>(queue); // la view non deve poter modificare la coda interna
     }
 
-public void clearQueue() {
+    public void clearQueue() {
         // ferma la riproduzione e poi azzera la coda
         stop();
         this.queue.clear();
@@ -212,11 +214,11 @@ public void clearQueue() {
         }
     }
 
-// cambia la traccia corrente e azzera il tempo. Se si stava gia' riproducendo,
-// il vecchio Timer (che simulava la traccia precedente) va fermato e se ne
-// riparte uno nuovo per la traccia nuova, altrimenti continuerebbe a girare
-// col tempo/durata sbagliati
-private void switchTrack(TrackComponent newTrack) {
+    // cambia la traccia corrente e azzera il tempo. Se si stava gia' riproducendo,
+    // il vecchio Timer (che simulava la traccia precedente) va fermato e se ne
+    // riparte uno nuovo per la traccia nuova, altrimenti continuerebbe a girare
+    // col tempo/durata sbagliati
+    private void switchTrack(TrackComponent newTrack) {
         this.currentTrack = newTrack;
         resetTime();
 
@@ -250,14 +252,8 @@ private void switchTrack(TrackComponent newTrack) {
         this.onPlayStateChanged = listener;
     }
 
-    // qui non c'e' nessun audio vero: "simulare" la riproduzione significa far avanzare
-    // currentTime con un java.util.Timer, che ogni 100ms esegue il TimerTask su un threadseparato
-    // (non quello di JavaFX). Ad ogni tick si incrementa il tempo, si controlla se e' il momento
-    // di contare l'ascolto, si notifica la UI (onTick) e si controlla se la traccia e' finita,
-    // per far scattare la modalita' di ripetizione attiva (playbackMode.onTrackEnd)
     public void startSimulation() {
         if (currentTrack == null) {
-            // senza traccia corrente non c'è nulla da simulare
             changeState(new StoppedState());
             return;
         }
@@ -265,37 +261,30 @@ private void switchTrack(TrackComponent newTrack) {
         if (onPlayStateChanged != null) {
             onPlayStateChanged.accept(true);
         }
+        
+        final double INTERVAL = 1;
 
-        lastTickNanos = -1;
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long nowNanos) {
-                if (lastTickNanos < 0) {
-                    lastTickNanos = nowNanos;
-                    return;
-                }
+        timer = new Timeline(new KeyFrame(Duration.seconds(INTERVAL), e -> {
+            currentTime += INTERVAL;
 
-                double elapsed = (nowNanos - lastTickNanos) / 1_000_000_000.0;
-                lastTickNanos = nowNanos;
-
-                currentTime += elapsed;
-
-                double playCountThreshold = Math.min(PLAYCOUNT_THRESHOLD, currentTrack.getDurationInSeconds());
-                if (currentTime >= playCountThreshold && !playCounted) {
-                    currentTrack.incrementPlayCount();
-                    playCounted = true;
-                }
-
-                if (onTick != null) {
-                    onTick.accept(currentTime);
-                }
-
-                if (currentTrack != null && currentTime >= currentTrack.getDurationInSeconds()) {
-                    playbackMode.onTrackEnd(PlaybackEngine.this);
-                }
+            double playCountThreshold = Math.min(PLAYCOUNT_THRESHOLD, currentTrack.getDurationInSeconds());
+            if (currentTime >= playCountThreshold && !playCounted) {
+                currentTrack.incrementPlayCount();
+                playCounted = true;
             }
-        };
-        timer.start();
+
+            if (onTick != null) {
+                onTick.accept(currentTime);
+            }
+
+            if (currentTime >= currentTrack.getDurationInSeconds()) {
+                timer.stop();
+                playbackMode.onTrackEnd(PlaybackEngine.this);
+            }
+        }));
+
+        timer.setCycleCount(Timeline.INDEFINITE);
+        timer.play();
     }
 
     // sposta manualmente il tempo corrente (usato quando l'utente trascina lo slider)
@@ -303,7 +292,7 @@ private void switchTrack(TrackComponent newTrack) {
         this.currentTime = seconds;
     }
 
-    // ferma e distrugge il Timer: va richiamato ogni volta che si mette in pausa,
+    // ferma e distrugge la Timeline: va richiamato ogni volta che si mette in pausa,
     // si passa traccia o si ferma, altrimenti il vecchio Timer continuerebbe a girare
     // in background insieme al nuovo
     public void stopSimulation() {
