@@ -37,7 +37,6 @@ public class PlaybackEngine implements Publisher{
     private TrackComponent currentTrack;
     private double currentTime;
     private Timeline timer;
-    private long lastTickNanos = -1;
 
     // per accodamento playlist
     private PlaylistComponent currentPlaylist;
@@ -214,10 +213,7 @@ public class PlaybackEngine implements Publisher{
         }
     }
 
-    // cambia la traccia corrente e azzera il tempo. Se si stava gia' riproducendo,
-    // il vecchio Timer (che simulava la traccia precedente) va fermato e se ne
-    // riparte uno nuovo per la traccia nuova, altrimenti continuerebbe a girare
-    // col tempo/durata sbagliati
+    // Cambia la traccia corrente e riavvia la simulazione se il player è in riproduzione
     private void switchTrack(TrackComponent newTrack) {
         this.currentTrack = newTrack;
         resetTime();
@@ -236,10 +232,7 @@ public class PlaybackEngine implements Publisher{
         }
     }
 
-    // questi 3 setter sono gli "aggganci" (callback) che il controller usa per farsi
-    // avvisare quando succede qualcosa nel player, senza che il model conosca la UI.
-    // vengono chiamati dal Timer di startSimulation(), quindi da un thread diverso da
-    // quello di JavaFX: chi li usa deve usare Platform.runLater
+    // Callback usate dal controller per ricevere notifiche dal model
     public void setOnTick(Consumer<Double> onTick) {
         this.onTick = onTick;
     }
@@ -252,6 +245,7 @@ public class PlaybackEngine implements Publisher{
         this.onPlayStateChanged = listener;
     }
 
+    // Avvia la simulazione della riproduzione aggiornando periodicamente il tempo corrente
     public void startSimulation() {
         if (currentTrack == null) {
             changeState(new StoppedState());
@@ -292,9 +286,7 @@ public class PlaybackEngine implements Publisher{
         this.currentTime = seconds;
     }
 
-    // ferma e distrugge la Timeline: va richiamato ogni volta che si mette in pausa,
-    // si passa traccia o si ferma, altrimenti il vecchio Timer continuerebbe a girare
-    // in background insieme al nuovo
+    // Ferma la Timeline associata alla riproduzione corrente
     public void stopSimulation() {
         if (timer != null) {
             timer.stop();
