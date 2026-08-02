@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author group10
  * Test delle ConcreteStrategy che decidono cosa fare a fine traccia (pattern Strategy).
- * Si verifica sia l'effetto di onTrackEnd() sulla coda, sia le due query di dominio
- * (loopsQueue/loopsTrack) che il resto del codice usa al posto di instanceof.
  */
 class PlaybackModeTest {
 
