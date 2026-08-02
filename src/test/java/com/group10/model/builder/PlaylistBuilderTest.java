@@ -9,7 +9,7 @@ import java.util.UUID;
 public class PlaylistBuilderTest {
 
     @Test
-    public void testCreazionePlaylistCorretta() {
+    public void build_withNameAndTracks_createsPlaylist() {
         
         PlaylistComponent playlist = new PlaylistBuilder()
                 .setName("Rock Classico")
@@ -20,7 +20,7 @@ public class PlaylistBuilderTest {
     }
 
     @Test
-    public void testFallimentoNomeVuoto() {
+    public void build_blankName_throwsException() {
         
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new PlaylistBuilder()
@@ -32,19 +32,19 @@ public class PlaylistBuilderTest {
     }
 
 @Test
-    public void testFallimentoNomeDuplicato() {
+    public void build_duplicateName_isAllowedByBuilder() {
         MusicCatalogue catalogue = MusicCatalogue.getInstance();
-        String nomePlaylist = "TestPlaylist_" + UUID.randomUUID().toString();
+        String playlistName = "TestPlaylist_" + UUID.randomUUID().toString();
         
         // 1. Creiamo e aggiungiamo la PRIMA playlist
         PlaylistComponent playlist1 = new PlaylistBuilder()
-                .setName(nomePlaylist)
+                .setName(playlistName)
                 .build();
         catalogue.addPlaylist(playlist1); // Qui va a buon fine
         
         // 2. Creiamo la SECONDA playlist in memoria con lo STESSO NOME (il Builder non dà errore)
         PlaylistComponent playlist2 = new PlaylistBuilder()
-                .setName(nomePlaylist)
+                .setName(playlistName)
                 .build();
 
         // 3. Tentativo di AGGIUNGERE la seconda playlist al catalogo (questo DEVE fallire!)

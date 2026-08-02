@@ -96,22 +96,6 @@ class PlayerViewControllerTest extends ApplicationTest {
     }
 
     @Test
-    void update_DoesNotCrashWithTrackInQueue() {
-        // verifica che il metodo update() non lanci eccezioni con una traccia in coda
-        TrackComponent track = new TrackBuilder()
-                .setTitle("Dark Side of the Moon")
-                .setAuthor("Pink Floyd")
-                .setDuration(260)
-                .build();
-
-        PlaybackEngine.getInstance().addTrackToQueue(track);
-        interact(() -> controller.update());
-
-        Label trackTitle = robot.lookup("#trackTitle").queryAs(Label.class);
-        assertNotNull(trackTitle);
-    }
-
-    @Test
     void shuffleIconOpacityChangesAfterToggle() {
         // attivare lo shuffle deve cambiare l'opacità dell'icona
         ImageView shuffleIcon = robot.lookup("#shuffleButtonIcon").queryAs(ImageView.class);

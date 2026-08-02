@@ -4,39 +4,35 @@ import com.group10.model.builder.TrackBuilder;
 import com.group10.model.builder.PlaylistBuilder;
 import com.group10.model.state.PlaybackEngine;
 
+import com.group10.TestSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class RimozioneTracciaTest {
+public class TrackRemovalCascadeTest {
 
     private MusicCatalogue catalogue;
     private PlaybackEngine engine;
 
     @BeforeEach
     public void setUp() {
+        // ambiente pulito, cosi' i test non si accavallano tra loro
+        TestSupport.resetSingletons();
         catalogue = MusicCatalogue.getInstance();
         engine = PlaybackEngine.getInstance();
-        
-        // Puliamo l'ambiente per assicurarci che i test non si accavallino
-        catalogue.getTracks().clear();
-        catalogue.getPlaylists().clear();
-        engine.clearQueue(); 
     }
 
     @Test
-    public void testRimozioneTracciaCascade() {
+    public void removeTrack_removesItFromCatalogueAndPlaylistAndQueue() {
         // --- 1. SETUP ---
-        // ATTENZIONE: Sostituisci ".setDuration(180)" con il metodo esatto
-        // che usi nel tuo TrackBuilder per impostare la durata (es. .setLength(180) o altro)
         TrackComponent track = new TrackBuilder()
-            .setTitle("Canzone Da Eliminare")
+            .setTitle("Track To Delete")
             .setAuthor("Test")
-            .setDuration(180) // <-- Modifica solo questa parolina se ti dà errore rosso
+            .setDuration(180)
             .build();
             
         PlaylistComponent playlist = new PlaylistBuilder()
-            .setName("Playlist Di Prova")
+            .setName("Test Playlist")
             .build();
 
         // Popoliamo il catalogo

@@ -4,12 +4,13 @@
  */
 package com.group10.model;
 
+import com.group10.TestSupport;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.common.Subscriber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import com.group10.model.state.PlaybackEngine;
 
-import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 /**
@@ -19,11 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MusicCatalogueTest {
     
     @BeforeEach
-    void resetSingleton() throws Exception {
-        //azzero il campo statico "singleton" via reflection per garantire isolamento tra test
-        Field f = MusicCatalogue.class.getDeclaredField("singleton");
-        f.setAccessible(true);
-        f.set(null, null);
+    void resetSingleton() {
+        //ogni test parte da un catalogo pulito, altrimenti il risultato dipenderebbe
+        //dall'ordine con cui i test vengono eseguiti
+        TestSupport.resetSingletons();
     }
 
     private TrackComponent makeTrack(String title, String author) {
@@ -41,18 +41,18 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getInstance_primaChamata_restituisceIstanzaNonNulla() {
+    void getInstance_firstCall_returnsNotNull() {
         assertNotNull(MusicCatalogue.getInstance());
     }
 
     @Test
-    void getInstance_chiamateMultiple_restituisceStessaIstanza() {
+    void getInstance_calledTwice_returnsSameInstance() {
         //due chiamate devono restituire esattamente lo stesso oggetto
         assertSame(MusicCatalogue.getInstance(), MusicCatalogue.getInstance());
     }
 
     @Test
-    void addTrack_tracciaValida_presenteInLista() {
+    void addTrack_validTrack_isInList() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         TrackComponent t = makeTrack("Song", "Artist");
         cat.addTrack(t);
@@ -60,7 +60,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void addTrack_piuTracce_tuttePresenteInLista() {
+    void addTrack_multipleTracks_allAreInList() {
         //aggiungo due tracce distinte → entrambe devono essere recuperabili
         MusicCatalogue cat = MusicCatalogue.getInstance();
         TrackComponent t1 = makeTrack("Song1", "Artist1");
@@ -72,7 +72,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void removeTrack_tracciaPresente_nonPiuInLista() {
+    void removeTrack_presentTrack_isRemovedFromList() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         TrackComponent t = makeTrack("Song", "Artist");
         cat.addTrack(t);
@@ -81,7 +81,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void removeTrack_tracciaAssente_listaInvariata() {
+    void removeTrack_absentTrack_listStaysEmpty() {
         //rimuovo una traccia mai aggiunta → nessuna eccezione, size rimane 0
         MusicCatalogue cat = MusicCatalogue.getInstance();
         cat.removeTrack(makeTrack("NonEsiste", "X"));
@@ -89,7 +89,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void addPlaylist_nomeUnico_aggiuntaCorrettamente() {
+    void addPlaylist_uniqueName_isRetrievable() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         PlaylistComponent p = makePlaylist("Rock");
         cat.addPlaylist(p);
@@ -97,7 +97,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void addPlaylist_nomeDuplicato_lanceIllegalArgumentException() {
+    void addPlaylist_duplicateName_throwsIllegalArgumentException() {
         //aggiungo due playlist con lo stesso nome → la seconda deve lanciare eccezione
         MusicCatalogue cat = MusicCatalogue.getInstance();
         cat.addPlaylist(makePlaylist("Rock"));
@@ -106,7 +106,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void removePlaylist_playlistPresente_nonPiuRecuperabile() {
+    void removePlaylist_presentPlaylist_isNoLongerRetrievable() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         PlaylistComponent p = makePlaylist("Jazz");
         cat.addPlaylist(p);
@@ -115,7 +115,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getPlaylist_nomeEsistente_restituiscePlaylistCorretta() {
+    void getPlaylist_existingName_returnsThatPlaylist() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         PlaylistComponent p = makePlaylist("Pop");
         cat.addPlaylist(p);
@@ -123,13 +123,13 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getPlaylist_nomeInesistente_restituisceNull() {
+    void getPlaylist_unknownName_returnsNull() {
         //chiedo una playlist con nome non registrato → null atteso
         assertNull(MusicCatalogue.getInstance().getPlaylist("NomeInesistente_XYZ"));
     }
     
     @Test
-    void addTrackToPlaylist_tracciaAggiuntaCorrettamente() {
+    void addTrackToPlaylist_trackIsAdded() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         cat.addPlaylist(makePlaylist("PL"));
         TrackComponent t = makeTrack("T", "A");
@@ -138,7 +138,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void addTrackToPlaylist_tracciaGiaPresente_nessunDuplicato() {
+    void addTrackToPlaylist_sameTrackTwice_noDuplicate() {
         //aggiungo la stessa traccia due volte alla stessa playlist → size rimane 1
         MusicCatalogue cat = MusicCatalogue.getInstance();
         cat.addPlaylist(makePlaylist("PL"));
@@ -149,7 +149,7 @@ public class MusicCatalogueTest {
     }
     
     @Test
-    void removeTrackFromPlaylist_tracciaPresente_rimossaCorrettamente() {
+    void removeTrackFromPlaylist_presentTrack_isRemoved() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         cat.addPlaylist(makePlaylist("PL"));
         TrackComponent t = makeTrack("T", "A");
@@ -159,7 +159,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void replaceTrack_tracciaPresente_sostituitaInLibreria() {
+    void replaceTrack_presentTrack_isReplacedInCatalogue() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         TrackComponent old     = makeTrack("Old",     "A");
         TrackComponent updated = makeTrack("Updated", "A");
@@ -172,7 +172,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void replaceTrack_tracciaPresente_sostituitaAncheNellePlaylist() {
+    void replaceTrack_presentTrack_isReplacedAlsoInPlaylists() {
         //la sostituzione deve propagarsi a tutte le playlist che contenevano la traccia
         MusicCatalogue cat = MusicCatalogue.getInstance();
         TrackComponent old     = makeTrack("Old",     "A");
@@ -186,85 +186,85 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void replaceTrack_oldTrackNull_nessunEccezione() {
+    void replaceTrack_nullOldTrack_doesNotThrow() {
         //oldTrack null → il metodo deve terminare silenziosamente
         assertDoesNotThrow(() ->
             MusicCatalogue.getInstance().replaceTrack(null, makeTrack("T", "A")));
     }
 
     @Test
-    void replaceTrack_newTrackNull_nessunEccezione() {
+    void replaceTrack_nullNewTrack_doesNotThrow() {
         //newTrack null → il metodo deve terminare silenziosamente
         assertDoesNotThrow(() ->
             MusicCatalogue.getInstance().replaceTrack(makeTrack("T", "A"), null));
     }
 @Test
-    void addSubscriber_dopoAddTrack_updateVieneChamato() {
+    void addSubscriber_thenAddTrack_subscriberIsNotified() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         
         // Usiamo un flag atomico per tracciare la chiamata senza classi fake
-        java.util.concurrent.atomic.AtomicBoolean chiamato = new java.util.concurrent.atomic.AtomicBoolean(false);
+        java.util.concurrent.atomic.AtomicBoolean wasCalled = new java.util.concurrent.atomic.AtomicBoolean(false);
         
         // Lambda: implementiamo Subscriber al volo
-        Subscriber sub = () -> chiamato.set(true);
+        Subscriber sub = () -> wasCalled.set(true);
         
         cat.addSubscriber(sub);
         cat.addTrack(makeTrack("T", "A"));
         
-        assertTrue(chiamato.get(), "Il metodo update avrebbe dovuto essere chiamato!");
+        assertTrue(wasCalled.get(), "Il metodo update avrebbe dovuto essere wasCalled!");
     }
 
     @Test
-    void addSubscriber_dopoAddPlaylist_updateVieneChamato() {
+    void addSubscriber_thenAddPlaylist_subscriberIsNotified() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
-        java.util.concurrent.atomic.AtomicBoolean chiamato = new java.util.concurrent.atomic.AtomicBoolean(false);
+        java.util.concurrent.atomic.AtomicBoolean wasCalled = new java.util.concurrent.atomic.AtomicBoolean(false);
         
-        Subscriber sub = () -> chiamato.set(true);
+        Subscriber sub = () -> wasCalled.set(true);
         
         cat.addSubscriber(sub);
         cat.addPlaylist(makePlaylist("PL"));
         
-        assertTrue(chiamato.get());
+        assertTrue(wasCalled.get());
     }
 
     @Test
-    void removeTracks_subscriberRimosso_updateNonVienePiuChiamato() {
+    void removeSubscriber_thenAddTrack_subscriberIsNotNotified() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
-        java.util.concurrent.atomic.AtomicInteger contatoreChiamate = new java.util.concurrent.atomic.AtomicInteger(0);
+        java.util.concurrent.atomic.AtomicInteger callCount = new java.util.concurrent.atomic.AtomicInteger(0);
         
-        Subscriber sub = () -> contatoreChiamate.incrementAndGet();
+        Subscriber sub = () -> callCount.incrementAndGet();
         
         cat.addSubscriber(sub);
         cat.removeTracks(sub); // Nota: verifica se nel catalogo si chiama removeTracks o removeSubscriber
         
         cat.addTrack(makeTrack("T", "A"));
         
-        assertEquals(0, contatoreChiamate.get(), "Il subscriber non doveva ricevere notifiche dopo la rimozione");
+        assertEquals(0, callCount.get(), "Il subscriber non doveva ricevere notifiche dopo la rimozione");
     }
 
     @Test
-    void addSubscriber_piuSubscriber_tuttiNotificati() {
+    void addSubscriber_multipleSubscribers_allAreNotified() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
-        java.util.concurrent.atomic.AtomicBoolean chiamato1 = new java.util.concurrent.atomic.AtomicBoolean(false);
-        java.util.concurrent.atomic.AtomicBoolean chiamato2 = new java.util.concurrent.atomic.AtomicBoolean(false);
+        java.util.concurrent.atomic.AtomicBoolean firstWasCalled = new java.util.concurrent.atomic.AtomicBoolean(false);
+        java.util.concurrent.atomic.AtomicBoolean secondWasCalled = new java.util.concurrent.atomic.AtomicBoolean(false);
         
-        Subscriber sub1 = () -> chiamato1.set(true);
-        Subscriber sub2 = () -> chiamato2.set(true);
+        Subscriber sub1 = () -> firstWasCalled.set(true);
+        Subscriber sub2 = () -> secondWasCalled.set(true);
         
         cat.addSubscriber(sub1);
         cat.addSubscriber(sub2);
         
         cat.addTrack(makeTrack("T", "A"));
         
-        assertTrue(chiamato1.get());
-        assertTrue(chiamato2.get());
+        assertTrue(firstWasCalled.get());
+        assertTrue(secondWasCalled.get());
     }
     // ====================================================================================
     // TASK T12.4 - TEST SU GET TOP TRACKS E GET TOP PLAYLISTS
     // ====================================================================================
 
     @Test
-    void getTopTracks_ordinamentoCorretto() {
+    void getTopTracks_sortsByPlayCountDescending() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         TrackComponent t1 = makeTrack("Canzone Poco Ascoltata", "A");
         TrackComponent t2 = makeTrack("Hit Estiva", "A");
@@ -288,7 +288,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getTopTracks_listaVuota() {
+    void getTopTracks_emptyCatalogue_returnsEmptyList() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         
         // Catalogo vuoto, chiediamo la top 5
@@ -299,7 +299,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getTopTracks_paritaDiContatore() {
+    void getTopTracks_samePlayCount_returnsBothTracks() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         TrackComponent t1 = makeTrack("Pareggio 1", "A");
         TrackComponent t2 = makeTrack("Pareggio 2", "B");
@@ -320,7 +320,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getTopPlaylists_ordinamentoCorretto() {
+    void getTopPlaylists_sortsByPlayCountDescending() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         
         PlaylistComponent p1 = makePlaylist("Playlist Flop"); // 0 riproduzioni
@@ -343,7 +343,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getTopPlaylists_listaVuota() {
+    void getTopPlaylists_emptyCatalogue_returnsEmptyList() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         java.util.List<PlaylistComponent> top = cat.getTopPlaylists(3);
         
@@ -352,7 +352,7 @@ public class MusicCatalogueTest {
     }
 
     @Test
-    void getTopPlaylists_paritaDiContatore() {
+    void getTopPlaylists_samePlayCount_returnsBothPlaylists() {
         MusicCatalogue cat = MusicCatalogue.getInstance();
         
         PlaylistComponent p1 = makePlaylist("Playlist Pari 1");

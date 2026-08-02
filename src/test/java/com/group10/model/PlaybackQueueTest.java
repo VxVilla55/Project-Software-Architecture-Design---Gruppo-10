@@ -5,6 +5,7 @@ import com.group10.model.state.PlaybackEngine;
 import com.group10.model.state.PlayingState;
 
 import org.junit.jupiter.api.AfterEach;
+import com.group10.TestSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,10 +16,8 @@ public class PlaybackQueueTest {
 
     @BeforeEach
     void setUp() {
+        TestSupport.resetSingletons();
         engine = PlaybackEngine.getInstance();
-        engine.stop();
-        engine.clearQueue();
-        engine.setCurrentTrack(null);
     }
 
     @AfterEach
@@ -28,7 +27,7 @@ public class PlaybackQueueTest {
     }
 
     @Test
-    public void testAccodamentoDuranteRiproduzione() {
+    public void addTrackToQueue_whilePlaying_appendsWithoutInterrupting() {
         // prima traccia: durata LUNGA per evitare che finisca
         // durante il test e scatti il next() automatico del timer
         TrackComponent track1 = new TrackBuilder()

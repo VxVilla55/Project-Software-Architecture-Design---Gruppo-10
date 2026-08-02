@@ -1,9 +1,9 @@
 package com.group10.model;
 import com.group10.service.command.CommandManager;
 import com.group10.service.command.Command;
+import com.group10.TestSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CommandManagerTest {
@@ -11,12 +11,10 @@ class CommandManagerTest {
     private CommandManager commandManager;
 
     @BeforeEach
-    void setUp() throws Exception {
-        // Reset dell'istanza Singleton per garantire che i test siano completamente isolati tra loro
-        Field instanceField = CommandManager.class.getDeclaredField("instance");
-        instanceField.setAccessible(true);
-        instanceField.set(null, null);
-
+    void setUp() {
+        //stack di undo pulito ad ogni test, cosi' i comandi di un test non finiscono
+        //nello storico di quello successivo
+        TestSupport.resetSingletons();
         commandManager = CommandManager.getInstance();
     }
 
@@ -40,7 +38,7 @@ class CommandManagerTest {
     }
 
     @Test
-    void testUndoSingolo() {
+    void undo_afterOneCommand_callsUndoOnce() {
         // Arrange: prepariamo il nostro finto comando
         StubCommand cmd = new StubCommand();
 
@@ -59,7 +57,7 @@ class CommandManagerTest {
     }
 
     @Test
-    void testUndoInSequenza() {
+    void undo_afterTwoCommands_undoesInReverseOrder() {
         // Arrange: creiamo tre comandi distinti
         StubCommand cmd1 = new StubCommand();
         StubCommand cmd2 = new StubCommand();

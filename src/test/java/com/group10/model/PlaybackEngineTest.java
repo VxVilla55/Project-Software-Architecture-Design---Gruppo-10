@@ -3,7 +3,9 @@ package com.group10.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.group10.TestSupport;
 import com.group10.model.common.Subscriber;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,21 +35,25 @@ public class PlaybackEngineTest {
         }
     }
 
-    // Pulisce l'engine prima di OGNI test, così non devi farlo a mano ogni volta
+    // Parte da un engine pulito prima di OGNI test, così non devi farlo a mano ogni volta
     @BeforeEach
     public void setUp() {
+        TestSupport.resetSingletons();
         engine = PlaybackEngine.getInstance();
-        engine.stopSimulation();
-        engine.clearQueue();
-        engine.setCurrentTrack(null);
-        if(engine.isShuffled()) engine.toggleShuffle();
+    }
+
+    // Spegne il Timer della riproduzione: se un test lo lascia acceso, continua a girare
+    // su un thread separato e va a sporcare i test successivi
+    @AfterEach
+    public void tearDown() {
+        TestSupport.stopPlaybackTimer();
     }
 
     @Test
-    public void testTransizioneInRiproduzione() {
+    public void play_onQueuedTrack_entersPlayingState() {
         TrackComponent track = new TrackBuilder()
-                .setTitle("Brano Test")
-                .setAuthor("Autore Test")
+                .setTitle("Test Track")
+                .setAuthor("Test Author")
                 .setDuration(100)
                 .build();
         
@@ -58,10 +64,10 @@ public class PlaybackEngineTest {
     }
 
     @Test
-    public void testTransizioneInPausa() {
+    public void pause_whilePlaying_entersPausedState() {
         TrackComponent track = new TrackBuilder()
-                .setTitle("Brano Test")
-                .setAuthor("Autore Test")
+                .setTitle("Test Track")
+                .setAuthor("Test Author")
                 .setDuration(100)
                 .build();
         
@@ -74,9 +80,9 @@ public class PlaybackEngineTest {
 
 
     @Test
-    public void testComportamentoSkipNext() {
-        TrackComponent trackA = new TrackBuilder().setTitle("Traccia A").setAuthor("A").setDuration(10).build();
-        TrackComponent trackB = new TrackBuilder().setTitle("Traccia B").setAuthor("B").setDuration(10).build();
+    public void next_whilePlaying_staysPlayingAndResetsTime() {
+        TrackComponent trackA = new TrackBuilder().setTitle("Track A").setAuthor("A").setDuration(10).build();
+        TrackComponent trackB = new TrackBuilder().setTitle("Track B").setAuthor("B").setDuration(10).build();
         
         engine.addTrackToQueue(trackA);
         engine.addTrackToQueue(trackB);
@@ -91,8 +97,8 @@ public class PlaybackEngineTest {
     }
 
     @Test
-    public void testComportamentoSkipPrevious() {
-        TrackComponent trackA = new TrackBuilder().setTitle("Traccia A").setAuthor("A").setDuration(10).build();
+    public void previous_onFirstTrack_restartsFromBeginning() {
+        TrackComponent trackA = new TrackBuilder().setTitle("Track A").setAuthor("A").setDuration(10).build();
         engine.addTrackToQueue(trackA);
         
         engine.play();
@@ -104,10 +110,10 @@ public class PlaybackEngineTest {
     }
 
 @Test
-    public void testCurrentTimeIncrementAndTickNotification() throws InterruptedException {
+    public void startSimulation_advancesTimeAndNotifiesOnTick() throws InterruptedException {
         TrackComponent track = new TrackBuilder()
                 .setTitle("Tick Test Track")
-                .setAuthor("Autore Test")
+                .setAuthor("Test Author")
                 .setDuration((int) 5.0)
                 .build();
                 
@@ -136,10 +142,10 @@ public class PlaybackEngineTest {
     }
 
   @Test
-    public void testTrackEndTrigger() throws InterruptedException {
+    public void startSimulation_whenTrackEnds_stopsPlayback() throws InterruptedException {
         TrackComponent shortTrack = new TrackBuilder()
                 .setTitle("Short Track")
-                .setAuthor("Autore Test")
+                .setAuthor("Test Author")
                 .setDuration((int) 1) // Portiamo a 0.5 secondi per velocizzare il test
                 .build();
         
@@ -166,10 +172,10 @@ public class PlaybackEngineTest {
     }
 
     @Test
-    void testQueueSubscriber() {
+    void toggleShuffle_notifiesSubscribers() {
         PlaybackEngine engine = PlaybackEngine.getInstance();
-        TrackComponent trackA = new TrackBuilder().setTitle("Traccia A").setAuthor("A").setDuration(10).build();
-        TrackComponent trackB = new TrackBuilder().setTitle("Traccia B").setAuthor("B").setDuration(10).build();
+        TrackComponent trackA = new TrackBuilder().setTitle("Track A").setAuthor("A").setDuration(10).build();
+        TrackComponent trackB = new TrackBuilder().setTitle("Track B").setAuthor("B").setDuration(10).build();
 
         engine.addTrackToQueue(trackA);
         engine.addTrackToQueue(trackB);

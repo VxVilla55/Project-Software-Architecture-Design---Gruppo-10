@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TrackBuilderTest {
 
     @Test
-    public void testCostruzioneCorrettaCampiOpzionali() {
+    public void build_withOptionalFields_setsThemAll() {
         TrackComponent track = new TrackBuilder()
                 .setTitle("Bohemian Rhapsody")
                 .setAuthor("Queen")
@@ -26,7 +26,7 @@ public class TrackBuilderTest {
     }
 
     @Test
-    public void testFallimentoSenzaTitolo() {
+    public void build_withoutTitle_throwsException() {
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             new TrackBuilder()
                     .setAuthor("Autore Test")
@@ -38,7 +38,7 @@ public class TrackBuilderTest {
     }
 
     @Test
-    public void testFallimentoSenzaAutore() {
+    public void build_withoutAuthor_throwsException() {
         Exception exception = assertThrows(IllegalStateException.class, () -> {
             new TrackBuilder()
                     .setTitle("Titolo Test")

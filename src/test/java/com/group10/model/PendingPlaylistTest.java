@@ -3,11 +3,11 @@ package com.group10.model;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
 
+import com.group10.TestSupport;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,11 +29,8 @@ public class PendingPlaylistTest {
 
     // reset del Singleton via reflection, per isolare ogni test
     @BeforeEach
-    void setUp() throws Exception {
-        Field f = PlaybackEngine.class.getDeclaredField("instance");
-        f.setAccessible(true);
-        f.set(null, null);
-
+    void setUp() {
+        TestSupport.resetSingletons();
         engine = PlaybackEngine.getInstance();
         p1 = makePlaylist("P1");
         p2 = makePlaylist("P2");
@@ -67,7 +64,7 @@ public class PendingPlaylistTest {
     }
 
     @Test
-    void pending_pollSuAttesaVuota_ritornaNull() {
+    void getPendingPlaylist_whenNonePending_returnsNull() {
         assertNull(engine.getPendingPlaylist());
     }
 

@@ -4,6 +4,7 @@ import com.group10.model.MusicCatalogue;
 import com.group10.model.PlaylistComponent;
 import com.group10.model.TrackComponent;
 import com.group10.model.common.Subscriber;
+import com.group10.TestSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,9 +38,8 @@ public class AddToPlaylistTest {
         playlist = new PlaylistComponent("Test Playlist");
         
         // Prepariamo anche il catalogo pulito per i test di integrazione
+        TestSupport.resetSingletons();
         catalogue = MusicCatalogue.getInstance();
-        catalogue.getTracks().clear();
-        catalogue.getPlaylists().clear();
 
         track1 = new TrackBuilder()
                 .setTitle("Bohemian Rhapsody")
@@ -71,37 +71,37 @@ public class AddToPlaylistTest {
     // ==========================================
 
     @Test
-    public void playlistDevePartireVuota() {
+    public void newPlaylist_startsEmpty() {
         assertTrue(playlist.isEmpty());
         assertEquals(0, playlist.getSize());
     }
 
     @Test
-    public void aggiuntaSingola_dimensioneCorretta() {
+    public void add_oneTrack_sizeIsOne() {
         playlist.add(track1);
         assertEquals(1, playlist.getSize());
     }
 
     @Test
-    public void aggiuntaSingola_trackPresente() {
+    public void add_oneTrack_trackIsContained() {
         playlist.add(track1);
         assertTrue(playlist.getTracks().contains(track1));
     }
 
     @Test
-    public void aggiuntaSingola_playlistNonVuota() {
+    public void add_oneTrack_playlistIsNotEmpty() {
         playlist.add(track1);
         assertFalse(playlist.isEmpty());
     }
 
     @Test
-    public void aggiuntaSingola_durataAggiornata() {
+    public void add_oneTrack_durationMatchesTrack() {
         playlist.add(track1);
         assertEquals(track1.getDurationInSeconds(), playlist.getDurationInSeconds());
     }
 
     @Test
-    public void aggiunzioneMultipla_dimensioneCorretta() {
+    public void add_multipleTracks_sizeMatchesCount() {
         playlist.add(track1);
         playlist.add(track2);
         playlist.add(track3);
@@ -109,7 +109,7 @@ public class AddToPlaylistTest {
     }
 
     @Test
-    public void aggiunzioneMultipla_tutteLeTraccePresenti() {
+    public void add_multipleTracks_allAreContained() {
         playlist.add(track1);
         playlist.add(track2);
         playlist.add(track3);
@@ -120,7 +120,7 @@ public class AddToPlaylistTest {
     }
 
     @Test
-    public void aggiunzioneMultipla_ordinePreservato() {
+    public void add_multipleTracks_insertionOrderIsKept() {
         playlist.add(track1);
         playlist.add(track2);
         playlist.add(track3);
@@ -131,7 +131,7 @@ public class AddToPlaylistTest {
     }
 
     @Test
-    public void aggiunzioneMultipla_durataCorrettaSomma() {
+    public void add_multipleTracks_durationIsSum() {
         playlist.add(track1);
         playlist.add(track2);
         playlist.add(track3);
@@ -143,7 +143,7 @@ public class AddToPlaylistTest {
     }
 
   @Test
-    public void aggiuntaDuplicato_nonAmmesso() {
+    public void add_duplicateTrack_isRejected() {
         playlist.add(track1);
         playlist.add(track1); // Tento di aggiungere di nuovo la stessa traccia
         
@@ -152,7 +152,7 @@ public class AddToPlaylistTest {
     }
 
     @Test
-    public void aggiuntaDuplicato_durataInvariata() {
+    public void add_duplicateTrack_durationUnchanged() {
         playlist.add(track1);
         playlist.add(track1); // Tento di aggiungere di nuovo la stessa traccia
         
@@ -163,7 +163,7 @@ public class AddToPlaylistTest {
  
 
     @Test
-    public void catalogue_addTrackToPlaylist_aggiungeCorrettamente() {
+    public void catalogue_addTrackToPlaylist_addsTrack() {
         catalogue.addPlaylist(playlist);
         
         catalogue.addTrackToPlaylist(playlist.getName(), track1);
@@ -174,7 +174,7 @@ public class AddToPlaylistTest {
     }
 
     @Test
-    public void catalogue_addTrackToPlaylist_notificaISubscriber() {
+    public void catalogue_addTrackToPlaylist_notifiesSubscribers() {
         // Creiamo un subscriber fittizio (usando una classe anonima) per contare gli update
         final int[] updateCount = {0};
         Subscriber mockSubscriber = new Subscriber() {
@@ -193,7 +193,7 @@ public class AddToPlaylistTest {
         assertEquals(2, updateCount[0], "Il subscriber doveva essere notificato due volte (1 per addPlaylist, 1 per addTrackToPlaylist)");
         
         // Pulizia finale
-        // (Nota: hai un metodo chiamato removeTracks che sembra essere usato per rimuovere i subscriber, lo uso qui)
+        // nel catalogo il metodo per togliere un subscriber si chiama removeTracks
         catalogue.removeTracks(mockSubscriber); 
     }
 }

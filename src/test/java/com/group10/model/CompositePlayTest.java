@@ -3,6 +3,8 @@ package com.group10.model;
 import com.group10.model.common.Playable;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
+import com.group10.TestSupport;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,15 +15,17 @@ public class CompositePlayTest {
 
     @BeforeEach
     public void setUp() {
+        TestSupport.resetSingletons();
         engine = PlaybackEngine.getInstance();
-        engine.stopSimulation();
-        engine.clearQueue();
-        engine.setCurrentTrack(null);
-        if(engine.isShuffled()) engine.toggleShuffle();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        TestSupport.stopPlaybackTimer();
     }
 
     @Test
-    public void testPlayUniformePlaylist() {
+    public void playOnEngine_onPlaylist_queuesAllTracksUniformly() {
         PlaybackEngine engine = PlaybackEngine.getInstance();
         engine.stop(); 
         engine.clearQueue(); 

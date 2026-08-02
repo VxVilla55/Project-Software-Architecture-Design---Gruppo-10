@@ -37,7 +37,7 @@ class PlaylistComponentTest {
     }
     
     @Test
-    void costruttore_nomeValido_inizializzaCorrettamente() {
+    void constructor_validName_startsEmptyWithThatName() {
         //verifico nome, dimensione iniziale e stato vuoto
         assertEquals("My Playlist", playlist.getName());
         assertEquals(0, playlist.getSize());
@@ -45,28 +45,28 @@ class PlaylistComponentTest {
     }
 
     @Test
-    void costruttore_nomeConSpaziEsterni_vieneTrimmato() {
+    void constructor_nameWithSpaces_isTrimmed() {
         //gli spazi attorno al nome devono essere rimossi
         PlaylistComponent p = new PlaylistComponent("  Rock  ");
         assertEquals("Rock", p.getName());
     }
 
     @Test
-    void costruttore_nomeNull_lanceIllegalArgumentException() {
+    void constructor_nullName_throwsIllegalArgumentException() {
         //nome null → eccezione attesa
         assertThrows(IllegalArgumentException.class,
             () -> new PlaylistComponent((String) null));
     }
 
     @Test
-    void costruttore_nomeBlank_lanceIllegalArgumentException() {
+    void constructor_blankName_throwsIllegalArgumentException() {
         //nome composto solo da spazi → eccezione attesa
         assertThrows(IllegalArgumentException.class,
             () -> new PlaylistComponent("   "));
     }
 
     @Test
-    void costruttoreDefault_nomeSegnaposto() {
+    void defaultConstructor_usesPlaceholderName() {
         //il costruttore no-arg deve assegnare il nome di default
         PlaylistComponent p = new PlaylistComponent();
         assertEquals("Nuova Playlist", p.getName());
@@ -74,35 +74,35 @@ class PlaylistComponentTest {
     }
     
     @Test
-    void setName_nomeValido_aggiornaNome() {
+    void setName_validName_updatesName() {
         //cambio il nome con uno valido → deve essere aggiornato
         playlist.setName("Updated Name");
         assertEquals("Updated Name", playlist.getName());
     }
 
     @Test
-    void setName_nomeNull_lanceIllegalArgumentException() {
+    void setName_null_throwsIllegalArgumentException() {
         //setName(null) deve lanciare eccezione senza modificare lo stato
         assertThrows(IllegalArgumentException.class,
             () -> playlist.setName(null));
     }
 
     @Test
-    void setName_nomeBlank_lanceIllegalArgumentException() {
+    void setName_blank_throwsIllegalArgumentException() {
         //setName con stringa di soli spazi deve lanciare eccezione
         assertThrows(IllegalArgumentException.class,
             () -> playlist.setName("   "));
     }
 
     @Test
-    void add_tracciaNuova_aggiuntaEDimensioneCresceDiUno() {
+    void add_newTrack_sizeBecomesOne() {
         //aggiungo una traccia non presente → size deve diventare 1
         playlist.add(makeTrack("T1", "A", 100));
         assertEquals(1, playlist.getSize());
     }
 
     @Test
-    void add_tracciaGiaPresente_nessunDuplicato() {
+    void add_sameTrackTwice_noDuplicate() {
         //aggiungo la stessa traccia due volte → size deve rimanere 1
         TrackComponent t = makeTrack("T1", "A", 100);
         playlist.add(t);
@@ -111,7 +111,7 @@ class PlaylistComponentTest {
     }
     
     @Test
-    void remove_tracciaPresente_rimossaERestituisceTrue() {
+    void remove_presentTrack_returnsTrueAndShrinks() {
         //rimuovo una traccia presente → true e size torna a 0
         TrackComponent t = makeTrack("T1", "A", 100);
         playlist.add(t);
@@ -120,42 +120,42 @@ class PlaylistComponentTest {
     }
 
     @Test
-    void remove_tracciaAssente_restituisceFalse() {
+    void remove_absentTrack_returnsFalse() {
         //rimuovo una traccia mai aggiunta → false, stato invariato
         assertFalse(playlist.remove(makeTrack("T1", "A", 100)));
     }
 
     @Test
-    void contains_tracciaPresente_restituisceTrue() {
+    void contains_presentTrack_returnsTrue() {
         TrackComponent t = makeTrack("T1", "A", 100);
         playlist.add(t);
         assertTrue(playlist.contains(t));
     }
 
     @Test
-    void contains_tracciaAssente_restituisceFalse() {
+    void contains_absentTrack_returnsFalse() {
         //verifico che una traccia mai aggiunta non risulti contenuta
         assertFalse(playlist.contains(makeTrack("T1", "A", 100)));
     }
 
     @Test
-    void isEmpty_playlistVuota_restituisceTrue() {
+    void isEmpty_emptyPlaylist_returnsTrue() {
         assertTrue(playlist.isEmpty());
     }
 
     @Test
-    void isEmpty_playlistConTracce_restituisceFalse() {
+    void isEmpty_withTracks_returnsFalse() {
         playlist.add(makeTrack("T1", "A", 100));
         assertFalse(playlist.isEmpty());
     }
 
     @Test
-    void getSize_playlistVuota_restituisceZero() {
+    void getSize_emptyPlaylist_returnsZero() {
         assertEquals(0, playlist.getSize());
     }
 
     @Test
-    void getSize_dopoAggiunte_restituisceConteggioCorretto() {
+    void getSize_afterThreeAdds_returnsThree() {
         //aggiungo 3 tracce distinte → size deve essere 3
         playlist.add(makeTrack("T1", "A", 100));
         playlist.add(makeTrack("T2", "B", 100));
@@ -164,12 +164,12 @@ class PlaylistComponentTest {
     }
 
     @Test
-    void getDurationInSeconds_playlistVuota_restituisceZero() {
+    void getDurationInSeconds_emptyPlaylist_returnsZero() {
         assertEquals(0, playlist.getDurationInSeconds());
     }
 
     @Test
-    void getDurationInSeconds_piuTracce_restituisceSommaDurate() {
+    void getDurationInSeconds_multipleTracks_returnsSum() {
         //aggiungo due tracce da 120s e 80s → totale atteso 200s
         playlist.add(makeTrack("T1", "A", 120));
         playlist.add(makeTrack("T2", "B", 80));
@@ -177,7 +177,7 @@ class PlaylistComponentTest {
     }
 
     @Test
-    void updateTrack_tracciaPresente_vecchiaRimossaNuovaAggiunta() {
+    void updateTrack_presentTrack_isReplaced() {
         //aggiorno una traccia presente → la vecchia non c'è più, la nuova sì
         TrackComponent old     = makeTrack("Old Song", "A", 100);
         TrackComponent updated = makeTrack("New Song", "A", 200);
@@ -188,7 +188,7 @@ class PlaylistComponentTest {
     }
 
     @Test
-    void updateTrack_tracciaAssente_sizeInvariata() {
+    void updateTrack_absentTrack_leavesPlaylistUnchanged() {
         //updateTrack su traccia mai aggiunta non deve modificare la playlist
         TrackComponent existing = makeTrack("Existing", "A", 100);
         TrackComponent absent   = makeTrack("Absent",   "B", 100);
@@ -200,7 +200,7 @@ class PlaylistComponentTest {
     }
 
 @Test
-    void playOnEngine_impostaCurrentPlaylistSuEngine() {
+    void playOnEngine_setsItselfAsCurrentPlaylist() {
         // 1. Setup: prendiamo l'engine reale e resettiamo la playlist
         PlaybackEngine engine = PlaybackEngine.getInstance();
         engine.setCurrentPlaylist(null);
@@ -218,7 +218,7 @@ class PlaylistComponentTest {
     }
 
     @Test
-    void playOnEngine_aggiungeTutteLeTracceAllaQueueDelEngine() {
+    void playOnEngine_queuesAllItsTracks() {
         // 1. Setup
         PlaybackEngine engine = PlaybackEngine.getInstance();
         engine.clearQueue(); // Svuotiamo la coda dell'engine
