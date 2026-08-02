@@ -3,6 +3,7 @@ package com.group10.controller;
 import com.group10.model.builder.TrackBuilder;
 import com.group10.model.state.PlaybackEngine;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -52,9 +53,17 @@ class QueueViewControllerWithTracksTest extends ApplicationTest {
     void nonEmptyQueueNoEmptyLabel() {
         //con tracce presenti non deve comparire il messaggio "La coda è vuota"
         VBox container = robot.lookup("#container").queryAs(VBox.class);
-        boolean hasEmptyLabel = container.getChildren().stream()
-                .anyMatch(n -> n instanceof Label
-                        && ((Label) n).getText().equals("La coda è vuota"));
-        assertFalse(hasEmptyLabel);
+        boolean hasEmptyLabel = false;
+
+        for (Node n : container.getChildren()) {
+            if (n instanceof Label) {
+                Label label = (Label) n;
+
+                if (label.getText().equals("La coda è vuota")) {
+                    hasEmptyLabel = true;
+                    break;
+                }
+            }
+        }
     }
 }

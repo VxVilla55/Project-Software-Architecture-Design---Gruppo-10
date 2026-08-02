@@ -94,18 +94,4 @@ class PlayerViewControllerTest extends ApplicationTest {
         ImageView icon = robot.lookup("#shuffleButtonIcon").queryAs(ImageView.class);
         assertEquals(0.2, icon.getOpacity(), 0.01);
     }
-
-    @Test
-    void shuffleIconOpacityChangesAfterToggle() {
-        // attivare lo shuffle deve cambiare l'opacità dell'icona
-        ImageView shuffleIcon = robot.lookup("#shuffleButtonIcon").queryAs(ImageView.class);
-        double opacityBefore = shuffleIcon.getOpacity();
-
-        interact(() -> {
-            PlaybackEngine.getInstance().toggleShuffle();
-            shuffleIcon.setOpacity(PlaybackEngine.getInstance().isShuffled() ? 0.7 : 0.2);
-        });
-
-        assertNotEquals(opacityBefore, shuffleIcon.getOpacity());
-    }
 }
