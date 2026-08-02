@@ -1,5 +1,12 @@
 # Project-Software-Architecture-Design---Gruppo-10
 
+## Membri del Gruppo 10
+
+- Alfonso Villani (`VxVilla55`)
+- Giovanni Lamberti (`itsjhell`)
+- Luca Lanzetta (`Gea1926`)
+- Nicola Liguori (`nicolaliguori1`)
+
 ## Link
 
 - Trello: https://trello.com/invite/b/6a0dc846f6a9c7feae2676e0/ATTI73a200419530ff1fc943f0f8c2ec83eeB012C290/progetto-software-architecture-design-gruppo-10
