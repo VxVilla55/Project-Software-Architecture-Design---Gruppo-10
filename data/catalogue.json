@@ -5,11 +5,12 @@
       "author": "Queen",
       "duration": 355,
       "genre": "Rock",
-      "year": 1111,
-      "playCount": 44,
+      "year": 1975,
+      "playCount": 28,
       "tags": [
         "FAVORITE"
-      ]
+      ],
+      "coverImagePath": "data/covers/1785675298015.jpg"
     },
     {
       "title": "Billie Jean",
@@ -17,10 +18,11 @@
       "duration": 294,
       "genre": "Pop",
       "year": 1982,
-      "playCount": 40,
+      "playCount": 55,
       "tags": [
         "FAVORITE"
-      ]
+      ],
+      "coverImagePath": "data/covers/1785675306819.jpg"
     },
     {
       "title": "Hotel California",
@@ -28,21 +30,20 @@
       "duration": 391,
       "genre": "Rock",
       "year": 1976,
-      "playCount": 30,
-      "tags": [
-        "FAVORITE"
-      ]
+      "playCount": 12,
+      "tags": []
     },
     {
       "title": "Blinding Lights",
       "author": "The Weeknd",
       "duration": 200,
       "genre": "Synth-pop",
-      "year": 1998,
-      "playCount": 28,
+      "year": 2019,
+      "playCount": 25,
       "tags": [
         "FAVORITE"
-      ]
+      ],
+      "coverImagePath": "data/covers/1785675313384.png"
     },
     {
       "title": "Take Five",
@@ -50,9 +51,20 @@
       "duration": 324,
       "genre": "Jazz",
       "year": 1959,
-      "playCount": 23,
+      "playCount": 21,
       "tags": [
         "FAVORITE"
+      ]
+    },
+    {
+      "title": "Smells Like Teen Spirit",
+      "author": "Nirvana",
+      "duration": 301,
+      "genre": "Grunge",
+      "year": 1991,
+      "playCount": 19,
+      "tags": [
+        "EXPLICIT"
       ]
     },
     {
@@ -61,11 +73,11 @@
       "duration": 326,
       "genre": "Hip Hop",
       "year": 2002,
-      "playCount": 18,
+      "playCount": 17,
       "tags": [
-        "EXPLICIT",
-        "FAVORITE"
-      ]
+        "EXPLICIT"
+      ],
+      "coverImagePath": "data/covers/1785675321969.jpeg"
     },
     {
       "title": "Rolling in the Deep",
@@ -82,11 +94,9 @@
       "duration": 562,
       "genre": "Jazz",
       "year": 1959,
-      "playCount": 15,
-      "tags": [
-        "NEW_RELEASE",
-        "FAVORITE"
-      ]
+      "playCount": 12,
+      "tags": [],
+      "coverImagePath": "data/covers/1785675359978.jpg"
     },
     {
       "title": "Get Lucky",
@@ -94,8 +104,9 @@
       "duration": 369,
       "genre": "Dance",
       "year": 2013,
-      "playCount": 12,
-      "tags": []
+      "playCount": 11,
+      "tags": [],
+      "coverImagePath": "data/covers/1785675332572.jpg"
     },
     {
       "title": "Shape of You",
@@ -103,8 +114,9 @@
       "duration": 233,
       "genre": "Pop",
       "year": 2017,
-      "playCount": 10,
-      "tags": []
+      "playCount": 35,
+      "tags": [],
+      "coverImagePath": "data/covers/1785675327290.png"
     },
     {
       "title": "Nuvole Bianche",
@@ -112,8 +124,10 @@
       "duration": 348,
       "genre": "Classica",
       "year": 2004,
-      "playCount": 9,
-      "tags": []
+      "playCount": 8,
+      "tags": [
+        "FAVORITE"
+      ]
     },
     {
       "title": "Clair de Lune",
@@ -122,9 +136,7 @@
       "genre": "Classica",
       "year": 1905,
       "playCount": 6,
-      "tags": [
-        "FAVORITE"
-      ]
+      "tags": []
     },
     {
       "title": "Seven Nation Army",
@@ -133,7 +145,8 @@
       "genre": "Rock",
       "year": 2003,
       "playCount": 5,
-      "tags": []
+      "tags": [],
+      "coverImagePath": "data/covers/1785675352185.jpg"
     },
     {
       "title": "Flowers",
@@ -141,7 +154,7 @@
       "duration": 200,
       "genre": "Pop",
       "year": 2023,
-      "playCount": 5,
+      "playCount": 4,
       "tags": [
         "NEW_RELEASE"
       ]
@@ -163,11 +176,12 @@
       "duration": 386,
       "genre": "Hip Hop",
       "year": 2012,
-      "playCount": 3,
+      "playCount": 2,
       "tags": [
         "EXPLICIT",
         "FAVORITE"
-      ]
+      ],
+      "coverImagePath": "data/covers/1785675344324.jpg"
     },
     {
       "title": "Interstellar Main Theme",
@@ -175,29 +189,7 @@
       "duration": 274,
       "genre": "Colonna sonora",
       "year": 2014,
-      "playCount": 2,
-      "tags": [
-        "FAVORITE"
-      ]
-    },
-    {
-      "title": "abc",
-      "author": "abc",
-      "duration": 17,
-      "genre": "",
-      "year": 2026,
       "playCount": 1,
-      "tags": [
-        "FAVORITE"
-      ]
-    },
-    {
-      "title": "sdfsdf",
-      "author": "sdfsdf",
-      "duration": 14,
-      "genre": "",
-      "year": 2010,
-      "playCount": 0,
       "tags": []
     }
   ],
@@ -207,7 +199,19 @@
       "playCount": 4,
       "trackKeys": [
         "Billie Jean::Michael Jackson",
-        "Seven Nation Army::The White Stripes"
+        "Smells Like Teen Spirit::Nirvana"
+      ]
+    },
+    {
+      "name": "I miei preferiti",
+      "playCount": 18,
+      "trackKeys": [
+        "Bohemian Rhapsody::Queen",
+        "Billie Jean::Michael Jackson",
+        "Blinding Lights::The Weeknd",
+        "Take Five::Dave Brubeck Quartet",
+        "Nuvole Bianche::Ludovico Einaudi",
+        "Money Trees::Kendrick Lamar"
       ]
     },
     {
@@ -222,54 +226,30 @@
       "name": "Relax e Studio",
       "playCount": 6,
       "trackKeys": [
+        "Nuvole Bianche::Ludovico Einaudi",
         "Clair de Lune::Claude Debussy",
         "Interstellar Main Theme::Hans Zimmer",
         "So What::Miles Davis"
       ]
     },
     {
-      "name": "favoriti",
-      "playCount": 0,
+      "name": "Rock Classics",
+      "playCount": 12,
       "trackKeys": [
         "Bohemian Rhapsody::Queen",
-        "Billie Jean::Michael Jackson",
         "Hotel California::Eagles",
-        "Blinding Lights::The Weeknd",
-        "Take Five::Dave Brubeck Quartet",
-        "Lose Yourself::Eminem",
-        "So What::Miles Davis",
-        "Shape of You::Ed Sheeran",
-        "Clair de Lune::Claude Debussy",
-        "Money Trees::Kendrick Lamar",
-        "Interstellar Main Theme::Hans Zimmer",
-        "Get Lucky::Daft Punk",
-        "Seven Nation Army::The White Stripes",
-        "abc::abc"
+        "Smells Like Teen Spirit::Nirvana",
+        "Seven Nation Army::The White Stripes"
       ]
     },
     {
-      "name": "zxczcx",
-      "playCount": 0,
+      "name": "Workout",
+      "playCount": 15,
       "trackKeys": [
-        "Bohemian Rhapsody::Queen",
-        "Lose Yourself::Eminem",
-        "Billie Jean::Michael Jackson",
-        "Hotel California::Eagles",
         "Blinding Lights::The Weeknd",
-        "Rolling in the Deep::Adele",
-        "So What::Miles Davis",
-        "Shape of You::Ed Sheeran",
+        "Lose Yourself::Eminem",
         "Get Lucky::Daft Punk",
-        "Take Five::Dave Brubeck Quartet",
-        "Nuvole Bianche::Ludovico Einaudi",
-        "Clair de Lune::Claude Debussy",
-        "Seven Nation Army::The White Stripes",
-        "Flowers::Miley Cyrus",
-        "Texas Hold \u0027Em::Beyonce",
-        "Money Trees::Kendrick Lamar",
-        "Interstellar Main Theme::Hans Zimmer",
-        "abc::abc",
-        "sdfsdf::sdfsdf"
+        "Seven Nation Army::The White Stripes"
       ]
     }
   ]
