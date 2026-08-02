@@ -16,6 +16,12 @@ public class RepeatTrack implements PlaybackMode {
         engine.replayCurrent();
     }
 
+    // il loop qui riguarda solo la traccia, non l'intera coda
+    @Override
+    public boolean loopsQueue() {
+        return false;
+    }
+
     @Override
     public boolean loopsTrack() {
         return true;

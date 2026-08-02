@@ -18,12 +18,9 @@ public interface PlaybackMode {
     void onTrackEnd(PlaybackEngine engine);
 
     // true se a fine/inizio coda si riparte dall'altro capo (loop della coda)
-    default boolean loopsQueue() {
-        return false;
-    }
+    boolean loopsQueue();
 
-    // true se questa modalita' ripete la singola traccia, serve alla UI per l'icona
-    default boolean loopsTrack() {
-        return false;
-    }
+    // true se questa modalita' ripete la singola traccia
+    boolean loopsTrack();
+
 }

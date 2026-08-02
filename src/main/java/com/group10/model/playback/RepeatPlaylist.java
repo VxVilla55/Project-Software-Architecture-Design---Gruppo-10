@@ -20,9 +20,15 @@ public class RepeatPlaylist implements PlaybackMode {
         }
     }
 
-    // in loop-playlist la coda fa wrap-around: dall'ultima si torna alla prima e viceversa
+    // in loop-playlist la coda fa: dall'ultima si torna alla prima e viceversa
     @Override
     public boolean loopsQueue() {
         return true;
+    }
+
+    // il loop riguarda la playlist, non la singola traccia
+    @Override
+    public boolean loopsTrack() {
+        return false;
     }
 }

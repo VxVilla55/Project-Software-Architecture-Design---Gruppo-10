@@ -19,4 +19,17 @@ public class Sequential implements PlaybackMode {
             engine.stop();
         }
     }
+
+    // modalita' sequenziale: nessun loop di coda
+    @Override
+    public boolean loopsQueue() {
+        return false;
+    }
+
+    // modalita' sequenziale: nessun loop di traccia
+    @Override
+    public boolean loopsTrack() {
+        return false;
+    }
+
 }
